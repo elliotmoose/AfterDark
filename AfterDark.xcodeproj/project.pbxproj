@@ -15,6 +15,7 @@
 		98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */; };
 		98F3E4A61DB0009B000EAF08 /* AfterDarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4A51DB0009B000EAF08 /* AfterDarkTests.swift */; };
 		98F3E4B11DB0009B000EAF08 /* AfterDarkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4B01DB0009B000EAF08 /* AfterDarkUITests.swift */; };
+		98F3E4BF1DB001CE000EAF08 /* BarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4BE1DB001CE000EAF08 /* BarListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		98F3E4AC1DB0009B000EAF08 /* AfterDarkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AfterDarkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F3E4B01DB0009B000EAF08 /* AfterDarkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterDarkUITests.swift; sourceTree = "<group>"; };
 		98F3E4B21DB0009B000EAF08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98F3E4BE1DB001CE000EAF08 /* BarListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarListViewController.swift; path = ../BarListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */,
 				98F3E4901DB0009B000EAF08 /* FirstViewController.swift */,
 				98F3E4921DB0009B000EAF08 /* SecondViewController.swift */,
+				98F3E4BE1DB001CE000EAF08 /* BarListViewController.swift */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
 				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
@@ -261,6 +264,7 @@
 			files = (
 				98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */,
 				98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */,
+				98F3E4BF1DB001CE000EAF08 /* BarListViewController.swift in Sources */,
 				98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +490,7 @@
 				98F3E4B71DB0009B000EAF08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98F3E4B81DB0009B000EAF08 /* Build configuration list for PBXNativeTarget "AfterDarkTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +499,7 @@
 				98F3E4BA1DB0009B000EAF08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98F3E4BB1DB0009B000EAF08 /* Build configuration list for PBXNativeTarget "AfterDarkUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +508,7 @@
 				98F3E4BD1DB0009B000EAF08 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
