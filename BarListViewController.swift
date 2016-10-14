@@ -11,18 +11,20 @@ import UIKit
 
 class BarListViewController: UITableViewController {
     
-
-    var barManager : BarManager
     
     //on load
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialize()
-       barManager.singleton.LoadGenericData()
+       BarManager.singleton.LoadGenericData()
     }
     
+
+
+
+    
     //on view appear
-    override func viewDidAppear()
+    func viewDidAppear()
     {
         
     }
@@ -39,22 +41,22 @@ class BarListViewController: UITableViewController {
 
 
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return barManager.singleton.displayBarList.count
+        return BarManager.singleton.displayBarList.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return barManager.singleton.displayBarList(objectAtIndex: section).count
+        return BarManager.singleton.displayBarList[section].count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "BarCell" for: indexPath) as UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("BarCell", forIndexPath: indexPath) as UITableViewCell?
         
         
-        return cell
+        return cell!
     }
 }
 

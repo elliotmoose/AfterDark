@@ -1,18 +1,17 @@
-import foundation
-import Bar
+import Foundation
 
-class BarManager: NSURLSessionDataDelegate
+class BarManager: NSObject, NSURLSessionDataDelegate
 {
     static let singleton = BarManager()
     //constants
     let urlAllBarNames = "http://mooselliot.net23.net/GetAllBarNames.php"
     
     //variables
-    var mainBarList = [Bar]()
-    var displayBarList = [[Bar]]()
+    var mainBarList: [Bar] = []
+    var displayBarList: [[Bar]] = [[]]
     
     //methods
-    private init
+    private override init()
     {
         
     }
@@ -21,29 +20,36 @@ class BarManager: NSURLSessionDataDelegate
     {
         switch mode
         {
-            case alphabetical:
-            displayBarList.sort {$0.name < $1.name}
-        
-            case avgRating:
-            displayBarList.sort {$0.avgRating < $1.avgRating}
-            case priceRating:
-            case foodRating:
-            case ambienceRating:
-            case serviceRating:
+            case .alphabetical: break
+//            displayBarList.sort({$0[0].name < $1[0].name})
+//        
+//            case .avgRating:
+//            displayBarList.sort {$0.rating.avg < $1.rating.avg}
+//            case .priceRating:
+//                displayBarList.sort{$0.rating.price < $1.rating.price}
+//            case .foodRating:
+//                            displayBarList.sort{$0.rating.price < $1.rating.price}
+//            case .ambienceRating:
+//                            displayBarList.sort{$0.rating.price < $1.rating.price}
+//            case .serviceRating:
+//                            displayBarList.sort{$0.rating.price < $1.rating.price}
             default:
+                displayBarList.append(mainBarList);
+//                displayBarList.sort {$0.name < $1.name}
+//
         }
         
     }
-    func LoadGenericData
+    func LoadGenericData()
     {
         //Load All Bar Names
-        LoadFromUrl(inputUrl: urlAllBarNames)
+        LoadFromUrl(urlAllBarNames)
         
     }
     
     
     //Load Method
-    func LoadFromUrl(inputUrl: string) {
+    func LoadFromUrl(inputUrl: String) {
         
         let url: NSURL = NSURL(string: inputUrl)!
         var session: NSURLSession!
@@ -60,7 +66,7 @@ class BarManager: NSURLSessionDataDelegate
     
     //receive data
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        self.data.appendData(data);
+    //    self.data.appendData(data);
         
     }
     
@@ -77,7 +83,7 @@ class BarManager: NSURLSessionDataDelegate
 }
     
     
-}
+
 
 func JSONToArray(data : NSMutableData) -> NSMutableArray{
         
