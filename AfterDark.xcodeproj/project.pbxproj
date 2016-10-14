@@ -134,7 +134,8 @@
                 98F3E4971DB0009B000EAF08,
                 98F3E4991DB0009B000EAF08,
                 98F3E49C1DB0009B000EAF08,
-                IZK3WM8ZNCS26ZQDKHX3VXX3
+                IZK3WM8ZNCS26ZQDKHX3VXX3,
+                EH0LAIO8DVR6SHFUU5MKPCNP
             );
             isa = PBXGroup;
             path = AfterDark;
@@ -586,6 +587,12 @@
         DT618KL9NE89OW4YT1JY042C =         {
             fileRef = IZK3WM8ZNCS26ZQDKHX3VXX3;
             isa = PBXBuildFile;
+        };
+        EH0LAIO8DVR6SHFUU5MKPCNP =         {
+            isa = PBXFileReference;
+            lastKnownFileType = folder;
+            path = "Main View Controllers";
+            sourceTree = "<group>";
         };
         IZK3WM8ZNCS26ZQDKHX3VXX3 =         {
             fileEncoding = 4;

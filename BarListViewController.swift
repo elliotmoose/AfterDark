@@ -8,12 +8,19 @@
 
 import Foundation
 import UIKit
+import Bar
 
-class BarListViewController: UIViewController {
+class BarListViewController: UITableViewController {
+    
+    //variables
+    var mainBarList = [Bar]()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        initialize()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -21,5 +28,16 @@ class BarListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func initialize()
+    {
+        
+    }
+
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int
     
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
 }
+
