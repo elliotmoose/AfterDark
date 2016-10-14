@@ -3,6 +3,7 @@ import Bar
 
 class BarManager: NSURLSessionDataDelegate
 {
+    static let singleton = BarManager()
     //constants
     let urlAllBarNames = "http://mooselliot.net23.net/GetAllBarNames.php"
     
@@ -11,9 +12,9 @@ class BarManager: NSURLSessionDataDelegate
     var displayBarList = [[Bar]]()
     
     //methods
-    func Init
+    private init
     {
-        //singleton
+        
     }
     
     func LoadGenericData

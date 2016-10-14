@@ -18,7 +18,7 @@ class BarListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialize()
-        
+       barManager.singleton.LoadGenericData()
     }
     
     //on view appear
@@ -34,25 +34,27 @@ class BarListViewController: UITableViewController {
     
     func Initialize()
     {
-        barManager.Init()
+        
     }
 
 
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        
+        return barManager.singleton.displayBarList.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        
+        return barManager.singleton.displayBarList(objectAtIndex: section).count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
     {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "BarCell" for: indexPath) as UITableViewCell
         
         
+        return cell
     }
 }
 
