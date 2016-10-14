@@ -53,7 +53,7 @@ class BarListViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier("BarCell", forIndexPath: indexPath) as UITableViewCell?
+        let cell = tableView.dequeueReusableCellWithIdentifier("BarCell", forIndexPath: indexPath) as UITableViewCell?
         
         
         return cell!
