@@ -4,6 +4,12 @@
     };
     objectVersion = 46;
     objects =     {
+        84730GB5UESUEI9EXXK650LW =         {
+            fileEncoding = 4;
+            isa = PBXFileReference;
+            path = "BarManager.swift";
+            sourceTree = "<group>";
+        };
         98F3E4821DB0009B000EAF08 =         {
             children =             (
                 98F3E48D1DB0009B000EAF08,
@@ -68,7 +74,8 @@
                 98F3E48F1DB0009B000EAF08,
                 98F3E4BF1DB001CE000EAF08,
                 98F3E4911DB0009B000EAF08,
-                DT618KL9NE89OW4YT1JY042C
+                DT618KL9NE89OW4YT1JY042C,
+                TB4I34LS3SZ054G6QFADRMAX
             );
             isa = PBXSourcesBuildPhase;
             runOnlyForDeploymentPostprocessing = 0;
@@ -135,7 +142,8 @@
                 98F3E4991DB0009B000EAF08,
                 98F3E49C1DB0009B000EAF08,
                 IZK3WM8ZNCS26ZQDKHX3VXX3,
-                EH0LAIO8DVR6SHFUU5MKPCNP
+                EH0LAIO8DVR6SHFUU5MKPCNP,
+                84730GB5UESUEI9EXXK650LW
             );
             isa = PBXGroup;
             path = AfterDark;
@@ -599,6 +607,10 @@
             isa = PBXFileReference;
             path = "Bar.swift";
             sourceTree = "<group>";
+        };
+        TB4I34LS3SZ054G6QFADRMAX =         {
+            fileRef = 84730GB5UESUEI9EXXK650LW;
+            isa = PBXBuildFile;
         };
     };
     rootObject = 98F3E4831DB0009B000EAF08;
