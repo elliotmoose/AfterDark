@@ -7,8 +7,10 @@
         84730GB5UESUEI9EXXK650LW =         {
             fileEncoding = 4;
             isa = PBXFileReference;
+            name = "BarManager.swift";
             path = "BarManager.swift";
             sourceTree = "<group>";
+            uuid = 84730GB5UESUEI9EXXK650LW;
         };
         98F3E4821DB0009B000EAF08 =         {
             children =             (
@@ -19,6 +21,7 @@
             );
             isa = PBXGroup;
             sourceTree = "<group>";
+            uuid = 98F3E4821DB0009B000EAF08;
         };
         98F3E4831DB0009B000EAF08 =         {
             attributes =             {
@@ -75,7 +78,8 @@
                 98F3E4BF1DB001CE000EAF08,
                 98F3E4911DB0009B000EAF08,
                 DT618KL9NE89OW4YT1JY042C,
-                TB4I34LS3SZ054G6QFADRMAX
+                TB4I34LS3SZ054G6QFADRMAX,
+                H76WSUQ9WFAYGEXHYPUR7S5W
             );
             isa = PBXSourcesBuildPhase;
             runOnlyForDeploymentPostprocessing = 0;
@@ -142,8 +146,8 @@
                 98F3E4991DB0009B000EAF08,
                 98F3E49C1DB0009B000EAF08,
                 IZK3WM8ZNCS26ZQDKHX3VXX3,
-                EH0LAIO8DVR6SHFUU5MKPCNP,
-                84730GB5UESUEI9EXXK650LW
+                84730GB5UESUEI9EXXK650LW,
+                F47T2SPZETLOZ1M46F152NDT
             );
             isa = PBXGroup;
             path = AfterDark;
@@ -596,11 +600,15 @@
             fileRef = IZK3WM8ZNCS26ZQDKHX3VXX3;
             isa = PBXBuildFile;
         };
-        EH0LAIO8DVR6SHFUU5MKPCNP =         {
+        F47T2SPZETLOZ1M46F152NDT =         {
+            fileEncoding = 4;
             isa = PBXFileReference;
-            lastKnownFileType = folder;
-            path = "Main View Controllers";
+            path = "customEnums.swift";
             sourceTree = "<group>";
+        };
+        H76WSUQ9WFAYGEXHYPUR7S5W =         {
+            fileRef = F47T2SPZETLOZ1M46F152NDT;
+            isa = PBXBuildFile;
         };
         IZK3WM8ZNCS26ZQDKHX3VXX3 =         {
             fileEncoding = 4;
