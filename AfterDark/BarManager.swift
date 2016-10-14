@@ -17,6 +17,23 @@ class BarManager: NSURLSessionDataDelegate
         
     }
     
+    func ArrangeBarList(mode: DisplayBarListMode)
+    {
+        switch mode
+        {
+            case alphabetical:
+            displayBarList.sort {$0.name < $1.name}
+        
+            case avgRating:
+            displayBarList.sort {$0.avgRating < $1.avgRating}
+            case priceRating:
+            case foodRating:
+            case ambienceRating:
+            case serviceRating:
+            default:
+        }
+        
+    }
     func LoadGenericData
     {
         //Load All Bar Names
