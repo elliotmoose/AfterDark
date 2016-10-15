@@ -20,7 +20,49 @@ class BarManager: NSObject
     {
         switch mode
         {
-            case .alphabetical: break
+            case .alphabetical:
+            
+                //reset output
+                displayBarList.removeAll()
+                
+                //create array of all letters
+                var allFirstLetters = [Character]()
+                for bar in mainBarList
+                {
+                    let firstLetter = bar.name.characters.first
+                    //if does not contain first letter add it
+                    if let firstLetter = firstLetter
+                    {
+                        if !allFirstLetters.contains(firstLetter)
+                        {
+                            allFirstLetters.append(firstLetter)
+                        }
+                    }
+
+                }
+                
+                //for each letter
+                for firstLetter in allFirstLetters
+                {
+                    //create array
+                    var arrayOfBarsForLetter = [Bar]()
+                    
+                    //for each bar
+                    for bar in mainBarList
+                    {
+                        //if has this first letter, add to array
+                        if bar.name.characters.first == firstLetter
+                        {
+                           arrayOfBarsForLetter.append(bar)
+                        }
+                    }
+                    
+                    //add array to collection of arrays of letter-arranged bars
+                    displayBarList.append(arrayOfBarsForLetter)
+                }
+
+                
+            break
 //            displayBarList.sort({$0[0].name < $1[0].name})
 //        
 //            case .avgRating:
@@ -40,30 +82,46 @@ class BarManager: NSObject
         }
         
     }
-    func LoadGenericData()
+    func LoadGenericData(callBack:() -> Void)
     {
         //Load All Bar Names
-        LoadFromUrl(urlAllBarNames)
+        LoadFromUrl(urlAllBarNames,CompleteCallBack: callBack)
         
     }
     
     
     //Load Method
-    func LoadFromUrl(inputUrl: String) {
+    func LoadFromUrl(inputUrl: String, CompleteCallBack:()->Void) {
         
         let url = NSURL(string: inputUrl)!
-        let session = NSURLSession(configuration: default)
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        config.timeoutIntervalForRequest = 15
+        let session = NSURLSession(configuration: config)
         
-            (sessionWithoutADelegate.dataTask(with: url) { (data, response, error) in
-        if let error = error {
-            print("Error: \(error)")
-        } else if let response = response,
-            let data = data,
-            let string = String(data: data, encoding: .utf8) {
-            print("Response: \(response)")
-            print("DATA:\n\(string)\nEND DATA\n")
-        }
-        }).resume()
+        let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+
+            if let error = error
+            {
+                print(error)
+            }
+            else if let data = data
+            {
+                let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
+                for index in 0...(retrievedArray.count - 1)
+                {
+                    let dict = retrievedArray[index] as! NSDictionary
+                    let newBar = Bar()
+                    newBar.name = dict.valueForKey("Bar_Name") as! String
+                    self.mainBarList.append(newBar)
+                }
+                
+                //callback to update UI
+                CompleteCallBack()
+            }
+            
+        })
+
+        task.resume()
 
     }
     
@@ -85,4 +143,5 @@ func JSONToArray(data : NSMutableData) -> NSMutableArray{
     
     return output
     
+}
 }

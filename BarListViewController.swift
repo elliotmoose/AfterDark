@@ -8,10 +8,9 @@
 
 import Foundation
 import UIKit
-
 class BarListViewController: UITableViewController {
     
-    
+    var barDisplayMode: DisplayBarListMode = .alphabetical
     //on load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,10 +18,8 @@ class BarListViewController: UITableViewController {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             // do some task
-            BarManager.singleton.LoadGenericData()
-            dispatch_async(dispatch_get_main_queue()) {
-                // update some UI
-            }
+            BarManager.singleton.LoadGenericData(self.displayBarList)
+
         }
 
     }
@@ -47,24 +44,44 @@ class BarListViewController: UITableViewController {
         
     }
 
-
+    func displayBarList() -> Void
+    {
+        //arrange before display
+        BarManager.singleton.ArrangeBarList(barDisplayMode)
+        
+        //after arrange -> load
+        self.ReloadTable()
+    }
+    
+    func ReloadTable()
+    {
+        dispatch_async(dispatch_get_main_queue()) {
+        self.tableView.reloadData()
+        }
+    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return BarManager.singleton.displayBarList.count
+        let count = BarManager.singleton.displayBarList.count
+        return count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return BarManager.singleton.displayBarList[section].count
+        let count = BarManager.singleton.displayBarList[section].count
+
+        return count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BarCell", forIndexPath: indexPath) as UITableViewCell?
+        let cell = UITableViewCell()
+        let thisSection = BarManager.singleton.displayBarList[indexPath.section] 
+        let thisBar = thisSection[indexPath.row]
+        cell.textLabel?.text = thisBar.name
         
         
-        return cell!
+        return cell
     }
 }
 
