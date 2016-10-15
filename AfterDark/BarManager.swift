@@ -1,6 +1,6 @@
 import Foundation
 
-class BarManager: NSObject, NSURLSessionDataDelegate
+class BarManager: NSObject
 {
     static let singleton = BarManager()
     //constants
@@ -10,7 +10,6 @@ class BarManager: NSObject, NSURLSessionDataDelegate
     var mainBarList: [Bar] = []
     var displayBarList: [[Bar]] = [[]]
     var barListData = NSMutableData()
-    var pendingTask = NSURLSessionDataTask();
     //methods
     private override init()
     {
@@ -52,53 +51,22 @@ class BarManager: NSObject, NSURLSessionDataDelegate
     //Load Method
     func LoadFromUrl(inputUrl: String) {
         
-        let url: NSURL = NSURL(string: inputUrl)!
-        var session: NSURLSession!
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForRequest =  15.0
+        let url = NSURL(string: inputUrl)!
+        let session = NSURLSession(configuration: default)
         
-        session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-        
-        let task = session.dataTaskWithURL(url)
-        
-        task.resume()
-        
-    }
-    
-    //receive data
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-            self.barListData.appendData(data);
-        
-    }
-    
-    //Load finished
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        if error != nil {
-            print("Failed to download data")
-        }else {
-            print("Data downloaded")
-//            if task == pendingTask
-//            {
-                let tempArray = JSONToArray(barListData)
-                if tempArray.count != 0
-                {
-                    for index in 0...(tempArray.count-1)
-                    {
-                        let newBar = Bar()
-                        let newDictionary = tempArray[index] as! NSDictionary
-                        newBar.name =  newDictionary.valueForKey("Bar_Name") as! String
-                        mainBarList.append(newBar);
-                    }
-                    
-            }
-            
-                
-                pendingTask = NSURLSessionDataTask();
-//            }
+            (sessionWithoutADelegate.dataTask(with: url) { (data, response, error) in
+        if let error = error {
+            print("Error: \(error)")
+        } else if let response = response,
+            let data = data,
+            let string = String(data: data, encoding: .utf8) {
+            print("Response: \(response)")
+            print("DATA:\n\(string)\nEND DATA\n")
         }
-        
+        }).resume()
+
     }
-}
+    
     
     
 
