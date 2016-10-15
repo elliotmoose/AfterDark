@@ -9,7 +9,8 @@ class BarManager: NSObject, NSURLSessionDataDelegate
     //variables
     var mainBarList: [Bar] = []
     var displayBarList: [[Bar]] = [[]]
-    
+    var barListData = NSMutableData()
+    var pendingTask = NSURLSessionDataTask();
     //methods
     private override init()
     {
@@ -58,15 +59,15 @@ class BarManager: NSObject, NSURLSessionDataDelegate
         
         session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
-        let task = session.dataTaskWithURL(url)
+        pendingTask = session.dataTaskWithURL(url)
         
-        task.resume()
+        pendingTask.resume()
         
     }
     
     //receive data
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-    //    self.data.appendData(data);
+            self.barListData.appendData(data);
         
     }
     
@@ -76,7 +77,19 @@ class BarManager: NSObject, NSURLSessionDataDelegate
             print("Failed to download data")
         }else {
             print("Data downloaded")
-            //execute manipulation of data (json-> array-> maniuplate)
+            if task == pendingTask
+            {
+                let tempArray = JSONToArray(barListData)
+                for index in 0...(tempArray.count-1)
+                {
+                    let newBar = Bar()
+                    let newDictionary = tempArray[index] as! NSDictionary
+                    newBar.name =  newDictionary.valueForKey("Bar_Name") as! String
+                    mainBarList.append(newBar);
+                }
+                
+                pendingTask = NSURLSessionDataTask();
+            }
         }
         
     }
