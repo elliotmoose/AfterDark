@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */; };
+		982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */; };
 		98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */; };
 		98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4901DB0009B000EAF08 /* FirstViewController.swift */; };
 		98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4921DB0009B000EAF08 /* SecondViewController.swift */; };
@@ -40,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		84730GB5UESUEI9EXXK650LW /* BarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarManager.swift; sourceTree = "<group>"; };
+		982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarListTableViewCell.swift; path = ../BarListTableViewCell.swift; sourceTree = "<group>"; };
+		982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BarListTableViewCell.xib; path = ../BarListTableViewCell.xib; sourceTree = "<group>"; };
 		98F3E48B1DB0009B000EAF08 /* AfterDark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfterDark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98F3E4901DB0009B000EAF08 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 				98F3E4901DB0009B000EAF08 /* FirstViewController.swift */,
 				98F3E4921DB0009B000EAF08 /* SecondViewController.swift */,
 				98F3E4BE1DB001CE000EAF08 /* BarListViewController.swift */,
+				982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */,
+				982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
 				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
@@ -245,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */,
+				982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */,
 				98F3E4981DB0009B000EAF08 /* Assets.xcassets in Resources */,
 				98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */,
 			);
@@ -272,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */,
+				982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */,
 				98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */,
 				98F3E4BF1DB001CE000EAF08 /* BarListViewController.swift in Sources */,
 				98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */,
