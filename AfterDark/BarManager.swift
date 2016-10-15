@@ -55,13 +55,13 @@ class BarManager: NSObject, NSURLSessionDataDelegate
         let url: NSURL = NSURL(string: inputUrl)!
         var session: NSURLSession!
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
- 
+        configuration.timeoutIntervalForRequest =  15.0
         
         session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
-        pendingTask = session.dataTaskWithURL(url)
+        let task = session.dataTaskWithURL(url)
         
-        pendingTask.resume()
+        task.resume()
         
     }
     
@@ -77,19 +77,24 @@ class BarManager: NSObject, NSURLSessionDataDelegate
             print("Failed to download data")
         }else {
             print("Data downloaded")
-            if task == pendingTask
-            {
+//            if task == pendingTask
+//            {
                 let tempArray = JSONToArray(barListData)
-                for index in 0...(tempArray.count-1)
+                if tempArray.count != 0
                 {
-                    let newBar = Bar()
-                    let newDictionary = tempArray[index] as! NSDictionary
-                    newBar.name =  newDictionary.valueForKey("Bar_Name") as! String
-                    mainBarList.append(newBar);
-                }
+                    for index in 0...(tempArray.count-1)
+                    {
+                        let newBar = Bar()
+                        let newDictionary = tempArray[index] as! NSDictionary
+                        newBar.name =  newDictionary.valueForKey("Bar_Name") as! String
+                        mainBarList.append(newBar);
+                    }
+                    
+            }
+            
                 
                 pendingTask = NSURLSessionDataTask();
-            }
+//            }
         }
         
     }

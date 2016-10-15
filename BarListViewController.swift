@@ -16,7 +16,15 @@ class BarListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialize()
-       BarManager.singleton.LoadGenericData()
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            // do some task
+            BarManager.singleton.LoadGenericData()
+            dispatch_async(dispatch_get_main_queue()) {
+                // update some UI
+            }
+        }
+
     }
     
 
