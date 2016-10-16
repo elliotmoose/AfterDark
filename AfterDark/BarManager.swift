@@ -5,7 +5,8 @@ class BarManager: NSObject
     static let singleton = BarManager()
     //constants
     let urlAllBarNames = "http://mooselliot.net23.net/GetAllBarNames.php"
-    
+    //let urlAllBarNames = "https://afterdark/GetAllBarNames.php"
+
     //variables
     var mainBarList: [Bar] = []
     var displayBarList: [[Bar]] = [[]]

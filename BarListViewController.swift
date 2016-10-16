@@ -41,7 +41,8 @@ class BarListViewController: UITableViewController {
     
     func Initialize()
     {
-        
+        tableView.registerNib(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
+
     }
 
     func displayBarList() -> Void
@@ -73,12 +74,12 @@ class BarListViewController: UITableViewController {
         return count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> BarListTableViewCell
     {
-        let cell = UITableViewCell()
-        let thisSection = BarManager.singleton.displayBarList[indexPath.section] 
+        let cell = tableView.dequeueReusableCellWithIdentifier("BarListTableViewCell", forIndexPath: indexPath) as! BarListTableViewCell
+        let thisSection = BarManager.singleton.displayBarList[indexPath.section]
         let thisBar = thisSection[indexPath.row]
-        cell.textLabel?.text = thisBar.name
+        cell.bar_NameLabel?.text = thisBar.name
         
         
         return cell
