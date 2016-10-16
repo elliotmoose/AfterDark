@@ -1,5 +1,10 @@
 import Foundation
 
+protocol BarManagerDelegate :class
+{
+    func UpdateBarListTableDisplay()
+}
+
 class BarManager: NSObject
 {
     static let singleton = BarManager()
@@ -7,10 +12,14 @@ class BarManager: NSObject
     let urlAllBarNames = "http://mooselliot.net23.net/GetAllBarNames.php"
     //let urlAllBarNames = "https://afterdark/GetAllBarNames.php"
 
+    
+    
     //variables
     var mainBarList: [Bar] = []
     var displayBarList: [[Bar]] = [[]]
     var barListData = NSMutableData()
+    weak var delegate:BarManagerDelegate?
+
     //methods
     private override init()
     {
@@ -19,12 +28,14 @@ class BarManager: NSObject
     
     func ArrangeBarList(mode: DisplayBarListMode)
     {
+        
+        //reset output
+        displayBarList.removeAll()
+        
         switch mode
         {
             case .alphabetical:
-            
-                //reset output
-                displayBarList.removeAll()
+
                 
                 //create array of all letters
                 var allFirstLetters = [Character]()
@@ -58,8 +69,9 @@ class BarManager: NSObject
                         }
                     }
                 
-//arrange alphabetically within array
-arrayOfBarsForLetter.sort({$0.name < $1.name})
+
+                    //arrange alphabetically within array
+                    arrayOfBarsForLetter.sortInPlace({$0.name < $1.name})
                 
                     
                     //add array to collection of arrays of letter-arranged bars
@@ -69,35 +81,47 @@ arrayOfBarsForLetter.sort({$0.name < $1.name})
 
                 
             break
-//            displayBarList.sort({$0[0].name < $1[0].name})
-//        
-//            case .avgRating:
-//            displayBarList.sort {$0.rating.avg < $1.rating.avg}
-//            case .priceRating:
-//                displayBarList.sort{$0.rating.price < $1.rating.price}
-//            case .foodRating:
-//                            displayBarList.sort{$0.rating.price < $1.rating.price}
-//            case .ambienceRating:
-//                            displayBarList.sort{$0.rating.price < $1.rating.price}
-//            case .serviceRating:
-//                            displayBarList.sort{$0.rating.price < $1.rating.price}
-            default:
-                displayBarList.append(mainBarList);
-//                displayBarList.sort {$0.name < $1.name}
-//
+     
+            case .avgRating:
+                
+                var singleArray = mainBarList
+                singleArray.sortInPlace({$0.rating.avg < $1.rating.avg})
+                displayBarList.append(singleArray)
+                break;
+            case .priceRating:
+                var singleArray = mainBarList
+                singleArray.sortInPlace({$0.rating.price < $1.rating.price})
+                displayBarList.append(singleArray)
+                break;
+            case .foodRating:
+                var singleArray = mainBarList
+                singleArray.sortInPlace({$0.rating.food < $1.rating.food})
+                displayBarList.append(singleArray)
+                break;
+            case .ambienceRating:
+                var singleArray = mainBarList
+                singleArray.sortInPlace({$0.rating.ambience < $1.rating.ambience})
+                displayBarList.append(singleArray)
+                break;
+            case .serviceRating:
+                var singleArray = mainBarList
+                singleArray.sortInPlace({$0.rating.service < $1.rating.service})
+                displayBarList.append(singleArray)
+                break;
+
         }
         
     }
-    func LoadGenericData(callBack:() -> Void)
+    func LoadGenericBarData()
     {
         //Load All Bar Names
-        LoadFromUrl(urlAllBarNames,CompleteCallBack: callBack)
+        LoadFromUrl(urlAllBarNames)
         
     }
     
     
     //Load Method
-    func LoadFromUrl(inputUrl: String, CompleteCallBack:()->Void) {
+    func LoadFromUrl(inputUrl: String) {
         
         let url = NSURL(string: inputUrl)!
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -112,15 +136,8 @@ arrayOfBarsForLetter.sort({$0.name < $1.name})
             }
             else if let data = data
             {
-                let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
-                for index in 0...(retrievedArray.count - 1)
-                {
-                    let dict = retrievedArray[index] as! NSDictionary
-                    self.mainBarList.append(self.NewBarFromDict(dict))
-                }
-                
-                //callback to update UI
-                CompleteCallBack()
+                //check: if is urlwithtask getbarlist
+                self.HandleGetBarListData(data)
             }
             
         })
@@ -129,7 +146,24 @@ arrayOfBarsForLetter.sort({$0.name < $1.name})
 
     }
     
-    
+    //different data handlers
+    func HandleGetBarListData(data:NSData)
+    {
+        
+        
+        let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
+        
+        //reset output
+        self.mainBarList.removeAll()
+        for index in 0...(retrievedArray.count - 1)
+        {
+            let dict = retrievedArray[index] as! NSDictionary
+            self.mainBarList.append(self.NewBarFromDict(dict))
+        }
+        
+        //callback to update UI
+        self.delegate?.UpdateBarListTableDisplay()
+    }
     
     func NewBarFromDict(dict: NSDictionary) ->Bar
     {

@@ -13,6 +13,9 @@ class BarListTableViewCell: UITableViewCell {
     @IBOutlet weak var bar_Icon: UIImageView!
     @IBOutlet weak var bar_NameLabel: UILabel!
     @IBOutlet weak var bar_RatingLabel: UILabel!
+
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

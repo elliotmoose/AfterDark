@@ -8,7 +8,9 @@
 
 import Foundation
 import UIKit
-class BarListViewController: UITableViewController {
+
+
+class BarListViewController: UITableViewController,BarManagerDelegate {
     
     var barDisplayMode: DisplayBarListMode = .alphabetical
     //on load
@@ -18,7 +20,7 @@ class BarListViewController: UITableViewController {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             // do some task
-            BarManager.singleton.LoadGenericData(self.displayBarList)
+            BarManager.singleton.LoadGenericBarData()
 
         }
 
@@ -41,11 +43,34 @@ class BarListViewController: UITableViewController {
     
     func Initialize()
     {
-        tableView.registerNib(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
+        //non ui init
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        
+            //register bar list table view cell
+                self.tableView.registerNib(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
+            
+            //set self as bar manager delegate
+            BarManager.singleton.delegate = self
+        
+        }
+        
+        //ui init
+        dispatch_async(dispatch_get_main_queue()) {
+            let refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+            self.navigationItem.rightBarButtonItem = refreshButton
+        
+        }
+
 
     }
 
-    func displayBarList() -> Void
+    func refresh()
+    {
+        BarManager.singleton.LoadGenericBarData()
+    }
+    
+    func UpdateBarListTableDisplay()
+
     {
         //arrange before display
         BarManager.singleton.ArrangeBarList(barDisplayMode)
@@ -81,13 +106,17 @@ class BarListViewController: UITableViewController {
         let thisBar = thisSection[indexPath.row]
         
         cell.bar_NameLabel?.text = thisBar.name
-        cell.bar_RatingLabel.text = "\(thisBar.rating.avg)"
+        cell.bar_RatingLabel.text = String(format: "%.1f",thisBar.rating.avg)
         
         return cell
     }
     
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
     }
 }
 
