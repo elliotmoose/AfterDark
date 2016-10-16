@@ -111,9 +111,7 @@ class BarManager: NSObject
                 for index in 0...(retrievedArray.count - 1)
                 {
                     let dict = retrievedArray[index] as! NSDictionary
-                    let newBar = Bar()
-                    newBar.name = dict.valueForKey("Bar_Name") as! String
-                    self.mainBarList.append(newBar)
+                    self.mainBarList.append(self.NewBarFromDict(dict))
                 }
                 
                 //callback to update UI
@@ -128,7 +126,14 @@ class BarManager: NSObject
     
     
     
-
+    func NewBarFromDict(dict: NSDictionary) ->Bar
+    {
+        let newBar = Bar()
+        newBar.name = dict.valueForKey("Bar_Name") as! String
+        newBar.rating.InjectValues(Float(dict.valueForKey("Bar_Rating_Avg") as! String)!, pricex: Float(dict.valueForKey("Bar_Rating_Price") as! String)!, ambiencex: Float(dict.valueForKey("Bar_Rating_Ambience") as! String)!,foodx: Float(dict.valueForKey("Bar_Rating_Food") as! String)!, servicex: Float(dict.valueForKey("Bar_Rating_Service") as! String)!)
+        
+        return newBar
+    }
 
 func JSONToArray(data : NSMutableData) -> NSMutableArray{
         

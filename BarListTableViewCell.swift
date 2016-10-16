@@ -12,9 +12,11 @@ class BarListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var bar_Icon: UIImageView!
     @IBOutlet weak var bar_NameLabel: UILabel!
+    @IBOutlet weak var bar_RatingLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
 
     }
 
@@ -24,4 +26,5 @@ class BarListTableViewCell: UITableViewCell {
         // Configure the view for the seleced state
     }
     
+
 }

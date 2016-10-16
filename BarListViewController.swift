@@ -79,10 +79,15 @@ class BarListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("BarListTableViewCell", forIndexPath: indexPath) as! BarListTableViewCell
         let thisSection = BarManager.singleton.displayBarList[indexPath.section]
         let thisBar = thisSection[indexPath.row]
-        cell.bar_NameLabel?.text = thisBar.name
         
+        cell.bar_NameLabel?.text = thisBar.name
+        cell.bar_RatingLabel.text = "\(thisBar.rating.avg)"
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        
     }
 }
 

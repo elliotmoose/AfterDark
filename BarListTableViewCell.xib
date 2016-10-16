@@ -21,12 +21,6 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdV-a6-OSP">
-                        <rect key="frame" x="138" y="0.0" width="42" height="65"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MDQ-Vz-HTF">
                         <rect key="frame" x="8" y="-1" width="65" height="65"/>
                         <color key="backgroundColor" red="0.0" green="0.47450980390000003" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,6 +34,12 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdV-a6-OSP">
+                        <rect key="frame" x="243" y="0.0" width="42" height="65"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="zdV-a6-OSP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="4QT-N4-lGd"/>
@@ -50,11 +50,18 @@
                     <constraint firstItem="MDQ-Vz-HTF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="axi-a8-UwS"/>
                     <constraint firstItem="nf1-le-3xs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="hOl-HU-q0J"/>
                     <constraint firstAttribute="bottomMargin" secondItem="nf1-le-3xs" secondAttribute="bottom" id="jwe-1X-D6y"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="zdV-a6-OSP" secondAttribute="trailing" constant="15" id="y0E-cF-zAg"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="8p4-uy-aBv"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bar_Icon" destination="MDQ-Vz-HTF" id="GGH-dp-6tw"/>
                 <outlet property="bar_NameLabel" destination="nf1-le-3xs" id="AS9-qB-4td"/>
+                <outlet property="bar_RatingLabel" destination="zdV-a6-OSP" id="hyi-Yz-zb5"/>
             </connections>
         </tableViewCell>
     </objects>
