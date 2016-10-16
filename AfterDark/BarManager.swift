@@ -56,9 +56,14 @@ class BarManager: NSObject
                            arrayOfBarsForLetter.append(bar)
                         }
                     }
+                
+//arrange alphabetically within array
+arrayOfBarsForLetter.sort({$0.name < $1.name})
+                
                     
                     //add array to collection of arrays of letter-arranged bars
-                    displayBarList.append(arrayOfBarsForLetter)
+                    
+               displayBarList.append(arrayOfBarsForLetter)
                 }
 
                 
