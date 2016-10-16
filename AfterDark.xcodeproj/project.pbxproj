@@ -114,6 +114,8 @@
 				98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */,
 				98F3E4901DB0009B000EAF08 /* FirstViewController.swift */,
 				98F3E4921DB0009B000EAF08 /* SecondViewController.swift */,
+				IZK3WM8ZNCS26ZQDKHX3VXX3 /* Bar.swift */,
+				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
 				98F3E4BE1DB001CE000EAF08 /* BarListViewController.swift */,
 				982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */,
 				982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */,
@@ -121,8 +123,6 @@
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
 				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
 				98F3E49C1DB0009B000EAF08 /* Info.plist */,
-				IZK3WM8ZNCS26ZQDKHX3VXX3 /* Bar.swift */,
-				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
 				F47T2SPZETLOZ1M46F152NDT /* customEnums.swift */,
 			);
 			path = AfterDark;
