@@ -56,6 +56,7 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
         
         //ui init
         dispatch_async(dispatch_get_main_queue()) {
+            //set refresh button
             let refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
             self.navigationItem.rightBarButtonItem = refreshButton
         
@@ -64,10 +65,6 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
 
     }
 
-    func refresh()
-    {
-        BarManager.singleton.LoadGenericBarData()
-    }
     
     func UpdateBarListTableDisplay()
 
@@ -115,8 +112,14 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
         
     }
     
+    //show bar detail view
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+    }
+
+    func refresh()
+    {
+        BarManager.singleton.LoadGenericBarData()
     }
 }
 

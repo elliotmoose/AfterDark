@@ -36,32 +36,50 @@ class BarDetailTableViewController: UITableViewController {
         return 1
     }
 
+	//===============================================================================
+	//											Cell
+	//===============================================================================
    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell")
 
-        if cell == nil
-        {
-            cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-
-        }
         if indexPath.section == 0 && indexPath.row == 0
         {
+           var cell = tableView.dequeueReusableCellWithIdentifier("GalleryCell")
+           if cell == nil
+	        {
+	   	         cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+	        }        
             cell!.backgroundColor = UIColor.clearColor()
             cell!.textLabel?.text = ""
+            
+            return cell!
         }
-        // Configure the cell...
+			
+		 if indexPath.section == 1 && indexPath.row == 1
+		 {
+           var cell = tableView.dequeueReusableCellWithIdentifier("BarMainDetailCell")
+           if cell == nil
+	        {
+	   	         cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "BarMainDetailCell")
+	        }
+	    
+	    	return  cell!
+		 }
 
-        return cell!
+
+
+        return UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
+        //
         if indexPath.section == 0 && indexPath.row == 0
         {
-            return 250
+            //height of gallery
+            return Sizing.HundredRelativeHeightPts()*2.5
         }
-        return 600
+        return Sizing.ScreenHeight /*- header height */
     }
     
     //============================================================================
