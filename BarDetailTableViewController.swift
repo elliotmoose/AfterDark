@@ -19,6 +19,9 @@ class BarDetailTableViewController: UITableViewController {
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 
+            //register nibs
+            self.tableView.registerNib(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
+
         }
         dispatch_async(dispatch_get_main_queue(),
         {
@@ -55,16 +58,11 @@ class BarDetailTableViewController: UITableViewController {
             return cell!
         }
 			
-		 if indexPath.section == 1 && indexPath.row == 1
+		 if indexPath.section == 1 && indexPath.row == 0
 		 {
-           var cell = tableView.dequeueReusableCellWithIdentifier("BarMainDetailCell")
-           if cell == nil
-	        {
-	   	         cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "BarMainDetailCell")
-
-	        }
-            cell?.backgroundColor = UIColor.greenColor()
-	    	return  cell!
+            let cell = tableView.dequeueReusableCellWithIdentifier("BarDetailViewController",forIndexPath: indexPath)
+            cell.backgroundColor = UIColor.greenColor()
+	    	return  cell
 		 }
 
 

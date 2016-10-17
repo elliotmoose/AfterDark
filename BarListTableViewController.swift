@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class BarListViewController: UITableViewController,BarManagerDelegate {
+class BarListTableViewController: UITableViewController,BarManagerDelegate {
     
     var barDisplayMode: DisplayBarListMode = .alphabetical
     //on load

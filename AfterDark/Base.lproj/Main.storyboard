@@ -25,7 +25,7 @@
         <!--Item-->
         <scene sceneID="JYT-3O-fWI">
             <objects>
-                <tableViewController id="4dh-sw-VCq" customClass="BarListViewController" customModule="AfterDark" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="4dh-sw-VCq" customClass="BarListTableViewController" customModule="AfterDark" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" id="lOC-wt-pF5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
