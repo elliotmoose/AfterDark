@@ -1,7 +1,7 @@
 import UIKit
 class Bar{
     var name : String
-    var mainImage: UIImage?
+    var icon: UIImage?
     var rating = Rating()
     var Images: [UIImage] = []
     var description : String = ""

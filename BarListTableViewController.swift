@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class BarListViewController: UITableViewController,BarManagerDelegate {
+class BarListTableViewController: UITableViewController,BarManagerDelegate {
     
     var barDisplayMode: DisplayBarListMode = .alphabetical
     //on load
@@ -56,6 +56,7 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
         
         //ui init
         dispatch_async(dispatch_get_main_queue()) {
+            //set refresh button
             let refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
             self.navigationItem.rightBarButtonItem = refreshButton
         
@@ -64,10 +65,6 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
 
     }
 
-    func refresh()
-    {
-        BarManager.singleton.LoadGenericBarData()
-    }
     
     func UpdateBarListTableDisplay()
 
@@ -107,6 +104,8 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
         
         cell.bar_NameLabel?.text = thisBar.name
         cell.bar_RatingLabel.text = String(format: "%.1f",thisBar.rating.avg)
+        cell.bar_Icon.image = thisBar.icon
+        cell.bar_Icon.layer.masksToBounds = true
         
         return cell
     }
@@ -115,8 +114,14 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
         
     }
     
+    //show bar detail view
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+    }
+
+    func refresh()
+    {
+        BarManager.singleton.LoadGenericBarData()
     }
 }
 
