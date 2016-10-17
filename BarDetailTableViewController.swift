@@ -61,8 +61,9 @@ class BarDetailTableViewController: UITableViewController {
            if cell == nil
 	        {
 	   	         cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "BarMainDetailCell")
+
 	        }
-	    
+            cell?.backgroundColor = UIColor.greenColor()
 	    	return  cell!
 		 }
 
@@ -71,15 +72,21 @@ class BarDetailTableViewController: UITableViewController {
         return UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
     }
     
+    //===============================================================================
+    //											Height of Cells
+    //===============================================================================
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         //
         if indexPath.section == 0 && indexPath.row == 0
         {
             //height of gallery
-            return Sizing.HundredRelativeHeightPts()*2.5
+            return Sizing.HundredRelativeHeightPts()*1.5
         }
-        return Sizing.ScreenHeight /*- header height */
+        let screenHeight = Sizing.ScreenHeight()
+        let headerHeight = self.tableView(self.tableView, heightForHeaderInSection: indexPath.section)
+        
+        return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height - headerHeight) /*- header height - nav bar height - tab bar height */
     }
     
     //============================================================================

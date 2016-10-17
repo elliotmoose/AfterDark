@@ -1,5 +1,5 @@
 import Foundation
-
+import UIKit
 protocol BarManagerDelegate :class
 {
     func UpdateBarListTableDisplay()
@@ -10,16 +10,18 @@ class BarManager: NSObject
     static let singleton = BarManager()
     //constants
     let urlAllBarNames = "http://mooselliot.net23.net/GetAllBarNames.php"
+    let urlBarIconImage = "http://mooselliot.net23.net/GetBarIconImage.php"
     //let urlAllBarNames = "https://afterdark/GetAllBarNames.php"
-
+    
     
     
     //variables
     var mainBarList: [Bar] = []
     var displayBarList: [[Bar]] = [[]]
-    var barListData = NSMutableData()
+    var barListIcons: [NSDictionary] = []
+    
     weak var delegate:BarManagerDelegate?
-
+    
     //methods
     private override init()
     {
@@ -34,94 +36,109 @@ class BarManager: NSObject
         
         switch mode
         {
-            case .alphabetical:
-
+        case .alphabetical:
+            
+            
+            //create array of all letters
+            var allFirstLetters = [Character]()
+            for bar in mainBarList
+            {
+                let firstLetter = bar.name.characters.first
+                //if does not contain first letter add it
+                if let firstLetter = firstLetter
+                {
+                    if !allFirstLetters.contains(firstLetter)
+                    {
+                        allFirstLetters.append(firstLetter)
+                    }
+                }
                 
-                //create array of all letters
-                var allFirstLetters = [Character]()
+            }
+            
+            //for each letter
+            for firstLetter in allFirstLetters
+            {
+                //create array
+                var arrayOfBarsForLetter = [Bar]()
+                
+                //for each bar
                 for bar in mainBarList
                 {
-                    let firstLetter = bar.name.characters.first
-                    //if does not contain first letter add it
-                    if let firstLetter = firstLetter
+                    //if has this first letter, add to array
+                    if bar.name.characters.first == firstLetter
                     {
-                        if !allFirstLetters.contains(firstLetter)
-                        {
-                            allFirstLetters.append(firstLetter)
-                        }
+                        arrayOfBarsForLetter.append(bar)
                     }
-
                 }
                 
-                //for each letter
-                for firstLetter in allFirstLetters
-                {
-                    //create array
-                    var arrayOfBarsForLetter = [Bar]()
-                    
-                    //for each bar
-                    for bar in mainBarList
-                    {
-                        //if has this first letter, add to array
-                        if bar.name.characters.first == firstLetter
-                        {
-                           arrayOfBarsForLetter.append(bar)
-                        }
-                    }
                 
-
-                    //arrange alphabetically within array
-                    arrayOfBarsForLetter.sortInPlace({$0.name < $1.name})
+                //arrange alphabetically within array
+                arrayOfBarsForLetter.sortInPlace({$0.name < $1.name})
                 
-                    
-                    //add array to collection of arrays of letter-arranged bars
-                    
-               displayBarList.append(arrayOfBarsForLetter)
-                }
-
                 
+                //add array to collection of arrays of letter-arranged bars
+                
+                displayBarList.append(arrayOfBarsForLetter)
+            }
+            
+            
             break
-     
-            case .avgRating:
-                
-                var singleArray = mainBarList
-                singleArray.sortInPlace({$0.rating.avg < $1.rating.avg})
-                displayBarList.append(singleArray)
-                break;
-            case .priceRating:
-                var singleArray = mainBarList
-                singleArray.sortInPlace({$0.rating.price < $1.rating.price})
-                displayBarList.append(singleArray)
-                break;
-            case .foodRating:
-                var singleArray = mainBarList
-                singleArray.sortInPlace({$0.rating.food < $1.rating.food})
-                displayBarList.append(singleArray)
-                break;
-            case .ambienceRating:
-                var singleArray = mainBarList
-                singleArray.sortInPlace({$0.rating.ambience < $1.rating.ambience})
-                displayBarList.append(singleArray)
-                break;
-            case .serviceRating:
-                var singleArray = mainBarList
-                singleArray.sortInPlace({$0.rating.service < $1.rating.service})
-                displayBarList.append(singleArray)
-                break;
-
+            
+        case .avgRating:
+            
+            var singleArray = mainBarList
+            singleArray.sortInPlace({$0.rating.avg < $1.rating.avg})
+            displayBarList.append(singleArray)
+            break;
+        case .priceRating:
+            var singleArray = mainBarList
+            singleArray.sortInPlace({$0.rating.price < $1.rating.price})
+            displayBarList.append(singleArray)
+            break;
+        case .foodRating:
+            var singleArray = mainBarList
+            singleArray.sortInPlace({$0.rating.food < $1.rating.food})
+            displayBarList.append(singleArray)
+            break;
+        case .ambienceRating:
+            var singleArray = mainBarList
+            singleArray.sortInPlace({$0.rating.ambience < $1.rating.ambience})
+            displayBarList.append(singleArray)
+            break;
+        case .serviceRating:
+            var singleArray = mainBarList
+            singleArray.sortInPlace({$0.rating.service < $1.rating.service})
+            displayBarList.append(singleArray)
+            break;
+            
         }
         
     }
     func LoadGenericBarData()
     {
         //Load All Bar Names
-        LoadFromUrl(urlAllBarNames)
+        LoadFromUrl(urlAllBarNames,completionHandler: {(succes) -> Void in
         
+            
+            //callback to update UI before continue loading images
+            self.delegate?.UpdateBarListTableDisplay()
+
+            //Load BarIcon
+            self.LoadFromUrl(self.urlBarIconImage, completionHandler: {(success) ->Void in
+            
+            //inject icons
+            
+                
+            //update UI
+            self.delegate?.UpdateBarListTableDisplay()
+
+            })
+        });
     }
     
     
     //Load Method
-    func LoadFromUrl(inputUrl: String) {
+    func LoadFromUrl(inputUrl: String, completionHandler:CompletionHandler) {
         
         let url = NSURL(string: inputUrl)!
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -129,21 +146,32 @@ class BarManager: NSObject
         let session = NSURLSession(configuration: config)
         
         let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
-
+            
             if let error = error
             {
                 print(error)
+                completionHandler!(success: false)
+
             }
             else if let data = data
             {
                 //check: if is urlwithtask getbarlist
-                self.HandleGetBarListData(data)
+                switch inputUrl
+                {
+                case self.urlAllBarNames:
+                    self.HandleGetBarListData(data)
+                case self.urlBarIconImage:
+                    self.HandleGetAllBarIcons(data)
+                default: break
+                }
+                
+                completionHandler!(success: true)
             }
             
         })
-
+        
         task.resume()
-
+        
     }
     
     //different data handlers
@@ -160,9 +188,38 @@ class BarManager: NSObject
             let dict = retrievedArray[index] as! NSDictionary
             self.mainBarList.append(self.NewBarFromDict(dict))
         }
+    }
+    
+    func HandleGetAllBarIcons(data:NSData)
+    {
+        let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
         
-        //callback to update UI
-        self.delegate?.UpdateBarListTableDisplay()
+        //reset output
+        self.barListIcons.removeAll()
+        for index in 0...(retrievedArray.count - 1)
+        {
+            let barDict = retrievedArray[index] as! NSDictionary
+            self.barListIcons.append(barDict)
+        }
+        
+        //inject icons into data array
+        for index in 0...(mainBarList.count-1)
+        {
+            let thisBar = mainBarList[index]
+            for i in 0...(barListIcons.count-1)
+            {
+                if barListIcons[i].valueForKey("Bar_Name") as? String == thisBar.name
+                {
+                    let base64Image = barListIcons[i].valueForKey("Bar_Icon") as? String
+                    if let base64Image = base64Image
+                    {
+                        let dataDecoded:NSData = NSData(base64EncodedString: base64Image, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                        thisBar.icon = UIImage(data: dataDecoded)
+                    }
+
+                }
+            }
+        }
     }
     
     func NewBarFromDict(dict: NSDictionary) ->Bar
@@ -173,8 +230,8 @@ class BarManager: NSObject
         
         return newBar
     }
-
-func JSONToArray(data : NSMutableData) -> NSMutableArray{
+    
+    func JSONToArray(data : NSMutableData) -> NSMutableArray{
         
         var output: NSMutableArray = NSMutableArray()
         
@@ -185,8 +242,10 @@ func JSONToArray(data : NSMutableData) -> NSMutableArray{
             print(error)
             
         }
+        
+        return output
+        
+    }
+    typealias CompletionHandler = ((success:Bool) -> Void)?
     
-    return output
-    
-}
 }

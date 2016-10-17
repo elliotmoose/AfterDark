@@ -1,25 +1,26 @@
 import Foundation
 import UIKit
 
-Class Sizing()
+class Sizing
 {
-    func HundredRelativeWidthPts()->Float
+    static let singleton = Sizing()
+    class func HundredRelativeWidthPts()->CGFloat
     {
-    	return 375/UIScreen.mainScreen.bounds.size.width*100    
+    	return 375/UIScreen.mainScreen().bounds.size.width*100
     } 
 
-    func HundredRelativeHeightPts()->Float
+    class func HundredRelativeHeightPts()->CGFloat
     {
-    	return 667/UIScreen.mainScreen.bounds.size.height*100    
+    	return 667/UIScreen.mainScreen().bounds.size.height*100
     }
 
-    func ScreenWidth()->Float
+    class func ScreenWidth()->CGFloat
     {
-        return UIScreen.mainScreen.bounds.size.width
+        return UIScreen.mainScreen().bounds.size.width
     }
 
-    func ScreenHeight()->Float
+    class func ScreenHeight()->CGFloat
     {
-        return UIScreen.mainScreen.bounds.size.height
+        return UIScreen.mainScreen().bounds.size.height
     }
 }

@@ -104,6 +104,8 @@ class BarListViewController: UITableViewController,BarManagerDelegate {
         
         cell.bar_NameLabel?.text = thisBar.name
         cell.bar_RatingLabel.text = String(format: "%.1f",thisBar.rating.avg)
+        cell.bar_Icon.image = thisBar.icon
+        cell.bar_Icon.layer.masksToBounds = true
         
         return cell
     }
