@@ -76,6 +76,14 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
         self.ReloadTable()
     }
     
+    func UpdateBarCellDisplayAtIndex(indexPath: NSIndexPath)
+    {
+        
+        dispatch_async(dispatch_get_main_queue()) {
+        self.tableView.ReloadRowsAtIndexPath(indexPath,withRowAnimation:UITableViewRowAnimation.None)
+        }
+    }
+    
     func ReloadTable()
     {
         dispatch_async(dispatch_get_main_queue()) {
