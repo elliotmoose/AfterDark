@@ -58,16 +58,17 @@ class BarDetailTableViewController: UITableViewController {
             return cell!
         }
 			
-		 if indexPath.section == 1 && indexPath.row == 0
-		 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("BarDetailViewController",forIndexPath: indexPath)
-            cell.backgroundColor = UIColor.greenColor()
-	    	return  cell
-		 }
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+        if cell == nil{
+            cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+        }
+        cell!.backgroundColor = UIColor.clearColor()
+        
+        
 
 
-
-        return UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+        return cell!
     }
     
     //===============================================================================
@@ -81,29 +82,40 @@ class BarDetailTableViewController: UITableViewController {
             //height of gallery
             return Sizing.HundredRelativeHeightPts()*1.5
         }
-        let screenHeight = Sizing.ScreenHeight()
-        let headerHeight = self.tableView(self.tableView, heightForHeaderInSection: indexPath.section)
-        
-        return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height - headerHeight) /*- header height - nav bar height - tab bar height */
+
+        return 0
     }
     
     //============================================================================
     //                                  section header
     //============================================================================
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UIView()
         
         if section == 0
         {
+            let header = UIView()
             header.backgroundColor = UIColor.clearColor()
+            return header
+
         }
         else
         {
-            header.backgroundColor = UIColor.redColor()
+            let headerHeight = self.tableView(self.tableView, heightForHeaderInSection: section)
+            let header = BarDetailViewMainCell.init(frame: CGRectMake(0,0, Sizing.ScreenWidth(), headerHeight))
+            header.Initialize()
+            return header
         }
-        return header
     }
 
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0
+        {
+            return 44
+        }
+        let screenHeight = Sizing.ScreenHeight()
+        //let fakeHeaderHeight = Sizing.HundredRelativeHeightPts()*2 /*if change this, remember to change view implementation of height*/
+        return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height ) /*- fake header height - nav bar height - tab bar height */
+    }
     /*
     // MARK: - Navigation
 

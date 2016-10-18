@@ -11,8 +11,8 @@
 		982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */; };
 		982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */; };
 		982BA8F61DB3C7E200C4B759 /* BarDetailTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982BA8F41DB3C7E200C4B759 /* BarDetailTableViewController.xib */; };
-		985E9DE01DB5245B001E0815 /* BarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985E9DDE1DB5245B001E0815 /* BarDetailViewController.swift */; };
 		985E9DE11DB5245B001E0815 /* BarDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 985E9DDF1DB5245B001E0815 /* BarDetailViewController.xib */; };
+		988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */; };
 		98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */; };
 		98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4901DB0009B000EAF08 /* FirstViewController.swift */; };
 		98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4921DB0009B000EAF08 /* SecondViewController.swift */; };
@@ -51,8 +51,8 @@
 		982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BarListTableViewCell.xib; path = ../BarListTableViewCell.xib; sourceTree = "<group>"; };
 		982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarDetailTableViewController.swift; path = ../BarDetailTableViewController.swift; sourceTree = "<group>"; };
 		982BA8F41DB3C7E200C4B759 /* BarDetailTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BarDetailTableViewController.xib; path = ../BarDetailTableViewController.xib; sourceTree = "<group>"; };
-		985E9DDE1DB5245B001E0815 /* BarDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarDetailViewController.swift; sourceTree = "<group>"; };
 		985E9DDF1DB5245B001E0815 /* BarDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarDetailViewController.xib; sourceTree = "<group>"; };
+		988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarDetailViewMainCell.swift; sourceTree = "<group>"; };
 		98F3E48B1DB0009B000EAF08 /* AfterDark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfterDark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98F3E4901DB0009B000EAF08 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -130,8 +130,8 @@
 				982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */,
 				982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */,
 				982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */,
+				988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */,
 				982BA8F41DB3C7E200C4B759 /* BarDetailTableViewController.xib */,
-				985E9DDE1DB5245B001E0815 /* BarDetailViewController.swift */,
 				985E9DDF1DB5245B001E0815 /* BarDetailViewController.xib */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
@@ -302,7 +302,7 @@
 				982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */,
 				98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */,
 				DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */,
-				985E9DE01DB5245B001E0815 /* BarDetailViewController.swift in Sources */,
+				988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */,
 				TB4I34LS3SZ054G6QFADRMAX /* BarManager.swift in Sources */,
 				H76WSUQ9WFAYGEXHYPUR7S5W /* customEnums.swift in Sources */,
 				GALD5LG20WJ7W6ECBYHH54UL /* Sizing.swift in Sources */,

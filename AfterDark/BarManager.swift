@@ -3,6 +3,8 @@ import UIKit
 protocol BarManagerDelegate :class
 {
     func UpdateBarListTableDisplay()
+    func UpdateBarCellDisplayAtIndex(indexPath: NSIndexPath)
+
 }
 
 class BarManager: NSObject
@@ -32,29 +34,27 @@ class BarManager: NSObject
     func LoadGenericBarData()
     {
         //Load All Bar Names
-        DataFromUrl(urlAllBarNames,completionHandler: {(succes,output) -> Void in
+        DataFromUrl(urlAllBarNames,handler: {(success,output1) -> Void in
             //format data for use
-            self.HandleGetBarListData(data)
-            
-            //callback to update UI before continue loading images
-            self.delegate?.UpdateBarListTableDisplay()
+            if let output1 = output1
+            {
+                self.HandleGetBarListData(output1)
+            }
+            if success == true
+            {
+                //callback to update UI before continue loading images
+                self.delegate?.UpdateBarListTableDisplay()
+                
+                //Load BarIcon from index 0
+                self.LoadBarIconRecurring(0)
+            }
 
-            //Load BarIcon
-            self.DataFromUrl(self.urlBarIconImage, completionHandler: {(success) ->Void in
-            
-            
-            //fotmat data for use
-            self.HandleGetAllBarIcons(data)
-            //update UI
-            self.delegate?.UpdateBarListTableDisplay()
-
-            })
         });
     }
     
     
     //Load Method
-    func DataFromUrl(inputUrl: String, completionHandler:CompletionHandler) {
+    func DataFromUrl(inputUrl: String, handler: (success:Bool,output : NSData?) -> Void) {
         
         let url = NSURL(string: inputUrl)!
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -66,12 +66,12 @@ class BarManager: NSObject
             if let error = error
             {
                 print(error)
-                completionHandler!(success: false,output: nil)
+                handler(success: false,output: nil)
 
             }
             else if let data = data
             {
-                completionHandler!(success: true,output: data)
+                handler(success: true,output: data)
             }
             
         })
@@ -85,45 +85,48 @@ class BarManager: NSObject
     {
         
         //get non-nested index
-        var indexPath = NSIndexPath(forRow: curIndex inSection: 0)
+        var indexPath = NSIndexPath(forRow: curIndex, inSection: 0)
         while indexPath.row > displayBarList[indexPath.section].count
         {
-            indexPath.row -= displayBarList[sectionIndex].count
-            indexPath.section ++
+            //+1 to section to move loop forward, change row to get closer to non-nested index
+            indexPath = NSIndexPath(forRow: indexPath.row - displayBarList[indexPath.section].count, inSection: indexPath.section + 1)
             
-            if indexPath.section > displayBarList.count
-            {
+            if indexPath.section > displayBarList.count{
                 break
             }
+            continue
         }
             
-            let thisSection = displayBarArray[indexPath.section]
+            let thisSection = displayBarList[indexPath.section]
             let thisBar = thisSection[indexPath.row]
             
                 //prep bar request url
-                let requestUrl
+                let requestUrl = ""
                 //load from url
-                DataFromUrl(requestUrl,completionHandler:{(success,data)
-                    -> Void in
+                DataFromUrl(requestUrl,handler:{(success,data) -> Void in
                     if let data = data
                     {
-                        let dataDecoded:NSData = NSData(base64EncodedString: data, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                        thisBar.icon = UIImage(data: dataDecoded)
-                        
-                        //update UI
-                         self.delegate?.UpdateBarCellDisplayAtIndex(indexPath)
-                        
+                        if success == true
+                        {
+                            
+                            let imageString = String(data: data, encoding: NSASCIIStringEncoding)!
+                            let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                            thisBar.icon = UIImage(data: dataDecoded)
+                            
+                            //update UI
+                            self.delegate?.UpdateBarCellDisplayAtIndex(indexPath)
+                        }
+
+                
+                    }
                     
-                if curIndex < mainBarList.count
-                {
-                    self.LoadBarRecurring(curIndex +1)
-                }
-                    
+                    let limit = self.mainBarList.count - 1
+                    if curIndex < limit
+                    {
+                        self.LoadBarIconRecurring((curIndex+1))
+                    }
                 })
-                
-                
-            }
-        }
+ 
     }
     
     
@@ -286,6 +289,5 @@ class BarManager: NSObject
         return output
         
     }
-    typealias CompletionHandler = ((success:Bool, output: AnyObject?) -> Void)?
     
 }

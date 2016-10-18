@@ -80,7 +80,8 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
     {
         
         dispatch_async(dispatch_get_main_queue()) {
-        self.tableView.ReloadRowsAtIndexPath(indexPath,withRowAnimation:UITableViewRowAnimation.None)
+        let indexPaths = [indexPath]
+        self.tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
         }
     }
     
