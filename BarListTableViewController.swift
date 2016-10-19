@@ -92,6 +92,9 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
         }
     }
 
+    //============================================================================
+    //                                 number of section and rows
+    //============================================================================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
         let count = BarManager.singleton.displayBarList.count
@@ -105,6 +108,9 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
         return count
     }
 
+    //============================================================================
+    //                                create bar cells
+    //============================================================================
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> BarListTableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("BarListTableViewCell", forIndexPath: indexPath) as! BarListTableViewCell
@@ -123,8 +129,17 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
         
     }
     
+    //============================================================================
+    //                                 selected bar cell
+    //============================================================================
     //show bar detail view
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                //prep for display
+            BarDetailTableViewController.singleton.ToPresent(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
+        }
+
         self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
     }
 

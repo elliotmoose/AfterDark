@@ -8,12 +8,25 @@
 
 import UIKit
 
-class BarDetailTableViewController: UITableViewController {
+class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     static let singleton = BarDetailTableViewController()
+    
+    //variables
+    var barIcon = UIImageView()
+    var tableView = UITableView()
+    var thisBar = Bar()
+
+    //constants
+    let minGalleryHeight = Sizing.HundredRelativeHeightPts()*2
+    let maxGalleryHeight = Sizing.HundredRelativeHeightPts()*3
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialze()
     }
+
+
+
 
     func Initialze()
     {
@@ -21,7 +34,23 @@ class BarDetailTableViewController: UITableViewController {
 
             //register nibs
             self.tableView.registerNib(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
-
+            
+            
+            //build layout
+            let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+            let barIconWidth = self.minGalleryHeight/2
+            
+            self.tableView = UITableView.init(frame: CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), Sizing.ScreenHeight() - navBarHeight - 49))
+            self.barIcon = UIImageView.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth))
+            
+            self.barIcon.backgroundColor = UIColor.lightGrayColor()
+            
+            
+            self.view.addSubview(self.tableView)
+            self.view.addSubview(self.barIcon)
+            self.tableView.dataSource = self
+            self.tableView.delegate = self
+            
         }
         dispatch_async(dispatch_get_main_queue(),
         {
@@ -29,34 +58,69 @@ class BarDetailTableViewController: UITableViewController {
         })
     }
 
+    func ToPresent(bar:Bar)
+    {
+        self.thisBar = bar
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.UpdateDisplays()
+        })
+    }
+    //============================================================================
+    //                                 update gallery, bar icon, tabs
+    //============================================================================
+    func UpdateDisplays()
+    {
+        self.UpdateBarIcon()
+        self.UpdateGallery()
+        self.UpdateTabs()
+    }
+    
+    func UpdateBarIcon()
+    {
+        self.barIcon.image = thisBar.icon
+    }
+    
+    func UpdateGallery()
+    {
+        
+    }
+    
+    func UpdateTabs()
+    {
+        
+    }
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    //============================================================================
+    //                                 number of rows and sections
+    //============================================================================
+     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
 	//===============================================================================
-	//											Cell
+	//									gallery and main detail view (CELLS)
 	//===============================================================================
    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-        if indexPath.section == 0 && indexPath.row == 0
-        {
-           var cell = tableView.dequeueReusableCellWithIdentifier("GalleryCell")
-           if cell == nil
-	        {
-	   	         cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-	        }        
-            cell!.backgroundColor = UIColor.clearColor()
-            cell!.textLabel?.text = ""
-            
-            return cell!
-        }
+     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//
+//        if indexPath.section == 0 && indexPath.row == 0
+//        {
+//           var cell = tableView.dequeueReusableCellWithIdentifier("GalleryCell")
+//           if cell == nil
+//	        {
+//	   	         cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+//	        }        
+//            cell!.backgroundColor = UIColor.clearColor()
+//            cell!.textLabel?.text = ""
+//            
+//            return cell!
+//        }
 			
         
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell")
@@ -74,14 +138,8 @@ class BarDetailTableViewController: UITableViewController {
     //===============================================================================
     //											Height of Cells
     //===============================================================================
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        //
-        if indexPath.section == 0 && indexPath.row == 0
-        {
-            //height of gallery
-            return Sizing.HundredRelativeHeightPts()*1.5
-        }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+
 
         return 0
     }
@@ -89,7 +147,7 @@ class BarDetailTableViewController: UITableViewController {
     //============================================================================
     //                                  section header
     //============================================================================
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 0
         {
@@ -106,15 +164,18 @@ class BarDetailTableViewController: UITableViewController {
             return header
         }
     }
-
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    //============================================================================
+    //                                  section header height
+    //============================================================================
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0
         {
-            return 44
+            //height of gallery
+            return maxGalleryHeight
         }
         let screenHeight = Sizing.ScreenHeight()
-        //let fakeHeaderHeight = Sizing.HundredRelativeHeightPts()*2 /*if change this, remember to change view implementation of height*/
-        return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height ) /*- fake header height - nav bar height - tab bar height */
+
+        return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height - minGalleryHeight) /*screen height - nav bar height - tab bar height - min gallery height*/
     }
     /*
     // MARK: - Navigation

@@ -4,7 +4,7 @@ protocol BarManagerDelegate :class
 {
     func UpdateBarListTableDisplay()
     func UpdateBarCellDisplayAtIndex(indexPath: NSIndexPath)
-
+    
 }
 
 class BarManager: NSObject
@@ -34,7 +34,7 @@ class BarManager: NSObject
     func LoadGenericBarData()
     {
         //Load All Bar Names
-        Network.DataFromUrl(urlAllBarNames,handler: {(success,output1) -> Void in
+        Network.singleton.DataFromUrl(urlAllBarNames,handler: {(success,output1) -> Void in
             //format data for use
             if let output1 = output1
             {
@@ -48,7 +48,7 @@ class BarManager: NSObject
                 //Load BarIcon from index 0
                 self.LoadBarIconRecurring(0)
             }
-
+            
         });
     }
     
@@ -58,6 +58,8 @@ class BarManager: NSObject
     //this is a recurring function to load all bars in order
     func LoadBarIconRecurring(curIndex: Int)
     {
+        
+        
         
         //get non-nested index
         var indexPath = NSIndexPath(forRow: curIndex, inSection: 0)
@@ -71,44 +73,77 @@ class BarManager: NSObject
             }
             continue
         }
-            
-            let thisSection = displayBarList[indexPath.section]
-            let thisBar = thisSection[indexPath.row]
-            
-                //prep bar request url
-                let requestUrl = "http://mooselliot.net23.net/GetBarIconImage.php?Bar_Name=/(thisBar.name)"
-                //load from url
-                Network.DataFromUrl(requestUrl,handler:{(success,data) -> Void in
-                    if let data = data
+        
+        let thisSection = displayBarList[indexPath.section]
+        let thisBar = thisSection[indexPath.row]
+        
+        //if bar has icon already then skip
+        if thisBar.icon != nil
+        {
+            print("bar has loaded icon, skipping this load")
+            let limit = self.mainBarList.count - 1
+            if curIndex < limit
+            {
+                self.LoadBarIconRecurring((curIndex+1))
+            }
+            return
+        }
+        
+        //prep bar request url
+        let barNameForUrl = thisBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        let requestUrl = "http://mooselliot.net23.net/GetBarIconImage.php?Bar_Name=\(barNameForUrl)"
+        //load from url
+        Network.singleton.DataFromUrl(requestUrl,handler:{(success,data) -> Void in
+            if let data = data
+            {
+                if success == true
+                {
+                    
+                    let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
+                    
+                    let dict = retrievedArray[0] as! NSDictionary
+                    if dict["Bar_Name"] as! String == thisBar.name
                     {
-                        if success == true
+                        
+                        let imageString =  dict["Bar_Icon"] as? String
+                        if let imageString = imageString
                         {
-                            
-                            let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
-                            
-                            let dict = retrievedArray[0]
-                     
-                            let imageString = dict[thisBar.name]
                             let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                            
+                            //==================
+                            //  icon injection
+                            //==================
                             thisBar.icon = UIImage(data: dataDecoded)
                             
-                            //update UI
-                            self.delegate?.UpdateBarCellDisplayAtIndex(indexPath)
                         }
-
-                
-                    }
-                    
-                    let limit = self.mainBarList.count - 1
-                    if curIndex < limit
-                    {
-                        self.LoadBarIconRecurring((curIndex+1))
-                    }
-                    
                         
+                        
+                        //update UI
+                        self.delegate?.UpdateBarCellDisplayAtIndex(indexPath)
+                        
+                        
+                    }
+                    else
+                    {
+                        print("Bar has no image")
+                    }
                     
-                })
- 
+                }
+                
+                
+                
+            }
+            
+            let limit = self.mainBarList.count - 1
+            if curIndex < limit
+            {
+                self.LoadBarIconRecurring((curIndex+1))
+            }
+            
+            
+            
+        })
+        
     }
     
     
@@ -154,7 +189,7 @@ class BarManager: NSObject
                         let dataDecoded:NSData = NSData(base64EncodedString: base64Image, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                         thisBar.icon = UIImage(data: dataDecoded)
                     }
-
+                    
                 }
             }
         }
@@ -261,7 +296,9 @@ class BarManager: NSObject
         var output: NSMutableArray = NSMutableArray()
         
         do{
+            
             output = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments) as! NSMutableArray
+            
             
         } catch let error as NSError {
             print(error)

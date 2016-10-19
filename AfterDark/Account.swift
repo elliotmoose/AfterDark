@@ -1,5 +1,5 @@
-class: Account
-{
+class Account {
+    
     static let singleton = Account()
     let urlLogin = "http://mooselliot.net23.net/Login.php"
     
@@ -7,16 +7,23 @@ class: Account
     var user_ID :Int
     var user_Email : String
     
-    func Login(username:String,password:String,(success:Bool)->Void)
+    init() {
+        user_name = ""
+        user_ID = 0
+        user_Email = ""
+    }
+    
+    func Login(username:String,password:String,handler: (success:Bool)->Void)
     {
-        let postParam =String("username=/(username)&password=/(password)")
-        Network.DataFromUrlWithPost(urlLogin,postParam,{(success,output) -> Void in
-        if let output = output
-        {
-            if output = "Login Success"
+        let postParam = String("username=\(username)&password=\(password)")
+        Network.singleton.DataFromUrlWithPost(urlLogin,postParam: postParam,handler: {(success,output) -> Void in
+            if let output = output
             {
-                user_name = username
+                if output == "Login Success"
+                {
+                    self.user_name = username
+                }
             }
-        }
-    })
+        })
+    }
 }

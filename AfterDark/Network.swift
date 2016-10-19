@@ -1,14 +1,18 @@
-class :Network
-{
-    static let singleton = Network()
-    var session : NSURLSession
+import Foundation
+
+
+class Network {
     
-    func Initialize()
+    var session : NSURLSession
+    static let singleton = Network()
+
+    init()
     {
-                let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         config.timeoutIntervalForRequest = 15
-        let session = NSURLSession(configuration: config)
+        session = NSURLSession(configuration: config)
     }
+
     //Load Method
     func DataFromUrl(inputUrl: String, handler: (success:Bool,output : NSData?) -> Void) {
         
@@ -37,13 +41,13 @@ func DataFromUrlWithPost(inputUrl: String, postParam: String,handler: (success:B
         
         let url = NSURL(string: inputUrl)!
 
-let config = NSURLSessionConfiguration.defaultSessionConfigurstiin()
+let config = NSURLSessionConfiguration.defaultSessionConfiguration()
 config.timeoutIntervalForRequest = 15
         let newSession = NSURLSession(configuration:config)
 
-var request = NSMutableUrlRequest(initWithUrl:url)
+let request = NSMutableURLRequest(URL: url)
 request.HTTPMethod = "POST"
-request.HTTPBody = postParam.NSUTF8StringEncoding()
+request.HTTPBody = postParam.dataUsingEncoding(NSUTF8StringEncoding)
 
         let task = newSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
             

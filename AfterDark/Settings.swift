@@ -1,17 +1,19 @@
-class : Settings
+import Foundation
+class Settings
 {
     static let singleton = Settings()
     
-    func Initialize
+    init()
     {
         self.LoadSettings()
     }
-    func SaveSettings
+
+    func SaveSettings()
     {
-        NSUserDefaults.standardUserDefaults.SetString(self.username, forKey: "username")
+        NSUserDefaults.standardUserDefaults().setValue(Account.singleton.user_name, forKey: "username")
     }
 
-    func LoadSettings
+    func LoadSettings()
     {
         
     }
