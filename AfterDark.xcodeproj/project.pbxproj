@@ -157,7 +157,8 @@
                 H76WSUQ9WFAYGEXHYPUR7S5W,
                 GALD5LG20WJ7W6ECBYHH54UL,
                 K6IWCJC2V8NIJ9770XXEEKN7,
-                1UJLM29NSA57LFXJVDRWQGEL
+                1UJLM29NSA57LFXJVDRWQGEL,
+                MCV6WOTPLRBT1N09Y1PWTQCF
             );
             isa = PBXSourcesBuildPhase;
             runOnlyForDeploymentPostprocessing = 0;
@@ -239,7 +240,8 @@
                 STEI0ULROTY3ZI35EAB3ASC8,
                 V1DUPG354KQ7L7TF2LQ52EEU,
                 QFTSZAZA620UQ50HVYGSV2BC,
-                Y7QMRMW8N0HNTJBHDMWKAM1F
+                Y7QMRMW8N0HNTJBHDMWKAM1F,
+                ACP96CXHFC96L9ASPJHNTV8G
             );
             isa = PBXGroup;
             path = AfterDark;
@@ -688,6 +690,12 @@
             fileRef = 98F3E4BE1DB001CE000EAF08;
             isa = PBXBuildFile;
         };
+        ACP96CXHFC96L9ASPJHNTV8G =         {
+            fileEncoding = 4;
+            isa = PBXFileReference;
+            path = "Account.swift";
+            sourceTree = "<group>";
+        };
         DT618KL9NE89OW4YT1JY042C =         {
             fileRef = IZK3WM8ZNCS26ZQDKHX3VXX3;
             isa = PBXBuildFile;
@@ -723,6 +731,10 @@
         };
         K6IWCJC2V8NIJ9770XXEEKN7 =         {
             fileRef = QFTSZAZA620UQ50HVYGSV2BC;
+            isa = PBXBuildFile;
+        };
+        MCV6WOTPLRBT1N09Y1PWTQCF =         {
+            fileRef = ACP96CXHFC96L9ASPJHNTV8G;
             isa = PBXBuildFile;
         };
         QFTSZAZA620UQ50HVYGSV2BC =         {
