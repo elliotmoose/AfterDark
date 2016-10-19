@@ -9,7 +9,8 @@
 import UIKit
 
 class GalleryViewController: UIPageViewController {
-
+    static let singleton = GalleryViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

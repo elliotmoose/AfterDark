@@ -15,6 +15,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     var barIcon = UIImageView()
     var tableView = UITableView()
     var thisBar = Bar()
+    var galleryCont = GalleryViewController.singleton
 
     //constants
     let minGalleryHeight = Sizing.HundredRelativeHeightPts()*2
@@ -42,12 +43,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
             self.tableView = UITableView.init(frame: CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), Sizing.ScreenHeight() - navBarHeight - 49))
             self.barIcon = UIImageView.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth))
+            self.galleryCont.view.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
             
+            self.tableView.backgroundColor = UIColor.clearColor()
             self.barIcon.backgroundColor = UIColor.lightGrayColor()
+            self.galleryCont.view.backgroundColor = UIColor.magentaColor()
             
-            
-            self.view.addSubview(self.tableView)
+            self.view.addSubview((self.galleryCont.view))
             self.view.addSubview(self.barIcon)
+            self.view.addSubview(self.tableView)
             self.tableView.dataSource = self
             self.tableView.delegate = self
             
@@ -177,14 +181,22 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
         return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height - minGalleryHeight) /*screen height - nav bar height - tab bar height - min gallery height*/
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        let y = -scrollView.contentOffset.y;
+        if (y>0)
+        {
+            galleryCont.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)+y*CGRectGetWidth(self.view.frame)/330,y+330 )
+            galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+        }
+        
+        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        if(x < 0)
+        {
+            barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+        }
     }
-    */
+
     
 }

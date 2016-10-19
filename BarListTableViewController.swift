@@ -82,6 +82,14 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
         dispatch_async(dispatch_get_main_queue()) {
         let indexPaths = [indexPath]
         self.tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+            
+            //********
+            //check if this bar updating is being viewed in detail view
+            var updatedBarForCell = BarManager.singleton.displayBarList[indexPath.section][indexPath.row]
+            if  updatedBarForCell === BarDetailTableViewController.singleton.thisBar
+            {
+                BarDetailTableViewController.singleton.UpdateBarIcon()
+            }
         }
     }
     
