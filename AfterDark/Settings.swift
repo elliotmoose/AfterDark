@@ -11,7 +11,7 @@ class : Settings
     }
     func SaveSettings
     {
-        
+        NSUserDefaults.standardUserDefaults.SetString(self.username, forKey: "username")
     }
 
     func LoadSettings
