@@ -34,7 +34,7 @@ class BarManager: NSObject
     func LoadGenericBarData()
     {
         //Load All Bar Names
-        DataFromUrl(urlAllBarNames,handler: {(success,output1) -> Void in
+        Network.DataFromUrl(urlAllBarNames,handler: {(success,output1) -> Void in
             //format data for use
             if let output1 = output1
             {
@@ -53,32 +53,7 @@ class BarManager: NSObject
     }
     
     
-    //Load Method
-    func DataFromUrl(inputUrl: String, handler: (success:Bool,output : NSData?) -> Void) {
-        
-        let url = NSURL(string: inputUrl)!
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        config.timeoutIntervalForRequest = 15
-        let session = NSURLSession(configuration: config)
-        
-        let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
-            
-            if let error = error
-            {
-                print(error)
-                handler(success: false,output: nil)
-
-            }
-            else if let data = data
-            {
-                handler(success: true,output: data)
-            }
-            
-        })
-        
-        task.resume()
-        
-    }
+    
     
     //this is a recurring function to load all bars in order
     func LoadBarIconRecurring(curIndex: Int)
@@ -101,15 +76,19 @@ class BarManager: NSObject
             let thisBar = thisSection[indexPath.row]
             
                 //prep bar request url
-                let requestUrl = ""
+                let requestUrl = "http://mooselliot.net23.net/GetBarIconImage.php?Bar_Name=/(thisBar.name)"
                 //load from url
-                DataFromUrl(requestUrl,handler:{(success,data) -> Void in
+                Network.DataFromUrl(requestUrl,handler:{(success,data) -> Void in
                     if let data = data
                     {
                         if success == true
                         {
                             
-                            let imageString = String(data: data, encoding: NSASCIIStringEncoding)!
+                            let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
+                            
+                            let dict = retrievedArray[0]
+                     
+                            let imageString = dict[thisBar.name]
                             let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                             thisBar.icon = UIImage(data: dataDecoded)
                             
@@ -125,6 +104,9 @@ class BarManager: NSObject
                     {
                         self.LoadBarIconRecurring((curIndex+1))
                     }
+                    
+                        
+                    
                 })
  
     }
