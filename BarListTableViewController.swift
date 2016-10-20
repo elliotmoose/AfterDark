@@ -145,10 +145,12 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         dispatch_async(dispatch_get_main_queue()) {
-                //prep for display
+            
+            
+            //prep for display
             BarDetailTableViewController.singleton.ToPresent(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
             self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
-
+            BarDetailTableViewController.singleton.mainBarDetailViewCell?.CellWillAppear()
         }
 
     }

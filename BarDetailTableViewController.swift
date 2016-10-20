@@ -11,14 +11,16 @@ import UIKit
 class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     static let singleton = BarDetailTableViewController()
     
-    //variables
+    //UI object variables
     var barIcon = UIImageView()
     var tableView = UITableView()
+    var mainBarDetailViewCell:BarDetailViewMainCell?
+    
+    //runtime object variables
     var thisBar = Bar()
     
     //view controllers
     var galleryCont = GalleryViewController.singleton
-
     
     //constants
     let minGalleryHeight = Sizing.HundredRelativeHeightPts()*2
@@ -91,7 +93,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.galleryCont.Load()
         dispatch_async(dispatch_get_main_queue(), {
             self.UpdateDisplays()
-
+        
+            //reset displays in all controllers nested in detail cell
+            
 
         })
     }
@@ -174,7 +178,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     }
     
     //============================================================================
-    //                                  section header
+    //                                  Main Display (Headers)
     //============================================================================
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -187,10 +191,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         }
         else
         {
-            let headerHeight = self.tableView(self.tableView, heightForHeaderInSection: section)
-            let header = BarDetailViewMainCell.init(frame: CGRectMake(0,0, Sizing.ScreenWidth(), headerHeight))
-            header.Initialize()
-            return header
+            if self.mainBarDetailViewCell == nil
+            {
+                let headerHeight = self.tableView(self.tableView, heightForHeaderInSection: section)
+                self.mainBarDetailViewCell = BarDetailViewMainCell.init(frame: CGRectMake(0,0, Sizing.ScreenWidth(), headerHeight))
+                self.mainBarDetailViewCell!.Initialize()
+            }
+
+            self.mainBarDetailViewCell?.CellWillAppear()
+            return self.mainBarDetailViewCell
         }
     }
     //============================================================================

@@ -30,6 +30,11 @@ class BarDetailViewMainCell: UITableViewCell {
     
     }
 
+    func CellWillAppear()
+    {
+        ChangeTab(tab1)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         tab1 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tab2 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
@@ -65,7 +70,7 @@ class BarDetailViewMainCell: UITableViewCell {
         let mainViewWidth = Sizing.ScreenWidth()
         let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/
         let mainViewFrame = CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight)
-        let highlighterHeight: CGFloat = 6
+        let highlighterHeight: CGFloat = 4.5
         //status bar height?
         
         tabHighlighter = UIView.init(frame: CGRectMake(0, tabHeight - highlighterHeight, tabWidth, highlighterHeight))
@@ -109,16 +114,12 @@ class BarDetailViewMainCell: UITableViewCell {
         reviewCont.view.backgroundColor = contentBackgroundColor
         locationCont.view.backgroundColor = contentBackgroundColor
         discountCont.view.backgroundColor = contentBackgroundColor
-        
         mainDetailView.backgroundColor = UIColor.lightGrayColor()
         
-//        tab1.titleColorForState(UIControlState.Normal)
-
         tab1.setTitle("Details", forState: UIControlState.Normal)
         tab2.setTitle("Reviews", forState: UIControlState.Normal)
         tab3.setTitle("Location", forState: UIControlState.Normal)
         tab4.setTitle("Discount", forState: UIControlState.Normal)
-        
         
         self.addSubview(tab1)
         self.addSubview(tab2)
@@ -149,8 +150,42 @@ class BarDetailViewMainCell: UITableViewCell {
         tabCont.selectedIndex = sender.tag
         let button = sender as! UIButton
         button.selected = true
+        
+        //select button, deselect others
+        switch sender.tag
+        {
+        case 0:
+            tab2.selected = false;
+            tab3.selected = false;
+            tab4.selected = false;
+        case 1:
+            tab1.selected = false;
+            tab3.selected = false;
+            tab4.selected = false;
+            
+        case 2:
+            tab1.selected = false;
+            tab2.selected = false;
+            tab4.selected = false;
+            
+        case 3:
+            tab1.selected = false;
+            tab2.selected = false;
+            tab3.selected = false;
+        default:
+            
+            break
+        }
+        
+        MoveHighlight(sender.tag)
     }
     
+    func MoveHighlight(index:Int)
+    {
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 4, initialSpringVelocity: 4, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            self.tabHighlighter.frame = CGRectMake( self.tabHighlighter.frame.size.width * CGFloat(index),  self.tabHighlighter.frame.origin.y,  self.tabHighlighter.frame.size.width,  self.tabHighlighter.frame.size.height)
+            }, completion: nil)
+    }
     func InjectData(bar:Bar)
     {
     }
