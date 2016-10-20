@@ -16,10 +16,11 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
     //on load
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         Initialize()
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            // do some task
+            //init other views as this is the first up
             BarManager.singleton.LoadGenericBarData()
 
         }
@@ -33,7 +34,7 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
     //on view appear
     func viewDidAppear()
     {
-        
+        BarDetailTableViewController.singleton.Initialze()
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,7 +86,7 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
             
             //********
             //check if this bar updating is being viewed in detail view
-            var updatedBarForCell = BarManager.singleton.displayBarList[indexPath.section][indexPath.row]
+            let updatedBarForCell = BarManager.singleton.displayBarList[indexPath.section][indexPath.row]
             if  updatedBarForCell === BarDetailTableViewController.singleton.thisBar
             {
                 BarDetailTableViewController.singleton.UpdateBarIcon()
@@ -143,12 +144,13 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
     //show bar detail view
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        dispatch_async(dispatch_get_main_queue()) {
                 //prep for display
             BarDetailTableViewController.singleton.ToPresent(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
+            self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+
         }
 
-        self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
     }
 
     func refresh()

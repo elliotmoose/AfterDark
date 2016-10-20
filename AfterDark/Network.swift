@@ -37,6 +37,31 @@ class Network {
         
     }
 
+    func StringFromUrl(inputUrl: String, handler: (success:Bool,output : String?) -> Void) {
+        
+        let url = NSURL(string: inputUrl)!
+        
+        let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+            
+            if let error = error
+            {
+                print(error)
+                handler(success: false,output: nil)
+                
+            }
+            else if let data = data
+            {
+                let outString = String(data: data, encoding: NSUTF8StringEncoding)
+                handler(success: true,output: outString)
+            }
+            
+        })
+        
+        task.resume()
+        
+    }
+
+    
 func DataFromUrlWithPost(inputUrl: String, postParam: String,handler: (success:Bool,output : NSData?) -> Void) {
         
         let url = NSURL(string: inputUrl)!
