@@ -14,7 +14,7 @@ class BarDetailViewMainCell: UITableViewCell {
     var tab2 : UIButton
     var tab3 : UIButton
     var tab4 : UIButton
-    var tabHighlighter = UIView()
+    var tabHighlighter: UIView
     var mainDetailView : UIView
     
     var tabCont = UITabBarController()
@@ -35,6 +35,7 @@ class BarDetailViewMainCell: UITableViewCell {
         tab2 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tab3 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tab4 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
+        tabHighlighter = UIView.init(frame: CGRectMake(0, 0, 0, 0))
         mainDetailView = UIView.init(frame: CGRectMake(0, 0, 0, 0))
         super.init(coder: aDecoder)
 
@@ -46,6 +47,7 @@ class BarDetailViewMainCell: UITableViewCell {
         tab2 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tab3 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tab4 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
+        tabHighlighter = UIView.init(frame: CGRectMake(0, 0, 0, 0))
         mainDetailView = UIView.init(frame: CGRectMake(0, 0, 0, 0))
         super.init(style: UITableViewCellStyle.Default, reuseIdentifier: "BarDetailHeaderView")
         self.frame = frame
@@ -63,8 +65,10 @@ class BarDetailViewMainCell: UITableViewCell {
         let mainViewWidth = Sizing.ScreenWidth()
         let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/
         let mainViewFrame = CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight)
-        
+        let highlighterHeight: CGFloat = 6
         //status bar height?
+        
+        tabHighlighter = UIView.init(frame: CGRectMake(0, tabHeight - highlighterHeight, tabWidth, highlighterHeight))
         tab1 = UIButton.init(frame: CGRectMake(0, 0, tabWidth, tabHeight))
         tab2 = UIButton.init(frame: CGRectMake(tabWidth, 0, tabWidth, tabHeight))
         tab3 = UIButton.init(frame: CGRectMake(Sizing.ScreenWidth() - (tabWidth*2), 0, tabWidth, tabHeight))
@@ -79,11 +83,26 @@ class BarDetailViewMainCell: UITableViewCell {
         
         let labelColor = UIColor.blackColor()
         let contentBackgroundColor = UIColor.darkGrayColor()
+        let tabSelectColor = UIColor.whiteColor()
+        let tabDeselectColor = UIColor.darkGrayColor()
+        
         self.backgroundColor = UIColor.clearColor()
         tab1.backgroundColor = labelColor
         tab2.backgroundColor = labelColor
         tab3.backgroundColor = labelColor
         tab4.backgroundColor = labelColor
+        
+        tab1.setTitleColor(tabDeselectColor, forState: UIControlState.Normal)
+        tab2.setTitleColor(tabDeselectColor, forState: UIControlState.Normal)
+        tab3.setTitleColor(tabDeselectColor, forState: UIControlState.Normal)
+        tab4.setTitleColor(tabDeselectColor, forState: UIControlState.Normal)
+        
+        tab1.setTitleColor(tabSelectColor, forState: UIControlState.Selected)
+        tab2.setTitleColor(tabSelectColor, forState: UIControlState.Selected)
+        tab3.setTitleColor(tabSelectColor, forState: UIControlState.Selected)
+        tab4.setTitleColor(tabSelectColor, forState: UIControlState.Selected)
+        
+        tabHighlighter.backgroundColor = tabSelectColor
         
         self.tabCont.view.backgroundColor = UIColor.whiteColor()
         descriptionCont.view.backgroundColor = contentBackgroundColor
@@ -106,7 +125,7 @@ class BarDetailViewMainCell: UITableViewCell {
         self.addSubview(tab3)
         self.addSubview(tab4)
         self.addSubview(tabCont.view)
-        
+        self.addSubview(tabHighlighter)
         self.tabCont.addChildViewController(self.descriptionCont)
         self.tabCont.addChildViewController(self.reviewCont)
         self.tabCont.addChildViewController(self.locationCont)
@@ -128,6 +147,8 @@ class BarDetailViewMainCell: UITableViewCell {
     {
         print(sender.tag)
         tabCont.selectedIndex = sender.tag
+        let button = sender as! UIButton
+        button.selected = true
     }
     
     func InjectData(bar:Bar)
