@@ -16,8 +16,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     var tableView = UITableView()
     var mainBarDetailViewCell:BarDetailViewMainCell?
     
-    //runtime object variables
-    var thisBar = Bar()
     
     //view controllers
     var galleryCont = GalleryViewController.singleton
@@ -31,8 +29,39 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         Initialze()
     }
 
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        //reset layouts
+        self.barIcon.alpha = 1
+        let bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height);
+        self.tableView.setContentOffset(bottomOffset, animated: true)
+        
+        //start loading data from url
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+//            BarManager.singleton.LoadNonImageDetailBarData(
+//            {()-> Void in
+//                
+//                //update UI
+//                //INCOMPLETE**************************************************************************************************
+//
+//                //done loading -> begin loading image data
+//                BarManager.singleton.LoadGalleryImageData(
+//                {()->Void in
+//                    
+//                            
+//                })
+//                    
+//            })
+        }
+        
 
-
+        
+        mainBarDetailViewCell?.CellWillAppear()
+        
+        // outdated: galleryCont.Load()
+    }
 
     func Initialze()
     {
@@ -44,10 +73,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
             //initialize controllers
             self.galleryCont.Initialize()
-
-            
-            
-            
             
             
             
@@ -58,8 +83,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.tableView = UITableView.init(frame: CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), Sizing.ScreenHeight() - navBarHeight - 49))
             self.barIcon = UIImageView.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth))
             self.galleryCont.view.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
-            
-            
             
             
             self.tableView.backgroundColor = UIColor.clearColor()
@@ -75,30 +98,13 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.tableView.dataSource = self
             self.tableView.delegate = self
             self.view.backgroundColor = UIColor.blackColor()
-        })
-    }
-
-    override func viewWillAppear(animated: Bool) {
         
-        self.barIcon.alpha = 1
-        let bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height);
-        self.tableView.setContentOffset(bottomOffset, animated: true)
 
-    }
-    func ToPresent(bar:Bar)
-    {
-        //this is side queue
-        self.thisBar = bar
-        self.galleryCont.thisBar = bar
-        self.galleryCont.Load()
-        dispatch_async(dispatch_get_main_queue(), {
-            self.UpdateDisplays()
-        
-            //reset displays in all controllers nested in detail cell
             
-
         })
     }
+
+
     //============================================================================
     //                                 update gallery, bar icon, tabs
     //============================================================================
@@ -111,7 +117,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     
     func UpdateBarIcon()
     {
-        self.barIcon.image = thisBar.icon
+        barIcon.image = BarManager.singleton.displayedDetailBar.icon
     }
     
     func UpdateGallery()
@@ -219,7 +225,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y > 0
         {
-            if  scrollView.contentOffset.y < Sizing.HundredRelativeHeightPts()/2
+            if  scrollView.contentOffset.y < Sizing.HundredRelativeHeightPts()*0.2
             {
                 scrollView.setContentOffset(CGPointMake(0,0), animated: true)
 
@@ -230,6 +236,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             }
         }
     }
+    
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
         let y = -scrollView.contentOffset.y;
@@ -238,6 +246,41 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
             galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
 
+        }
+        
+        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        if(x < 0)
+        {
+            barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+            
+        }
+    }
+
+
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        let y = -scrollView.contentOffset.y;
+        if (y>0)
+        {
+            galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
+            galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+            
+        }
+        
+        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        if(x < 0)
+        {
+            barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+            
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        let y = -scrollView.contentOffset.y;
+        if (y>0)
+        {
+            galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
+            galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+            
         }
         
         let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()

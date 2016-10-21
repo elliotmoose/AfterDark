@@ -14,7 +14,6 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     
     var pages = [GalleryPageViewController]()
     var images = [UIImage]()
-    var thisBar = Bar()
     var currentPage : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +63,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
 
 //        
         //get number of pages
-        let thisBarFormatName = thisBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        let thisBarFormatName = ""//BarManager.singleton.selectedBarForDetailView!.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
         let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_Name=\(thisBarFormatName)"
         Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
             let numberOfPages = Int(output!)

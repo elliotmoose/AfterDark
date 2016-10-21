@@ -60,8 +60,9 @@ class BarDetailViewMainCell: UITableViewCell {
 
     func Initialize()
     {
-        self.descriptionCont = DescriptionViewController.init(nibName: "DescriptionViewController", bundle: NSBundle.mainBundle())
-        
+        self.descriptionCont = DescriptionViewController.init(nibName: nil, bundle: nil)
+        self.descriptionCont.view = UIView(frame: .zero)
+        self.descriptionCont.Initialize()
         
         
 

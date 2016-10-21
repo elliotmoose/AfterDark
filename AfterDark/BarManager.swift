@@ -3,7 +3,7 @@ import UIKit
 protocol BarManagerDelegate :class
 {
     func UpdateBarListTableDisplay()
-    func UpdateBarCellDisplayAtIndex(indexPath: NSIndexPath)
+    func UpdateCellForBar(bar : Bar)
     
 }
 
@@ -13,7 +13,6 @@ class BarManager: NSObject
     //constants
     let urlAllBarNames = "http://mooselliot.net23.net/GetAllBarNames.php"
     let urlBarIconImage = "http://mooselliot.net23.net/GetBarIconImage.php"
-    //let urlAllBarNames = "https://afterdark/GetAllBarNames.php"
     
     
     
@@ -21,179 +20,196 @@ class BarManager: NSObject
     var mainBarList: [Bar] = []
     var displayBarList: [[Bar]] = [[]]
     var barListIcons: [NSDictionary] = []
-    
+    var displayedDetailBar = Bar()
     weak var delegate:BarManagerDelegate?
     
     //methods
     private override init()
     {
-        
+        displayedDetailBar.name = "display Bar"
+        displayedDetailBar.description = "description"
     }
     
-    
-    func LoadGenericBarData()
+    func DisplayBarDetails(bar : Bar)
+    {
+        //passing by value
+//        displayedDetailBar.name = bar.name
+//        displayedDetailBar.icon = bar.icon
+//        displayedDetailBar.description = bar.description
+//        displayedDetailBar.Images = bar.Images
+//        displayedDetailBar.rating = bar.rating
+//        displayedDetailBar.loc_lat = bar.loc_lat
+//        displayedDetailBar.loc_long = bar.loc_long
+        //passing by reference
+        displayedDetailBar = bar
+    }
+    func LoadGenericBarData(handler: ()-> Void)//consits of 2 key details: name, ratings , however, we do not wanna overwrite already loaded details (e.g. icon,description)
     {
         //Load All Bar Names
-        Network.singleton.DataFromUrl(urlAllBarNames,handler: {(success,output1) -> Void in
-            //format data for use
-            if let output1 = output1
-            {
-                self.HandleGetBarListData(output1)
-            }
+        Network.singleton.DataFromUrl(urlAllBarNames,handler: {(success,output) -> Void in
             if success == true
             {
+                if let output = output
+                {
+                    let tempMainBarList = self.BarListGenericDataToArray(output)
+                    
+                    //If list has never been loaded
+                    if self.mainBarList.count == 0
+                    {
+                        self.mainBarList = tempMainBarList
+                    }
+                    else
+                    {
+                        let cache = self.mainBarList
+                        var allOldBarNames = [String]()
+                        for oldBar in cache
+                        {
+                            allOldBarNames.append(oldBar.name)
+                        }
+                        
+                        self.mainBarList = tempMainBarList
+                        for newBar in self.mainBarList
+                        {
+                            let indexInCache = allOldBarNames.indexOf(newBar.name)
+                            let oldBar = cache[indexInCache!]
+                            
+                            if oldBar.icon != nil
+                            {
+                                newBar.icon = oldBar.icon
+                            }
+                            
+                            if oldBar.Images.count != 0
+                            {
+                                newBar.Images = oldBar.Images
+                            }
+                        }
+                        
+                        
+                    }
+                }
+                
                 //callback to update UI before continue loading images
                 self.delegate?.UpdateBarListTableDisplay()
                 
-                //Load BarIcon from index 0
-                self.LoadBarIconRecurring(0)
+                self.LoadAllBarIcons()
             }
-            
+            handler()
         });
     }
     
     
-    
-    
-    //this is a recurring function to load all bars in order
-    func LoadBarIconRecurring(curIndex: Int)
+    func LoadAllNonImageDetailBarData(handler: () -> Void)
     {
-        
-        
-        
-        //get non-nested index
-        var indexPath = NSIndexPath(forRow: curIndex, inSection: 0)
-        while indexPath.row > displayBarList[indexPath.section].count
+        for bar in mainBarList
         {
-            //+1 to section to move loop forward, change row to get closer to non-nested index
-            indexPath = NSIndexPath(forRow: indexPath.row - displayBarList[indexPath.section].count, inSection: indexPath.section + 1)
-            
-            if indexPath.section > displayBarList.count{
-                break
-            }
-            continue
-        }
-        
-        let thisSection = displayBarList[indexPath.section]
-        let thisBar = thisSection[indexPath.row]
-        
-        //if bar has icon already then skip
-        if thisBar.icon != nil
-        {
-            print("bar has loaded icon, skipping this load")
-            let limit = self.mainBarList.count - 1
-            if curIndex < limit
-            {
-                self.LoadBarIconRecurring((curIndex+1))
-            }
-            return
-        }
-        
-        //prep bar request url
-        let barNameForUrl = thisBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-        let requestUrl = "http://mooselliot.net23.net/GetBarIconImage.php?Bar_Name=\(barNameForUrl)"
-        //load from url
-        Network.singleton.DataFromUrl(requestUrl,handler:{(success,data) -> Void in
-            if let data = data
-            {
-                if success == true
+            let thisBarFormattedName = bar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+            let urlNonImageBarInfo = "http://mooselliot.net23.net/GetBarNonImageInfo.php?Bar_Name=\(thisBarFormattedName)"
+            Network.singleton.DataFromUrl(urlNonImageBarInfo, handler: {(success,output) -> Void in
+                if success
                 {
-                    
-                    let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
-                    
-                    let dict = retrievedArray[0] as! NSDictionary
-                    if dict["Bar_Name"] as! String == thisBar.name
+                    if let output = output
                     {
+                        let dict = self.JsonDataToDictArray(output.mutableCopy() as! NSMutableData)[0]
+                        bar.description = dict["Bar_Description"] as! String
                         
-                        let imageString =  dict["Bar_Icon"] as? String
-                        if let imageString = imageString
-                        {
-                            let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                            
-                            //==================
-                            //  icon injection
-                            //==================
-                            thisBar.icon = UIImage(data: dataDecoded)
-                            
-                        }
-                        
-                        
-                        //update UI
-                        self.delegate?.UpdateBarCellDisplayAtIndex(indexPath)
-                        
-                        
+                        handler()
                     }
-                    else
-                    {
-                        print("Bar has no image")
-                    }
-                    
                 }
-                
-                
-                
-            }
-            
-            let limit = self.mainBarList.count - 1
-            if curIndex < limit
-            {
-                self.LoadBarIconRecurring((curIndex+1))
-            }
-            
-            
-            
-        })
+            })
+        }
+
+    }
+    
+    func LoadGalleryImageData(handler: () -> Void)
+    {
         
     }
     
     
+    func LoadAllBarIcons()
+    {
+        for bar in mainBarList
+        {
+            if bar.icon == nil
+            {
+                let barNameForUrl = bar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+                let requestUrl = "http://mooselliot.net23.net/GetBarIconImage.php?Bar_Name=\(barNameForUrl)"
+                Network.singleton.StringFromUrl(requestUrl, handler: {(success,output)-> Void in
+                    
+                    if success
+                    {
+                        if let output = output
+                        {
+                            let imageString = output
+                            let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                            bar.icon = UIImage(data: dataDecoded)
+
+                            //update UI for that bar
+                            //INCOMPLETE**************************************************************************************************
+
+                            self.delegate?.UpdateCellForBar(bar)
+                        }
+                    }
+                    
+                    })
+            }
+        }
+    }
     //different data handlers
-    func HandleGetBarListData(data:NSData)
+    func BarListGenericDataToArray(data:NSData) -> [Bar]
     {
         
         
         let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
-        
-        //reset output
-        self.mainBarList.removeAll()
+        var tempBarList = [Bar]()
         for index in 0...(retrievedArray.count - 1)
         {
             let dict = retrievedArray[index] as! NSDictionary
-            self.mainBarList.append(self.NewBarFromDict(dict))
+            tempBarList.append(self.NewBarFromDict(dict))
         }
+        
+        return tempBarList
     }
     
-    func HandleGetAllBarIcons(data:NSData)
-    {
-        let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
-        
-        //reset output
-        self.barListIcons.removeAll()
-        for index in 0...(retrievedArray.count - 1)
-        {
-            let barDict = retrievedArray[index] as! NSDictionary
-            self.barListIcons.append(barDict)
-        }
-        
-        //inject icons into data array
-        for index in 0...(mainBarList.count-1)
-        {
-            let thisBar = mainBarList[index]
-            for i in 0...(barListIcons.count-1)
-            {
-                if barListIcons[i].valueForKey("Bar_Name") as? String == thisBar.name
-                {
-                    let base64Image = barListIcons[i].valueForKey("Bar_Icon") as? String
-                    if let base64Image = base64Image
-                    {
-                        let dataDecoded:NSData = NSData(base64EncodedString: base64Image, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                        thisBar.icon = UIImage(data: dataDecoded)
-                    }
-                    
-                }
-            }
-        }
-    }
+//    func BarIconsDataToArray(data:NSData) ->
+//    {
+//        let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
+//
+//        var dictArray = [NSDictionary]()
+//        for index in 0...(retrievedArray.count - 1)
+//        {
+//            let barDict = retrievedArray[index] as! NSDictionary
+//            dictArray.append(barDict)
+//        }
+//        
+//        //inject icons into data array
+//        for index in 0...(mainBarList.count-1)
+//        {
+//            let thisBar = mainBarList[index]
+//            for i in 0...(barListIcons.count-1)
+//            {
+//                if barListIcons[i].valueForKey("Bar_Name") as? String == thisBar.name
+//                {
+//                    let base64Image = barListIcons[i].valueForKey("Bar_Icon") as? String
+//                    if let base64Image = base64Image
+//                    {
+//                        let dataDecoded:NSData = NSData(base64EncodedString: base64Image, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+//                        thisBar.icon = UIImage(data: dataDecoded)
+//                    }
+//                    
+//                }
+//            }
+//        }
+//    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func NewBarFromDict(dict: NSDictionary) ->Bar
     {
@@ -307,6 +323,29 @@ class BarManager: NSObject
         
         return output
         
+    }
+    
+    func JsonDataToDictArray(data: NSMutableData) -> [NSDictionary]
+    {
+        var output = [NSDictionary]()
+        var tempArr: NSMutableArray = NSMutableArray()
+        
+        do{
+            
+            tempArr = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments) as! NSMutableArray
+            
+            for index in 0...(tempArr.count - 1)
+            {
+                let dict = tempArr[index] as! NSDictionary
+                output.append(dict)
+            }
+            
+        } catch let error as NSError {
+            print(error)
+            
+        }
+        
+        return output
     }
     
 }

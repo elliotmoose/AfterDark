@@ -13,6 +13,8 @@ import UIKit
 class BarListTableViewController: UITableViewController,BarManagerDelegate {
     
     var barDisplayMode: DisplayBarListMode = .alphabetical
+    var activityIndicator : UIActivityIndicatorView?
+    var refreshButton : UIBarButtonItem?
     //on load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +22,25 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
         Initialize()
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+
+
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
+            })
+
             //init other views as this is the first up
-            BarManager.singleton.LoadGenericBarData()
+            BarManager.singleton.LoadGenericBarData({()->Void in
+                
+                BarManager.singleton.LoadAllNonImageDetailBarData({()->Void in
+                
+                })
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.navigationItem.rightBarButtonItem = self.refreshButton
+                })
+
+            })
 
         }
 
@@ -44,6 +63,17 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
     
     func Initialize()
     {
+        //ui init
+        dispatch_async(dispatch_get_main_queue()) {
+            //set refresh button
+            self.activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,20,20))
+            self.activityIndicator?.color = UIColor.grayColor()
+            self.activityIndicator?.startAnimating()
+            self.refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+            self.navigationItem.rightBarButtonItem = self.refreshButton
+            
+        }
+        
         //non ui init
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
         
@@ -52,16 +82,11 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
             
             //set self as bar manager delegate
             BarManager.singleton.delegate = self
+            
         
         }
         
-        //ui init
-        dispatch_async(dispatch_get_main_queue()) {
-            //set refresh button
-            let refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
-            self.navigationItem.rightBarButtonItem = refreshButton
-        
-        }
+
 
 
     }
@@ -77,21 +102,42 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
         self.ReloadTable()
     }
     
-    func UpdateBarCellDisplayAtIndex(indexPath: NSIndexPath)
+    
+    func UpdateCellForBar(bar : Bar)
     {
-        
-        dispatch_async(dispatch_get_main_queue()) {
-        let indexPaths = [indexPath]
-        self.tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
-            
-            //********
-            //check if this bar updating is being viewed in detail view
-            let updatedBarForCell = BarManager.singleton.displayBarList[indexPath.section][indexPath.row]
-            if  updatedBarForCell === BarDetailTableViewController.singleton.thisBar
+        //get bar indexPath in display Bar List
+        var indexPath: NSIndexPath?
+        for sectionIndex in 0...BarManager.singleton.displayBarList.count-1
+        {
+            let section = BarManager.singleton.displayBarList[sectionIndex]
+            for rowIndex in 0...section.count-1
             {
-                BarDetailTableViewController.singleton.UpdateBarIcon()
+                let barx = section[rowIndex]
+                if bar.name == barx.name
+                {
+                    indexPath = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+                }
             }
         }
+        
+        if let indexPath = indexPath
+        {
+            //update that index path
+            dispatch_async(dispatch_get_main_queue()) {
+                let indexPaths = [indexPath]
+                self.tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+                
+                //check if its being viewed
+                if BarManager.singleton.displayedDetailBar.name == bar.name
+                {
+                    //update that viewed details icon
+                    BarDetailTableViewController.singleton.UpdateBarIcon()
+
+                }
+            }
+        }
+
+
     }
     
     func ReloadTable()
@@ -148,16 +194,29 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
             
             
             //prep for display
-            BarDetailTableViewController.singleton.ToPresent(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
+            BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
+            BarDetailTableViewController.singleton.UpdateDisplays()
             self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
-            BarDetailTableViewController.singleton.mainBarDetailViewCell?.CellWillAppear()
         }
 
     }
 
     func refresh()
     {
-        BarManager.singleton.LoadGenericBarData()
+
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
+        })
+        
+        //init other views as this is the first up
+        BarManager.singleton.LoadGenericBarData({()->Void in
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.navigationItem.rightBarButtonItem = self.refreshButton
+            })
+            
+        })
     }
 }
 

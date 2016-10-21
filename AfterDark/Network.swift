@@ -8,9 +8,7 @@ class Network {
 
     init()
     {
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        config.timeoutIntervalForRequest = 15
-        session = NSURLSession(configuration: config)
+        session = NSURLSession.sharedSession()
     }
 
     //Load Method
@@ -66,15 +64,11 @@ func DataFromUrlWithPost(inputUrl: String, postParam: String,handler: (success:B
         
         let url = NSURL(string: inputUrl)!
 
-let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-config.timeoutIntervalForRequest = 15
-        let newSession = NSURLSession(configuration:config)
-
 let request = NSMutableURLRequest(URL: url)
 request.HTTPMethod = "POST"
 request.HTTPBody = postParam.dataUsingEncoding(NSUTF8StringEncoding)
 
-        let task = newSession.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
             
             if let error = error
             {

@@ -24,13 +24,12 @@
 		98F3E4BF1DB001CE000EAF08 /* BarListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4BE1DB001CE000EAF08 /* BarListTableViewController.swift */; };
 		98FD6FF01DB7C91B00688514 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD6FEF1DB7C91B00688514 /* GalleryViewController.swift */; };
 		98FD6FF71DB8716300688514 /* TransparentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD6FF61DB8716300688514 /* TransparentView.swift */; };
-		98FD6FFA1DB89DAB00688514 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD6FF81DB89DAB00688514 /* DescriptionViewController.swift */; };
-		98FD6FFB1DB89DAB00688514 /* DescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FD6FF91DB89DAB00688514 /* DescriptionViewController.xib */; };
 		98FD6FFD1DB89E0C00688514 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD6FFC1DB89E0C00688514 /* ReviewsViewController.swift */; };
 		98FD70001DB89E3F00688514 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD6FFE1DB89E3F00688514 /* LocationViewController.swift */; };
 		98FD70011DB89E3F00688514 /* LocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FD6FFF1DB89E3F00688514 /* LocationViewController.xib */; };
 		98FD70041DB89EA900688514 /* DiscountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD70021DB89EA900688514 /* DiscountViewController.swift */; };
 		98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FD70031DB89EA900688514 /* DiscountViewController.xib */; };
+		98FD70081DB8EE6200688514 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD70061DB8EE6200688514 /* DescriptionViewController.swift */; };
 		DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = IZK3WM8ZNCS26ZQDKHX3VXX3 /* Bar.swift */; };
 		GALD5LG20WJ7W6ECBYHH54UL /* Sizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */; };
 		H76WSUQ9WFAYGEXHYPUR7S5W /* customEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47T2SPZETLOZ1M46F152NDT /* customEnums.swift */; };
@@ -80,13 +79,12 @@
 		98F3E4BE1DB001CE000EAF08 /* BarListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarListTableViewController.swift; path = ../BarListTableViewController.swift; sourceTree = "<group>"; };
 		98FD6FEF1DB7C91B00688514 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		98FD6FF61DB8716300688514 /* TransparentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransparentView.swift; sourceTree = "<group>"; };
-		98FD6FF81DB89DAB00688514 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
-		98FD6FF91DB89DAB00688514 /* DescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionViewController.xib; sourceTree = "<group>"; };
 		98FD6FFC1DB89E0C00688514 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		98FD6FFE1DB89E3F00688514 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		98FD6FFF1DB89E3F00688514 /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
 		98FD70021DB89EA900688514 /* DiscountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountViewController.swift; sourceTree = "<group>"; };
 		98FD70031DB89EA900688514 /* DiscountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountViewController.xib; sourceTree = "<group>"; };
+		98FD70061DB8EE6200688514 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionViewController.swift; path = ../DescriptionViewController.swift; sourceTree = "<group>"; };
 		ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F47T2SPZETLOZ1M46F152NDT /* customEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customEnums.swift; sourceTree = "<group>"; };
 		GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizing.swift; sourceTree = "<group>"; };
@@ -147,10 +145,10 @@
 				98F3E4901DB0009B000EAF08 /* FirstViewController.swift */,
 				98F3E4921DB0009B000EAF08 /* SecondViewController.swift */,
 				98FD6FF31DB7C97700688514 /* Objects */,
-				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
 				98FD6FF11DB7C93900688514 /* Bar LIst View */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
+				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
 				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
 				98F3E49C1DB0009B000EAF08 /* Info.plist */,
@@ -193,13 +191,12 @@
 			isa = PBXGroup;
 			children = (
 				982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */,
+				98FD70061DB8EE6200688514 /* DescriptionViewController.swift */,
 				98FD6FFC1DB89E0C00688514 /* ReviewsViewController.swift */,
 				98FD6FFE1DB89E3F00688514 /* LocationViewController.swift */,
 				98FD6FFF1DB89E3F00688514 /* LocationViewController.xib */,
 				98FD70021DB89EA900688514 /* DiscountViewController.swift */,
 				98FD70031DB89EA900688514 /* DiscountViewController.xib */,
-				98FD6FF81DB89DAB00688514 /* DescriptionViewController.swift */,
-				98FD6FF91DB89DAB00688514 /* DescriptionViewController.xib */,
 				98FD6FF61DB8716300688514 /* TransparentView.swift */,
 				98FD6FEF1DB7C91B00688514 /* GalleryViewController.swift */,
 				988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */,
@@ -326,7 +323,6 @@
 				98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */,
 				982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */,
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
-				98FD6FFB1DB89DAB00688514 /* DescriptionViewController.xib in Resources */,
 				98F3E4981DB0009B000EAF08 /* Assets.xcassets in Resources */,
 				98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */,
 				98FD70011DB89E3F00688514 /* LocationViewController.xib in Resources */,
@@ -355,7 +351,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */,
-				98FD6FFA1DB89DAB00688514 /* DescriptionViewController.swift in Sources */,
 				982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */,
 				98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */,
 				98FD6FFD1DB89E0C00688514 /* ReviewsViewController.swift in Sources */,
@@ -373,6 +368,7 @@
 				K6IWCJC2V8NIJ9770XXEEKN7 /* Network.swift in Sources */,
 				98FD6FF01DB7C91B00688514 /* GalleryViewController.swift in Sources */,
 				1UJLM29NSA57LFXJVDRWQGEL /* Settings.swift in Sources */,
+				98FD70081DB8EE6200688514 /* DescriptionViewController.swift in Sources */,
 				MCV6WOTPLRBT1N09Y1PWTQCF /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
