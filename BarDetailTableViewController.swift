@@ -37,7 +37,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateBarIcon()
 
         mainBarDetailViewCell?.CellWillAppear()
-        // outdated: galleryCont.Load()
+        self.galleryCont.Load()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -72,11 +72,11 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.galleryCont.Initialize()
             
             self.tableView.backgroundColor = UIColor.clearColor()
-            self.barIcon.backgroundColor = UIColor.lightGrayColor()
+            self.barIcon.backgroundColor = UIColor.blackColor()
             self.barIconButton.backgroundColor = UIColor.clearColor()
             self.galleryCont.view.backgroundColor = UIColor.magentaColor()
             
-            self.barIcon.
+            self.barIcon.contentMode = UIViewContentMode.ScaleAspectFit
             self.barIcon.layer.cornerRadius = barIconWidth/2
             self.barIcon.layer.masksToBounds = true
             self.barIconButton.layer.cornerRadius = barIconWidth/2
@@ -99,6 +99,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.barIconButton.addTarget(self, action: "BarIconTapped", forControlEvents: UIControlEvents.TouchUpInside)
             //0 means not zoomed in
             self.barIconButton.tag = 0
+            
             
         })
     }
@@ -200,7 +201,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         
         if section == 0
         {
-            let header = TransparentView()
+            let header = TransparentView(frame: CGRectMake(0,0,Sizing.ScreenWidth(),maxGalleryHeight))
             header.pageView = self.galleryCont
             return header
 
@@ -242,12 +243,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         {
             
             barIcon.layer.cornerRadius = 0
-            UIView.animateWithDuration(0.4, animations: {
+            UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                 self.barIcon.frame = CGRectMake(0, 0, Sizing.ScreenWidth(), Sizing.ScreenHeight())
                 self.navigationController?.navigationBarHidden = true
                 self.tabBarController?.tabBar.hidden = true
 
-            })
+            }, completion: nil)
             self.barIconButton.frame = self.barIcon.frame
             
             barIconButton.tag = 1
@@ -256,13 +257,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         else
         {            let navBarHeight = self.navigationController!.navigationBar.frame.size.height
             let barIconWidth = self.minGalleryHeight/2
-            UIView.animateWithDuration(0.4, animations: {
+            UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                 self.barIcon.frame = CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth)
                 self.barIcon.layer.cornerRadius = barIconWidth/2
-
+                
                 self.navigationController?.navigationBarHidden = false
                 self.tabBarController?.tabBar.hidden = false
-            })
+                }, completion: nil)
+            
+
 
             
 
@@ -305,7 +308,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         if(x < 0)
         {
             barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
-            
+            barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
         }
     }
 
@@ -323,7 +326,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         if(x < 0)
         {
             barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
-            
+            barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
         }
     }
     
@@ -340,7 +343,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         if(x < 0)
         {
             barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
-            
+            barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
         }
     }
 

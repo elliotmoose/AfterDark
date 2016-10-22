@@ -8,12 +8,12 @@
 
 import UIKit
 
-class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIPageViewControllerDelegate {
+class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIPageViewControllerDelegate,UIGestureRecognizerDelegate {
     static let singleton = GalleryViewController()
     var pageViewController = UIPageViewController()
-    
-    var pages = [UIImage]()
-    var allPageViewControllers = [ContentViewController]()
+    var pages = [ContentViewController]()
+    var images = [UIImage]()
+    var currentPageIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,13 +30,6 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     func Initialize()
     {
 
-
-        for _ in 0...5
-        {
-            let image = UIImage()
-            pages.append(image)
-            
-        }
        
         
         self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
@@ -44,8 +37,8 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
 
 
         let initialViewCont  = viewControllerAtIndex(0)
-        allPageViewControllers.append(initialViewCont)
-        self.pageViewController.setViewControllers(allPageViewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        pages.append(initialViewCont)
+        self.pageViewController.setViewControllers(pages, direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         
         
         let pc = UIPageControl.appearance()
@@ -66,67 +59,61 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         self.view.addSubview(self.pageViewController.view)
     }
     
-//    func Load()
-//    {
-//
-////        
-//        //get number of pages
-//        let thisBarFormatName = ""//BarManager.singleton.selectedBarForDetailView!.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-//        let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_Name=\(thisBarFormatName)"
-//        Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
-//            let numberOfPages = Int(output!)
-//
-//            if let numberOfPages = numberOfPages
-//            {
-//                //reset pages
-//                self.pages.removeAll()
-//                
-//                for index in 0...numberOfPages {
-//                    //for each page here, create a view controller
-//                    let pageCont = GalleryPageViewController(frame: self.view.frame)
-//                    
-//                    //test
-//                    if index == 1
-//                    {
-//                        pageCont.view.backgroundColor = UIColor.whiteColor()
-//                    }
-//                    
-//                    self.pages.append(pageCont)
-//                    
-////                    
-////                    let thisBarFormatName = self.thisBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-////                    let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_Name=\(thisBarFormatName)&Image_Index=\(index)"
-////                    Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler: {(success,output)->Void in
-////                        if let output = output
-////                        {
-////                            if success == true
-////                            {
-////                                let imageString = output
-////                                let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-////                                let imageView = UIImageView(image: UIImage(data: dataDecoded))
-////                                imageView.frame = self.view.frame
-////                                imageView.contentMode = .ScaleAspectFit
-////                                self.pages[index] = imageView
-////                                self.pageViewController.view.addSubview(imageView)
-////                            }
-////                            
-////                            
-////                            
-////                        }
-////                        
-////                    })
-//                }
-//                
-//
-//            }
-//            
-//            //**********************
-//            //  no of pages loaded
-//            //*********************
-//            
-//
-//        })
-//    }
+    func Load()
+    {
+
+//        
+        //get number of pages
+        let thisBarFormatName = BarManager.singleton.displayedDetailBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_Name=\(thisBarFormatName)"
+        Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
+            let numberOfPages = Int(output!)
+
+            if let numberOfPages = numberOfPages
+            {
+                //reset pages
+                self.pages.removeAll()
+                
+                for index in 0...numberOfPages {
+                    //for each page here, create a view controller
+                    let pageCont = ContentViewController(frame: self.view.frame)
+                    pageCont.pageIndex = index
+                    self.pages.append(pageCont)
+                    
+                    
+                    let thisBarFormatName = BarManager.singleton.displayedDetailBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+                    let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_Name=\(thisBarFormatName)&Image_Index=\(index)"
+                    Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler: {(success,output)->Void in
+                        if let output = output
+                        {
+                            if success == true
+                            {
+                                let imageString = output
+                                let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                                let image = UIImage(data: dataDecoded)
+                                self.pages[index].imageView.image = image
+                            }
+                            
+                            
+                            
+                        }
+                        
+                    })
+                }
+                
+                //update page control display
+                self.pageViewController.setViewControllers([self.pages[0]], direction: .Forward, animated: false, completion: nil)
+
+
+            }
+            
+            //**********************
+            //  no of pages loaded
+            //*********************
+            
+
+        })
+    }
 
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
     {
@@ -163,20 +150,44 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
+        return currentPageIndex
     }
     
     func viewControllerAtIndex(index: Int) ->ContentViewController {
         if (self.pages.count == 0) || (index >= self.pages.count) {
-            return ContentViewController()
+            return ContentViewController(frame: self.view.frame)
         }
         
-        let vc = ContentViewController()
+        let vc = pages[index]
         vc.pageIndex = index
-        vc.view.backgroundColor = UIColor.blackColor()
         return vc
     }
 
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+    }
+    func changePage(direction : Int)
+    {
+        if direction == 0 //right swipe
+        {
+            if currentPageIndex > 0 && pages.count != 0
+            {
+                currentPageIndex = currentPageIndex - 1
+                pageViewController.setViewControllers([pages[currentPageIndex]], direction: .Reverse, animated: true, completion: nil)
+            }
+
+        }
+        else
+        {
+            if currentPageIndex < pages.count - 1
+            {
+                currentPageIndex = currentPageIndex + 1
+                pageViewController.setViewControllers([pages[currentPageIndex]], direction: .Forward, animated: true, completion: nil)
+            }
+            
+
+        }
+    }
 }
 
 //class GalleryPageViewController: UIViewController
@@ -200,36 +211,27 @@ class ContentViewController: UIViewController
 {
     var pageIndex: Int = -1
     var thisBar = Bar()
+    var imageView = UIImageView()
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        if pageIndex > -1
-        {
-            let thisBarFormatName = thisBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-            let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_Name=\(thisBarFormatName)&Image_Index=\(pageIndex)"
-            Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler: {(success,output)->Void in
-                if let output = output
-                {
-                    if success == true
-                    {
-                        let imageString = output
-                        let dataDecoded:NSData? = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
-                        if let dataDecoded = dataDecoded
-                        {
-                            let imageView = UIImageView(image: UIImage(data: dataDecoded))
-                            imageView.contentMode = .ScaleAspectFit
-                            self.view.addSubview(imageView)
-                        }
+        
 
-                    }
-                    
-                    
-                    
-                }
-
-            })
-        }
 
         
+    }
+    
+    
+    init(frame: CGRect)
+    {
+        super.init(nibName: nil, bundle: nil)
+        self.view = UIView(frame: frame)
+        imageView = UIImageView(frame: frame)
+        imageView.contentMode = .ScaleAspectFit
+        self.view.addSubview(imageView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
