@@ -1,12 +1,20 @@
 import Foundation
 import UIKit
-protocol BarManagerDelegate :class
+protocol BarManagerToListTableDelegate :class
 {
     func UpdateBarListTableDisplay()
     func UpdateCellForBar(bar : Bar)
+
+
+
+}
+protocol BarManagerToDetailTableDelegate :class
+{
+
+    func UpdateDescriptionTab()
+    
     
 }
-
 class BarManager: NSObject
 {
     static let singleton = BarManager()
@@ -21,8 +29,8 @@ class BarManager: NSObject
     var displayBarList: [[Bar]] = [[]]
     var barListIcons: [NSDictionary] = []
     var displayedDetailBar = Bar()
-    weak var delegate:BarManagerDelegate?
-    
+    weak var detailDelegate:BarManagerToDetailTableDelegate?
+    weak var listDelegate :BarManagerToListTableDelegate?
     //methods
     private override init()
     {
@@ -89,7 +97,7 @@ class BarManager: NSObject
                 }
                 
                 //callback to update UI before continue loading images
-                self.delegate?.UpdateBarListTableDisplay()
+                self.listDelegate?.UpdateBarListTableDisplay()
                 
                 self.LoadAllBarIcons()
             }
@@ -111,6 +119,11 @@ class BarManager: NSObject
                     {
                         let dict = self.JsonDataToDictArray(output.mutableCopy() as! NSMutableData)[0]
                         bar.description = dict["Bar_Description"] as! String
+                        
+                        if self.displayedDetailBar.name == bar.name
+                        {
+                            self.detailDelegate?.UpdateDescriptionTab()
+                        }
                         
                         handler()
                     }
@@ -145,9 +158,8 @@ class BarManager: NSObject
                             bar.icon = UIImage(data: dataDecoded)
 
                             //update UI for that bar
-                            //INCOMPLETE**************************************************************************************************
 
-                            self.delegate?.UpdateCellForBar(bar)
+                            self.listDelegate?.UpdateCellForBar(bar)
                         }
                     }
                     

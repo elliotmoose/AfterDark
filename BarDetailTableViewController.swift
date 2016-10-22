@@ -8,11 +8,12 @@
 
 import UIKit
 
-class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarManagerToDetailTableDelegate {
     static let singleton = BarDetailTableViewController()
     
     //UI object variables
     var barIcon = UIImageView()
+    var barIconButton = UIButton()
     var tableView = UITableView()
     var mainBarDetailViewCell:BarDetailViewMainCell?
     
@@ -32,37 +33,20 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     
     override func viewWillAppear(animated: Bool) {
         
+
+        self.UpdateBarIcon()
+
+        mainBarDetailViewCell?.CellWillAppear()
+        // outdated: galleryCont.Load()
+    }
+
+    override func viewDidAppear(animated: Bool) {
         //reset layouts
         self.barIcon.alpha = 1
         let bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height);
         self.tableView.setContentOffset(bottomOffset, animated: true)
-        
-        //start loading data from url
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            
-//            BarManager.singleton.LoadNonImageDetailBarData(
-//            {()-> Void in
-//                
-//                //update UI
-//                //INCOMPLETE**************************************************************************************************
-//
-//                //done loading -> begin loading image data
-//                BarManager.singleton.LoadGalleryImageData(
-//                {()->Void in
-//                    
-//                            
-//                })
-//                    
-//            })
-        }
-        
-
-        
-        mainBarDetailViewCell?.CellWillAppear()
-        
-        // outdated: galleryCont.Load()
+        self.UpdateBarIcon()
     }
-
     func Initialze()
     {
 
@@ -72,7 +56,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.tableView.registerNib(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
             
             //initialize controllers
-            self.galleryCont.Initialize()
+
             
             
             
@@ -82,24 +66,39 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
             self.tableView = UITableView.init(frame: CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), Sizing.ScreenHeight() - navBarHeight - 49))
             self.barIcon = UIImageView.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth))
+            self.barIconButton = UIButton.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth))
+            //must set frame first
             self.galleryCont.view.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
-            
+            self.galleryCont.Initialize()
             
             self.tableView.backgroundColor = UIColor.clearColor()
             self.barIcon.backgroundColor = UIColor.lightGrayColor()
+            self.barIconButton.backgroundColor = UIColor.clearColor()
             self.galleryCont.view.backgroundColor = UIColor.magentaColor()
             
+            self.barIcon.
             self.barIcon.layer.cornerRadius = barIconWidth/2
             self.barIcon.layer.masksToBounds = true
+            self.barIconButton.layer.cornerRadius = barIconWidth/2
+            self.barIconButton.layer.masksToBounds = true
             
             self.view.addSubview((self.galleryCont.view))
-            self.view.addSubview(self.barIcon)
+
             self.view.addSubview(self.tableView)
+            self.view.addSubview(self.barIcon)
+            self.view.addSubview(self.barIconButton)
+            
+            self.addChildViewController(self.galleryCont)
+            self.galleryCont.didMoveToParentViewController(self)
+            
+            BarManager.singleton.detailDelegate = self
             self.tableView.dataSource = self
             self.tableView.delegate = self
-            self.view.backgroundColor = UIColor.blackColor()
         
 
+            self.barIconButton.addTarget(self, action: "BarIconTapped", forControlEvents: UIControlEvents.TouchUpInside)
+            //0 means not zoomed in
+            self.barIconButton.tag = 0
             
         })
     }
@@ -127,8 +126,19 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     
     func UpdateTabs()
     {
-        
+        UpdateDescriptionTab()
     }
+    
+    func UpdateDescriptionTab()
+    {
+        //update bar description tab
+        self.mainBarDetailViewCell?.descriptionCont.tableView?.reloadData()
+    }
+    
+    
+    
+    
+    
     // MARK: - Table view data source
 
     //============================================================================
@@ -222,6 +232,49 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height - minGalleryHeight) /*screen height - nav bar height - tab bar height - min gallery height*/
     }
     
+    //============================================================================
+    //                                  Zoom bar icon when tap
+    //============================================================================
+    
+    func BarIconTapped()
+    {
+        if barIconButton.tag == 0
+        {
+            
+            barIcon.layer.cornerRadius = 0
+            UIView.animateWithDuration(0.4, animations: {
+                self.barIcon.frame = CGRectMake(0, 0, Sizing.ScreenWidth(), Sizing.ScreenHeight())
+                self.navigationController?.navigationBarHidden = true
+                self.tabBarController?.tabBar.hidden = true
+
+            })
+            self.barIconButton.frame = self.barIcon.frame
+            
+            barIconButton.tag = 1
+            
+        }
+        else
+        {            let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+            let barIconWidth = self.minGalleryHeight/2
+            UIView.animateWithDuration(0.4, animations: {
+                self.barIcon.frame = CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth)
+                self.barIcon.layer.cornerRadius = barIconWidth/2
+
+                self.navigationController?.navigationBarHidden = false
+                self.tabBarController?.tabBar.hidden = false
+            })
+
+            
+
+            barIconButton.frame = barIcon.frame
+            barIconButton.tag = 0
+        }
+        
+    }
+    
+    //============================================================================
+    //                                  scroll mechanics
+    //============================================================================
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y > 0
         {

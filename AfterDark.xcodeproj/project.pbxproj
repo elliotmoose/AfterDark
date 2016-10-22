@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1UJLM29NSA57LFXJVDRWQGEL /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = Y7QMRMW8N0HNTJBHDMWKAM1F /* Settings.swift */; };
+		980C8A311DBA1CCE00A2EE0F /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */; };
+		980C8A321DBA1CCE00A2EE0F /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */; };
 		982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */; };
 		982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */; };
 		982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */; };
@@ -57,6 +59,8 @@
 
 /* Begin PBXFileReference section */
 		84730GB5UESUEI9EXXK650LW /* BarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarManager.swift; sourceTree = "<group>"; };
+		980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
+		980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
 		982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarListTableViewCell.swift; path = ../BarListTableViewCell.swift; sourceTree = "<group>"; };
 		982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BarListTableViewCell.xib; path = ../BarListTableViewCell.xib; sourceTree = "<group>"; };
 		982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarDetailTableViewController.swift; path = ../BarDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980C8A2A1DBA196900A2EE0F /* Description cells */ = {
+			isa = PBXGroup;
+			children = (
+				980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */,
+				980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */,
+			);
+			path = "Description cells";
+			sourceTree = "<group>";
+		};
 		98F3E4821DB0009B000EAF08 = {
 			isa = PBXGroup;
 			children = (
@@ -144,8 +157,8 @@
 				98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */,
 				98F3E4901DB0009B000EAF08 /* FirstViewController.swift */,
 				98F3E4921DB0009B000EAF08 /* SecondViewController.swift */,
-				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF11DB7C93900688514 /* Bar LIst View */,
+				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
@@ -192,6 +205,7 @@
 			children = (
 				982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */,
 				98FD70061DB8EE6200688514 /* DescriptionViewController.swift */,
+				980C8A2A1DBA196900A2EE0F /* Description cells */,
 				98FD6FFC1DB89E0C00688514 /* ReviewsViewController.swift */,
 				98FD6FFE1DB89E3F00688514 /* LocationViewController.swift */,
 				98FD6FFF1DB89E3F00688514 /* LocationViewController.xib */,
@@ -319,6 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				980C8A321DBA1CCE00A2EE0F /* DescriptionCell.xib in Resources */,
 				985E9DE11DB5245B001E0815 /* BarDetailViewController.xib in Resources */,
 				98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */,
 				982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */,
@@ -358,6 +373,7 @@
 				982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */,
 				98FD70001DB89E3F00688514 /* LocationViewController.swift in Sources */,
 				98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */,
+				980C8A311DBA1CCE00A2EE0F /* DescriptionCell.swift in Sources */,
 				DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */,
 				988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */,
 				TB4I34LS3SZ054G6QFADRMAX /* BarManager.swift in Sources */,

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class BarListTableViewController: UITableViewController,BarManagerDelegate {
+class BarListTableViewController: UITableViewController,BarManagerToListTableDelegate {
     
     var barDisplayMode: DisplayBarListMode = .alphabetical
     var activityIndicator : UIActivityIndicatorView?
@@ -81,7 +81,7 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
                 self.tableView.registerNib(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
             
             //set self as bar manager delegate
-            BarManager.singleton.delegate = self
+            BarManager.singleton.listDelegate = self
             
         
         }
@@ -190,14 +190,11 @@ class BarListTableViewController: UITableViewController,BarManagerDelegate {
     //show bar detail view
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        dispatch_async(dispatch_get_main_queue()) {
-            
-            
-            //prep for display
-            BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
-            BarDetailTableViewController.singleton.UpdateDisplays()
-            self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
-        }
+        //prep for display
+        BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
+        BarDetailTableViewController.singleton.UpdateDisplays()
+        self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+        
 
     }
 
