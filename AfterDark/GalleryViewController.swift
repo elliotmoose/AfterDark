@@ -12,8 +12,13 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     static let singleton = GalleryViewController()
     var pageViewController = UIPageViewController()
     var pages = [ContentViewController]()
+    
     var images = [UIImage]()
+    
+    
     var currentPageIndex = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,7 +30,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         // Dispose of any resources that can be recreated.
     }
     override func viewDidAppear(animated: Bool) {
-        self.view.frame = CGRectMake(0, 44, 375, 300)
+        self.view.frame = CGRectMake(0, 44, Sizing.ScreenWidth(), Sizing.HundredRelativeWidthPts()*3)
         self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
 
     }
@@ -37,10 +42,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
 
-
-        let initialViewCont  = viewControllerAtIndex(0)
-        pages.append(initialViewCont)
-        self.pageViewController.setViewControllers(pages, direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         
         
         let pc = UIPageControl.appearance()
@@ -50,13 +52,12 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         self.pageViewController.view.backgroundColor = UIColor.whiteColor()
         
 
-//        self.pageViewController.dataSource = nil;
-//        self.pageViewController.delegate = nil;
         self.pageViewController.dataSource = self
         self.pageViewController.delegate = self;
         
         self.addChildViewController(self.pageViewController)
         self.pageViewController.didMoveToParentViewController(self)
+
         
         self.view.addSubview(self.pageViewController.view)
     }

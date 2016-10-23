@@ -15,6 +15,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     var barIcon = UIImageView()
     var barIconButton = UIButton()
     var tableView = UITableView()
+    var blurrView = UIVisualEffectView()
     var mainBarDetailViewCell:BarDetailViewMainCell?
     
     
@@ -71,6 +72,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.galleryCont.view.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
             self.galleryCont.Initialize()
             
+            //self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+            self.blurrView = UIVisualEffectView(effect: nil)
+            self.blurrView.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
+            self.blurrView.layer.speed = 0
+            UIView.animateWithDuration(1.0, animations: {
+            self.blurrView.effect = UIBlurEffect(style: .Light)
+            })
+            
             self.tableView.backgroundColor = UIColor.clearColor()
             self.barIcon.backgroundColor = UIColor.blackColor()
             self.barIconButton.backgroundColor = UIColor.clearColor()
@@ -83,6 +92,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.barIconButton.layer.masksToBounds = true
             
             self.view.addSubview((self.galleryCont.view))
+            self.view.addSubview(self.blurrView)
 
             self.view.addSubview(self.tableView)
             self.view.addSubview(self.barIcon)
@@ -99,6 +109,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.barIconButton.addTarget(self, action: "BarIconTapped", forControlEvents: UIControlEvents.TouchUpInside)
             //0 means not zoomed in
             self.barIconButton.tag = 0
+            
+            
+            
             
             
         })
@@ -301,12 +314,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         {
             galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
             galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+            blurrView.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
+            blurrView.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
 
         }
         
         let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
         if(x < 0)
         {
+            self.blurrView.layer.timeOffset = CFTimeInterval((CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts()))))
             barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
             barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
         }
@@ -319,6 +335,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         {
             galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
             galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+            blurrView.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
+            blurrView.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
             
         }
         
@@ -336,6 +354,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         {
             galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
             galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+            blurrView.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
+            blurrView.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
             
         }
         
