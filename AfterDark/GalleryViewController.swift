@@ -91,7 +91,10 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
                                 let imageString = output
                                 let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                                 let image = UIImage(data: dataDecoded)
-                                self.pages[index].imageView.image = image
+                                
+       BarManager.singleton.displayedDetailBar.images.append(image)
+       
+       //ui update is done when view is about to present
                             }
                             
                             
@@ -160,6 +163,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         
         let vc = pages[index]
         vc.pageIndex = index
+        vc.image = BarManager.singleton.displayedDetailBar.images[index]
         return vc
     }
 

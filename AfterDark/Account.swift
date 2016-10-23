@@ -23,6 +23,14 @@ class Account {
                 {
                     self.user_name = username
                 }
+            else if output == "wrong pass"
+            {
+                
+            }
+            else if output == "invalid ID"
+            {
+                
+            }
             }
         })
     }
