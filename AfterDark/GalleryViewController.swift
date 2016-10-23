@@ -26,6 +26,8 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     }
     override func viewDidAppear(animated: Bool) {
         self.view.frame = CGRectMake(0, 44, 375, 300)
+        self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+
     }
     func Initialize()
     {
@@ -59,64 +61,81 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         self.view.addSubview(self.pageViewController.view)
     }
     
+    
     func Load()
     {
-
+        
+        //this bar origin
+        let thisBarOrigin = BarManager.singleton.displayedDetailBar
 //        
-        //get number of pages
-        let thisBarFormatName = BarManager.singleton.displayedDetailBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-        let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_Name=\(thisBarFormatName)"
-        Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
-            let numberOfPages = Int(output!)
-
-            if let numberOfPages = numberOfPages
-            {
-                //reset pages
-                self.pages.removeAll()
+        if thisBarOrigin.Images.count == 0
+        {
+            //get number of pages
+            let thisBarFormatName = thisBarOrigin.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+            let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_Name=\(thisBarFormatName)"
+            Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
+                let numberOfPages = Int(output!)
                 
-                for index in 0...numberOfPages {
-                    //for each page here, create a view controller
-                    let pageCont = ContentViewController(frame: self.view.frame)
-                    pageCont.pageIndex = index
-                    self.pages.append(pageCont)
+                if let numberOfPages = numberOfPages
+                {
+                    //reset pages
+                    self.pages.removeAll()
                     
-                    
-                    let thisBarFormatName = BarManager.singleton.displayedDetailBar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-                    let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_Name=\(thisBarFormatName)&Image_Index=\(index)"
-                    Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler: {(success,output)->Void in
-                        if let output = output
-                        {
-                            if success == true
+                    for index in 0...numberOfPages {
+                        //for each page here, create a view controller
+                        let pageCont = ContentViewController(frame: self.view.frame)
+                        pageCont.pageIndex = index
+                        self.pages.append(pageCont)
+                        
+                        
+                        let thisBarFormatName = thisBarOrigin.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+                        let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_Name=\(thisBarFormatName)&Image_Index=\(index)"
+                        Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler: {(success,output)->Void in
+                            if let output = output
                             {
-                                let imageString = output
-                                let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                                let image = UIImage(data: dataDecoded)
+                                if success == true
+                                {
+                                    let imageString = output
+                                    let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                                    let image = UIImage(data: dataDecoded)
+                                    
+                                    if let image = image
+                                    {
+                                        thisBarOrigin.Images.append(image)
+                                        
+                                    }
+                                    
+                                    
+                                    //ui update is done when view is about to present
+                                }
                                 
-       BarManager.singleton.displayedDetailBar.images.append(image)
-       
-       //ui update is done when view is about to present
+                                
+                                
                             }
                             
-                            
-                            
-                        }
-                        
-                    })
+                        })
+                    }
+                    
+                    //update page control display
+                    self.pageViewController.setViewControllers([self.pages[0]], direction: .Forward, animated: false, completion: nil)
+                    
+                    
                 }
                 
-                //update page control display
-                self.pageViewController.setViewControllers([self.pages[0]], direction: .Forward, animated: false, completion: nil)
+                //**********************
+                //  no of pages loaded
+                //*********************
+                
+                
+            })
 
-
+        }
+        else
+        {
+            
+        }
+        
             }
-            
-            //**********************
-            //  no of pages loaded
-            //*********************
-            
-
-        })
-    }
 
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
     {
@@ -163,7 +182,10 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         
         let vc = pages[index]
         vc.pageIndex = index
-        vc.image = BarManager.singleton.displayedDetailBar.images[index]
+        if index >= 0 && index < BarManager.singleton.displayedDetailBar.Images.count
+        {
+            vc.imageView.image = BarManager.singleton.displayedDetailBar.Images[index]
+        }
         return vc
     }
 
@@ -177,7 +199,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
             if currentPageIndex > 0 && pages.count != 0
             {
                 currentPageIndex = currentPageIndex - 1
-                pageViewController.setViewControllers([pages[currentPageIndex]], direction: .Reverse, animated: true, completion: nil)
+                pageViewController.setViewControllers([viewControllerAtIndex(currentPageIndex)], direction: .Reverse, animated: true, completion: nil)
             }
 
         }
@@ -186,7 +208,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
             if currentPageIndex < pages.count - 1
             {
                 currentPageIndex = currentPageIndex + 1
-                pageViewController.setViewControllers([pages[currentPageIndex]], direction: .Forward, animated: true, completion: nil)
+                pageViewController.setViewControllers([viewControllerAtIndex(currentPageIndex)], direction: .Forward, animated: true, completion: nil)
             }
             
 

@@ -174,6 +174,9 @@ class BarManager: NSObject
         
         let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
         var tempBarList = [Bar]()
+        
+        if retrievedArray.count == 0
+        {return tempBarList}
         for index in 0...(retrievedArray.count - 1)
         {
             let dict = retrievedArray[index] as! NSDictionary
