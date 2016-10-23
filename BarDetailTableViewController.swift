@@ -343,6 +343,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
         if(x < 0)
         {
+            self.blurrView.layer.timeOffset = CFTimeInterval((CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts()))))
             barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
             barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
         }
@@ -362,6 +363,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
         if(x < 0)
         {
+            self.blurrView.layer.timeOffset = CFTimeInterval((CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts()))))
             barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
             barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
         }
