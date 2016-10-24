@@ -112,13 +112,19 @@ class BarManager: NSObject
         {
             let thisBarFormattedName = bar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
             let urlNonImageBarInfo = "http://mooselliot.net23.net/GetBarNonImageInfo.php?Bar_Name=\(thisBarFormattedName)"
-            Network.singleton.DataFromUrl(urlNonImageBarInfo, handler: {(success,output) -> Void in
+            Network.singleton.DictArrayFromUrl(urlNonImageBarInfo, handler: {(success,output) -> Void in
                 if success
                 {
-                    if let output = output
+                    if output.count != 0
                     {
-                        let dict = self.JsonDataToDictArray(output.mutableCopy() as! NSMutableData)[0]
+                        let dict = output[0]
+                        
                         bar.description = dict["Bar_Description"] as! String
+                        bar.contact = dict["Bar_Contact"] as! String
+                        bar.openClosingHours = dict["Bar_OpeningClosingHours"] as? String
+                        bar.loc_lat = Float(dict["Bar_Location_Latitude"] as! String)!
+                        bar.loc_long = Float(dict["Bar_Location_Longitude"] as! String)!
+                    
                         
                         if self.displayedDetailBar.name == bar.name
                         {
@@ -129,6 +135,9 @@ class BarManager: NSObject
                     }
                 }
             })
+            
+            //load reviews
+            //ReviewManager.singleton.LoadReviews(bar, handler: <#T##(success: Bool) -> Void#>)
         }
 
     }

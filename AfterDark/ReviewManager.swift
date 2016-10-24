@@ -1,23 +1,33 @@
+import Foundation
+
 class ReviewManager
 {
     static let singleton = ReviewManager()
     
-    func init()
+    init()
     {
         
         
     }
 
-    func LoadReviews(bar: Bar, handler:(success: Bool)-> Void)
+    func LoadReviews(bar: Bar,lowerBound : Int,upperBound: Int, handler:(success: Bool)-> Void)
     {
+        
         let thisBarFormatName = bar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-            let urlGetReviewsForBar = "http://mooselliot.net23.net/GetReviewsForBar.php?Bar_Name=\(thisBarFormatName)&LowerRangeLimit="
-        Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,{(success,output)->Void in
+            let urlGetReviewsForBar = "http://mooselliot.net23.net/GetReviewsForBar.php?Bar_Name=\(thisBarFormatName)&LowerRangeLimit=\(lowerBound)&UpperRangeLimit=\(upperBound)"
+        Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
         if success
         {
-            if let output = output
+            if output.count != 0
             {
-                bar.Reviews += 
+                var allReviewsForBar = [Review]()
+                for dict in output
+                {
+                    var newReview = Review()
+                    newReview.initWithDict(dict)
+                    allReviewsForBar.append(newReview)
+                }
+                bar.reviews += allReviewsForBar
             }
         }
         })

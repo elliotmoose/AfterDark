@@ -70,7 +70,7 @@ class BarDetailViewMainCell: UITableViewCell {
         let tabHeight = Sizing.HundredRelativeHeightPts()/3
         let mainViewWidth = Sizing.ScreenWidth()
         let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/
-        let mainViewFrame = CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight)
+        let mainViewFrame = CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight - tabHeight)
         let highlighterHeight: CGFloat = 4.5
         //status bar height?
         

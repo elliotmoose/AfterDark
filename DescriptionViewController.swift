@@ -25,10 +25,10 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
        
 
         
-        
-        let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/
 
-        tableView = UITableView(frame: CGRectMake(0, 0,mainViewHeight,Sizing.ScreenWidth()))
+        let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/ - 88
+
+        tableView = UITableView(frame: CGRectMake(0, 0,Sizing.ScreenWidth(),mainViewHeight))
     
         let tableViewBackGroundColor = UIColor.lightGrayColor()
         tableView?.backgroundColor = tableViewBackGroundColor
@@ -39,8 +39,10 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         tableView?.delegate = self
         
         //register nibs
-        //self.tableView!.registerClass(DescriptionCell.self, forCellReuseIdentifier: "DecsriptionCell")
+        //self.tableView!.registerClass(DescriptionCell.self, forCellReuseIdentifier: "DecsriptionCell") IconCell
         self.tableView!.registerNib(UINib(nibName: "DescriptionCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "DescriptionCell")
+        self.tableView!.registerNib(UINib(nibName: "IconCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "IconCell")
+
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -48,7 +50,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 5
     }
 
 
@@ -66,15 +68,68 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             
             return descriptionCell
         case NSIndexPath(forRow: 1, inSection: 0):
-            cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as? IconCell
+            if cell == nil
+            {
+                cell = IconCell()
 
+
+            }
+            cell?.Icon?.image = UIImage(named: "Marker-48")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
+            
+            return cell!
         case NSIndexPath(forRow: 2, inSection: 0):
-            cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 2, inSection: 0)) as? IconCell
+            if cell == nil
+            {
+                cell = IconCell()
+
+
+            }
+            cell?.Icon?.image = UIImage(named: "Clock-48")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
+            
+            if BarManager.singleton.displayedDetailBar.openClosingHours == nil
+            {
+                BarManager.singleton.displayedDetailBar.openClosingHours = "Unknown"
+            }
+            
+            cell?.Detail.text = BarManager.singleton.displayedDetailBar.openClosingHours
+
+            return cell!
 
         case NSIndexPath(forRow: 3, inSection: 0):
-            cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 3, inSection: 0)) as? IconCell
+            if cell == nil
+            {
+                cell = IconCell()
 
-        default: cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+
+            }
+            cell?.Icon?.image = UIImage(named: "Phone-48")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
+            cell?.Detail.text = BarManager.singleton.displayedDetailBar.contact
+            return cell!
+
+        case NSIndexPath(forRow: 4, inSection: 0):
+            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 3, inSection: 0)) as? IconCell
+            if cell == nil
+            {
+                cell = IconCell()
+
+
+            }
+            cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
+            
+            return cell!
+
+        default: cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: indexPath)
         }
 
         return cell!
@@ -86,7 +141,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         {
         case NSIndexPath(forRow: 0, inSection: 0):
             return Sizing.HundredRelativeHeightPts()*1.5
-        default: return 30
+        default: return 70
         }
         
     }

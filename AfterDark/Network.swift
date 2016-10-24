@@ -86,11 +86,11 @@ request.HTTPBody = postParam.dataUsingEncoding(NSUTF8StringEncoding)
         task.resume()
         
     }
-}
 
 
 
-func DictArrayFromUrl(inputUrl: String, handler: (success:Bool,output : NSDictionary?) -> Void) {
+
+func DictArrayFromUrl(inputUrl: String, handler: (success:Bool,output : [NSDictionary]) -> Void) {
         
         let url = NSURL(string: inputUrl)!
 
@@ -99,12 +99,13 @@ func DictArrayFromUrl(inputUrl: String, handler: (success:Bool,output : NSDictio
             if let error = error
             {
                 print(error)
-                handler(success: false,output: nil)
+                handler(success: false,output: [])
 
             }
             else if let data = data
             {
-                handler(success: true,output: JsonDataToDictArray(data))
+                let out = data.mutableCopy() as! NSMutableData
+                handler(success: true,output: self.JsonDataToDictArray(out))
             }
             
         })

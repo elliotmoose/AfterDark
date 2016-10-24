@@ -1,3 +1,5 @@
+import Foundation
+
 struct Review{
     var rating: Rating = Rating()
     var title: String = ""
@@ -5,14 +7,14 @@ struct Review{
     var user_name: String = ""
     var date: NSDate = NSDate()
     
-    func init(dict: NSDictionary)
+    mutating func initWithDict(dict : NSDictionary)
     {
-        rating.InjectValues(dict["Rating_Avg"],dict["Rating_Price"],dict["Rating_Ambience"],dict["Rating_Food"],dict["Rating_Service"]
-        self.title = dict["Review_Title"]
-        self.description = dict["Review_Text"]
-        self.user_name = dict["User_Name"]
+        self.rating.InjectValues(dict["Rating_Avg"] as! Float,pricex: dict["Rating_Price"] as! Float,ambiencex: dict["Rating_Ambience"] as! Float,foodx: dict["Rating_Food"] as! Float,servicex: dict["Rating_Service"]as! Float)
+        self.title = dict["Review_Title"] as! String
+        self.description = dict["Review_Text"] as! String
+        self.user_name = dict["User_Name"] as! String
         //set data
-    } 
+    }
     mutating func InjectValues(rate: Rating, descrip: String, username: String, datex: NSDate)
     {
         rating = rate

@@ -38,7 +38,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateBarIcon()
 
         mainBarDetailViewCell?.CellWillAppear()
-        self.galleryCont.Load()
+        galleryCont.ToPresentNewDetailBar()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -47,6 +47,11 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         let bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height);
         self.tableView.setContentOffset(bottomOffset, animated: true)
         self.UpdateBarIcon()
+        
+        self.blurrView.effect = nil
+        UIView.animateWithDuration(1.0, animations: {
+            self.blurrView.effect = UIBlurEffect(style: .Light)
+        })
     }
     func Initialze()
     {
@@ -76,9 +81,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.blurrView = UIVisualEffectView(effect: nil)
             self.blurrView.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
             self.blurrView.layer.speed = 0
-            UIView.animateWithDuration(1.0, animations: {
-            self.blurrView.effect = UIBlurEffect(style: .Light)
-            })
+
             
             self.tableView.backgroundColor = UIColor.clearColor()
             self.barIcon.backgroundColor = UIColor.blackColor()
@@ -319,35 +322,27 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
         }
         
-        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        var x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
         if(x < 0)
         {
-            self.blurrView.layer.timeOffset = CFTimeInterval((CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts()))))
-            barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
-            barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
-        }
-    }
-
-
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        let y = -scrollView.contentOffset.y;
-        if (y>0)
-        {
-            galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
-            galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
-            blurrView.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
-            blurrView.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
             
-        }
-        
-        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
-        if(x < 0)
-        {
-            self.blurrView.layer.timeOffset = CFTimeInterval((CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts()))))
-            barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
-            barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+            if x < -100
+            {
+                x = -100
+            }
+            var offset = (CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts())))
+            if offset > 1
+            {
+            offset = 0.95
+            }
+            
+            self.blurrView.layer.timeOffset = CFTimeInterval(offset)
+            barIcon.alpha = offset
+            barIconButton.alpha = offset
         }
     }
+
+
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         let y = -scrollView.contentOffset.y;
@@ -360,12 +355,22 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
         }
         
-        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        var x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
         if(x < 0)
         {
-            self.blurrView.layer.timeOffset = CFTimeInterval((CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts()))))
-            barIcon.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
-            barIconButton.alpha = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+            
+            if x < -100
+            {
+                x = -100
+            }
+            var offset = (CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts())))
+            if offset > 1
+            {
+                offset = 0.95
+            }
+            self.blurrView.layer.timeOffset = CFTimeInterval(offset)
+            barIcon.alpha = offset
+            barIconButton.alpha = offset
         }
     }
 
