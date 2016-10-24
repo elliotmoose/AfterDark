@@ -34,6 +34,33 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
 
     }
+
+    func ViewNewDetailBar()
+    {
+        //reset images
+        pages.RemoveAll()
+        
+        //check if bar has pre loaded images
+        let barOrigin = BarManager.singleton.displayedDetailBar
+        if barOrigin.Images.count != 0
+        {
+            //then load from memory 
+            
+            //first load number of images
+            for index in 0...barOrigin.maxImageCount - 1
+            pages.append(viewControllerAtIndex(index))
+        }
+        else if barOrigin.maxImageCount == -1
+        {
+            //Load from Url
+            self.Load()
+        }
+        
+        
+        //update UI
+self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+    }
+
     func Initialize()
     {
 
@@ -79,6 +106,9 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
                 
                 if let numberOfPages = numberOfPages
                 {
+                    //set max number
+                    thisBarOrigin.maxImagesCount = numberOfPages
+                    
                     //reset pages
                     self.pages.removeAll()
                     
@@ -178,7 +208,15 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     
     func viewControllerAtIndex(index: Int) ->ContentViewController {
         if (self.pages.count == 0) || (index >= self.pages.count) {
-            return ContentViewController(frame: self.view.frame)
+            let vc = ContentViewController(frame: self.view.frame)
+            vc.pageIndex = index
+            
+            if index >= 0 && index < BarManager.singleton.displayedDetailBar.Images.count
+        {
+            vc.imageView.image = BarManager.singleton.displayedDetailBar.Images[index]
+        }
+            
+            return vc
         }
         
         let vc = pages[index]

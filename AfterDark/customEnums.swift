@@ -34,3 +34,4 @@ struct Rating {
         service = servicex
     }
 }
+

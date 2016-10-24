@@ -87,3 +87,52 @@ request.HTTPBody = postParam.dataUsingEncoding(NSUTF8StringEncoding)
         
     }
 }
+
+
+
+func DictArrayFromUrl(inputUrl: String, handler: (success:Bool,output : NSDictionary?) -> Void) {
+        
+        let url = NSURL(string: inputUrl)!
+
+        let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+            
+            if let error = error
+            {
+                print(error)
+                handler(success: false,output: nil)
+
+            }
+            else if let data = data
+            {
+                handler(success: true,output: JsonDataToDictArray(data))
+            }
+            
+        })
+        
+        task.resume()
+        
+    }
+func JsonDataToDictArray(data: NSMutableData) -> [NSDictionary]
+    {
+        var output = [NSDictionary]()
+        var tempArr: NSMutableArray = NSMutableArray()
+        
+        do{
+            
+            tempArr = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments) as! NSMutableArray
+            
+            for index in 0...(tempArr.count - 1)
+            {
+                let dict = tempArr[index] as! NSDictionary
+                output.append(dict)
+            }
+            
+        } catch let error as NSError {
+            print(error)
+            
+        }
+        
+        return output
+    }
+    
+}
