@@ -781,12 +781,12 @@
             children =             (
                 IZK3WM8ZNCS26ZQDKHX3VXX3,
                 F47T2SPZETLOZ1M46F152NDT,
-                GVKW92FK1JZUY35BKWHEYZ3Q,
-                UU28XIPGAXC48ERNYJTSE0MZ
+                GVKW92FK1JZUY35BKWHEYZ3Q
             );
             isa = PBXGroup;
             name = Objects;
             sourceTree = "<group>";
+            uuid = 98FD6FF31DB7C97700688514;
         };
         98FD6FF61DB8716300688514 =         {
             fileEncoding = 4;
@@ -905,7 +905,8 @@
         };
         IGY8Y264MALJU6WIBKDC62QO =         {
             children =             (
-                90HMDXF6PP1CQ4BU4O20KZOS
+                90HMDXF6PP1CQ4BU4O20KZOS,
+                UU28XIPGAXC48ERNYJTSE0MZ
             );
             isa = PBXGroup;
             name = Reviews;
@@ -944,8 +945,10 @@
         UU28XIPGAXC48ERNYJTSE0MZ =         {
             fileEncoding = 4;
             isa = PBXFileReference;
+            name = "Review.swift";
             path = "Review.swift";
             sourceTree = "<group>";
+            uuid = UU28XIPGAXC48ERNYJTSE0MZ;
         };
         Y7QMRMW8N0HNTJBHDMWKAM1F =         {
             fileEncoding = 4;
