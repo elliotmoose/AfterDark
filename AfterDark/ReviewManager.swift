@@ -10,11 +10,11 @@ class ReviewManager
         
     }
 
-    func LoadReviews(bar: Bar,lowerBound : Int,upperBound: Int, handler:(success: Bool)-> Void)
+    func LoadReviews(bar: Bar,lowerBound : Int,count: Int, handler:(success: Bool)-> Void)
     {
         
         let thisBarFormatName = bar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-            let urlGetReviewsForBar = "http://mooselliot.net23.net/GetReviewsForBar.php?Bar_Name=\(thisBarFormatName)&LowerRangeLimit=\(lowerBound)&UpperRangeLimit=\(upperBound)"
+            let urlGetReviewsForBar = "http://mooselliot.net23.net/GetReviewsForBar.php?Bar_Name=\(thisBarFormatName)&LowerRangeLimit=\(lowerBound)&Count=\(count)"
         Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
         if success
         {
@@ -28,6 +28,7 @@ class ReviewManager
                     allReviewsForBar.append(newReview)
                 }
                 bar.reviews += allReviewsForBar
+                hanndler.success()
             }
         }
         })

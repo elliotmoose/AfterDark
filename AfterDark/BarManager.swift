@@ -50,6 +50,9 @@ class BarManager: NSObject
 //        displayedDetailBar.loc_long = bar.loc_long
         //passing by reference
         displayedDetailBar = bar
+        
+        //start loading reviews
+        
     }
     func LoadGenericBarData(handler: ()-> Void)//consits of 2 key details: name, ratings , however, we do not wanna overwrite already loaded details (e.g. icon,description)
     {
@@ -136,8 +139,7 @@ class BarManager: NSObject
                 }
             })
             
-            //load reviews
-            //ReviewManager.singleton.LoadReviews(bar, handler: <#T##(success: Bool) -> Void#>)
+
         }
 
     }

@@ -39,6 +39,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
         mainBarDetailViewCell?.CellWillAppear()
         galleryCont.ToPresentNewDetailBar()
+            //load reviews
+//incompletteee **************************** must check if bar already loaded
+            
+                                    ReviewManager.singleton.LoadReviews(bar,0,0,handlder:{(success)
+                                    
+                                    
+                                    
+                                    } )
     }
 
     override func viewDidAppear(animated: Bool) {
