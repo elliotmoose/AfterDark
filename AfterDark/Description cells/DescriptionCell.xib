@@ -43,6 +43,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="descriptionBodyLabel" destination="UMI-b2-9vF" id="pB1-V4-qXe"/>
+                <outlet property="descriptionTitle" destination="2Kh-hi-HOS" id="nq4-XP-ehm"/>
             </connections>
             <point key="canvasLocation" x="601.5" y="445.5"/>
         </tableViewCell>

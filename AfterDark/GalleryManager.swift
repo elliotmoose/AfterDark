@@ -12,8 +12,7 @@ class GalleryManager
     func LoadMaxPages(thisBarOrigin: Bar, handler: (success: Bool)-> Void)
     {
         //get number of pages
-        let thisBarFormatName = thisBarOrigin.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-        let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_Name=\(thisBarFormatName)"
+        let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_ID=\(thisBarOrigin.ID)"
         Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
             let noOfImages = Int(output!)
             if let noOfImages = noOfImages
@@ -28,13 +27,12 @@ class GalleryManager
     func LoadBarGallery(thisBarOrigin: Bar, handler: (success :Bool) -> Void)
     {
                     //reset pages
-                    if thisBarOrigin.maxImageCount == -1
+                    if thisBarOrigin.maxImageCount == 0
                     {return}
                     for index in 0...thisBarOrigin.maxImageCount
                     {
         
-                        let thisBarFormatName = thisBarOrigin.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
-                        let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_Name=\(thisBarFormatName)&Image_Index=\(index)"
+                        let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_ID=\(thisBarOrigin.ID)&Image_Index=\(index)"
                         Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler:
                         {
                                 (success,output)->Void in

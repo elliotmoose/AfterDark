@@ -9,13 +9,20 @@ struct Review{
     
     mutating func initWithDict(dict : NSDictionary)
     {
-        self.rating.InjectValues(dict["Rating_Avg"] as! Float,pricex: dict["Rating_Price"] as! Float,ambiencex: dict["Rating_Ambience"] as! Float,foodx: dict["Rating_Food"] as! Float,servicex: dict["Rating_Service"]as! Float)
+        let Rating_Avg = Float(dict["Rating_Avg"] as! String)
+        let Rating_Price = Float(dict["Rating_Price"] as! String)
+        let Rating_Ambience = Float(dict["Rating_Ambience"] as! String)
+        let Rating_Food = Float(dict["Rating_Food"] as! String)
+        let Rating_Service = Float(dict["Rating_Service"] as! String)
+
+        self.rating.InjectValues(Rating_Avg!,pricex: Rating_Price!,ambiencex: Rating_Ambience!,foodx: Rating_Food!,servicex: Rating_Service!)
         self.title = dict["Review_Title"] as! String
         self.description = dict["Review_Text"] as! String
         self.user_name = dict["User_Name"] as! String
         //set data
     }
-    mutating func InjectValues(rate: Rating, descrip: String, username: String, datex: NSDate)
+    mutating func InjectValues(rate: Rating, descrip: String, username: String
+        , datex: NSDate)
     {
         rating = rate
         description = descrip

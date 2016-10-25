@@ -1,17 +1,17 @@
 //
-//  DescriptionCell.swift
+//  ReviewCell.swift
 //  AfterDark
 //
-//  Created by Swee Har Ng on 21/10/16.
+//  Created by Swee Har Ng on 25/10/16.
 //  Copyright © 2016 kohbroco. All rights reserved.
 //
 
 import UIKit
 
-class DescriptionCell: UITableViewCell {
+class ReviewCell: UITableViewCell {
 
-    @IBOutlet weak var descriptionTitle: UILabel!
-    @IBOutlet weak var descriptionBodyLabel: UILabel!
+    @IBOutlet weak var ReviewTitleLabel: UILabel!
+    @IBOutlet weak var ReviewBodyLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

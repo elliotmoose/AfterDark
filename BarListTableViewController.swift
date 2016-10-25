@@ -36,8 +36,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
                 
                 })
                 
-                   //load reviews
-            ReviewManager.singleton.LoadReviews(bar, )
+                ReviewManager.singleton.LoadAllReviews()
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.navigationItem.rightBarButtonItem = self.refreshButton

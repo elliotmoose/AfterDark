@@ -1,6 +1,7 @@
 import UIKit
 class Bar{
     var name : String
+    var ID : String
     var icon: UIImage?
     var rating = Rating()
     var reviews = [Review]()
@@ -16,8 +17,9 @@ class Bar{
     init()
     {
         name = "Untitled"
-        contact = "nil"
-        openClosingHours = "Unknown"
+        contact = ""
+        openClosingHours = ""
+        ID = ""
     }
     
     

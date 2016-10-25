@@ -30,7 +30,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
         tableView = UITableView(frame: CGRectMake(0, 0,Sizing.ScreenWidth(),mainViewHeight))
     
-        let tableViewBackGroundColor = UIColor.lightGrayColor()
+        let tableViewBackGroundColor = ColorManager.descriptionCellBGColor
         tableView?.backgroundColor = tableViewBackGroundColor
         
         self.view.addSubview(tableView!)
@@ -65,7 +65,9 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             let descriptionCell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! DescriptionCell
             descriptionCell.descriptionBodyLabel.text = BarManager.singleton.displayedDetailBar.description
             descriptionCell.frame = CGRectMake(0, 0, Sizing.ScreenWidth(), Sizing.HundredRelativeHeightPts()*1.5)
-            
+            descriptionCell.descriptionBodyLabel.textColor = ColorManager.descriptionCellTextColor
+            descriptionCell.descriptionTitle.textColor = ColorManager.descriptionCellTextColor
+            descriptionCell.backgroundColor = ColorManager.descriptionCellBGColor
             return descriptionCell
         case NSIndexPath(forRow: 1, inSection: 0):
             var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as? IconCell
@@ -75,8 +77,10 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
 
             }
+            cell?.backgroundColor = ColorManager.descriptionCellBGColor
+            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
             cell?.Icon?.image = UIImage(named: "Marker-48")?.imageWithRenderingMode(.AlwaysTemplate)
-            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
             return cell!
@@ -88,8 +92,11 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
 
             }
+            
+            cell?.backgroundColor = ColorManager.descriptionCellBGColor
+            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
             cell?.Icon?.image = UIImage(named: "Clock-48")?.imageWithRenderingMode(.AlwaysTemplate)
-            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
             if BarManager.singleton.displayedDetailBar.openClosingHours == nil
@@ -109,8 +116,11 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
 
             }
+            
+            cell?.backgroundColor = ColorManager.descriptionCellBGColor
+            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
             cell?.Icon?.image = UIImage(named: "Phone-48")?.imageWithRenderingMode(.AlwaysTemplate)
-            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             cell?.Detail.text = BarManager.singleton.displayedDetailBar.contact
             return cell!
@@ -123,8 +133,11 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
 
             }
+            
+            cell?.backgroundColor = ColorManager.descriptionCellBGColor
+            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
             cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.imageWithRenderingMode(.AlwaysTemplate)
-            cell?.Icon?.tintColor = UIColor.orangeColor()
+            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
             return cell!

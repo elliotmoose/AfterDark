@@ -31,6 +31,7 @@ class BarManager: NSObject
     var displayedDetailBar = Bar()
     weak var detailDelegate:BarManagerToDetailTableDelegate?
     weak var listDelegate :BarManagerToListTableDelegate?
+    
     //methods
     private override init()
     {
@@ -241,6 +242,7 @@ class BarManager: NSObject
     {
         let newBar = Bar()
         newBar.name = dict.valueForKey("Bar_Name") as! String
+        newBar.ID = dict.valueForKey("Bar_ID") as! String
         newBar.rating.InjectValues(Float(dict.valueForKey("Bar_Rating_Avg") as! String)!, pricex: Float(dict.valueForKey("Bar_Rating_Price") as! String)!, ambiencex: Float(dict.valueForKey("Bar_Rating_Ambience") as! String)!,foodx: Float(dict.valueForKey("Bar_Rating_Food") as! String)!, servicex: Float(dict.valueForKey("Bar_Rating_Service") as! String)!)
         
         return newBar

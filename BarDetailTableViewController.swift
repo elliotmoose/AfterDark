@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarManagerToDetailTableDelegate {
+class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarManagerToDetailTableDelegate,ReviewManagerToBarDetailContDelegate {
     static let singleton = BarDetailTableViewController()
     
     //UI object variables
@@ -36,17 +36,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         
 
         self.UpdateBarIcon()
-
+        self.UpdateReviewTab()
+        
         mainBarDetailViewCell?.CellWillAppear()
         galleryCont.ToPresentNewDetailBar()
-            //load reviews
-//incompletteee **************************** must check if bar already loaded
-            
-                                    ReviewManager.singleton.LoadReviews(bar,0,0,handlder:{(success)
-                                    
-                                    
-                                    
-                                    } )
+
+
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -54,7 +49,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.barIcon.alpha = 1
         let bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height);
         self.tableView.setContentOffset(bottomOffset, animated: true)
+        
         self.UpdateBarIcon()
+        self.UpdateReviewTab()
         
         self.blurrView.effect = nil
         UIView.animateWithDuration(1.0, animations: {
@@ -113,6 +110,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.galleryCont.didMoveToParentViewController(self)
             
             BarManager.singleton.detailDelegate = self
+            ReviewManager.singleton.delegate = self
             self.tableView.dataSource = self
             self.tableView.delegate = self
         
@@ -160,7 +158,10 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.mainBarDetailViewCell?.descriptionCont.tableView?.reloadData()
     }
     
-    
+    func UpdateReviewTab()
+    {
+        self.mainBarDetailViewCell?.reviewCont.tableView.reloadData()
+    }
     
     
     

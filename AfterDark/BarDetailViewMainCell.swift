@@ -64,6 +64,7 @@ class BarDetailViewMainCell: UITableViewCell {
         self.descriptionCont.view = UIView(frame: .zero)
         self.descriptionCont.Initialize()
         
+        self.reviewCont.Initialize()
         
 
         let tabWidth = Sizing.ScreenWidth()/4
