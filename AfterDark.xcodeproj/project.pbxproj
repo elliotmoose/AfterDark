@@ -233,7 +233,8 @@
                 MCV6WOTPLRBT1N09Y1PWTQCF,
                 COW598EYJYF4HIT1Y0COUZ1V,
                 Q8YINUWFC5GQUAXVB2CAP29H,
-                2B19QFW7UX4K2SGFI1SWKVM3
+                2B19QFW7UX4K2SGFI1SWKVM3,
+                CMZEAUVGS388LV53P5VGCAKD
             );
             isa = PBXSourcesBuildPhase;
             runOnlyForDeploymentPostprocessing = 0;
@@ -311,7 +312,8 @@
                 98F3E49C1DB0009B000EAF08,
                 QFTSZAZA620UQ50HVYGSV2BC,
                 Y7QMRMW8N0HNTJBHDMWKAM1F,
-                ACP96CXHFC96L9ASPJHNTV8G
+                ACP96CXHFC96L9ASPJHNTV8G,
+                A4IF6FT2KKSQHF475Q98X5X6
             );
             isa = PBXGroup;
             path = AfterDark;
@@ -890,12 +892,22 @@
             fileRef = 98FD70061DB8EE6200688514;
             isa = PBXBuildFile;
         };
+        A4IF6FT2KKSQHF475Q98X5X6 =         {
+            fileEncoding = 4;
+            isa = PBXFileReference;
+            path = "ColorManager.swift";
+            sourceTree = "<group>";
+        };
         ACP96CXHFC96L9ASPJHNTV8G =         {
             fileEncoding = 4;
             isa = PBXFileReference;
             lastKnownFileType = "sourcecode.swift";
             path = "Account.swift";
             sourceTree = "<group>";
+        };
+        CMZEAUVGS388LV53P5VGCAKD =         {
+            fileRef = A4IF6FT2KKSQHF475Q98X5X6;
+            isa = PBXBuildFile;
         };
         COW598EYJYF4HIT1Y0COUZ1V =         {
             fileRef = 90HMDXF6PP1CQ4BU4O20KZOS;

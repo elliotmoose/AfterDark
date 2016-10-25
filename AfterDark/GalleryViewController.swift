@@ -115,7 +115,7 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
         pc.pageIndicatorTintColor = UIColor.lightGrayColor()
         pc.currentPageIndicatorTintColor = UIColor.blackColor()
         pc.backgroundColor = UIColor.grayColor()
-        self.pageViewController.view.backgroundColor = UIColor.whiteColor()
+        self.pageViewController.view.backgroundColor = ColorManager.singleton.galleryBGColor
         
 
         self.pageViewController.dataSource = self
