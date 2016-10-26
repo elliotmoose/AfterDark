@@ -150,17 +150,23 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     func UpdateTabs()
     {
         UpdateDescriptionTab()
+        UpdateReviewTab()
     }
     
     func UpdateDescriptionTab()
     {
         //update bar description tab
+        dispatch_async(dispatch_get_main_queue(), {
         self.mainBarDetailViewCell?.descriptionCont.tableView?.reloadData()
+        })
     }
     
     func UpdateReviewTab()
     {
-        self.mainBarDetailViewCell?.reviewCont.tableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), {
+                self.mainBarDetailViewCell?.reviewCont.tableView.reloadData()
+            })
+
     }
     
     

@@ -15,7 +15,6 @@ class BarDetailViewMainCell: UITableViewCell {
     var tab3 : UIButton
     var tab4 : UIButton
     var tabHighlighter: UIView
-    var mainDetailView : UIView
     
     var tabCont = UITabBarController()
     var descriptionCont = DescriptionViewController()
@@ -41,7 +40,6 @@ class BarDetailViewMainCell: UITableViewCell {
         tab3 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tab4 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tabHighlighter = UIView.init(frame: CGRectMake(0, 0, 0, 0))
-        mainDetailView = UIView.init(frame: CGRectMake(0, 0, 0, 0))
         super.init(coder: aDecoder)
 
     }
@@ -53,7 +51,6 @@ class BarDetailViewMainCell: UITableViewCell {
         tab3 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tab4 = UIButton.init(frame: CGRectMake(0, 0, 0, 0))
         tabHighlighter = UIView.init(frame: CGRectMake(0, 0, 0, 0))
-        mainDetailView = UIView.init(frame: CGRectMake(0, 0, 0, 0))
         super.init(style: UITableViewCellStyle.Default, reuseIdentifier: "BarDetailHeaderView")
         self.frame = frame
     }
@@ -71,7 +68,9 @@ class BarDetailViewMainCell: UITableViewCell {
         let tabHeight = Sizing.HundredRelativeHeightPts()/3
         let mainViewWidth = Sizing.ScreenWidth()
         let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/
-        let mainViewFrame = CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight - tabHeight)
+        
+        let tabContFrame = CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight - tabHeight)
+        let detailViewFrame = CGRectMake(0, 0, mainViewWidth, mainViewHeight - tabHeight)
         let highlighterHeight: CGFloat = 4.5
         //status bar height?
         
@@ -80,15 +79,15 @@ class BarDetailViewMainCell: UITableViewCell {
         tab2 = UIButton.init(frame: CGRectMake(tabWidth, 0, tabWidth, tabHeight))
         tab3 = UIButton.init(frame: CGRectMake(Sizing.ScreenWidth() - (tabWidth*2), 0, tabWidth, tabHeight))
         tab4 = UIButton.init(frame: CGRectMake(Sizing.ScreenWidth() - tabWidth, 0, tabWidth, tabHeight))
-        mainDetailView = UIView.init(frame: CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight))
         
-        tabCont.view.frame = mainViewFrame
-        self.descriptionCont.view.frame = mainViewFrame;
-        self.reviewCont.view.frame = mainViewFrame;
-        self.locationCont.view.frame = mainViewFrame;
-        self.discountCont.view.frame = mainViewFrame;
+        tabCont.view.frame = tabContFrame
+        self.descriptionCont.view.frame = detailViewFrame;
+        self.reviewCont.view.frame = detailViewFrame;
+        self.reviewCont.tableView.frame = detailViewFrame
+        self.locationCont.view.frame = detailViewFrame;
+        self.discountCont.view.frame = detailViewFrame;
         
-        let labelColor = ColorManage.detailTabBGColor
+        let labelColor = ColorManager.detailTabBGColor
         let contentBackgroundColor = ColorManager.descriptionBGColor
         let tabSelectColor = ColorManager.detailTabHighlightedColor
         let tabDeselectColor = ColorManager.detailTabDeselectedColor
@@ -116,7 +115,6 @@ class BarDetailViewMainCell: UITableViewCell {
         reviewCont.view.backgroundColor = contentBackgroundColor
         locationCont.view.backgroundColor = contentBackgroundColor
         discountCont.view.backgroundColor = contentBackgroundColor
-        mainDetailView.backgroundColor = UIColor.lightGrayColor()
         
         tab1.setTitle("Details", forState: UIControlState.Normal)
         tab2.setTitle("Reviews", forState: UIControlState.Normal)

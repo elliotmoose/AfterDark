@@ -13,13 +13,16 @@ class ReviewsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        self.view.frame = Sizing.DetailTabViewFrame()
+        self.tableView.frame = Sizing.DetailTabSubViewFrame()
+        self.tableView.reloadData()
+    }
+
+    
     func Initialize()
     {
         tableView.registerNib(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
@@ -40,20 +43,30 @@ class ReviewsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
-        
+        let thisBarReview = BarManager.singleton.displayedDetailBar.reviews[indexPath.row]
+
         if cell == nil
         {
-				cell = ReviewCell()  
+            cell = ReviewCell()
         }
-        
-        cell?.ReviewTitleLabel?.text = BarManager.singleton.displayedDetailBar.reviews[indexPath.row].title
-        cell?.ReviewBodyLabel?.text = BarManager.singleton.displayedDetailBar.reviews[indexPath.row].description
-        cell?.textLabel?.textColor = ColorManager.reviewTitleColor
-        cell?.backgroundColor = ColorManager.reviewCellBGColor
+
+        cell?.SetContent(thisBarReview.title, body: thisBarReview.description, avgRating: thisBarReview.rating.avg, priceRating: thisBarReview.rating.price, ambienceRating: thisBarReview.rating.ambience, serviceRating: thisBarReview.rating.service, foodRating: thisBarReview.rating.food)
+
+
 
         return cell!
     }
-    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2
+        
+
+    }
+
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension  + Sizing.HundredRelativeHeightPts()*2
+
+    }
 
    
 }
+

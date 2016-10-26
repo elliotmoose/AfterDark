@@ -30,7 +30,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         // Dispose of any resources that can be recreated.
     }
     override func viewDidAppear(animated: Bool) {
-        self.view.frame = CGRectMake(0, 44, Sizing.ScreenWidth(), Sizing.HundredRelativeWidthPts()*3)
+        //self.view.frame = CGRectMake(0, 44, Sizing.ScreenWidth(), Sizing.HundredRelativeWidthPts()*3)
         if pages.count == 0
         {
             self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .Forward, animated: true, completion: nil)

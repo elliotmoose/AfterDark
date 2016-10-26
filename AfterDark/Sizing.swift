@@ -23,4 +23,24 @@ class Sizing
     {
         return UIScreen.mainScreen().bounds.size.height
     }
+
+    class func DetailTabViewFrame() ->CGRect{
+        let tabHeight = HundredRelativeHeightPts()/3
+        let mainViewWidth = ScreenWidth()
+        let mainViewHeight = ScreenHeight() - HundredRelativeHeightPts()*2/*gallery min height*/ - 88/*tab bar*/
+        
+        let detailViewFrame = CGRectMake(0, tabHeight, mainViewWidth, mainViewHeight - tabHeight )
+
+        return detailViewFrame
+    }
+    
+    class func DetailTabSubViewFrame() ->CGRect{
+        let tabHeight = HundredRelativeHeightPts()/3
+        let mainViewWidth = ScreenWidth()
+        let mainViewHeight = ScreenHeight() - HundredRelativeHeightPts()*2/*gallery min height*/ - 88/*tab bar*/
+        
+        let detailViewFrame = CGRectMake(0, 0, mainViewWidth, mainViewHeight - tabHeight)
+        
+        return detailViewFrame
+    }
 }

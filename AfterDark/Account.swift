@@ -1,15 +1,16 @@
+import Foundation
 class Account {
     
     static let singleton = Account()
     let urlLogin = "http://mooselliot.net23.net/Login.php"
     
     var user_name: String
-    var user_ID :Int
+    var user_ID :String
     var user_Email : String
     
     init() {
         user_name = ""
-        user_ID = 0
+        user_ID = ""
         user_Email = ""
     }
     
@@ -37,17 +38,17 @@ class Account {
 
 	func Save()
 	{
-	    let UD = NSUserDefaults.standardDefaults()
-	    UD.SetValue(user_name,key: "user_name")
-	    UD.SetValue(user_ID,key: "User_ID")
-	    UD.SetValue(User_Email,key: "User_Email")
+	    let UD = NSUserDefaults.standardUserDefaults()
+	    UD.setValue(user_name,forKey: "user_name")
+	    UD.setValue(user_ID,forKey: "User_ID")
+	    UD.setValue(user_Email,forKey: "User_Email")
 	}
 
 	func Load()
 	{
-		 let UD NSUserDefaults.standardDefaults()
-		 self.user_name = UD["user_name"]    
-		 self.user_ID = UD["User_ID"]
-		 self.user_Email = UD["User_Email"]
+		 let UD = NSUserDefaults.standardUserDefaults()
+		 self.user_name = UD.valueForKey("user_name") as! String
+		 self.user_ID = UD.valueForKey("User_ID") as! String
+		 self.user_Email = UD.valueForKey("User_Email") as! String
 	}
 }

@@ -33,8 +33,9 @@ class ColorManager
     static let reviewTitleColor = UIColor.whiteColor()
     static let reviewCellBGColor = UIColor.blackColor()
     
-    
-    
+    static let ratingStarColor = UIColor.orangeColor()
+    static let ratingStarBGColor = UIColor.grayColor()
+
     
     
     
