@@ -91,7 +91,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.tableView.backgroundColor = UIColor.clearColor()
             self.barIcon.backgroundColor = UIColor.blackColor()
             self.barIconButton.backgroundColor = UIColor.clearColor()
-            self.galleryCont.view.backgroundColor = UIColor.magentaColor()
+            self.galleryCont.view.backgroundColor = ColorManager.galleryBGColor
             
             self.barIcon.contentMode = UIViewContentMode.ScaleAspectFit
             self.barIcon.layer.cornerRadius = barIconWidth/2
@@ -182,21 +182,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 	//									gallery and main detail view (CELLS)
 	//===============================================================================
    
-     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//
-//        if indexPath.section == 0 && indexPath.row == 0
-//        {
-//           var cell = tableView.dequeueReusableCellWithIdentifier("GalleryCell")
-//           if cell == nil
-//	        {
-//	   	         cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-//	        }        
-//            cell!.backgroundColor = UIColor.clearColor()
-//            cell!.textLabel?.text = ""
-//            
-//            return cell!
-//        }
-			
+     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {			
         
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell")
         if cell == nil{

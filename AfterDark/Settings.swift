@@ -3,6 +3,7 @@ class Settings
 {
     static let singleton = Settings()
     
+    
     init()
     {
         self.LoadSettings()

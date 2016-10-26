@@ -88,10 +88,10 @@ class BarDetailViewMainCell: UITableViewCell {
         self.locationCont.view.frame = mainViewFrame;
         self.discountCont.view.frame = mainViewFrame;
         
-        let labelColor = UIColor.blackColor()
-        let contentBackgroundColor = UIColor.darkGrayColor()
-        let tabSelectColor = UIColor.whiteColor()
-        let tabDeselectColor = UIColor.darkGrayColor()
+        let labelColor = ColorManage.detailTabBGColor
+        let contentBackgroundColor = ColorManager.descriptionBGColor
+        let tabSelectColor = ColorManager.detailTabHighlightedColor
+        let tabDeselectColor = ColorManager.detailTabDeselectedColor
         
         self.backgroundColor = UIColor.clearColor()
         tab1.backgroundColor = labelColor

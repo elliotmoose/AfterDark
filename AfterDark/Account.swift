@@ -34,4 +34,20 @@ class Account {
             }
         })
     }
+
+	func Save()
+	{
+	    let UD = NSUserDefaults.standardDefaults()
+	    UD.SetValue(user_name,key: "user_name")
+	    UD.SetValue(user_ID,key: "User_ID")
+	    UD.SetValue(User_Email,key: "User_Email")
+	}
+
+	func Load()
+	{
+		 let UD NSUserDefaults.standardDefaults()
+		 self.user_name = UD["user_name"]    
+		 self.user_ID = UD["User_ID"]
+		 self.user_Email = UD["User_Email"]
+	}
 }

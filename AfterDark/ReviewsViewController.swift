@@ -39,13 +39,19 @@ class ReviewsViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath)
+        var cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
         
-        cell.textLabel?.text = BarManager.singleton.displayedDetailBar.reviews[indexPath.row].title
-        cell.textLabel?.textColor = ColorManager.reviewTitleColor
-        cell.backgroundColor = ColorManager.reviewCellBGColor
+        if cell == nil
+        {
+				cell = ReviewCell()  
+        }
+        
+        cell?.ReviewTitleLabel?.text = BarManager.singleton.displayedDetailBar.reviews[indexPath.row].title
+        cell?.ReviewBodyLabel?.text = BarManager.singleton.displayedDetailBar.reviews[indexPath.row].description
+        cell?.textLabel?.textColor = ColorManager.reviewTitleColor
+        cell?.backgroundColor = ColorManager.reviewCellBGColor
 
-        return cell
+        return cell!
     }
     
 
