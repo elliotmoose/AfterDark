@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AC7C513DAAF2283DF14C08A /* Pods_AfterDark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4F31C8415400AB7EBF49E6 /* Pods_AfterDark.framework */; };
 		1UJLM29NSA57LFXJVDRWQGEL /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = Y7QMRMW8N0HNTJBHDMWKAM1F /* Settings.swift */; };
 		2B19QFW7UX4K2SGFI1SWKVM3 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = UU28XIPGAXC48ERNYJTSE0MZ /* Review.swift */; };
+		610E1BE19DE238E09147FB63 /* Pods_AfterDarkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E152F3B0BE0E8AE102E03747 /* Pods_AfterDarkTests.framework */; };
 		980C8A311DBA1CCE00A2EE0F /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */; };
 		980C8A321DBA1CCE00A2EE0F /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */; };
 		982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */; };
@@ -18,6 +20,7 @@
 		986469251DBE278700781BC0 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986469231DBE278700781BC0 /* IconCell.swift */; };
 		986469261DBE278700781BC0 /* IconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 986469241DBE278700781BC0 /* IconCell.xib */; };
 		988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */; };
+		98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */; };
 		98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */; };
 		98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4901DB0009B000EAF08 /* FirstViewController.swift */; };
 		98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4921DB0009B000EAF08 /* SecondViewController.swift */; };
@@ -40,6 +43,7 @@
 		98FD70081DB8EE6200688514 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD70061DB8EE6200688514 /* DescriptionViewController.swift */; };
 		CMZEAUVGS388LV53P5VGCAKD /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */; };
 		COW598EYJYF4HIT1Y0COUZ1V /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */; };
+		DC3FC990F6FCFF020AB280F3 /* Pods_AfterDarkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D6CA664F14543EDE76CA7E1 /* Pods_AfterDarkUITests.framework */; };
 		DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = IZK3WM8ZNCS26ZQDKHX3VXX3 /* Bar.swift */; };
 		GALD5LG20WJ7W6ECBYHH54UL /* Sizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */; };
 		H76WSUQ9WFAYGEXHYPUR7S5W /* customEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47T2SPZETLOZ1M46F152NDT /* customEnums.swift */; };
@@ -67,7 +71,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2434C01C3E82865C2065B380 /* Pods-AfterDarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDarkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDarkTests/Pods-AfterDarkTests.release.xcconfig"; sourceTree = "<group>"; };
+		5542075200E70004506FB9E4 /* Pods-AfterDark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDark.release.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDark/Pods-AfterDark.release.xcconfig"; sourceTree = "<group>"; };
+		5637679E572CE190270F9B47 /* Pods-AfterDarkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDarkUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDarkUITests/Pods-AfterDarkUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7447381C934E8C8E7EC62DDA /* Pods-AfterDarkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDarkUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDarkUITests/Pods-AfterDarkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		84730GB5UESUEI9EXXK650LW /* BarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarManager.swift; sourceTree = "<group>"; };
+		8D6CA664F14543EDE76CA7E1 /* Pods_AfterDarkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AfterDarkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
@@ -78,6 +87,7 @@
 		986469231DBE278700781BC0 /* IconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
 		986469241DBE278700781BC0 /* IconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IconCell.xib; sourceTree = "<group>"; };
 		988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarDetailViewMainCell.swift; sourceTree = "<group>"; };
+		98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorizedCollectionViewController.swift; sourceTree = "<group>"; };
 		98F3E48B1DB0009B000EAF08 /* AfterDark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfterDark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98F3E4901DB0009B000EAF08 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +115,11 @@
 		98FD70031DB89EA900688514 /* DiscountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountViewController.xib; sourceTree = "<group>"; };
 		98FD70061DB8EE6200688514 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionViewController.swift; path = ../DescriptionViewController.swift; sourceTree = "<group>"; };
 		A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDark/Pods-AfterDark.debug.xcconfig"; sourceTree = "<group>"; };
 		ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		B77EBF6AAFD403376177B36F /* Pods-AfterDarkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDarkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDarkTests/Pods-AfterDarkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E152F3B0BE0E8AE102E03747 /* Pods_AfterDarkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AfterDarkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC4F31C8415400AB7EBF49E6 /* Pods_AfterDark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AfterDark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47T2SPZETLOZ1M46F152NDT /* customEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customEnums.swift; sourceTree = "<group>"; };
 		GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizing.swift; sourceTree = "<group>"; };
 		IZK3WM8ZNCS26ZQDKHX3VXX3 /* Bar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
@@ -120,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AC7C513DAAF2283DF14C08A /* Pods_AfterDark.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				610E1BE19DE238E09147FB63 /* Pods_AfterDarkTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3FC990F6FCFF020AB280F3 /* Pods_AfterDarkUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +184,8 @@
 				98F3E4A41DB0009B000EAF08 /* AfterDarkTests */,
 				98F3E4AF1DB0009B000EAF08 /* AfterDarkUITests */,
 				98F3E48C1DB0009B000EAF08 /* Products */,
+				FACD88CA47116B8BBB9D7F01 /* Pods */,
+				C1561CE883909CBE4AF9A0BA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +209,7 @@
 				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
+				98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */,
 				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
 				IGY8Y264MALJU6WIBKDC62QO /* Reviews */,
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
@@ -259,6 +279,29 @@
 			name = Objects;
 			sourceTree = "<group>";
 		};
+		C1561CE883909CBE4AF9A0BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC4F31C8415400AB7EBF49E6 /* Pods_AfterDark.framework */,
+				E152F3B0BE0E8AE102E03747 /* Pods_AfterDarkTests.framework */,
+				8D6CA664F14543EDE76CA7E1 /* Pods_AfterDarkUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FACD88CA47116B8BBB9D7F01 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */,
+				5542075200E70004506FB9E4 /* Pods-AfterDark.release.xcconfig */,
+				B77EBF6AAFD403376177B36F /* Pods-AfterDarkTests.debug.xcconfig */,
+				2434C01C3E82865C2065B380 /* Pods-AfterDarkTests.release.xcconfig */,
+				5637679E572CE190270F9B47 /* Pods-AfterDarkUITests.debug.xcconfig */,
+				7447381C934E8C8E7EC62DDA /* Pods-AfterDarkUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		IGY8Y264MALJU6WIBKDC62QO /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,9 +322,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F3E4B51DB0009B000EAF08 /* Build configuration list for PBXNativeTarget "AfterDark" */;
 			buildPhases = (
+				FAE17139C45199A1DC24A9F9 /* [CP] Check Pods Manifest.lock */,
 				98F3E4871DB0009B000EAF08 /* Sources */,
 				98F3E4881DB0009B000EAF08 /* Frameworks */,
 				98F3E4891DB0009B000EAF08 /* Resources */,
+				10750A80804B31341EB12C1E /* [CP] Embed Pods Frameworks */,
+				5D94E5C727185F8E340F3AE8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -296,9 +342,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F3E4B81DB0009B000EAF08 /* Build configuration list for PBXNativeTarget "AfterDarkTests" */;
 			buildPhases = (
+				8166C5BB26DBA745DEC59F73 /* [CP] Check Pods Manifest.lock */,
 				98F3E49D1DB0009B000EAF08 /* Sources */,
 				98F3E49E1DB0009B000EAF08 /* Frameworks */,
 				98F3E49F1DB0009B000EAF08 /* Resources */,
+				B39F08D002D367468357E986 /* [CP] Embed Pods Frameworks */,
+				E4599D6C5D12E3811A9A519A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -314,9 +363,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F3E4BB1DB0009B000EAF08 /* Build configuration list for PBXNativeTarget "AfterDarkUITests" */;
 			buildPhases = (
+				022E280AF3F3255F41724B62 /* [CP] Check Pods Manifest.lock */,
 				98F3E4A81DB0009B000EAF08 /* Sources */,
 				98F3E4A91DB0009B000EAF08 /* Frameworks */,
 				98F3E4AA1DB0009B000EAF08 /* Resources */,
+				1C40DE8C778A08AF63A984E1 /* [CP] Embed Pods Frameworks */,
+				E986B1F0462F188E2F76C1A0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -405,6 +457,144 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		022E280AF3F3255F41724B62 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		10750A80804B31341EB12C1E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AfterDark/Pods-AfterDark-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1C40DE8C778A08AF63A984E1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AfterDarkUITests/Pods-AfterDarkUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D94E5C727185F8E340F3AE8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AfterDark/Pods-AfterDark-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8166C5BB26DBA745DEC59F73 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B39F08D002D367468357E986 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AfterDarkTests/Pods-AfterDarkTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4599D6C5D12E3811A9A519A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AfterDarkTests/Pods-AfterDarkTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E986B1F0462F188E2F76C1A0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AfterDarkUITests/Pods-AfterDarkUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAE17139C45199A1DC24A9F9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		98F3E4871DB0009B000EAF08 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -417,6 +607,7 @@
 				98FCB1991DBFB5C9008C9307 /* ReviewCell.swift in Sources */,
 				98FD6FFD1DB89E0C00688514 /* ReviewsViewController.swift in Sources */,
 				98F3E4BF1DB001CE000EAF08 /* BarListTableViewController.swift in Sources */,
+				98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */,
 				982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */,
 				98FD70001DB89E3F00688514 /* LocationViewController.swift in Sources */,
 				98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */,
@@ -575,6 +766,7 @@
 		};
 		98F3E4B61DB0009B000EAF08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AfterDark/Info.plist;
@@ -586,6 +778,7 @@
 		};
 		98F3E4B71DB0009B000EAF08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5542075200E70004506FB9E4 /* Pods-AfterDark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AfterDark/Info.plist;
@@ -597,6 +790,7 @@
 		};
 		98F3E4B91DB0009B000EAF08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B77EBF6AAFD403376177B36F /* Pods-AfterDarkTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = AfterDarkTests/Info.plist;
@@ -609,6 +803,7 @@
 		};
 		98F3E4BA1DB0009B000EAF08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2434C01C3E82865C2065B380 /* Pods-AfterDarkTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = AfterDarkTests/Info.plist;
@@ -621,6 +816,7 @@
 		};
 		98F3E4BC1DB0009B000EAF08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5637679E572CE190270F9B47 /* Pods-AfterDarkUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = AfterDarkUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -633,6 +829,7 @@
 		};
 		98F3E4BD1DB0009B000EAF08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7447381C934E8C8E7EC62DDA /* Pods-AfterDarkUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = AfterDarkUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

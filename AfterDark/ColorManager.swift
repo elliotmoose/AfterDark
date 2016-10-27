@@ -23,6 +23,7 @@ class ColorManager
     static let detailTabBGColor = UIColor.blackColor()
     static let detailTabDeselectedColor = UIColor.grayColor()
     static let detailTabHighlightedColor = UIColor.whiteColor()
+    static let detailBarTitleColor = UIColor.whiteColor()
     
     static let descriptionBGColor = UIColor.blackColor()
     static let descriptionTitleColor = UIColor.blackColor()

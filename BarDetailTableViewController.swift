@@ -14,6 +14,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //UI object variables
     var barIcon = UIImageView()
     var barIconButton = UIButton()
+    var barTitle = UILabel()
     var tableView = UITableView()
     var blurrView = UIVisualEffectView()
     var mainBarDetailViewCell:BarDetailViewMainCell?
@@ -36,6 +37,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         
 
         self.UpdateBarIcon()
+        self.UpdateBarTitle()
         self.UpdateReviewTab()
         
         mainBarDetailViewCell?.CellWillAppear()
@@ -47,10 +49,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     override func viewDidAppear(animated: Bool) {
         //reset layouts
         self.barIcon.alpha = 1
+        self.barTitle.alpha = 1
         let bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height);
         self.tableView.setContentOffset(bottomOffset, animated: true)
         
         self.UpdateBarIcon()
+        self.UpdateBarTitle()
         self.UpdateReviewTab()
         
         self.blurrView.effect = nil
@@ -74,10 +78,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             //build layout
             let navBarHeight = self.navigationController!.navigationBar.frame.size.height
             let barIconWidth = self.minGalleryHeight/2
-            
+            let barTitleWidth = Sizing.HundredRelativeWidthPts() * 2
+            let barTitleHeight = Sizing.HundredRelativeHeightPts() * 0.3
+            let yOffset = -Sizing.HundredRelativeHeightPts()*0.1
             self.tableView = UITableView.init(frame: CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), Sizing.ScreenHeight() - navBarHeight - 49))
-            self.barIcon = UIImageView.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth))
-            self.barIconButton = UIButton.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth))
+            self.barIcon = UIImageView.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, barIconWidth,barIconWidth))
+            self.barIconButton = UIButton.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, barIconWidth,barIconWidth))
+            self.barTitle = UILabel.init(frame: CGRectMake((Sizing.ScreenWidth() - barTitleWidth)/2, self.barIcon.frame.origin.y + barIconWidth + 20 + yOffset, barTitleWidth, barTitleHeight))
+
+            
             //must set frame first
             self.galleryCont.view.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
             self.galleryCont.Initialize()
@@ -90,6 +99,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
             self.tableView.backgroundColor = UIColor.clearColor()
             self.barIcon.backgroundColor = UIColor.blackColor()
+            self.barTitle.backgroundColor = UIColor.clearColor()
+            self.barTitle.textColor = ColorManager.detailBarTitleColor
             self.barIconButton.backgroundColor = UIColor.clearColor()
             self.galleryCont.view.backgroundColor = ColorManager.galleryBGColor
             
@@ -99,12 +110,17 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.barIconButton.layer.cornerRadius = barIconWidth/2
             self.barIconButton.layer.masksToBounds = true
             
+            
+            self.barTitle.textAlignment = .Center
+            self.barTitle.font = UIFont.boldSystemFontOfSize(22.0)
+            
             self.view.addSubview((self.galleryCont.view))
             self.view.addSubview(self.blurrView)
 
             self.view.addSubview(self.tableView)
             self.view.addSubview(self.barIcon)
             self.view.addSubview(self.barIconButton)
+            self.view.addSubview(self.barTitle)
             
             self.addChildViewController(self.galleryCont)
             self.galleryCont.didMoveToParentViewController(self)
@@ -135,13 +151,23 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateBarIcon()
         self.UpdateGallery()
         self.UpdateTabs()
+        self.UpdateBarTitle()
     }
     
     func UpdateBarIcon()
     {
-        barIcon.image = BarManager.singleton.displayedDetailBar.icon
+        dispatch_async(dispatch_get_main_queue(), {
+        self.barIcon.image = BarManager.singleton.displayedDetailBar.icon
+
+        })
     }
-    
+    func UpdateBarTitle()
+    {
+        dispatch_async(dispatch_get_main_queue(), {
+
+        self.barTitle.text = BarManager.singleton.displayedDetailBar.name
+        })
+    }
     func UpdateGallery()
     {
         
@@ -340,6 +366,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.blurrView.layer.timeOffset = CFTimeInterval(offset)
             barIcon.alpha = offset
             barIconButton.alpha = offset
+            barTitle.alpha = offset
         }
     }
 
@@ -372,6 +399,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.blurrView.layer.timeOffset = CFTimeInterval(offset)
             barIcon.alpha = offset
             barIconButton.alpha = offset
+            barTitle.alpha = offset
         }
     }
 
