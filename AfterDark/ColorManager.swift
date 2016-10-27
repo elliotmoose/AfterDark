@@ -35,8 +35,8 @@ class ColorManager
     
     static let ratingStarColor = UIColor.orangeColor()
     static let ratingStarBGColor = UIColor.grayColor()
-
-    
+    static let ratingStarLabelTextColor = UIColor.whiteColor()
+    static let expandArrowColor = UIColor.whiteColor()
     
     
 	init()

@@ -211,6 +211,12 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         //init other views as this is the first up
         BarManager.singleton.LoadGenericBarData({()->Void in
             
+            BarManager.singleton.LoadAllNonImageDetailBarData({()->Void in
+                
+            })
+            
+            ReviewManager.singleton.LoadAllReviews()
+            
             dispatch_async(dispatch_get_main_queue(), {
                 self.navigationItem.rightBarButtonItem = self.refreshButton
             })

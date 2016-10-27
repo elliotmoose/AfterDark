@@ -10,6 +10,7 @@ import UIKit
 
 class ReviewsViewController: UITableViewController {
 
+    var allCells = [ReviewCell]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +20,13 @@ class ReviewsViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         self.view.frame = Sizing.DetailTabViewFrame()
         self.tableView.frame = Sizing.DetailTabSubViewFrame()
+        
+        for cell in allCells
+        {
+            cell.isExpanded = false
+            cell.CollapseCell()
+        }
+        
         self.tableView.reloadData()
     }
 
@@ -42,13 +50,23 @@ class ReviewsViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
+        var cell : ReviewCell?
+        if indexPath.row < allCells.count
+        {
+            cell = allCells[indexPath.row]
+        }
+        else
+        {
+            cell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
+
+            //cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
+            allCells.append(cell!)
+        }
+        
+        
         let thisBarReview = BarManager.singleton.displayedDetailBar.reviews[indexPath.row]
 
-        if cell == nil
-        {
-            cell = ReviewCell()
-        }
+ 
 
         cell?.SetContent(thisBarReview.title, body: thisBarReview.description, avgRating: thisBarReview.rating.avg, priceRating: thisBarReview.rating.price, ambienceRating: thisBarReview.rating.ambience, serviceRating: thisBarReview.rating.service, foodRating: thisBarReview.rating.food)
 
@@ -57,14 +75,92 @@ class ReviewsViewController: UITableViewController {
         return cell!
     }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2
+        
+        var thisCell : ReviewCell?
+        if indexPath.row < allCells.count
+        {
+            thisCell = allCells[indexPath.row]
+        }
+        else
+        {
+            thisCell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
+
+            //cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
+            allCells.append(thisCell!)
+        }
+        
+        if thisCell!.isExpanded
+        {
+            //then give expanded height
+            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.3
+        }
+        else
+        {
+            //give collapsed height
+            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*1.3
+        }
+        
+        
         
 
     }
 
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension  + Sizing.HundredRelativeHeightPts()*2
+        var thisCell : ReviewCell?
+        if indexPath.row < allCells.count
+        {
+            thisCell = allCells[indexPath.row]
+        }
+        else
+        {
+            thisCell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
 
+            allCells.append(thisCell!)
+        }
+        
+        
+        if thisCell!.isExpanded
+        {
+            //then give expanded height
+            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.3
+        }
+        else
+        {
+            //give collapsed height
+            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*1.3
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var thisCell : ReviewCell?
+        
+        if indexPath.row < allCells.count
+        {
+            thisCell = allCells[indexPath.row]
+        }
+        else
+        {
+            thisCell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
+            allCells.append(thisCell!)
+        }
+        
+        if thisCell!.isExpanded
+        {
+            //collapse
+            thisCell!.isExpanded = false
+            thisCell!.CollapseCell()
+        }
+        else
+        {
+            //expand
+            thisCell!.isExpanded = true
+            thisCell!.ExpandCell()
+        }
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
    
