@@ -33,7 +33,7 @@ class RatingStarView: UIView {
         self.backgroundColor = ColorManager.ratingStarBGColor
         
         self.frame = frame
-        SetSizeFromWidth(frame.size.width)
+        SetSizeFromHeight(frame.size.height)
         
         self.addSubview(starColorLayer)
         self.addSubview(starLayerImage)

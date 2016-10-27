@@ -14,6 +14,13 @@ class ReviewCell: UITableViewCell {
     @IBOutlet weak var ReviewBodyLabel: UILabel!
     
     //rating stars display
+    var avgStarsLabel : UILabel?
+    var priceStarsLabel : UILabel?
+    var ambienceStarsLabel : UILabel?
+    var serviceStarsLabel : UILabel?
+    var foodStarsLabel : UILabel?
+    
+
     var avgRatingStars : RatingStarView?
     var priceRatingStars : RatingStarView?
     var ambienceRatingStars : RatingStarView?
@@ -35,15 +42,31 @@ class ReviewCell: UITableViewCell {
         self.textLabel?.numberOfLines = 0
         
         
-        //get origin.y for first star
         let avgRatingStarYCoord = (self.textLabel?.frame.size.height)! + (self.textLabel?.frame.origin.y)!
+        let starLabelWidth = Sizing.HundredRelativeWidthPts()*1.5
+        let starsXCoord = starLabelWidth + 5
+        let starHeight = Sizing.HundredRelativeHeightPts()*0.3
+        let gap = 3
         
-        //by default the frame follows the width set, hence we can set height as 0
-        avgRatingStars = RatingStarView(frame: CGRectMake(5,avgRatingStarYCoord,Sizing.HundredRelativeWidthPts(),0))
-        priceRatingStars = RatingStarView(frame: CGRectMake(5,(avgRatingStars?.frame.height)! + (avgRatingStars?.frame.origin.y)!,Sizing.HundredRelativeWidthPts(),0))
-        ambienceRatingStars = RatingStarView(frame: CGRectMake(5,avgRatingStarYCoord,Sizing.HundredRelativeWidthPts(),0))
-        serviceRatingStars = RatingStarView(frame: CGRectMake(5,avgRatingStarYCoord,Sizing.HundredRelativeWidthPts(),0))
-        foodRatingStars = RatingStarView(frame: CGRectMake(5,avgRatingStarYCoord,Sizing.HundredRelativeWidthPts(),0))
+        //by default the frame follows the height set, hence we can set width as 0
+        avgStarsLabel = UILabel(frame: CGRectMake(10,avgRatingStarYCoord,starLabelWidth,starHeight))
+        priceStarsLabel = UILabel(frame: CGRectMake(10,avgRatingStarYCoord + (starHeight + gap),starLabelWidth,starHeight))
+        ambienceStarsLabel = UILabel(frame: CGRectMake(10,avgRatingStarYCoord + (starHeight + gap) * 2,starLabelWidth,starHeight))
+        serviceStarsLabel = UILabel(frame: CGRectMake(10,avgRatingStarYCoord + (starHeight + gap) * 3,starLabelWidth,starHeight))
+        foodStarsLabel = UILabel(frame: CGRectMake(10,avgRatingStarYCoord + (starHeight + gap) * 4,starLabelWidth,starHeight))
+        
+        avgStarsLabel.text = "Average"
+        priceStarsLabel.text = "Pricing"
+        ambienceStarsLabel.text = "Ambience"
+        serviceStarsLabel.text = "Service"
+        foodStarsLabel.text = "Food"
+        
+        
+        avgRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord,0,starHeight))
+        priceRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap),0,starHeight))
+        ambienceRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 2,0,starHeight))
+        serviceRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 3,0,starHeight))
+        foodRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 4,0,starHeight))
 
 
         self.addSubview(avgRatingStars!)
