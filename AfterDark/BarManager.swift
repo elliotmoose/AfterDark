@@ -234,7 +234,18 @@ class BarManager: NSObject
     
     
     
-    
+    func BarFromBarID(barID : String) -> Bar?
+    {
+        for bar in self.mainBarList
+        {
+            if bar.ID == barID
+            {
+                return bar
+            }
+        }
+        
+        return nil
+    }
     
     
     

@@ -20,6 +20,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         super.viewDidLoad()
         
         Initialize()
+        self.navigationController?.pushViewController((self.tabBarController?.viewControllers![1])!, animated: true)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 
@@ -35,6 +36,8 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
                 BarManager.singleton.LoadAllNonImageDetailBarData({()->Void in
                 
                 })
+                
+                CategoriesManager.singleton.LoadAllCategories()
                 
                 ReviewManager.singleton.LoadAllReviews()
                 

@@ -129,8 +129,12 @@ func JsonDataToDictArray(data: NSMutableData) -> [NSDictionary]
             tempArr = arr as! NSMutableArray
             for index in 0...(tempArr.count - 1)
             {
-                let dict = tempArr[index] as! NSDictionary
-                output.append(dict)
+                let intermediate = tempArr[index]
+                if intermediate is NSDictionary
+                {
+                    let dict = intermediate as! NSDictionary
+                    output.append(dict)
+                }
             }
             
         } catch let error as NSError {

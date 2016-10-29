@@ -10,54 +10,53 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class CategorizedCollectionViewController: UICollectionViewController {
+class CategorizedCollectionViewController: UICollectionViewController,CategoryManagerDelegate {
 
+    let categoryTableViewCont = CategoryDetailView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        self.collectionView!.registerNib(UINib(nibName: "CategoryCell", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: "CategoryCell")
+        
+        CategoriesManager.singleton.delegate = self
+        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+//        }
+        
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    func ReloadCategoriesView()
+    {
+        dispatch_async(dispatch_get_main_queue(), {
+        self.collectionView?.reloadData()
+        })
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return CategoriesManager.singleton.allCategories.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell",forIndexPath: indexPath) as? CategoryCell
     
-        // Configure the cell
-    
-        return cell
+        cell!.SetContent(CategoriesManager.singleton.allCategories[indexPath.row])
+        
+        return cell!
     }
 
     // MARK: UICollectionViewDelegate
@@ -69,12 +68,16 @@ class CategorizedCollectionViewController: UICollectionViewController {
     }
     */
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
+
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
-    */
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        categoryTableViewCont.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
+        self.navigationController?.pushViewController(categoryTableViewCont, animated: true)
+    }
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
