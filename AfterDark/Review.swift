@@ -6,9 +6,9 @@ struct Review{
     var title: String = ""
     var description: String = ""
     var user_name: String = ""
-    var date: NSDate = NSDate()
+    var date: Date = Date()
     
-    mutating func initWithDict(dict : NSDictionary)
+    mutating func initWithDict(_ dict : NSDictionary)
     {
         let Rating_Avg = Float(dict["Rating_Avg"] as! String)
         let Rating_Price = Float(dict["Rating_Price"] as! String)
@@ -24,8 +24,8 @@ struct Review{
 		 self.ID = dict["Review_ID"] as! String
     }
 
-    mutating func InjectValues(rate: Rating, descrip: String, username: String
-        , datex: NSDate)
+    mutating func InjectValues(_ rate: Rating, descrip: String, username: String
+        , datex: Date)
     {
         rating = rate
         description = descrip

@@ -19,18 +19,18 @@ class BarListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
+        self.accessoryType = UITableViewCellAccessoryType.detailDisclosureButton
         bar_Icon.layer.masksToBounds = true
 
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the seleced state
     }
     
-    func SetContent(barIconImage : UIImage?, barName : String, barRating : Rating)
+    func SetContent(_ barIconImage : UIImage?, barName : String, barRating : Rating)
     {
         
         self.bar_Icon.image = barIconImage;

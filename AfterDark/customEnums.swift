@@ -25,7 +25,7 @@ struct Rating {
         service = 0
     }
     
-    mutating func InjectValues(avgx: Float, pricex: Float, ambiencex: Float, foodx: Float, servicex: Float)
+    mutating func InjectValues(_ avgx: Float, pricex: Float, ambiencex: Float, foodx: Float, servicex: Float)
     {
         avg = avgx
         price = pricex

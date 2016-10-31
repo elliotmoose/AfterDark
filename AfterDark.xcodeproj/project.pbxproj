@@ -415,13 +415,16 @@
 				TargetAttributes = {
 					98F3E48A1DB0009B000EAF08 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0810;
 					};
 					98F3E4A01DB0009B000EAF08 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0810;
 						TestTargetID = 98F3E48A1DB0009B000EAF08;
 					};
 					98F3E4AB1DB0009B000EAF08 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0810;
 						TestTargetID = 98F3E48A1DB0009B000EAF08;
 					};
 				};
@@ -801,6 +804,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -813,6 +817,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -825,6 +830,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDarkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AfterDark.app/AfterDark";
 			};
 			name = Debug;
@@ -838,6 +844,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDarkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AfterDark.app/AfterDark";
 			};
 			name = Release;
@@ -850,6 +857,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDarkUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = AfterDark;
 				USES_XCTRUNNER = YES;
 			};
@@ -863,6 +871,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDarkUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = AfterDark;
 				USES_XCTRUNNER = YES;
 			};

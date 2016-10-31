@@ -29,16 +29,16 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         //self.view.frame = CGRectMake(0, 44, Sizing.ScreenWidth(), Sizing.HundredRelativeWidthPts()*3)
         if pages.count == 0
         {
-            self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .Forward, animated: true, completion: nil)
+            self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .forward, animated: true, completion: nil)
 
         }
         else
         {
-            self.pageViewController.setViewControllers([pages[0]], direction: .Forward, animated: true, completion: nil)
+            self.pageViewController.setViewControllers([pages[0]], direction: .forward, animated: true, completion: nil)
 
         }
 
@@ -78,7 +78,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
                     {
                         self.pages.append(self.viewControllerAtIndex(index))
                     }
-                    self.pageViewController.setViewControllers([self.viewControllerAtIndex(0)], direction: .Forward, animated: false, completion: nil)
+                    self.pageViewController.setViewControllers([self.viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
                     
                     
                     GalleryManager.singleton.LoadBarGallery(barOrigin,handler:
@@ -86,7 +86,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
                         (success) -> Void in
                         if success
                         {
-                            self.pageViewController.setViewControllers([self.viewControllerAtIndex(self.currentPageIndex)], direction: .Forward, animated: false, completion: nil)
+                            self.pageViewController.setViewControllers([self.viewControllerAtIndex(self.currentPageIndex)], direction: .forward, animated: false, completion: nil)
                         }
                             
                     })
@@ -97,7 +97,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         
         
         //update UI
-self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
     }
 
     func Initialize()
@@ -105,10 +105,10 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
 
        
         
-        self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-        self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+        self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        self.pageViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
 
-        self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
         
         
         let pc = UIPageControl.appearance()
@@ -122,7 +122,7 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
         self.pageViewController.delegate = self;
         
         self.addChildViewController(self.pageViewController)
-        self.pageViewController.didMoveToParentViewController(self)
+        self.pageViewController.didMove(toParentViewController: self)
 
         
         self.view.addSubview(self.pageViewController.view)
@@ -130,7 +130,7 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
     
     
 
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?
     {
         let vc = viewController as? ContentViewController
         guard var index = vc?.pageIndex else{
@@ -140,12 +140,12 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
             return nil
         }
         
-        index--
+        index -= 1
         
         return viewControllerAtIndex(index)
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?
     {
         let vc = viewController as? ContentViewController
         guard var index = vc?.pageIndex else{
@@ -156,19 +156,19 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
         }
         
         //prompt loading of image
-        index++
+        index += 1
         return viewControllerAtIndex(index)
     }
     
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return self.pages.count
     }
     
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return currentPageIndex
     }
     
-    func viewControllerAtIndex(index: Int) ->ContentViewController {
+    func viewControllerAtIndex(_ index: Int) ->ContentViewController {
         if (self.pages.count == 0) || (index >= self.pages.count) {
             let vc = ContentViewController(frame: self.view.frame)
             vc.pageIndex = index
@@ -190,17 +190,17 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
         return vc
     }
 
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
     }
-    func changePage(direction : Int)
+    func changePage(_ direction : Int)
     {
         if direction == 0 //right swipe
         {
             if currentPageIndex > 0 && pages.count != 0
             {
                 currentPageIndex = currentPageIndex - 1
-                pageViewController.setViewControllers([viewControllerAtIndex(currentPageIndex)], direction: .Reverse, animated: true, completion: nil)
+                pageViewController.setViewControllers([viewControllerAtIndex(currentPageIndex)], direction: .reverse, animated: true, completion: nil)
             }
 
         }
@@ -209,7 +209,7 @@ self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction
             if currentPageIndex < pages.count - 1
             {
                 currentPageIndex = currentPageIndex + 1
-                pageViewController.setViewControllers([viewControllerAtIndex(currentPageIndex)], direction: .Forward, animated: true, completion: nil)
+                pageViewController.setViewControllers([viewControllerAtIndex(currentPageIndex)], direction: .forward, animated: true, completion: nil)
             }
             
 
@@ -254,7 +254,7 @@ class ContentViewController: UIViewController
         super.init(nibName: nil, bundle: nil)
         self.view = UIView(frame: frame)
         imageView = UIImageView(frame: frame)
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         self.view.addSubview(imageView)
     }
     

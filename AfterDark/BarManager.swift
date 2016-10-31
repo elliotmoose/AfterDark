@@ -3,7 +3,7 @@ import UIKit
 protocol BarManagerToListTableDelegate :class
 {
     func UpdateBarListTableDisplay()
-    func UpdateCellForBar(bar : Bar)
+    func UpdateCellForBar(_ bar : Bar)
 
 
 
@@ -33,13 +33,13 @@ class BarManager: NSObject
     weak var listDelegate :BarManagerToListTableDelegate?
     
     //methods
-    private override init()
+    fileprivate override init()
     {
         displayedDetailBar.name = "display Bar"
         displayedDetailBar.description = "description"
     }
     
-    func DisplayBarDetails(bar : Bar)
+    func DisplayBarDetails(_ bar : Bar)
     {
         //passing by value
 //        displayedDetailBar.name = bar.name
@@ -55,7 +55,7 @@ class BarManager: NSObject
         //start loading reviews
         
     }
-    func LoadGenericBarData(handler: ()-> Void)//consits of 2 key details: name, ratings , however, we do not wanna overwrite already loaded details (e.g. icon,description)
+    func LoadGenericBarData(_ handler: @escaping ()-> Void)//consits of 2 key details: name, ratings , however, we do not wanna overwrite already loaded details (e.g. icon,description)
     {
         //Load All Bar Names
         Network.singleton.DataFromUrl(urlAllBarNames,handler: {(success,output) -> Void in
@@ -82,7 +82,7 @@ class BarManager: NSObject
                         self.mainBarList = tempMainBarList
                         for newBar in self.mainBarList
                         {
-                            let indexInCache = allOldBarNames.indexOf(newBar.name)
+                            let indexInCache = allOldBarNames.index(of: newBar.name)
                             let oldBar = cache[indexInCache!]
                             
                             if oldBar.icon != nil
@@ -110,11 +110,11 @@ class BarManager: NSObject
     }
     
     
-    func LoadAllNonImageDetailBarData(handler: () -> Void)
+    func LoadAllNonImageDetailBarData(_ handler: @escaping () -> Void)
     {
         for bar in mainBarList
         {
-            let thisBarFormattedName = bar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+            let thisBarFormattedName = bar.name.replacingOccurrences(of: " ", with: "+")
             let urlNonImageBarInfo = "http://mooselliot.net23.net/GetBarNonImageInfo.php?Bar_Name=\(thisBarFormattedName)"
             Network.singleton.DictArrayFromUrl(urlNonImageBarInfo, handler: {(success,output) -> Void in
                 if success
@@ -145,7 +145,7 @@ class BarManager: NSObject
 
     }
     
-    func LoadGalleryImageData(handler: () -> Void)
+    func LoadGalleryImageData(_ handler: () -> Void)
     {
         
     }
@@ -157,7 +157,7 @@ class BarManager: NSObject
         {
             if bar.icon == nil
             {
-                let barNameForUrl = bar.name.stringByReplacingOccurrencesOfString(" ", withString: "+")
+                let barNameForUrl = bar.name.replacingOccurrences(of: " ", with: "+")
                 let requestUrl = "http://mooselliot.net23.net/GetBarIconImage.php?Bar_Name=\(barNameForUrl)"
                 Network.singleton.StringFromUrl(requestUrl, handler: {(success,output)-> Void in
                     
@@ -166,7 +166,7 @@ class BarManager: NSObject
                         if let output = output
                         {
                             let imageString = output
-                            let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                            let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
                             bar.icon = UIImage(data: dataDecoded)
 
                             //update UI for that bar
@@ -180,11 +180,11 @@ class BarManager: NSObject
         }
     }
     //different data handlers
-    func BarListGenericDataToArray(data:NSData) -> [Bar]
+    func BarListGenericDataToArray(_ data:Data) -> [Bar]
     {
         
         
-        let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
+        let retrievedArray = self.JSONToArray((data as NSData).mutableCopy() as! NSMutableData)
         var tempBarList = [Bar]()
         
         if retrievedArray.count == 0
@@ -234,7 +234,7 @@ class BarManager: NSObject
     
     
     
-    func BarFromBarID(barID : String) -> Bar?
+    func BarFromBarID(_ barID : String) -> Bar?
     {
         for bar in self.mainBarList
         {
@@ -249,17 +249,17 @@ class BarManager: NSObject
     
     
     
-    func NewBarFromDict(dict: NSDictionary) ->Bar
+    func NewBarFromDict(_ dict: NSDictionary) ->Bar
     {
         let newBar = Bar()
-        newBar.name = dict.valueForKey("Bar_Name") as! String
-        newBar.ID = dict.valueForKey("Bar_ID") as! String
-        newBar.rating.InjectValues(Float(dict.valueForKey("Bar_Rating_Avg") as! String)!, pricex: Float(dict.valueForKey("Bar_Rating_Price") as! String)!, ambiencex: Float(dict.valueForKey("Bar_Rating_Ambience") as! String)!,foodx: Float(dict.valueForKey("Bar_Rating_Food") as! String)!, servicex: Float(dict.valueForKey("Bar_Rating_Service") as! String)!)
+        newBar.name = dict.value(forKey: "Bar_Name") as! String
+        newBar.ID = dict.value(forKey: "Bar_ID") as! String
+        newBar.rating.InjectValues(Float(dict.value(forKey: "Bar_Rating_Avg") as! String)!, pricex: Float(dict.value(forKey: "Bar_Rating_Price") as! String)!, ambiencex: Float(dict.value(forKey: "Bar_Rating_Ambience") as! String)!,foodx: Float(dict.value(forKey: "Bar_Rating_Food") as! String)!, servicex: Float(dict.value(forKey: "Bar_Rating_Service") as! String)!)
         
         return newBar
     }
     
-    func ArrangeBarList(mode: DisplayBarListMode)
+    func ArrangeBarList(_ mode: DisplayBarListMode)
     {
         
         //reset output
@@ -304,7 +304,7 @@ class BarManager: NSObject
                 
                 
                 //arrange alphabetically within array
-                arrayOfBarsForLetter.sortInPlace({$0.name < $1.name})
+                arrayOfBarsForLetter.sort(by: {$0.name < $1.name})
                 
                 
                 //add array to collection of arrays of letter-arranged bars
@@ -318,27 +318,27 @@ class BarManager: NSObject
         case .avgRating:
             
             var singleArray = mainBarList
-            singleArray.sortInPlace({$0.rating.avg < $1.rating.avg})
+            singleArray.sort(by: {$0.rating.avg < $1.rating.avg})
             displayBarList.append(singleArray)
             break;
         case .priceRating:
             var singleArray = mainBarList
-            singleArray.sortInPlace({$0.rating.price < $1.rating.price})
+            singleArray.sort(by: {$0.rating.price < $1.rating.price})
             displayBarList.append(singleArray)
             break;
         case .foodRating:
             var singleArray = mainBarList
-            singleArray.sortInPlace({$0.rating.food < $1.rating.food})
+            singleArray.sort(by: {$0.rating.food < $1.rating.food})
             displayBarList.append(singleArray)
             break;
         case .ambienceRating:
             var singleArray = mainBarList
-            singleArray.sortInPlace({$0.rating.ambience < $1.rating.ambience})
+            singleArray.sort(by: {$0.rating.ambience < $1.rating.ambience})
             displayBarList.append(singleArray)
             break;
         case .serviceRating:
             var singleArray = mainBarList
-            singleArray.sortInPlace({$0.rating.service < $1.rating.service})
+            singleArray.sort(by: {$0.rating.service < $1.rating.service})
             displayBarList.append(singleArray)
             break;
             
@@ -346,13 +346,13 @@ class BarManager: NSObject
         
     }
     
-    func JSONToArray(data : NSMutableData) -> NSMutableArray{
+    func JSONToArray(_ data : NSMutableData) -> NSMutableArray{
         
         var output: NSMutableArray = NSMutableArray()
         
         do{
             
-            output = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments) as! NSMutableArray
+            output = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! NSMutableArray
             
             
         } catch let error as NSError {
@@ -364,14 +364,14 @@ class BarManager: NSObject
         
     }
     
-    func JsonDataToDictArray(data: NSMutableData) -> [NSDictionary]
+    func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
     {
         var output = [NSDictionary]()
         var tempArr: NSMutableArray = NSMutableArray()
         
         do{
             
-            tempArr = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments) as! NSMutableArray
+            tempArr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! NSMutableArray
             
             for index in 0...(tempArr.count - 1)
             {

@@ -33,7 +33,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     }
 
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
 
         self.UpdateBarIcon()
@@ -46,11 +46,11 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         //reset layouts
         self.barIcon.alpha = 1
         self.barTitle.alpha = 1
-        let bottomOffset = CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height);
+        let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.size.height);
         self.tableView.setContentOffset(bottomOffset, animated: true)
         
         self.UpdateBarIcon()
@@ -58,17 +58,16 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateReviewTab()
         
         self.blurrView.effect = nil
-        UIView.animateWithDuration(1.0, animations: {
-            self.blurrView.effect = UIBlurEffect(style: .Light)
+        UIView.animate(withDuration: 1.0, animations: {
+            self.blurrView.effect = UIBlurEffect(style: .light)
         })
     }
     func Initialze()
     {
 
-        dispatch_async(dispatch_get_main_queue(),
-        {
+        DispatchQueue.main.async(execute: {
             //register nibs
-            self.tableView.registerNib(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
+            self.tableView.register(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
             
             //initialize controllers
 
@@ -81,38 +80,38 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             let barTitleWidth = Sizing.HundredRelativeWidthPts() * 2
             let barTitleHeight = Sizing.HundredRelativeHeightPts() * 0.3
             let yOffset = -Sizing.HundredRelativeHeightPts()*0.1
-            self.tableView = UITableView.init(frame: CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), Sizing.ScreenHeight() - navBarHeight - 49))
-            self.barIcon = UIImageView.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, barIconWidth,barIconWidth))
-            self.barIconButton = UIButton.init(frame: CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, barIconWidth,barIconWidth))
-            self.barTitle = UILabel.init(frame: CGRectMake((Sizing.ScreenWidth() - barTitleWidth)/2, self.barIcon.frame.origin.y + barIconWidth + 20 + yOffset, barTitleWidth, barTitleHeight))
+            self.tableView = UITableView.init(frame: CGRect(x: 0, y: navBarHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - navBarHeight - 49))
+            self.barIcon = UIImageView.init(frame: CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, width: barIconWidth,height: barIconWidth))
+            self.barIconButton = UIButton.init(frame: CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, width: barIconWidth,height: barIconWidth))
+            self.barTitle = UILabel.init(frame: CGRect(x: (Sizing.ScreenWidth() - barTitleWidth)/2, y: self.barIcon.frame.origin.y + barIconWidth + 20 + yOffset, width: barTitleWidth, height: barTitleHeight))
 
             
             //must set frame first
-            self.galleryCont.view.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
+            self.galleryCont.view.frame = CGRect(x: 0, y: navBarHeight, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
             self.galleryCont.Initialize()
             
             //self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
             self.blurrView = UIVisualEffectView(effect: nil)
-            self.blurrView.frame = CGRectMake(0, navBarHeight, Sizing.ScreenWidth(), self.maxGalleryHeight)
+            self.blurrView.frame = CGRect(x: 0, y: navBarHeight, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
             self.blurrView.layer.speed = 0
 
             
-            self.tableView.backgroundColor = UIColor.clearColor()
-            self.barIcon.backgroundColor = UIColor.blackColor()
-            self.barTitle.backgroundColor = UIColor.clearColor()
+            self.tableView.backgroundColor = UIColor.clear
+            self.barIcon.backgroundColor = UIColor.black
+            self.barTitle.backgroundColor = UIColor.clear
             self.barTitle.textColor = ColorManager.detailBarTitleColor
-            self.barIconButton.backgroundColor = UIColor.clearColor()
+            self.barIconButton.backgroundColor = UIColor.clear
             self.galleryCont.view.backgroundColor = ColorManager.galleryBGColor
             
-            self.barIcon.contentMode = UIViewContentMode.ScaleAspectFit
+            self.barIcon.contentMode = UIViewContentMode.scaleAspectFit
             self.barIcon.layer.cornerRadius = barIconWidth/2
             self.barIcon.layer.masksToBounds = true
             self.barIconButton.layer.cornerRadius = barIconWidth/2
             self.barIconButton.layer.masksToBounds = true
             
             
-            self.barTitle.textAlignment = .Center
-            self.barTitle.font = UIFont.boldSystemFontOfSize(22.0)
+            self.barTitle.textAlignment = .center
+            self.barTitle.font = UIFont.boldSystemFont(ofSize: 22.0)
             
             self.view.addSubview((self.galleryCont.view))
             self.view.addSubview(self.blurrView)
@@ -123,7 +122,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.view.addSubview(self.barTitle)
             
             self.addChildViewController(self.galleryCont)
-            self.galleryCont.didMoveToParentViewController(self)
+            self.galleryCont.didMove(toParentViewController: self)
             
             BarManager.singleton.detailDelegate = self
             ReviewManager.singleton.delegate = self
@@ -131,7 +130,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.tableView.delegate = self
         
 
-            self.barIconButton.addTarget(self, action: "BarIconTapped", forControlEvents: UIControlEvents.TouchUpInside)
+            self.barIconButton.addTarget(self, action: #selector(BarDetailTableViewController.BarIconTapped), for: UIControlEvents.touchUpInside)
             //0 means not zoomed in
             self.barIconButton.tag = 0
             
@@ -156,14 +155,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     
     func UpdateBarIcon()
     {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
         self.barIcon.image = BarManager.singleton.displayedDetailBar.icon
 
         })
     }
     func UpdateBarTitle()
     {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
 
         self.barTitle.text = BarManager.singleton.displayedDetailBar.name
         })
@@ -182,14 +181,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     func UpdateDescriptionTab()
     {
         //update bar description tab
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
         self.mainBarDetailViewCell?.descriptionCont.tableView?.reloadData()
         })
     }
     
     func UpdateReviewTab()
     {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
                 self.mainBarDetailViewCell?.reviewCont.tableView.reloadData()
             })
 
@@ -202,11 +201,11 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //============================================================================
     //                                 number of rows and sections
     //============================================================================
-     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
@@ -214,13 +213,13 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 	//									gallery and main detail view (CELLS)
 	//===============================================================================
    
-     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {			
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {			
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         if cell == nil{
-            cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+            cell = UITableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
         }
-        cell!.backgroundColor = UIColor.clearColor()
+        cell!.backgroundColor = UIColor.clear
         
         
 
@@ -231,7 +230,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //===============================================================================
     //											Height of Cells
     //===============================================================================
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
 
         return 0
@@ -240,11 +239,11 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //============================================================================
     //                                  Main Display (Headers)
     //============================================================================
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 0
         {
-            let header = TransparentView(frame: CGRectMake(0,0,Sizing.ScreenWidth(),maxGalleryHeight))
+            let header = TransparentView(frame: CGRect(x: 0,y: 0,width: Sizing.ScreenWidth(),height: maxGalleryHeight))
             header.pageView = self.galleryCont
             return header
 
@@ -254,7 +253,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             if self.mainBarDetailViewCell == nil
             {
                 let headerHeight = self.tableView(self.tableView, heightForHeaderInSection: section)
-                self.mainBarDetailViewCell = BarDetailViewMainCell.init(frame: CGRectMake(0,0, Sizing.ScreenWidth(), headerHeight))
+                self.mainBarDetailViewCell = BarDetailViewMainCell.init(frame: CGRect(x: 0,y: 0, width: Sizing.ScreenWidth(), height: headerHeight))
                 self.mainBarDetailViewCell!.Initialize()
             }
 
@@ -265,7 +264,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //============================================================================
     //                                  section header height
     //============================================================================
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0
         {
             //height of gallery
@@ -286,10 +285,10 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         {
             
             barIcon.layer.cornerRadius = 0
-            UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-                self.barIcon.frame = CGRectMake(0, 0, Sizing.ScreenWidth(), Sizing.ScreenHeight())
-                self.navigationController?.navigationBarHidden = true
-                self.tabBarController?.tabBar.hidden = true
+            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions(), animations: {
+                self.barIcon.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight())
+                self.navigationController?.isNavigationBarHidden = true
+                self.tabBarController?.tabBar.isHidden = true
 
             }, completion: nil)
             self.barIconButton.frame = self.barIcon.frame
@@ -300,12 +299,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         else
         {            let navBarHeight = self.navigationController!.navigationBar.frame.size.height
             let barIconWidth = self.minGalleryHeight/2
-            UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-                self.barIcon.frame = CGRectMake((Sizing.ScreenWidth() - barIconWidth)/2 , (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, barIconWidth,barIconWidth)
+            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions(), animations: {
+                self.barIcon.frame = CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, width: barIconWidth,height: barIconWidth)
                 self.barIcon.layer.cornerRadius = barIconWidth/2
                 
-                self.navigationController?.navigationBarHidden = false
-                self.tabBarController?.tabBar.hidden = false
+                self.navigationController?.isNavigationBarHidden = false
+                self.tabBarController?.tabBar.isHidden = false
                 }, completion: nil)
             
 
@@ -321,31 +320,31 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //============================================================================
     //                                  scroll mechanics
     //============================================================================
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y > 0
         {
             if  scrollView.contentOffset.y < Sizing.HundredRelativeHeightPts()*0.2
             {
-                scrollView.setContentOffset(CGPointMake(0,0), animated: true)
+                scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: true)
 
             }
             else
             {
-                scrollView.setContentOffset(CGPointMake(0,Sizing.HundredRelativeHeightPts()), animated: true)
+                scrollView.setContentOffset(CGPoint(x: 0,y: Sizing.HundredRelativeHeightPts()), animated: true)
             }
         }
     }
     
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let y = -scrollView.contentOffset.y;
         if (y>0)
         {
-            galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
-            galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
-            blurrView.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
-            blurrView.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+            galleryCont.view.frame = CGRect(x: 0, y: galleryCont.view.frame.origin.y, width: Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,height: y +  self.maxGalleryHeight )
+            galleryCont.view.center = CGPoint(x: self.view.center.x, y: galleryCont.view.center.y)
+            blurrView.frame = CGRect(x: 0, y: galleryCont.view.frame.origin.y, width: Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,height: y +  self.maxGalleryHeight )
+            blurrView.center = CGPoint(x: self.view.center.x, y: galleryCont.view.center.y)
 
         }
         
@@ -372,14 +371,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
 
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let y = -scrollView.contentOffset.y;
         if (y>0)
         {
-            galleryCont.view.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
-            galleryCont.view.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
-            blurrView.frame = CGRectMake(0, galleryCont.view.frame.origin.y, Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,y +  self.maxGalleryHeight )
-            blurrView.center = CGPointMake(self.view.center.x, galleryCont.view.center.y)
+            galleryCont.view.frame = CGRect(x: 0, y: galleryCont.view.frame.origin.y, width: Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,height: y +  self.maxGalleryHeight )
+            galleryCont.view.center = CGPoint(x: self.view.center.x, y: galleryCont.view.center.y)
+            blurrView.frame = CGRect(x: 0, y: galleryCont.view.frame.origin.y, width: Sizing.ScreenWidth()+y*Sizing.ScreenWidth()/330,height: y +  self.maxGalleryHeight )
+            blurrView.center = CGPoint(x: self.view.center.x, y: galleryCont.view.center.y)
             
         }
         

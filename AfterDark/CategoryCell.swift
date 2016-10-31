@@ -16,12 +16,12 @@ class CategoryCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.backgroundColor = UIColor.orangeColor()
-        self.frame = CGRectMake(0, 0, Sizing.ScreenWidth(), Sizing.HundredRelativeHeightPts()*2)
+        self.backgroundColor = UIColor.orange
+        self.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.HundredRelativeHeightPts()*2)
     }
 
     
-    func SetContent(category : Category)
+    func SetContent(_ category : Category)
     {
         self.categoryTitleLabel.text = category.name
         self.descriptionLabel.text = "\(category.bars.count) Bars"

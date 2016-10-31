@@ -17,7 +17,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.collectionView!.registerNib(UINib(nibName: "CategoryCell", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: "CategoryCell")
+        self.collectionView!.register(UINib(nibName: "CategoryCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CategoryCell")
         
         CategoriesManager.singleton.delegate = self
         
@@ -35,24 +35,24 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 
     func ReloadCategoriesView()
     {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
         self.collectionView?.reloadData()
         })
     }
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CategoriesManager.singleton.allCategories.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell",forIndexPath: indexPath) as? CategoryCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell",for: indexPath) as? CategoryCell
     
         cell!.SetContent(CategoriesManager.singleton.allCategories[indexPath.row])
         
@@ -69,11 +69,11 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
     */
 
 
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         categoryTableViewCont.displayedBars = CategoriesManager.singleton.allCategories[indexPath.row].bars
         self.navigationController?.pushViewController(categoryTableViewCont, animated: true)

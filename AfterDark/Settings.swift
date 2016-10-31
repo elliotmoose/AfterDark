@@ -11,7 +11,7 @@ class Settings
 
     func SaveSettings()
     {
-        NSUserDefaults.standardUserDefaults().setValue(Account.singleton.user_name, forKey: "username")
+        UserDefaults.standard.setValue(Account.singleton.user_name, forKey: "username")
     }
 
     func LoadSettings()

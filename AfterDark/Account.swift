@@ -14,21 +14,22 @@ class Account {
         user_Email = ""
     }
     
-    func Login(username:String,password:String,handler: (success:Bool)->Void)
+    func Login(_ username:String,password:String,handler: (_ success:Bool)->Void)
     {
         let postParam = String("username=\(username)&password=\(password)")
-        Network.singleton.DataFromUrlWithPost(urlLogin,postParam: postParam,handler: {(success,output) -> Void in
+        Network.singleton.DataFromUrlWithPost(urlLogin,postParam: postParam!,handler: {(success,output) -> Void in
             if let output = output
             {
-                if output == "Login Success"
+                let outputString = String(describing: output)
+                if outputString == "Login Success"
                 {
                     self.user_name = username
                 }
-            else if output == "wrong pass"
+            else if outputString == "wrong pass"
             {
                 
             }
-            else if output == "invalid ID"
+            else if outputString == "invalid ID"
             {
                 
             }
@@ -38,7 +39,7 @@ class Account {
 
 	func Save()
 	{
-	    let UD = NSUserDefaults.standardUserDefaults()
+	    let UD = UserDefaults.standard
 	    UD.setValue(user_name,forKey: "user_name")
 	    UD.setValue(user_ID,forKey: "User_ID")
 	    UD.setValue(user_Email,forKey: "User_Email")
@@ -46,9 +47,9 @@ class Account {
 
 	func Load()
 	{
-		 let UD = NSUserDefaults.standardUserDefaults()
-		 self.user_name = UD.valueForKey("user_name") as! String
-		 self.user_ID = UD.valueForKey("User_ID") as! String
-		 self.user_Email = UD.valueForKey("User_Email") as! String
+		 let UD = UserDefaults.standard
+		 self.user_name = UD.value(forKey: "user_name") as! String
+		 self.user_ID = UD.value(forKey: "User_ID") as! String
+		 self.user_Email = UD.value(forKey: "User_Email") as! String
 	}
 }

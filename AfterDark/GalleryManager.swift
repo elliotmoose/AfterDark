@@ -9,7 +9,7 @@ class GalleryManager
         
     }
 
-    func LoadMaxPages(thisBarOrigin: Bar, handler: (success: Bool)-> Void)
+    func LoadMaxPages(_ thisBarOrigin: Bar, handler: @escaping (_ success: Bool)-> Void)
     {
         //get number of pages
         let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_ID=\(thisBarOrigin.ID)"
@@ -19,12 +19,12 @@ class GalleryManager
             {
                 //set max number
                 thisBarOrigin.maxImageCount = noOfImages
-                handler(success: true)
+                handler(true)
             }
         })
     }
 
-    func LoadBarGallery(thisBarOrigin: Bar, handler: (success :Bool) -> Void)
+    func LoadBarGallery(_ thisBarOrigin: Bar, handler: @escaping (_ success :Bool) -> Void)
     {
                     //reset pages
                     if thisBarOrigin.maxImageCount == 0
@@ -41,7 +41,7 @@ class GalleryManager
                                     if success == true
                                     {
                                         let imageString = output
-                                        let dataDecoded:NSData = NSData(base64EncodedString: imageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                                        let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
                                         let image = UIImage(data: dataDecoded)
                                         
                                         if let image = image
@@ -49,7 +49,7 @@ class GalleryManager
                                             thisBarOrigin.Images.append(image)
                                             
                                             //update UI at page:
-                                            handler(success: true)
+                                            handler(true)
                                         }
                                         
                                         

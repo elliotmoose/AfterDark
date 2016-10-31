@@ -14,10 +14,10 @@ class CategoryDetailView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             
             //register bar list table view cell
-            self.tableView.registerNib(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
+            self.tableView.register(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
             
             self.tableView.rowHeight = 85
             
@@ -25,20 +25,20 @@ class CategoryDetailView: UITableViewController {
         
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayedBars.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BarListTableViewCell", forIndexPath: indexPath) as! BarListTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BarListTableViewCell", for: indexPath) as! BarListTableViewCell
 
         let thisBar = displayedBars[indexPath.row]
         cell.SetContent(thisBar.icon, barName: thisBar.name, barRating: thisBar.rating)
@@ -46,7 +46,7 @@ class CategoryDetailView: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //open bar detail view
     }
     

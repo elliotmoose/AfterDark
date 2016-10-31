@@ -20,12 +20,12 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         super.viewDidLoad()
         
         Initialize()
-        self.navigationController?.tabBarController?.selectedIndex = 0
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        self.navigationController?.tabBarController?.selectedIndex = 1
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
 
 
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
             })
 
@@ -40,7 +40,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
                 
                 ReviewManager.singleton.LoadAllReviews()
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.navigationItem.rightBarButtonItem = self.refreshButton
                 })
 
@@ -68,21 +68,21 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     func Initialize()
     {
         //ui init
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             //set refresh button
-            self.activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,20,20))
-            self.activityIndicator?.color = UIColor.grayColor()
+            self.activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0,width: 20,height: 20))
+            self.activityIndicator?.color = UIColor.gray
             self.activityIndicator?.startAnimating()
-            self.refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+            self.refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(BarListTableViewController.refresh))
             self.navigationItem.rightBarButtonItem = self.refreshButton
             
         }
         
         //non ui init
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
         
             //register bar list table view cell
-                self.tableView.registerNib(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
+                self.tableView.register(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
             
             //set self as bar manager delegate
             BarManager.singleton.listDelegate = self
@@ -107,10 +107,10 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     }
     
     
-    func UpdateCellForBar(bar : Bar)
+    func UpdateCellForBar(_ bar : Bar)
     {
         //get bar indexPath in display Bar List
-        var indexPath: NSIndexPath?
+        var indexPath: IndexPath?
         for sectionIndex in 0...BarManager.singleton.displayBarList.count-1
         {
             let section = BarManager.singleton.displayBarList[sectionIndex]
@@ -119,7 +119,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
                 let barx = section[rowIndex]
                 if bar.name == barx.name
                 {
-                    indexPath = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+                    indexPath = IndexPath(row: rowIndex, section: sectionIndex)
                 }
             }
         }
@@ -127,9 +127,9 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         if let indexPath = indexPath
         {
             //update that index path
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 let indexPaths = [indexPath]
-                self.tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+                self.tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.none)
                 
                 //check if its being viewed
                 if BarManager.singleton.displayedDetailBar.name == bar.name
@@ -146,7 +146,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     
     func ReloadTable()
     {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
         self.tableView.reloadData()
         }
     }
@@ -154,13 +154,13 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     //============================================================================
     //                                 number of section and rows
     //============================================================================
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    override func numberOfSections(in tableView: UITableView) -> Int
     {
         let count = BarManager.singleton.displayBarList.count
         return count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let count = BarManager.singleton.displayBarList[section].count
 
@@ -170,9 +170,9 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     //============================================================================
     //                                create bar cells
     //============================================================================
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> BarListTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> BarListTableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BarListTableViewCell", forIndexPath: indexPath) as! BarListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BarListTableViewCell", for: indexPath) as! BarListTableViewCell
         let thisSection = BarManager.singleton.displayBarList[indexPath.section]
         let thisBar = thisSection[indexPath.row]
         
@@ -182,7 +182,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         return cell
     }
     
-    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
     }
     
@@ -190,7 +190,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     //                                 selected bar cell
     //============================================================================
     //show bar detail view
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //prep for display
         BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
@@ -204,7 +204,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     {
 
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
         })
         
@@ -217,7 +217,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
             
             ReviewManager.singleton.LoadAllReviews()
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.navigationItem.rightBarButtonItem = self.refreshButton
             })
             

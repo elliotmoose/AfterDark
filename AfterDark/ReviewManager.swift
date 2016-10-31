@@ -14,15 +14,15 @@ class ReviewManager
         
     }
 
-    func LoadReviews(bar: Bar,lowerBound : Int,count: Int, handler:(success: Bool)-> Void)
+    func LoadReviews(_ bar: Bar,lowerBound : Int,count: Int, handler:@escaping (_ success: Bool)-> Void)
     {
         var indexOfFirstReview = lowerBound
         var offset = 0
         //sort out which has been loaded and which to load
         while indexOfFirstReview < bar.reviews.count
         {
-            indexOfFirstReview++
-            offset++
+            indexOfFirstReview += 1
+            offset += 1
             if offset >= count
             {
                 //if function has been redundant (e.g ask for a load that has already been loaded
@@ -45,7 +45,7 @@ class ReviewManager
                     allReviewsForBar.append(newReview)
                 }
                 bar.reviews = bar.reviews + allReviewsForBar
-                handler(success: true)
+                handler(true)
             }
         }
         })

@@ -28,7 +28,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
         let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/ - 88
 
-        tableView = UITableView(frame: CGRectMake(0, 0,Sizing.ScreenWidth(),mainViewHeight))
+        tableView = UITableView(frame: CGRect(x: 0, y: 0,width: Sizing.ScreenWidth(),height: mainViewHeight))
     
         let tableViewBackGroundColor = ColorManager.descriptionCellBGColor
         tableView?.backgroundColor = tableViewBackGroundColor
@@ -40,37 +40,37 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         
         //register nibs
         //self.tableView!.registerClass(DescriptionCell.self, forCellReuseIdentifier: "DecsriptionCell") IconCell
-        self.tableView!.registerNib(UINib(nibName: "DescriptionCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "DescriptionCell")
-        self.tableView!.registerNib(UINib(nibName: "IconCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "IconCell")
+        self.tableView!.register(UINib(nibName: "DescriptionCell", bundle: Bundle.main), forCellReuseIdentifier: "DescriptionCell")
+        self.tableView!.register(UINib(nibName: "IconCell", bundle: Bundle.main), forCellReuseIdentifier: "IconCell")
 
     }
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
 
 
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")
 
         switch indexPath
         {
-        case NSIndexPath(forRow: 0, inSection: 0):
+        case IndexPath(row: 0, section: 0):
         
-            let descriptionCell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! DescriptionCell
+            let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: IndexPath(row: 0, section: 0)) as! DescriptionCell
             descriptionCell.descriptionBodyLabel.text = BarManager.singleton.displayedDetailBar.description
-            descriptionCell.frame = CGRectMake(0, 0, Sizing.ScreenWidth(), Sizing.HundredRelativeHeightPts()*1.5)
+            descriptionCell.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.HundredRelativeHeightPts()*1.5)
             descriptionCell.descriptionBodyLabel.textColor = ColorManager.descriptionCellTextColor
             descriptionCell.descriptionTitle.textColor = ColorManager.descriptionCellTextColor
             descriptionCell.backgroundColor = ColorManager.descriptionCellBGColor
             return descriptionCell
-        case NSIndexPath(forRow: 1, inSection: 0):
-            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as? IconCell
+        case IndexPath(row: 1, section: 0):
+            var cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: IndexPath(row: 1, section: 0)) as? IconCell
             if cell == nil
             {
                 cell = IconCell()
@@ -79,13 +79,13 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             }
             cell?.backgroundColor = ColorManager.descriptionCellBGColor
             cell?.Detail.textColor = ColorManager.descriptionCellTextColor
-            cell?.Icon?.image = UIImage(named: "Marker-48")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.image = UIImage(named: "Marker-48")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
             return cell!
-        case NSIndexPath(forRow: 2, inSection: 0):
-            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 2, inSection: 0)) as? IconCell
+        case IndexPath(row: 2, section: 0):
+            var cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: IndexPath(row: 2, section: 0)) as? IconCell
             if cell == nil
             {
                 cell = IconCell()
@@ -95,7 +95,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             
             cell?.backgroundColor = ColorManager.descriptionCellBGColor
             cell?.Detail.textColor = ColorManager.descriptionCellTextColor
-            cell?.Icon?.image = UIImage(named: "Clock-48")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.image = UIImage(named: "Clock-48")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
@@ -108,8 +108,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
             return cell!
 
-        case NSIndexPath(forRow: 3, inSection: 0):
-            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 3, inSection: 0)) as? IconCell
+        case IndexPath(row: 3, section: 0):
+            var cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: IndexPath(row: 3, section: 0)) as? IconCell
             if cell == nil
             {
                 cell = IconCell()
@@ -119,14 +119,14 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             
             cell?.backgroundColor = ColorManager.descriptionCellBGColor
             cell?.Detail.textColor = ColorManager.descriptionCellTextColor
-            cell?.Icon?.image = UIImage(named: "Phone-48")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.image = UIImage(named: "Phone-48")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             cell?.Detail.text = BarManager.singleton.displayedDetailBar.contact
             return cell!
 
-        case NSIndexPath(forRow: 4, inSection: 0):
-            var cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: NSIndexPath(forRow: 3, inSection: 0)) as? IconCell
+        case IndexPath(row: 4, section: 0):
+            var cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: IndexPath(row: 3, section: 0)) as? IconCell
             if cell == nil
             {
                 cell = IconCell()
@@ -136,23 +136,23 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             
             cell?.backgroundColor = ColorManager.descriptionCellBGColor
             cell?.Detail.textColor = ColorManager.descriptionCellTextColor
-            cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.imageWithRenderingMode(.AlwaysTemplate)
+            cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
             return cell!
 
-        default: cell = tableView.dequeueReusableCellWithIdentifier("IconCell", forIndexPath: indexPath)
+        default: cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath)
         }
 
         return cell!
     }
 
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath
         {
-        case NSIndexPath(forRow: 0, inSection: 0):
+        case IndexPath(row: 0, section: 0):
             return Sizing.HundredRelativeHeightPts()*1.5
         default: return 70
         }

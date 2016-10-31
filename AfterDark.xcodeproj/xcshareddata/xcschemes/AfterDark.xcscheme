@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "651F041B-DF82-48F2-97C1-0C63A6F82CDB"
+               BlueprintIdentifier = "98F3E48A1DB0009B000EAF08"
                BuildableName = "AfterDark.app"
                BlueprintName = "AfterDark"
                ReferencedContainer = "container:AfterDark.xcodeproj">
@@ -23,35 +23,59 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "98F3E4AB1DB0009B000EAF08"
+               BuildableName = "AfterDarkUITests.xctest"
+               BlueprintName = "AfterDarkUITests"
+               ReferencedContainer = "container:AfterDark.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "98F3E4A01DB0009B000EAF08"
+               BuildableName = "AfterDarkTests.xctest"
+               BlueprintName = "AfterDarkTests"
+               ReferencedContainer = "container:AfterDark.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "651F041B-DF82-48F2-97C1-0C63A6F82CDB"
+            BlueprintIdentifier = "98F3E48A1DB0009B000EAF08"
             BuildableName = "AfterDark.app"
             BlueprintName = "AfterDark"
             ReferencedContainer = "container:AfterDark.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "651F041B-DF82-48F2-97C1-0C63A6F82CDB"
+            BlueprintIdentifier = "98F3E48A1DB0009B000EAF08"
             BuildableName = "AfterDark.app"
             BlueprintName = "AfterDark"
             ReferencedContainer = "container:AfterDark.xcodeproj">
@@ -61,15 +85,16 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "651F041B-DF82-48F2-97C1-0C63A6F82CDB"
+            BlueprintIdentifier = "98F3E48A1DB0009B000EAF08"
             BuildableName = "AfterDark.app"
             BlueprintName = "AfterDark"
             ReferencedContainer = "container:AfterDark.xcodeproj">

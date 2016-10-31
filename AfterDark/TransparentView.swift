@@ -14,13 +14,13 @@ class TransparentView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        let leftSwipe = UISwipeGestureRecognizer.init(target: self, action: "leftSwipe:")
-        leftSwipe.direction = UISwipeGestureRecognizerDirection.Left
+        let leftSwipe = UISwipeGestureRecognizer.init(target: self, action: #selector(TransparentView.leftSwipe(_:)))
+        leftSwipe.direction = UISwipeGestureRecognizerDirection.left
         leftSwipe.delegate = pageView
         self.addGestureRecognizer(leftSwipe)
         
-        let rightSwipe = UISwipeGestureRecognizer.init(target: self, action: "rightSwipe:")
-        rightSwipe.direction = UISwipeGestureRecognizerDirection.Right
+        let rightSwipe = UISwipeGestureRecognizer.init(target: self, action: #selector(TransparentView.rightSwipe(_:)))
+        rightSwipe.direction = UISwipeGestureRecognizerDirection.right
         rightSwipe.delegate = pageView
         self.addGestureRecognizer(rightSwipe)
     }
@@ -29,12 +29,12 @@ class TransparentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func leftSwipe(sender : AnyObject)
+    func leftSwipe(_ sender : AnyObject)
     {
         pageView?.changePage(1)
     }
     
-    func rightSwipe(sender : AnyObject)
+    func rightSwipe(_ sender : AnyObject)
     {
         pageView?.changePage(0)
     }

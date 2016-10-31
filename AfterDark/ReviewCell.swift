@@ -34,21 +34,21 @@ class ReviewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        collapseIndicator.image = collapseIndicator.image?.imageWithRenderingMode(.AlwaysTemplate)
+        collapseIndicator.image = collapseIndicator.image?.withRenderingMode(.alwaysTemplate)
         collapseIndicator.tintColor = ColorManager.expandArrowColor
         
         self.clipsToBounds = true
-        self.selectionStyle = .None
+        self.selectionStyle = .none
         
         self.ReviewTitleLabel.textColor = ColorManager.reviewTitleColor
         self.ReviewBodyLabel.textColor = ColorManager.reviewTitleColor
         self.backgroundColor = ColorManager.reviewCellBGColor
-        ReviewBodyLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        ReviewBodyLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         ReviewBodyLabel.numberOfLines = 0
         
         //for height of cell
-        self.textLabel?.textColor = UIColor.clearColor()
-        self.textLabel?.backgroundColor = UIColor.clearColor()
+        self.textLabel?.textColor = UIColor.clear
+        self.textLabel?.backgroundColor = UIColor.clear
         self.textLabel?.numberOfLines = 0
         
         let distanceFromLeft : CGFloat = 10
@@ -59,11 +59,11 @@ class ReviewCell: UITableViewCell {
         let gap : CGFloat = 3
         
         //by default the frame follows the height set, hence we can set width as 0
-        avgStarsLabel = UILabel(frame: CGRectMake(distanceFromLeft,avgRatingStarYCoord,starLabelWidth,starHeight))
-        priceStarsLabel = UILabel(frame: CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap),starLabelWidth,starHeight))
-        ambienceStarsLabel = UILabel(frame: CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap) * 2,starLabelWidth,starHeight))
-        serviceStarsLabel = UILabel(frame: CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap) * 3,starLabelWidth,starHeight))
-        foodStarsLabel = UILabel(frame: CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap) * 4,starLabelWidth,starHeight))
+        avgStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord,width: starLabelWidth,height: starHeight))
+        priceStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap),width: starLabelWidth,height: starHeight))
+        ambienceStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 2,width: starLabelWidth,height: starHeight))
+        serviceStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 3,width: starLabelWidth,height: starHeight))
+        foodStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 4,width: starLabelWidth,height: starHeight))
         
         avgStarsLabel!.text = "Average:"
         priceStarsLabel!.text = "Pricing:"
@@ -77,13 +77,13 @@ class ReviewCell: UITableViewCell {
         serviceStarsLabel!.textColor = ColorManager.ratingStarLabelTextColor
         foodStarsLabel!.textColor = ColorManager.ratingStarLabelTextColor
         
-        avgRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord,0,starHeight))
-        priceRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap),0,starHeight))
-        ambienceRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 2,0,starHeight))
-        serviceRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 3,0,starHeight))
-        foodRatingStars = RatingStarView(frame: CGRectMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 4,0,starHeight))
+        avgRatingStars = RatingStarView(frame: CGRect(x: starsXCoord,y: avgRatingStarYCoord,width: 0,height: starHeight))
+        priceRatingStars = RatingStarView(frame: CGRect(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap),width: 0,height: starHeight))
+        ambienceRatingStars = RatingStarView(frame: CGRect(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 2,width: 0,height: starHeight))
+        serviceRatingStars = RatingStarView(frame: CGRect(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 3,width: 0,height: starHeight))
+        foodRatingStars = RatingStarView(frame: CGRect(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 4,width: 0,height: starHeight))
 
-        collapseIndicator.frame = CGRectMake(starsXCoord + (avgStarsLabel?.frame.size.width)! + 5, avgRatingStarYCoord, 20, 20)
+        collapseIndicator.frame = CGRect(x: starsXCoord + (avgStarsLabel?.frame.size.width)! + 5, y: avgRatingStarYCoord, width: 20, height: 20)
 
         self.addSubview(avgRatingStars!)
         self.addSubview(priceRatingStars!)
@@ -103,7 +103,7 @@ class ReviewCell: UITableViewCell {
 
 
     
-    func SetContent(title: String,body: String,avgRating : Float,priceRating: Float, ambienceRating: Float,serviceRating: Float, foodRating: Float)
+    func SetContent(_ title: String,body: String,avgRating : Float,priceRating: Float, ambienceRating: Float,serviceRating: Float, foodRating: Float)
     {
 
         ReviewTitleLabel.text = title
@@ -129,25 +129,25 @@ class ReviewCell: UITableViewCell {
         let gap : CGFloat = 3
         
         //by default the frame follows the width set, hence we can set height as 0
-        avgRatingStars?.SetOrigin(CGPointMake(starsXCoord,avgRatingStarYCoord))
-        priceRatingStars?.SetOrigin(CGPointMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap)))
-        ambienceRatingStars?.SetOrigin(CGPointMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 2))
-        serviceRatingStars?.SetOrigin(CGPointMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 3))
-        foodRatingStars?.SetOrigin(CGPointMake(starsXCoord,avgRatingStarYCoord + (starHeight + gap) * 4))
+        avgRatingStars?.SetOrigin(CGPoint(x: starsXCoord,y: avgRatingStarYCoord))
+        priceRatingStars?.SetOrigin(CGPoint(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap)))
+        ambienceRatingStars?.SetOrigin(CGPoint(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 2))
+        serviceRatingStars?.SetOrigin(CGPoint(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 3))
+        foodRatingStars?.SetOrigin(CGPoint(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 4))
 
         //by default the frame follows the height set, hence we can set width as 0
-        avgStarsLabel?.frame = CGRectMake(distanceFromLeft,avgRatingStarYCoord,starLabelWidth,starHeight)
-        priceStarsLabel?.frame = CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap),starLabelWidth,starHeight)
-        ambienceStarsLabel?.frame = CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap) * 2,starLabelWidth,starHeight)
-        serviceStarsLabel?.frame = CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap) * 3,starLabelWidth,starHeight)
-        foodStarsLabel?.frame = CGRectMake(distanceFromLeft,avgRatingStarYCoord + (starHeight + gap) * 4,starLabelWidth,starHeight)
+        avgStarsLabel?.frame = CGRect(x: distanceFromLeft,y: avgRatingStarYCoord,width: starLabelWidth,height: starHeight)
+        priceStarsLabel?.frame = CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap),width: starLabelWidth,height: starHeight)
+        ambienceStarsLabel?.frame = CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 2,width: starLabelWidth,height: starHeight)
+        serviceStarsLabel?.frame = CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 3,width: starLabelWidth,height: starHeight)
+        foodStarsLabel?.frame = CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 4,width: starLabelWidth,height: starHeight)
         
-        collapseIndicator.frame = CGRectMake(starsXCoord + (avgStarsLabel?.frame.size.width)! + 5, avgRatingStarYCoord, 20, 20)
+        collapseIndicator.frame = CGRect(x: starsXCoord + (avgStarsLabel?.frame.size.width)! + 5, y: avgRatingStarYCoord, width: 20, height: 20)
 
         self.CollapseCell()
 
     }
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -156,7 +156,7 @@ class ReviewCell: UITableViewCell {
     
     func ExpandCell()
     {
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.priceRatingStars?.alpha = 1
             self.ambienceRatingStars?.alpha = 1
             self.serviceRatingStars?.alpha = 1
@@ -166,14 +166,14 @@ class ReviewCell: UITableViewCell {
             self.serviceStarsLabel?.alpha = 1
             self.foodStarsLabel?.alpha = 1
             
-            self.collapseIndicator.transform = CGAffineTransformMakeRotation(CGFloat(M_PI)); //rotation in radians
+            self.collapseIndicator.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI)); //rotation in radians
 
         })
     }
     
     func CollapseCell()
     {
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.priceRatingStars?.alpha = 0
             self.ambienceRatingStars?.alpha = 0
             self.serviceRatingStars?.alpha = 0
@@ -182,16 +182,16 @@ class ReviewCell: UITableViewCell {
             self.ambienceStarsLabel?.alpha = 0
             self.serviceStarsLabel?.alpha = 0
             self.foodStarsLabel?.alpha = 0
-        self.collapseIndicator.transform = CGAffineTransformMakeRotation(0.01); //rotation in radians
+        self.collapseIndicator.transform = CGAffineTransform(rotationAngle: 0.01); //rotation in radians
 
         })
     }
     
 }
 extension String {
-    func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+    func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: CGFloat(MAXFLOAT))
-        let boundingBox = self.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
         
         return boundingBox.height
     }

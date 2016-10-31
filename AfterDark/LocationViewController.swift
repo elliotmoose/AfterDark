@@ -13,9 +13,9 @@ class LocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         GMSServices.provideAPIKey("AIzaSyANTsheZ7ClHH98Js5p1QA-7QIqw_KPrLQ")
-        let camera = GMSCameraPosition.cameraWithLatitude(-33.86, longitude: 151.20, zoom: 6.0)
-        let mapView = GMSMapView.mapWithFrame(CGRect.zero, camera: camera)
-        mapView.myLocationEnabled = true
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        mapView.isMyLocationEnabled = true
         view = mapView
         
         // Creates a marker in the center of the map.

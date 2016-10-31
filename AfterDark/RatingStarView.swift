@@ -24,7 +24,7 @@ class RatingStarView: UIView {
         
         //load 5 star image
         
-        starLayerImage = UIImageView(image: UIImage(named: "Rating-star")?.imageWithRenderingMode(.AlwaysTemplate))
+        starLayerImage = UIImageView(image: UIImage(named: "Rating-star")?.withRenderingMode(.alwaysTemplate))
         starColorLayer = UIView(frame: frame)
         super.init(frame: frame)
 
@@ -41,33 +41,33 @@ class RatingStarView: UIView {
         
     }
 
-    func SetSizeFromWidth( width: CGFloat)
+    func SetSizeFromWidth( _ width: CGFloat)
     {
         let widthToHeightRatio = starLayerImage.image!.size.width/starLayerImage.image!.size.height
-        self.frame = CGRectMake(frame.origin.x, frame.origin.y,width , width/widthToHeightRatio)
+        self.frame = CGRect(x: frame.origin.x, y: frame.origin.y,width: width , height: width/widthToHeightRatio)
         
         //set subview frames
-        starColorLayer.frame = CGRectMake(0 , 0, self.frame.width, self.frame.size.height)
-        starLayerImage.frame = CGRectMake(0 , 0, self.frame.width, self.frame.size.height)
+        starColorLayer.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
+        starLayerImage.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
     }
     
-    func SetSizeFromHeight( height: CGFloat)
+    func SetSizeFromHeight( _ height: CGFloat)
     {
         let widthToHeightRatio = starLayerImage.image!.size.width/starLayerImage.image!.size.height
-        self.frame = CGRectMake(frame.origin.x, frame.origin.y,height*widthToHeightRatio , height)
+        self.frame = CGRect(x: frame.origin.x, y: frame.origin.y,width: height*widthToHeightRatio , height: height)
         
         //set subview frames
-        starColorLayer.frame = CGRectMake(0 , 0, self.frame.width, self.frame.size.height)
-        starLayerImage.frame = CGRectMake(0 , 0, self.frame.width, self.frame.size.height)
+        starColorLayer.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
+        starLayerImage.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
     }
     
-    func SetOrigin (origin: CGPoint)
+    func SetOrigin (_ origin: CGPoint)
     {
-        self.frame = CGRectMake(origin.x, origin.y, self.frame.size.width, self.frame.size.height)
+        self.frame = CGRect(x: origin.x, y: origin.y, width: self.frame.size.width, height: self.frame.size.height)
     }
-    func SetRating(rating : Float)
+    func SetRating(_ rating : Float)
     {
-        starColorLayer.frame = CGRectMake(0 , 0, CGFloat(rating/5) * self.frame.width, self.frame.size.height)
+        starColorLayer.frame = CGRect(x: 0 , y: 0, width: CGFloat(rating/5) * self.frame.width, height: self.frame.size.height)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

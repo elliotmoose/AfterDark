@@ -17,7 +17,7 @@ class ReviewsViewController: UITableViewController {
 
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.view.frame = Sizing.DetailTabViewFrame()
         self.tableView.frame = Sizing.DetailTabSubViewFrame()
         
@@ -33,23 +33,23 @@ class ReviewsViewController: UITableViewController {
     
     func Initialize()
     {
-        tableView.registerNib(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
+        tableView.register(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return BarManager.singleton.displayedDetailBar.reviews.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : ReviewCell?
         if indexPath.row < allCells.count
         {
@@ -57,7 +57,7 @@ class ReviewsViewController: UITableViewController {
         }
         else
         {
-            cell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
+            cell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
 
             //cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
             allCells.append(cell!)
@@ -74,7 +74,7 @@ class ReviewsViewController: UITableViewController {
 
         return cell!
     }
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         var thisCell : ReviewCell?
         if indexPath.row < allCells.count
@@ -83,7 +83,7 @@ class ReviewsViewController: UITableViewController {
         }
         else
         {
-            thisCell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
+            thisCell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
 
             //cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
             allCells.append(thisCell!)
@@ -105,7 +105,7 @@ class ReviewsViewController: UITableViewController {
 
     }
 
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         var thisCell : ReviewCell?
         if indexPath.row < allCells.count
         {
@@ -113,7 +113,7 @@ class ReviewsViewController: UITableViewController {
         }
         else
         {
-            thisCell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
+            thisCell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
 
             allCells.append(thisCell!)
         }
@@ -131,7 +131,7 @@ class ReviewsViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var thisCell : ReviewCell?
         
         if indexPath.row < allCells.count
@@ -140,7 +140,7 @@ class ReviewsViewController: UITableViewController {
         }
         else
         {
-            thisCell = NSBundle.mainBundle().loadNibNamed("ReviewCell", owner: self, options: nil)[0] as? ReviewCell
+            thisCell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
             allCells.append(thisCell!)
         }
         
@@ -160,7 +160,7 @@ class ReviewsViewController: UITableViewController {
         tableView.beginUpdates()
         tableView.endUpdates()
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
    

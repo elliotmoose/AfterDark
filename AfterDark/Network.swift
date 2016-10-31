@@ -3,85 +3,90 @@ import Foundation
 
 class Network {
     
-    var session : NSURLSession
+    var session : URLSession
     static let singleton = Network()
 
     init()
     {
-        session = NSURLSession.sharedSession()
+        session = URLSession.shared
     }
 
     //Load Method
-    func DataFromUrl(inputUrl: String, handler: (success:Bool,output : NSData?) -> Void) {
+    func DataFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : Data?) -> Void) {
         
-        let url = NSURL(string: inputUrl)!
+        let url = URL(string: inputUrl)!
 
-        let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+        let task = session.dataTask(with: url)
+        { data, response, error in
             
             if let error = error
             {
                 print(error)
-                handler(success: false,output: nil)
+                handler(false,nil)
 
             }
             else if let data = data
             {
-                handler(success: true,output: data)
+                handler(true,data)
             }
             
-        })
+        }
         
         task.resume()
         
     }
 
-    func StringFromUrl(inputUrl: String, handler: (success:Bool,output : String?) -> Void) {
+    func StringFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : String?) -> Void) {
         
-        let url = NSURL(string: inputUrl)!
+        let url = URL(string: inputUrl)!
         
-        let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+        let task = session.dataTask(with: url)
+        {
+            data, response, error in
             
             if let error = error
             {
                 print(error)
-                handler(success: false,output: nil)
+                handler(false,nil)
                 
             }
             else if let data = data
             {
-                let outString = String(data: data, encoding: NSUTF8StringEncoding)
-                handler(success: true,output: outString)
+                let outString = String(data: data, encoding: String.Encoding.utf8)
+                handler(true,outString)
             }
             
-        })
+        }
         
         task.resume()
         
     }
 
     
-func DataFromUrlWithPost(inputUrl: String, postParam: String,handler: (success:Bool,output : NSData?) -> Void) {
+func DataFromUrlWithPost(_ inputUrl: String, postParam: String,handler: @escaping (_ success:Bool,_ output : Data?) -> Void) {
         
-        let url = NSURL(string: inputUrl)!
+        let url = URL(string: inputUrl)!
 
-let request = NSMutableURLRequest(URL: url)
-request.HTTPMethod = "POST"
-request.HTTPBody = postParam.dataUsingEncoding(NSUTF8StringEncoding)
+let request = NSMutableURLRequest(url: url)
+request.httpMethod = "POST"
+request.httpBody = postParam.data(using: String.Encoding.utf8)
 
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+        let task = URLSession.shared.dataTask(with: request as URLRequest)
+        { data, response, error in
+            
             
             if let error = error
             {
                 print(error)
-                handler(success: false,output: nil)
+                handler(false,nil)
 
             }
             else if let data = data
             {
-                handler(success: true,output: data)
+                handler(true,data)
             }
             
-        })
+        }
         
         task.resume()
         
@@ -90,38 +95,40 @@ request.HTTPBody = postParam.dataUsingEncoding(NSUTF8StringEncoding)
 
 
 
-func DictArrayFromUrl(inputUrl: String, handler: (success:Bool,output : [NSDictionary]) -> Void) {
+func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : [NSDictionary]) -> Void) {
         
-        let url = NSURL(string: inputUrl)!
+        let url = URL(string: inputUrl)!
 
-        let task = session.dataTaskWithURL(url, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+        let task = session.dataTask(with: url)
+        {
+            data, response, error in
             
             if let error = error
             {
                 print(error)
-                handler(success: false,output: [])
+                handler(false,[])
 
             }
             else if let data = data
             {
-                let out = data.mutableCopy() as! NSMutableData
-                handler(success: true,output: self.JsonDataToDictArray(out))
+                let out = (data as NSData).mutableCopy() as! NSMutableData
+                handler(true,self.JsonDataToDictArray(out))
             }
             
-        })
-        
+        }
+    
         task.resume()
         
     }
-func JsonDataToDictArray(data: NSMutableData) -> [NSDictionary]
+func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
     {
         var output = [NSDictionary]()
         var tempArr: NSMutableArray = NSMutableArray()
         
         do{
 
-            let arr = try NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.AllowFragments)
-            if arr.count == 0
+            let arr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments)
+            if (arr as AnyObject).count == 0
             {
                 print("invalid array, cant parse to JSON")
                 return []
