@@ -20,8 +20,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         super.viewDidLoad()
         
         Initialize()
-        self.navigationController?.pushViewController((self.tabBarController?.viewControllers![1])!, animated: true)
-        
+        self.navigationController?.tabBarController?.selectedIndex = 0
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 
 
@@ -177,10 +176,8 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         let thisSection = BarManager.singleton.displayBarList[indexPath.section]
         let thisBar = thisSection[indexPath.row]
         
-        cell.bar_NameLabel?.text = thisBar.name
-        cell.bar_RatingLabel.text = String(format: "%.1f",thisBar.rating.avg)
-        cell.bar_Icon.image = thisBar.icon
-        cell.bar_Icon.layer.masksToBounds = true
+        cell.SetContent(thisBar.icon, barName: thisBar.name, barRating: thisBar.rating)
+        
         
         return cell
     }

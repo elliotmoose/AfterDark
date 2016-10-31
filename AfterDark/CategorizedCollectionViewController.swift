@@ -75,7 +75,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
-        categoryTableViewCont.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
+        categoryTableViewCont.displayedBars = CategoriesManager.singleton.allCategories[indexPath.row].bars
         self.navigationController?.pushViewController(categoryTableViewCont, animated: true)
     }
 

@@ -20,6 +20,7 @@ class BarListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
+        bar_Icon.layer.masksToBounds = true
 
     }
 
@@ -27,6 +28,14 @@ class BarListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the seleced state
+    }
+    
+    func SetContent(barIconImage : UIImage?, barName : String, barRating : Rating)
+    {
+        
+        self.bar_Icon.image = barIconImage;
+        self.bar_NameLabel.text = barName
+        self.bar_RatingLabel.text = String(format: "%.1f",barRating.avg)
     }
     
 

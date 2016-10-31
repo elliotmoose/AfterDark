@@ -50,7 +50,9 @@ class CategoriesManager
                                     if barID is String
                                     {
                                         let newBarID = barID as! String
-                                        newCat.barIDs.append(newBarID)
+                                        newCat.bars.append(BarManager.singleton.BarFromBarID(newBarID)!)
+                                        
+
                                     }
                                 }
                             }
