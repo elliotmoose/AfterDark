@@ -39,8 +39,7 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
         self.view.addSubview(tableView!)
 
         tableView?.register(UINib(nibName: "DiscountCell", bundle: Bundle.main), forCellReuseIdentifier: "DiscountCell")
-        
-//        DiscountClaimViewController.singleton = Bundle.main.loadNibNamed("DiscountClaimViewController", owner: nil, options: nil)?[0] as! DiscountClaimViewController
+
         
     }
     
@@ -77,9 +76,9 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         
-        DiscountClaimViewController.singleton.Load(bar: BarManager.singleton.displayedDetailBar, discount: BarManager.singleton.displayedDetailBar.discounts[row])
+        DiscountDetailViewController.singleton.Load(bar: BarManager.singleton.displayedDetailBar, discount: BarManager.singleton.displayedDetailBar.discounts[row])
         
-        BarDetailTableViewController.singleton.navigationController?.pushViewController(DiscountClaimViewController.singleton, animated: true)
+        BarDetailTableViewController.singleton.navigationController?.pushViewController(DiscountDetailViewController.singleton, animated: true)
     }
     /*
     // MARK: - Navigation

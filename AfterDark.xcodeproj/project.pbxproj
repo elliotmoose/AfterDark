@@ -46,10 +46,13 @@
 		98FD70081DB8EE6200688514 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD70061DB8EE6200688514 /* DescriptionViewController.swift */; };
 		A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A400F8731DCB0F44009F8994 /* PopupManager.swift */; };
 		A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47A542E1DC8988800C465F5 /* DiscountManager.swift */; };
+		A4D375621DCB5F1400274935 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375601DCB5F1400274935 /* LoginViewController.swift */; };
+		A4D375631DCB5F1400274935 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4D375611DCB5F1400274935 /* LoginViewController.xib */; };
+		A4D375A41DCB68E000274935 /* DiscountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */; };
+		A4D375A51DCB68E000274935 /* DiscountDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4D375A31DCB68E000274935 /* DiscountDetailViewController.xib */; };
 		A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80D1DC8C90C00B9D124 /* Discount.swift */; };
 		A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */; };
 		A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */; };
-		A4F9B8151DC9E0F700B9D124 /* DiscountClaimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B8131DC9E0F700B9D124 /* DiscountClaimViewController.swift */; };
 		A4F9B81C1DCAF3B300B9D124 /* ClaimFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */; };
 		A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */; };
 		CMZEAUVGS388LV53P5VGCAKD /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */; };
@@ -130,10 +133,13 @@
 		98FD70061DB8EE6200688514 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionViewController.swift; path = ../../DescriptionViewController.swift; sourceTree = "<group>"; };
 		A400F8731DCB0F44009F8994 /* PopupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupManager.swift; sourceTree = "<group>"; };
 		A47A542E1DC8988800C465F5 /* DiscountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountManager.swift; sourceTree = "<group>"; };
+		A4D375601DCB5F1400274935 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A4D375611DCB5F1400274935 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailViewController.swift; sourceTree = "<group>"; };
+		A4D375A31DCB68E000274935 /* DiscountDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountDetailViewController.xib; sourceTree = "<group>"; };
 		A4F9B80D1DC8C90C00B9D124 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
 		A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
-		A4F9B8131DC9E0F700B9D124 /* DiscountClaimViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountClaimViewController.swift; sourceTree = "<group>"; };
 		A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClaimFormViewController.swift; sourceTree = "<group>"; };
 		A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClaimFormViewController.xib; sourceTree = "<group>"; };
 		A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
@@ -253,6 +259,8 @@
 				A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
+				A4D375601DCB5F1400274935 /* LoginViewController.swift */,
+				A4D375611DCB5F1400274935 /* LoginViewController.xib */,
 			);
 			path = AfterDark;
 			sourceTree = "<group>";
@@ -318,7 +326,8 @@
 				98FD70021DB89EA900688514 /* DiscountViewController.swift */,
 				A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */,
 				A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */,
-				A4F9B8131DC9E0F700B9D124 /* DiscountClaimViewController.swift */,
+				A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */,
+				A4D375A31DCB68E000274935 /* DiscountDetailViewController.xib */,
 				98FD70031DB89EA900688514 /* DiscountViewController.xib */,
 				A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */,
 				A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */,
@@ -486,6 +495,7 @@
 				98FCB19A1DBFB5C9008C9307 /* ReviewCell.xib in Resources */,
 				985E9DE11DB5245B001E0815 /* BarDetailViewController.xib in Resources */,
 				98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */,
+				A4D375A51DCB68E000274935 /* DiscountDetailViewController.xib in Resources */,
 				982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */,
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
@@ -494,6 +504,7 @@
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
 				98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */,
 				A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */,
+				A4D375631DCB5F1400274935 /* LoginViewController.xib in Resources */,
 				98FD70011DB89E3F00688514 /* LocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,6 +672,7 @@
 				986E18421DC4B2950098637D /* CategoryDetailView.swift in Sources */,
 				986469251DBE278700781BC0 /* IconCell.swift in Sources */,
 				982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */,
+				A4D375621DCB5F1400274935 /* LoginViewController.swift in Sources */,
 				98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */,
 				98FCB1991DBFB5C9008C9307 /* ReviewCell.swift in Sources */,
 				98FD6FFD1DB89E0C00688514 /* ReviewsViewController.swift in Sources */,
@@ -692,7 +704,7 @@
 				Q8YINUWFC5GQUAXVB2CAP29H /* GalleryManager.swift in Sources */,
 				98FCB19C1DC12B7D008C9307 /* RatingStarView.swift in Sources */,
 				2B19QFW7UX4K2SGFI1SWKVM3 /* Review.swift in Sources */,
-				A4F9B8151DC9E0F700B9D124 /* DiscountClaimViewController.swift in Sources */,
+				A4D375A41DCB68E000274935 /* DiscountDetailViewController.swift in Sources */,
 				CMZEAUVGS388LV53P5VGCAKD /* ColorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

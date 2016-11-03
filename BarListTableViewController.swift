@@ -19,11 +19,23 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //*******************************************************************
+        //                  app start, main init throughout
+        //*******************************************************************
         Initialize()
+        
+        //set opening page
         self.navigationController?.tabBarController?.selectedIndex = 1
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
-
-
+            
+//            let logCont = LoginViewController.singleton;
+//            logCont.loginIconImageView.backgroundColor = UIColor.black
+//            
+//            Account.singleton.Load()
+//            if Account.singleton.user_name == ""
+//            {
+//                self.present(logCont, animated: true, completion: nil)
+//            }
             
             DispatchQueue.main.async(execute: {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
