@@ -5,6 +5,7 @@ class Bar{
     var icon: UIImage?
     var rating = Rating()
     var reviews = [Review]()
+    var discounts = [Discount]()
     var Images: [UIImage] = []
     var maxImageCount = -1
     var description : String = ""
@@ -12,6 +13,7 @@ class Bar{
     var loc_long : Float = 0
     var loc_lat : Float = 0
     var openClosingHours:String?
+    var bookingAvailable: String
     //rating
     
     init()
@@ -20,6 +22,7 @@ class Bar{
         contact = ""
         openClosingHours = ""
         ID = ""
+        bookingAvailable = "0"
     }
     
     

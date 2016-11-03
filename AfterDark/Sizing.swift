@@ -3,7 +3,14 @@ import UIKit
 
 class Sizing
 {
+    
     static let singleton = Sizing()
+    
+    static let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/ - 88
+    
+    
+    static let discountCellHeight : CGFloat = 60
+    
     class func HundredRelativeWidthPts()->CGFloat
     {
     	return 375/UIScreen.main.bounds.size.width*100

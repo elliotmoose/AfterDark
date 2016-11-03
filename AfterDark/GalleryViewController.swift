@@ -51,7 +51,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         currentPageIndex = 0
         //check if bar has pre loaded images
         let barOrigin = BarManager.singleton.displayedDetailBar
-        if barOrigin.Images.count != 0
+        if barOrigin.Images.count != 0 && barOrigin.Images.count > 0
         {
             //then load from memory 
             

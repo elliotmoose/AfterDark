@@ -40,6 +40,8 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
                 
                 ReviewManager.singleton.LoadAllReviews()
                 
+                DiscountManager.singleton.LoadAllDiscounts()
+                
                 DispatchQueue.main.async(execute: {
                     self.navigationItem.rightBarButtonItem = self.refreshButton
                 })
@@ -216,6 +218,8 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
             })
             
             ReviewManager.singleton.LoadAllReviews()
+            
+            DiscountManager.singleton.LoadAllDiscounts()
             
             DispatchQueue.main.async(execute: {
                 self.navigationItem.rightBarButtonItem = self.refreshButton

@@ -47,7 +47,9 @@ class CategoryDetailView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //open bar detail view
+        let row = indexPath.row
+        BarManager.singleton.DisplayBarDetails(displayedBars[row])
+        self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
     }
     
 

@@ -352,7 +352,8 @@ class BarManager: NSObject
         
         do{
             
-            output = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! NSMutableArray
+            let array = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
+            output = NSMutableArray(array: array)
             
             
         } catch let error as NSError {
@@ -371,8 +372,8 @@ class BarManager: NSObject
         
         do{
             
-            tempArr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! NSMutableArray
-            
+            let array = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
+            tempArr = NSMutableArray(array: array)
             for index in 0...(tempArr.count - 1)
             {
                 let dict = tempArr[index] as! NSDictionary

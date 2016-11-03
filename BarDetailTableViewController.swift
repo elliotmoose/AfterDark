@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarManagerToDetailTableDelegate,ReviewManagerToBarDetailContDelegate {
+class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarManagerToDetailTableDelegate,ReviewManagerToBarDetailContDelegate,DiscountManagerToDetailTableDelegate {
     static let singleton = BarDetailTableViewController()
     
     //UI object variables
@@ -39,6 +39,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateBarIcon()
         self.UpdateBarTitle()
         self.UpdateReviewTab()
+        self.UpdateDiscountTab()
+        
         
         mainBarDetailViewCell?.CellWillAppear()
         galleryCont.ToPresentNewDetailBar()
@@ -69,6 +71,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             //register nibs
             self.tableView.register(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
             
+            self.navigationController?.navigationBar.isTranslucent = false
+            self.tabBarController?.tabBar.isTranslucent = false
             //initialize controllers
 
             
@@ -126,6 +130,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
             BarManager.singleton.detailDelegate = self
             ReviewManager.singleton.delegate = self
+            DiscountManager.singleton.delegate = self
             self.tableView.dataSource = self
             self.tableView.delegate = self
         
@@ -176,6 +181,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     {
         UpdateDescriptionTab()
         UpdateReviewTab()
+        UpdateDiscountTab()
     }
     
     func UpdateDescriptionTab()
@@ -194,7 +200,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
     }
     
-    
+    func UpdateDiscountTab()
+    {
+        DispatchQueue.main.async(execute: {
+            self.mainBarDetailViewCell?.discountCont.tableView?.reloadData()
+        })
+    }
     
     // MARK: - Table view data source
 

@@ -27,8 +27,6 @@
 		988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */; };
 		98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */; };
 		98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */; };
-		98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4901DB0009B000EAF08 /* FirstViewController.swift */; };
-		98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4921DB0009B000EAF08 /* SecondViewController.swift */; };
 		98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4941DB0009B000EAF08 /* Main.storyboard */; };
 		98F3E4981DB0009B000EAF08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4971DB0009B000EAF08 /* Assets.xcassets */; };
 		98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */; };
@@ -46,6 +44,14 @@
 		98FD70041DB89EA900688514 /* DiscountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD70021DB89EA900688514 /* DiscountViewController.swift */; };
 		98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FD70031DB89EA900688514 /* DiscountViewController.xib */; };
 		98FD70081DB8EE6200688514 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD70061DB8EE6200688514 /* DescriptionViewController.swift */; };
+		A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A400F8731DCB0F44009F8994 /* PopupManager.swift */; };
+		A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47A542E1DC8988800C465F5 /* DiscountManager.swift */; };
+		A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80D1DC8C90C00B9D124 /* Discount.swift */; };
+		A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */; };
+		A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */; };
+		A4F9B8151DC9E0F700B9D124 /* DiscountClaimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B8131DC9E0F700B9D124 /* DiscountClaimViewController.swift */; };
+		A4F9B81C1DCAF3B300B9D124 /* ClaimFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */; };
+		A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */; };
 		CMZEAUVGS388LV53P5VGCAKD /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */; };
 		COW598EYJYF4HIT1Y0COUZ1V /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */; };
 		DC3FC990F6FCFF020AB280F3 /* Pods_AfterDarkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D6CA664F14543EDE76CA7E1 /* Pods_AfterDarkUITests.framework */; };
@@ -100,8 +106,6 @@
 		98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorizedCollectionViewController.swift; sourceTree = "<group>"; };
 		98F3E48B1DB0009B000EAF08 /* AfterDark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfterDark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		98F3E4901DB0009B000EAF08 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		98F3E4921DB0009B000EAF08 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		98F3E4951DB0009B000EAF08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98F3E4971DB0009B000EAF08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98F3E49A1DB0009B000EAF08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -123,7 +127,15 @@
 		98FD6FFF1DB89E3F00688514 /* LocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationViewController.xib; sourceTree = "<group>"; };
 		98FD70021DB89EA900688514 /* DiscountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountViewController.swift; sourceTree = "<group>"; };
 		98FD70031DB89EA900688514 /* DiscountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountViewController.xib; sourceTree = "<group>"; };
-		98FD70061DB8EE6200688514 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionViewController.swift; path = ../DescriptionViewController.swift; sourceTree = "<group>"; };
+		98FD70061DB8EE6200688514 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionViewController.swift; path = ../../DescriptionViewController.swift; sourceTree = "<group>"; };
+		A400F8731DCB0F44009F8994 /* PopupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupManager.swift; sourceTree = "<group>"; };
+		A47A542E1DC8988800C465F5 /* DiscountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountManager.swift; sourceTree = "<group>"; };
+		A4F9B80D1DC8C90C00B9D124 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
+		A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
+		A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
+		A4F9B8131DC9E0F700B9D124 /* DiscountClaimViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountClaimViewController.swift; sourceTree = "<group>"; };
+		A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClaimFormViewController.swift; sourceTree = "<group>"; };
+		A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClaimFormViewController.xib; sourceTree = "<group>"; };
 		A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDark/Pods-AfterDark.debug.xcconfig"; sourceTree = "<group>"; };
 		ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -179,6 +191,7 @@
 		980C8A2A1DBA196900A2EE0F /* Description cells */ = {
 			isa = PBXGroup;
 			children = (
+				98FD70061DB8EE6200688514 /* DescriptionViewController.swift */,
 				980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */,
 				980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */,
 				986469231DBE278700781BC0 /* IconCell.swift */,
@@ -225,22 +238,21 @@
 			isa = PBXGroup;
 			children = (
 				98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */,
-				98F3E4901DB0009B000EAF08 /* FirstViewController.swift */,
-				98F3E4921DB0009B000EAF08 /* SecondViewController.swift */,
+				A400F8731DCB0F44009F8994 /* PopupManager.swift */,
 				98FD6FF11DB7C93900688514 /* Bar List View */,
 				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
-				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				986E18361DC3D45A0098637D /* Categorized View */,
-				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
-				IGY8Y264MALJU6WIBKDC62QO /* Reviews */,
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
-				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
 				98F3E49C1DB0009B000EAF08 /* Info.plist */,
+				GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */,
 				QFTSZAZA620UQ50HVYGSV2BC /* Network.swift */,
 				Y7QMRMW8N0HNTJBHDMWKAM1F /* Settings.swift */,
 				ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */,
+				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
 				A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */,
+				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
+				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
 			);
 			path = AfterDark;
 			sourceTree = "<group>";
@@ -279,12 +291,11 @@
 				982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */,
 				985E9DDF1DB5245B001E0815 /* BarDetailViewController.xib */,
 				988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */,
-				98FD70061DB8EE6200688514 /* DescriptionViewController.swift */,
+				A47A54301DC8989200C465F5 /* Discounts */,
+				IGY8Y264MALJU6WIBKDC62QO /* Reviews */,
 				980C8A2A1DBA196900A2EE0F /* Description cells */,
 				98FD6FFE1DB89E3F00688514 /* LocationViewController.swift */,
 				98FD6FFF1DB89E3F00688514 /* LocationViewController.xib */,
-				98FD70021DB89EA900688514 /* DiscountViewController.swift */,
-				98FD70031DB89EA900688514 /* DiscountViewController.xib */,
 				7BX7YBX1X4B6W77J2FNUF9E4 /* Gallery */,
 			);
 			name = "Bar Detail View";
@@ -295,11 +306,26 @@
 			children = (
 				IZK3WM8ZNCS26ZQDKHX3VXX3 /* Bar.swift */,
 				F47T2SPZETLOZ1M46F152NDT /* customEnums.swift */,
-				GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */,
 				98FD6FF61DB8716300688514 /* TransparentView.swift */,
 				986E18371DC3D4C20098637D /* Category.swift */,
 			);
 			name = Objects;
+			sourceTree = "<group>";
+		};
+		A47A54301DC8989200C465F5 /* Discounts */ = {
+			isa = PBXGroup;
+			children = (
+				98FD70021DB89EA900688514 /* DiscountViewController.swift */,
+				A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */,
+				A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */,
+				A4F9B8131DC9E0F700B9D124 /* DiscountClaimViewController.swift */,
+				98FD70031DB89EA900688514 /* DiscountViewController.xib */,
+				A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */,
+				A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */,
+				A47A542E1DC8988800C465F5 /* DiscountManager.swift */,
+				A4F9B80D1DC8C90C00B9D124 /* Discount.swift */,
+			);
+			name = Discounts;
 			sourceTree = "<group>";
 		};
 		C1561CE883909CBE4AF9A0BA /* Frameworks */ = {
@@ -415,7 +441,9 @@
 				TargetAttributes = {
 					98F3E48A1DB0009B000EAF08 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = D6W5DP48V9;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 					};
 					98F3E4A01DB0009B000EAF08 = {
 						CreatedOnToolsVersion = 7.2;
@@ -460,10 +488,12 @@
 				98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */,
 				982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */,
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
+				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
 				98F3E4981DB0009B000EAF08 /* Assets.xcassets in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
 				98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */,
+				A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */,
 				98FD70011DB89E3F00688514 /* LocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,7 +658,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				986E183A1DC3D50C0098637D /* CategoriesManager.swift in Sources */,
-				98F3E4931DB0009B000EAF08 /* SecondViewController.swift in Sources */,
 				986E18421DC4B2950098637D /* CategoryDetailView.swift in Sources */,
 				986469251DBE278700781BC0 /* IconCell.swift in Sources */,
 				982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */,
@@ -637,10 +666,11 @@
 				98FD6FFD1DB89E0C00688514 /* ReviewsViewController.swift in Sources */,
 				98F3E4BF1DB001CE000EAF08 /* BarListTableViewController.swift in Sources */,
 				98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */,
+				A4F9B81C1DCAF3B300B9D124 /* ClaimFormViewController.swift in Sources */,
 				982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */,
 				98FD70001DB89E3F00688514 /* LocationViewController.swift in Sources */,
 				986E183F1DC49E4A0098637D /* CategoryCell.swift in Sources */,
-				98F3E4911DB0009B000EAF08 /* FirstViewController.swift in Sources */,
+				A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */,
 				986E18381DC3D4C20098637D /* Category.swift in Sources */,
 				980C8A311DBA1CCE00A2EE0F /* DescriptionCell.swift in Sources */,
 				DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */,
@@ -649,8 +679,11 @@
 				98FD6FF71DB8716300688514 /* TransparentView.swift in Sources */,
 				H76WSUQ9WFAYGEXHYPUR7S5W /* customEnums.swift in Sources */,
 				GALD5LG20WJ7W6ECBYHH54UL /* Sizing.swift in Sources */,
+				A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */,
+				A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */,
 				98FD70041DB89EA900688514 /* DiscountViewController.swift in Sources */,
 				K6IWCJC2V8NIJ9770XXEEKN7 /* Network.swift in Sources */,
+				A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */,
 				98FD6FF01DB7C91B00688514 /* GalleryViewController.swift in Sources */,
 				1UJLM29NSA57LFXJVDRWQGEL /* Settings.swift in Sources */,
 				98FD70081DB8EE6200688514 /* DescriptionViewController.swift in Sources */,
@@ -659,6 +692,7 @@
 				Q8YINUWFC5GQUAXVB2CAP29H /* GalleryManager.swift in Sources */,
 				98FCB19C1DC12B7D008C9307 /* RatingStarView.swift in Sources */,
 				2B19QFW7UX4K2SGFI1SWKVM3 /* Review.swift in Sources */,
+				A4F9B8151DC9E0F700B9D124 /* DiscountClaimViewController.swift in Sources */,
 				CMZEAUVGS388LV53P5VGCAKD /* ColorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,10 +834,15 @@
 			baseConfigurationReference = AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = D6W5DP48V9;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AfterDark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -813,6 +852,9 @@
 			baseConfigurationReference = 5542075200E70004506FB9E4 /* Pods-AfterDark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = D6W5DP48V9;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = AfterDark/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.AfterDark;

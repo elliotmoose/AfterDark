@@ -26,8 +26,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
         
 
-        let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/ - 88
-
+        let mainViewHeight = Sizing.mainViewHeight
         tableView = UITableView(frame: CGRect(x: 0, y: 0,width: Sizing.ScreenWidth(),height: mainViewHeight))
     
         let tableViewBackGroundColor = ColorManager.descriptionCellBGColor
@@ -50,7 +49,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
 
 
@@ -142,6 +141,19 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             
             return cell!
 
+        case IndexPath(row: 5, section: 0):
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "ReservationCell")
+            if cell == nil{
+                cell = UITableViewCell()
+                cell?.textLabel?.text = "Make Reservation"
+                cell?.backgroundColor = ColorManager.reservationCellColor
+                cell?.accessoryType = .disclosureIndicator
+            }
+            
+            
+            
+            return cell!
         default: cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath)
         }
 

@@ -146,7 +146,6 @@ class BarDetailViewMainCell: UITableViewCell {
     
     func ChangeTab(_ sender: AnyObject )
     {
-        print(sender.tag)
         tabCont.selectedIndex = sender.tag
         let button = sender as! UIButton
         button.isSelected = true

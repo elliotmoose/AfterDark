@@ -127,13 +127,13 @@ func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
         
         do{
 
-            let arr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments)
+            let arr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
             if (arr as AnyObject).count == 0
             {
                 print("invalid array, cant parse to JSON")
                 return []
             }
-            tempArr = arr as! NSMutableArray
+            tempArr = NSMutableArray(array: arr)
             for index in 0...(tempArr.count - 1)
             {
                 let intermediate = tempArr[index]
