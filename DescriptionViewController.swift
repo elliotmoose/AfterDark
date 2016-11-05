@@ -11,7 +11,7 @@ import UIKit
 class DescriptionViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     
     var tableView : UITableView?
-    
+    var openingHoursCell : OpeningHoursCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         //self.tableView!.registerClass(DescriptionCell.self, forCellReuseIdentifier: "DecsriptionCell") IconCell
         self.tableView!.register(UINib(nibName: "DescriptionCell", bundle: Bundle.main), forCellReuseIdentifier: "DescriptionCell")
         self.tableView!.register(UINib(nibName: "IconCell", bundle: Bundle.main), forCellReuseIdentifier: "IconCell")
-
+        self.tableView!.register(UINib(nibName: "OpeningHoursCell", bundle: Bundle.main), forCellReuseIdentifier: "OpeningHoursCell")
+       
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,7 +50,13 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        
+        if BarManager.singleton.displayedDetailBar.bookingAvailable == "1"
+        {
+            return 6
+        }
+        
+        return 5
     }
 
 
@@ -64,6 +71,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: IndexPath(row: 0, section: 0)) as! DescriptionCell
             descriptionCell.descriptionBodyLabel.text = BarManager.singleton.displayedDetailBar.description
             descriptionCell.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.HundredRelativeHeightPts()*1.5)
+            descriptionCell.selectionStyle = .none
             descriptionCell.descriptionBodyLabel.textColor = ColorManager.descriptionCellTextColor
             descriptionCell.descriptionTitle.textColor = ColorManager.descriptionCellTextColor
             descriptionCell.backgroundColor = ColorManager.descriptionCellBGColor
@@ -83,13 +91,13 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
             return cell!
-        case IndexPath(row: 2, section: 0):
-            var cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: IndexPath(row: 2, section: 0)) as? IconCell
+        case  IndexPath(row: 2, section: 0):
+            var cell = tableView.dequeueReusableCell(withIdentifier: "OpeningHoursCell", for: IndexPath(row: 2, section: 0)) as? OpeningHoursCell
             if cell == nil
             {
-                cell = IconCell()
-
-
+                cell = OpeningHoursCell()
+                
+                
             }
             
             cell?.backgroundColor = ColorManager.descriptionCellBGColor
@@ -97,14 +105,15 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.image = UIImage(named: "Clock-48")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
-            
+            cell?.selectionStyle = .none
             if BarManager.singleton.displayedDetailBar.openClosingHours == nil
             {
                 BarManager.singleton.displayedDetailBar.openClosingHours = "Unknown"
             }
             
             cell?.Detail.text = BarManager.singleton.displayedDetailBar.openClosingHours
-
+            
+            openingHoursCell = cell!
             return cell!
 
         case IndexPath(row: 3, section: 0):
@@ -122,6 +131,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             cell?.Detail.text = BarManager.singleton.displayedDetailBar.contact
+            cell?.selectionStyle = .none
             return cell!
 
         case IndexPath(row: 4, section: 0):
@@ -138,7 +148,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
-            
+            cell?.selectionStyle = .none
+
             return cell!
 
         case IndexPath(row: 5, section: 0):
@@ -172,7 +183,38 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     }
 
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.row == 2 && openingHoursCell != nil
+        {
+            let thisCell = openingHoursCell
+            if thisCell!.isExpanded
+            {
+                //collapse
+                thisCell!.isExpanded = false
+                thisCell!.CollapseCell()
+            }
+            else
+            {
+                //expand
+                thisCell!.isExpanded = true
+                thisCell!.ExpandCell()
+            }
+            
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+        
+        //make reservation cell
+        if indexPath.row == 5
+        {
+            BarDetailTableViewController.singleton.navigationController?.pushViewController(ReservationViewController.singleton, animated: true)
+        }
+        
 
+
+    }
 
 
 

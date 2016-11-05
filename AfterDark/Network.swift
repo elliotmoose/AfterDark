@@ -6,6 +6,12 @@ class Network {
     var session : URLSession
     static let singleton = Network()
 
+    
+    //Urls
+    static let domain = "http://mooselliot.net23.net/"
+    
+    
+    
     init()
     {
         session = URLSession.shared
@@ -22,12 +28,16 @@ class Network {
             if let error = error
             {
                 print(error)
-                handler(false,nil)
-
+                
+                DispatchQueue.main.async {
+                    handler(false,nil)
+                }
             }
             else if let data = data
             {
-                handler(true,data)
+                DispatchQueue.main.async {
+                    handler(true,data)
+                }
             }
             
         }
@@ -47,13 +57,16 @@ class Network {
             if let error = error
             {
                 print(error)
-                handler(false,nil)
-                
+                DispatchQueue.main.async {
+                    handler(false,nil)
+                }
             }
             else if let data = data
             {
                 let outString = String(data: data, encoding: String.Encoding.utf8)
-                handler(true,outString)
+                DispatchQueue.main.async {
+                    handler(true,outString)
+                }
             }
             
         }
@@ -78,12 +91,18 @@ request.httpBody = postParam.data(using: String.Encoding.utf8)
             if let error = error
             {
                 print(error)
-                handler(false,nil)
+                
+                DispatchQueue.main.async {
+                    handler(false,nil)
+                }
+                
 
             }
             else if let data = data
             {
-                handler(true,data)
+                DispatchQueue.main.async {
+                    handler(true,data)
+                }
             }
             
         }
@@ -112,7 +131,11 @@ func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ o
             else if let data = data
             {
                 let out = (data as NSData).mutableCopy() as! NSMutableData
-                handler(true,self.JsonDataToDictArray(out))
+                
+                DispatchQueue.main.async {
+                    handler(true,Network.JsonDataToDictArray(out))
+
+                }
             }
             
         }
@@ -120,15 +143,17 @@ func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ o
         task.resume()
         
     }
-func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
+static func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
     {
         var output = [NSDictionary]()
         var tempArr: NSMutableArray = NSMutableArray()
         
         do{
 
+
+            
             let arr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
-            if (arr as AnyObject).count == 0
+            if arr.count == 0
             {
                 print("invalid array, cant parse to JSON")
                 return []

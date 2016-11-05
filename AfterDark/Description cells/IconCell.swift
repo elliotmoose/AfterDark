@@ -12,6 +12,9 @@ class IconCell: UITableViewCell {
 
     @IBOutlet weak var Detail: UILabel!
     @IBOutlet weak var Icon: UIImageView!
+    
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     

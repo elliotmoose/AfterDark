@@ -19,10 +19,10 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 
         self.collectionView!.register(UINib(nibName: "CategoryCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CategoryCell")
         
+        self.navigationController?.navigationBar.isTranslucent = false
+        
         CategoriesManager.singleton.delegate = self
         
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//        }
         
     }
 

@@ -53,13 +53,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.barIcon.alpha = 1
         self.barTitle.alpha = 1
         let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.size.height);
-        self.tableView.setContentOffset(bottomOffset, animated: true)
+        self.tableView.setContentOffset(bottomOffset, animated: false)
         
         self.UpdateBarIcon()
         self.UpdateBarTitle()
         self.UpdateReviewTab()
         
         self.blurrView.effect = nil
+        
         UIView.animate(withDuration: 1.0, animations: {
             self.blurrView.effect = UIBlurEffect(style: .light)
         })
@@ -71,15 +72,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             //register nibs
             self.tableView.register(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
             
-            self.navigationController?.navigationBar.isTranslucent = false
-            self.tabBarController?.tabBar.isTranslucent = false
+          
             //initialize controllers
 
             
             
             
             //build layout
-            let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+            let navBarHeight : CGFloat = 0
             let barIconWidth = self.minGalleryHeight/2
             let barTitleWidth = Sizing.HundredRelativeWidthPts() * 2
             let barTitleHeight = Sizing.HundredRelativeHeightPts() * 0.3
@@ -99,8 +99,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.blurrView.frame = CGRect(x: 0, y: navBarHeight, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
             self.blurrView.layer.speed = 0
 
-            
-            self.tableView.backgroundColor = UIColor.clear
+            self.view.backgroundColor = ColorManager.detailViewBGColor
+            self.tableView.backgroundColor = ColorManager.detailViewBGColor
             self.barIcon.backgroundColor = UIColor.black
             self.barTitle.backgroundColor = UIColor.clear
             self.barTitle.textColor = ColorManager.detailBarTitleColor
@@ -283,7 +283,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         }
         let screenHeight = Sizing.ScreenHeight()
 
-        return (screenHeight - 49/*tab bar height */ - self.navigationController!.navigationBar.frame.size.height - minGalleryHeight) /*screen height - nav bar height - tab bar height - min gallery height*/
+        return (screenHeight - 49/*tab bar height */ - minGalleryHeight) /*screen height - nav bar height - tab bar height - min gallery height*/
     }
     
     //============================================================================
@@ -308,7 +308,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
         }
         else
-        {            let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+        {            let navBarHeight : CGFloat = 0
             let barIconWidth = self.minGalleryHeight/2
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions(), animations: {
                 self.barIcon.frame = CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, width: barIconWidth,height: barIconWidth)
@@ -327,6 +327,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         }
         
     }
+    
+
+    
     
     //============================================================================
     //                                  scroll mechanics

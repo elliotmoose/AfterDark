@@ -63,7 +63,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Description" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40C-CK-mxv">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Description" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40C-CK-mxv">
                     <rect key="frame" x="16" y="185" width="343" height="322"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="0.9329613095238094" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,6 +89,7 @@
             <constraints>
                 <constraint firstItem="WHs-4U-GIa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="16H-47-fCh"/>
                 <constraint firstItem="F1o-Pi-UXd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1jh-KF-ffu"/>
+                <constraint firstItem="40C-CK-mxv" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="1yi-K1-xQN"/>
                 <constraint firstAttribute="trailing" secondItem="40C-CK-mxv" secondAttribute="trailing" constant="16" id="2LM-Wa-hAm"/>
                 <constraint firstAttribute="trailing" secondItem="F1o-Pi-UXd" secondAttribute="trailing" id="52U-9J-1fY"/>
                 <constraint firstAttribute="trailing" secondItem="i5x-4U-b9g" secondAttribute="trailing" id="HGI-gr-sNq"/>

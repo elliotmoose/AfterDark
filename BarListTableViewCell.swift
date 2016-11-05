@@ -21,6 +21,9 @@ class BarListTableViewCell: UITableViewCell {
         // Initialization code
         self.accessoryType = UITableViewCellAccessoryType.detailDisclosureButton
         bar_Icon.layer.masksToBounds = true
+        
+        self.backgroundColor = ColorManager.barCellColor
+        self.accessoryView?.backgroundColor = ColorManager.barCellColor
 
     }
 

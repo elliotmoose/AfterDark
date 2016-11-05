@@ -20,17 +20,17 @@ class DiscountDetailViewController: UIViewController {
     @IBOutlet weak var claimNowButton: UIButton!
     @IBAction func claimNowOnClick(_ sender: UIButton) {
         self.present(ClaimFormViewController.singleton, animated: true, completion: nil)
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
+    
 
     override func awakeFromNib() {
         barIconImageView?.layer.cornerRadius = (barIconImageView?.frame.size.height)!/2
+        barIconImageView?.layer.masksToBounds = true
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -46,6 +46,7 @@ class DiscountDetailViewController: UIViewController {
     func Load(bar : Bar,discount : Discount)
     {
         barTitleLabel?.text = bar.name
+        barIconImageView.image = bar.icon
         discountTitleLabel?.text = discount.name
         descriptionTextView?.text = discount.details
     }

@@ -19,23 +19,26 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         //*******************************************************************
         //                  app start, main init throughout
         //*******************************************************************
+        
+        //start page
+        Account.singleton.Load()
+        if Account.singleton.user_name == "" || Account.singleton.user_name == nil
+        {
+            self.present(LoginViewController.singleton, animated: false, completion: nil)
+        }
+        
+        
         Initialize()
         
         //set opening page
         self.navigationController?.tabBarController?.selectedIndex = 1
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             
-//            let logCont = LoginViewController.singleton;
-//            logCont.loginIconImageView.backgroundColor = UIColor.black
-//            
-//            Account.singleton.Load()
-//            if Account.singleton.user_name == ""
-//            {
-//                self.present(logCont, animated: true, completion: nil)
-//            }
+
             
             DispatchQueue.main.async(execute: {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
@@ -89,6 +92,10 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
             self.activityIndicator?.startAnimating()
             self.refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(BarListTableViewController.refresh))
             self.navigationItem.rightBarButtonItem = self.refreshButton
+            
+            
+            self.navigationController?.navigationBar.isTranslucent = false
+            self.tabBarController?.tabBar.isTranslucent = false
             
         }
         
@@ -148,8 +155,11 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
                 //check if its being viewed
                 if BarManager.singleton.displayedDetailBar.name == bar.name
                 {
-                    //update that viewed details icon
+                    //update that icon in bar detail view
                     BarDetailTableViewController.singleton.UpdateBarIcon()
+                    
+                    //update that icon in discount detail view controller
+                    DiscountDetailViewController.singleton.barIconImageView.image = bar.icon
 
                 }
             }
@@ -214,6 +224,25 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
 
     }
 
+    //============================================================================
+    //                                 section title
+    //============================================================================
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        
+        let firstSection  = BarManager.singleton.displayBarList[section]
+
+        if firstSection.count == 0
+        {
+            return ""
+        }
+        else
+        {
+            let firstBarInSection = firstSection[0]
+            return String(describing: firstBarInSection.name.characters.first!)
+        }
+    }
     func refresh()
     {
 

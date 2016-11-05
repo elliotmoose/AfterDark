@@ -16,20 +16,20 @@
             <rect key="frame" x="0.0" y="0.0" width="340" height="84"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="340" height="83"/>
+                <rect key="frame" x="0.0" y="0.0" width="340" height="83.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42W-AR-Wfv">
-                        <rect key="frame" x="0.0" y="0.0" width="104" height="83"/>
+                        <rect key="frame" x="10" y="0.0" width="104" height="83"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="42W-AR-Wfv" secondAttribute="height" multiplier="1:0.8" id="kfZ-WX-p2L"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iT-Pr-ZDj">
-                        <rect key="frame" x="112" y="0.0" width="228" height="40"/>
+                        <rect key="frame" x="122" y="0.0" width="218" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="grW-6Y-kpv"/>
                         </constraints>
@@ -38,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ww3-W7-AdW">
-                        <rect key="frame" x="112" y="40" width="228" height="36"/>
+                        <rect key="frame" x="122" y="40" width="218" height="36"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                     <constraint firstAttribute="trailing" secondItem="ww3-W7-AdW" secondAttribute="trailing" id="Bd4-g1-LgW"/>
                     <constraint firstItem="ww3-W7-AdW" firstAttribute="top" secondItem="1iT-Pr-ZDj" secondAttribute="bottom" id="Oh9-ub-kdR"/>
                     <constraint firstItem="ww3-W7-AdW" firstAttribute="leading" secondItem="42W-AR-Wfv" secondAttribute="trailing" constant="8" id="Ql4-EN-AgT"/>
-                    <constraint firstItem="42W-AR-Wfv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="T9S-8d-nvW"/>
+                    <constraint firstItem="42W-AR-Wfv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="T9S-8d-nvW"/>
                     <constraint firstAttribute="bottom" secondItem="ww3-W7-AdW" secondAttribute="bottom" constant="8" id="Vzo-1c-nCx"/>
                     <constraint firstItem="1iT-Pr-ZDj" firstAttribute="leading" secondItem="42W-AR-Wfv" secondAttribute="trailing" constant="8" id="bMf-NR-ZnX"/>
                     <constraint firstItem="42W-AR-Wfv" firstAttribute="top" secondItem="1iT-Pr-ZDj" secondAttribute="top" id="sei-Fe-u4d"/>

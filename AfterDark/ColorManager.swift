@@ -14,6 +14,7 @@ class ColorManager
     
     //Detail View Colors
     static let barIconDefaultColor = UIColor.black
+    static let barCellColor = UIColor.darkGray
     
     //gallery colors
     static let galleryBGColor = UIColor.darkGray
@@ -26,6 +27,7 @@ class ColorManager
     static let detailTabDeselectedColor = UIColor.gray
     static let detailTabHighlightedColor = UIColor.white
     static let detailBarTitleColor = UIColor.white
+    static let detailViewBGColor = UIColor.darkGray
     
     //description view
     static let descriptionBGColor = UIColor.black
@@ -47,6 +49,7 @@ class ColorManager
     //discount claim view
     static let barHeaderViewColor = UIColor.darkGray
     static let discountTitleBGColor = UIColor.white
+    static let discountCellValueTextColor = UIColor.orange
     static let claimButtonColor = UIColor.orange
     static let claimBarTitleTextColor = UIColor.white
     static let discountTitleLabelTextColor = UIColor.white

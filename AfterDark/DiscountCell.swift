@@ -21,6 +21,8 @@ class DiscountCell: UITableViewCell {
         
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.numberOfLines = 1
+        
+        self.valueLabel.textColor = ColorManager.discountCellValueTextColor
         }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

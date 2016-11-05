@@ -128,7 +128,8 @@ class BarManager: NSObject
                         bar.openClosingHours = dict["Bar_OpeningClosingHours"] as? String
                         bar.loc_lat = Float(dict["Bar_Location_Latitude"] as! String)!
                         bar.loc_long = Float(dict["Bar_Location_Longitude"] as! String)!
-                    
+                        bar.bookingAvailable = dict.value(forKey: "Booking_Available") as! String
+
                         
                         if self.displayedDetailBar.name == bar.name
                         {
@@ -136,6 +137,10 @@ class BarManager: NSObject
                         }
                         
                         handler()
+                        
+                        DispatchQueue.main.async {
+                            self.detailDelegate?.UpdateDescriptionTab()
+                        }
                     }
                 }
             })
@@ -169,7 +174,7 @@ class BarManager: NSObject
                             let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
                             bar.icon = UIImage(data: dataDecoded)
 
-                            //update UI for that bar
+                            //update UI for that bar at bar list view controller
 
                             self.listDelegate?.UpdateCellForBar(bar)
                         }
@@ -255,7 +260,6 @@ class BarManager: NSObject
         newBar.name = dict.value(forKey: "Bar_Name") as! String
         newBar.ID = dict.value(forKey: "Bar_ID") as! String
         newBar.rating.InjectValues(Float(dict.value(forKey: "Bar_Rating_Avg") as! String)!, pricex: Float(dict.value(forKey: "Bar_Rating_Price") as! String)!, ambiencex: Float(dict.value(forKey: "Bar_Rating_Ambience") as! String)!,foodx: Float(dict.value(forKey: "Bar_Rating_Food") as! String)!, servicex: Float(dict.value(forKey: "Bar_Rating_Service") as! String)!)
-        
         return newBar
     }
     
