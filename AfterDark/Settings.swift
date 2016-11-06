@@ -1,6 +1,9 @@
 import Foundation
 class Settings
 {
+    //test
+    static let ignoreUserDefaults = true
+    
     static let singleton = Settings()
     
     

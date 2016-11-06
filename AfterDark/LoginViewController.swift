@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,UITextFieldDelegate {
 
     static let singleton = LoginViewController(nibName: "LoginViewController", bundle: Bundle.main)
     
@@ -64,7 +64,8 @@ class LoginViewController: UIViewController {
         self.createAccountButton.addTarget(self, action: #selector(CreateAccountButtonPressed), for: .touchUpInside)
         self.forgotPasswordButton.addTarget(self, action: #selector(ForgotPasswordButtonPressed), for: .touchUpInside)
 
-        
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
         
     }
 
@@ -189,6 +190,12 @@ class LoginViewController: UIViewController {
             }
 
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        SignIn()
+        return false
     }
     
     func ForgotPasswordButtonPressed()

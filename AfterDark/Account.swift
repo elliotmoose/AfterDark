@@ -1,6 +1,7 @@
 import Foundation
 class Account {
     
+    
     static let singleton = Account()
     let urlLogin = "http://mooselliot.net23.net/Login.php"
     var user_name: String?
@@ -66,13 +67,15 @@ class Account {
 
 	func Load()
 	{
-		 let UD = UserDefaults.standard
-
-
-        
-        self.user_name = UD.value(forKey: "user_name") as? String
-        
-        self.user_ID = UD.value(forKey: "User_ID") as? String
-        self.user_Email = UD.value(forKey: "User_Email") as? String
+        if Settings.ignoreUserDefaults == false
+        {
+            
+            let UD = UserDefaults.standard
+            
+            self.user_name = UD.value(forKey: "user_name") as? String
+            
+            self.user_ID = UD.value(forKey: "User_ID") as? String
+            self.user_Email = UD.value(forKey: "User_Email") as? String
+        }
 	}
 }

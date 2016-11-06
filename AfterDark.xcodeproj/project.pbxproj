@@ -51,6 +51,9 @@
 		A49450551DCDED840081AF72 /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49450541DCDED840081AF72 /* ReservationManager.swift */; };
 		A49450591DCDEE000081AF72 /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49450571DCDEE000081AF72 /* ReservationViewController.swift */; };
 		A494505A1DCDEE000081AF72 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49450581DCDEE000081AF72 /* ReservationViewController.xib */; };
+		A494505F1DCE0F890081AF72 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A494505D1DCE0F890081AF72 /* SettingsTableViewController.swift */; };
+		A49450641DCE11B50081AF72 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49450621DCE11B50081AF72 /* AccountTableViewController.swift */; };
+		A49450651DCE11B50081AF72 /* AccountTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49450631DCE11B50081AF72 /* AccountTableViewController.xib */; };
 		A4D375621DCB5F1400274935 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375601DCB5F1400274935 /* LoginViewController.swift */; };
 		A4D375631DCB5F1400274935 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4D375611DCB5F1400274935 /* LoginViewController.xib */; };
 		A4D375A41DCB68E000274935 /* DiscountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */; };
@@ -143,6 +146,9 @@
 		A49450541DCDED840081AF72 /* ReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
 		A49450571DCDEE000081AF72 /* ReservationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
 		A49450581DCDEE000081AF72 /* ReservationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationViewController.xib; sourceTree = "<group>"; };
+		A494505D1DCE0F890081AF72 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		A49450621DCE11B50081AF72 /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
+		A49450631DCE11B50081AF72 /* AccountTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTableViewController.xib; sourceTree = "<group>"; };
 		A4D375601DCB5F1400274935 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A4D375611DCB5F1400274935 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +267,7 @@
 				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
 				986E18361DC3D45A0098637D /* Categorized View */,
+				A49450611DCE0F8F0081AF72 /* Settings View */,
 				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
 				98F3E49C1DB0009B000EAF08 /* Info.plist */,
 				A494505C1DCDEE270081AF72 /* Managers */,
@@ -374,6 +381,16 @@
 				A49450541DCDED840081AF72 /* ReservationManager.swift */,
 			);
 			name = Managers;
+			sourceTree = "<group>";
+		};
+		A49450611DCE0F8F0081AF72 /* Settings View */ = {
+			isa = PBXGroup;
+			children = (
+				A494505D1DCE0F890081AF72 /* SettingsTableViewController.swift */,
+				A49450621DCE11B50081AF72 /* AccountTableViewController.swift */,
+				A49450631DCE11B50081AF72 /* AccountTableViewController.xib */,
+			);
+			name = "Settings View";
 			sourceTree = "<group>";
 		};
 		C1561CE883909CBE4AF9A0BA /* Frameworks */ = {
@@ -545,6 +562,7 @@
 				A494505A1DCDEE000081AF72 /* ReservationViewController.xib in Resources */,
 				98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */,
 				A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */,
+				A49450651DCE11B50081AF72 /* AccountTableViewController.xib in Resources */,
 				A4D375631DCB5F1400274935 /* LoginViewController.xib in Resources */,
 				98FD70011DB89E3F00688514 /* LocationViewController.xib in Resources */,
 			);
@@ -729,6 +747,7 @@
 				A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */,
 				986E18381DC3D4C20098637D /* Category.swift in Sources */,
 				980C8A311DBA1CCE00A2EE0F /* DescriptionCell.swift in Sources */,
+				A494505F1DCE0F890081AF72 /* SettingsTableViewController.swift in Sources */,
 				DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */,
 				988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */,
 				TB4I34LS3SZ054G6QFADRMAX /* BarManager.swift in Sources */,
@@ -747,6 +766,7 @@
 				COW598EYJYF4HIT1Y0COUZ1V /* ReviewManager.swift in Sources */,
 				Q8YINUWFC5GQUAXVB2CAP29H /* GalleryManager.swift in Sources */,
 				98FCB19C1DC12B7D008C9307 /* RatingStarView.swift in Sources */,
+				A49450641DCE11B50081AF72 /* AccountTableViewController.swift in Sources */,
 				2B19QFW7UX4K2SGFI1SWKVM3 /* Review.swift in Sources */,
 				A4D375A41DCB68E000274935 /* DiscountDetailViewController.swift in Sources */,
 				CMZEAUVGS388LV53P5VGCAKD /* ColorManager.swift in Sources */,
