@@ -14,7 +14,8 @@ class CategoryDetailView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        
+        DispatchQueue.global(qos: .default).async{
             
             //register bar list table view cell
             self.tableView.register(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")

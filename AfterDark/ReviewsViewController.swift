@@ -45,15 +45,30 @@ class ReviewsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return BarManager.singleton.displayedDetailBar.reviews.count
+        return BarManager.singleton.displayedDetailBar.reviews.count + 1
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : ReviewCell?
-        if indexPath.row < allCells.count
+        
+        //create add review cell
+        if indexPath == IndexPath(row: 0, section: 0)
         {
-            cell = allCells[indexPath.row]
+            let cell = Bundle.main.loadNibNamed("AddReviewTableViewCell", owner: self, options: nil)?[0] as? AddReviewTableViewCell
+            
+            
+            
+            
+            
+            return cell!
+        }
+        
+        
+        
+        var cell : ReviewCell?
+        if indexPath.row - 1 < allCells.count
+        {
+            cell = allCells[indexPath.row - 1]
         }
         else
         {
@@ -64,7 +79,7 @@ class ReviewsViewController: UITableViewController {
         }
         
         
-        let thisBarReview = BarManager.singleton.displayedDetailBar.reviews[indexPath.row]
+        let thisBarReview = BarManager.singleton.displayedDetailBar.reviews[indexPath.row - 1]
 
  
 
@@ -76,16 +91,19 @@ class ReviewsViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        var thisCell : ReviewCell?
-        if indexPath.row < allCells.count
+        if indexPath.row  == 0 //*** required otherwise index out of range for below statements
         {
-            thisCell = allCells[indexPath.row]
+            return 250
+        }
+        
+        var thisCell : ReviewCell?
+        if indexPath.row - 1 < allCells.count
+        {
+            thisCell = allCells[indexPath.row - 1]
         }
         else
         {
             thisCell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
-
-            //cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
             allCells.append(thisCell!)
         }
         
@@ -106,10 +124,16 @@ class ReviewsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        var thisCell : ReviewCell?
-        if indexPath.row < allCells.count
+        
+        if indexPath.row  == 0 //*** required otherwise index out of range for below statements
         {
-            thisCell = allCells[indexPath.row]
+            return 250
+        }
+        
+        var thisCell : ReviewCell?
+        if indexPath.row - 1 < allCells.count
+        {
+            thisCell = allCells[indexPath.row - 1]
         }
         else
         {
@@ -132,11 +156,18 @@ class ReviewsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row  == 0 //*** required otherwise index out of range for below statements
+        {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+        
         var thisCell : ReviewCell?
         
-        if indexPath.row < allCells.count
+        if indexPath.row - 1 < allCells.count
         {
-            thisCell = allCells[indexPath.row]
+            thisCell = allCells[indexPath.row - 1]
         }
         else
         {
@@ -163,6 +194,6 @@ class ReviewsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-   
+    
 }
 

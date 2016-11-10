@@ -18,7 +18,7 @@ class ColorManager
     
     //gallery colors
     static let galleryBGColor = UIColor.darkGray
-    static let galleryPageControlBGColor = UIColor.gray
+    static let galleryPageControlBGColor = UIColor.white
     static let galleryPageControlDotHighlightColor = UIColor.black
     static let galleryPageControlDotNormalColor = UIColor.lightGray
     
@@ -27,7 +27,7 @@ class ColorManager
     static let detailTabDeselectedColor = UIColor.gray
     static let detailTabHighlightedColor = UIColor.white
     static let detailBarTitleColor = UIColor.white
-    static let detailViewBGColor = UIColor.darkGray
+    static let detailViewBGColor = UIColor.orange
     
     //description view
     static let descriptionBGColor = UIColor.black
@@ -55,6 +55,9 @@ class ColorManager
     static let discountTitleLabelTextColor = UIColor.white
     static let discountClaimViewBGColor = UIColor.darkGray
     static let descriptionTextViewTextColor = UIColor.lightGray
+    
+    //account creation view
+    static let accountCreationHighlightErrorColor = UIColor.red
 	init()
 	{
 	    

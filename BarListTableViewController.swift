@@ -28,7 +28,10 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         Account.singleton.Load()
         if Account.singleton.user_name == "" || Account.singleton.user_name == nil
         {
-            self.present(LoginViewController.singleton, animated: false, completion: nil)
+            if !Settings.bypassLoginPage
+            {
+                self.present(LoginViewController.singleton, animated: false, completion: nil)
+            }
         }
         
         
@@ -36,7 +39,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         
         //set opening page
         self.navigationController?.tabBarController?.selectedIndex = 1
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        DispatchQueue.global(qos: .default).async{
             
 
             
@@ -100,7 +103,7 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
         }
         
         //non ui init
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        DispatchQueue.global(qos: .default).async{
         
             //register bar list table view cell
                 self.tableView.register(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
@@ -243,6 +246,11 @@ class BarListTableViewController: UITableViewController,BarManagerToListTableDel
             return String(describing: firstBarInSection.name.characters.first!)
         }
     }
+    
+    //============================================================================
+    //                                 refresh button
+    //============================================================================
+    
     func refresh()
     {
 

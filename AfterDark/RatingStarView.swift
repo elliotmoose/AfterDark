@@ -45,8 +45,7 @@ class RatingStarView: UIView {
     {
         let widthToHeightRatio = starLayerImage.image!.size.width/starLayerImage.image!.size.height
         self.frame = CGRect(x: frame.origin.x, y: frame.origin.y,width: width , height: width/widthToHeightRatio)
-        
-        //set subview frames
+                //set subview frames
         starColorLayer.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
         starLayerImage.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
     }
@@ -54,11 +53,38 @@ class RatingStarView: UIView {
     func SetSizeFromHeight( _ height: CGFloat)
     {
         let widthToHeightRatio = starLayerImage.image!.size.width/starLayerImage.image!.size.height
+        
         self.frame = CGRect(x: frame.origin.x, y: frame.origin.y,width: height*widthToHeightRatio , height: height)
         
         //set subview frames
         starColorLayer.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
         starLayerImage.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
+        
+    }
+    
+    func SetSizeFromWidthWithRating( _ width: CGFloat, _ rating : Float)
+    {
+        let widthToHeightRatio = starLayerImage.image!.size.width/starLayerImage.image!.size.height
+        self.frame = CGRect(x: frame.origin.x, y: frame.origin.y,width: width , height: width/widthToHeightRatio)
+        //set subview frames
+        starColorLayer.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
+        starLayerImage.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
+        
+        SetRating(rating)
+    }
+    
+    func SetSizeFromHeightWithRating( _ height: CGFloat, _ rating : Float)
+    {
+        let widthToHeightRatio = starLayerImage.image!.size.width/starLayerImage.image!.size.height
+        
+        self.frame = CGRect(x: frame.origin.x, y: frame.origin.y,width: height*widthToHeightRatio , height: height)
+        
+        //set subview frames
+        starColorLayer.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
+        starLayerImage.frame = CGRect(x: 0 , y: 0, width: self.frame.width, height: self.frame.size.height)
+   
+        SetRating(rating)
+
     }
     
     func SetOrigin (_ origin: CGPoint)

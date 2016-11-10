@@ -3,6 +3,8 @@ class Settings
 {
     //test
     static let ignoreUserDefaults = true
+    static let bypassLoginPage = true
+    static let modelBarActive = true
     
     static let singleton = Settings()
     

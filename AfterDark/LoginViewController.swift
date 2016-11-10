@@ -67,6 +67,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         
+        afterDarkIconVerticalConstraint.constant = 0
+        afterDarkIconHorizontalConstraint.constant = 0
+        self.view.layoutIfNeeded()
+        
     }
 
     override func awakeFromNib() {
@@ -74,9 +78,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        afterDarkIconVerticalConstraint.constant = 0
-        afterDarkIconHorizontalConstraint.constant = 0
-        self.view.layoutIfNeeded()
+
         
         ResetTextFields()
 
@@ -205,7 +207,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     func CreateAccountButtonPressed()
     {
-        
+        self.present(NewAccountFormViewController.singleton, animated: true,completion: nil)
     }
     
     func ResetTextFields()
@@ -246,5 +248,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         activityIndicator.stopAnimating()
         grayViewOverlay.alpha = 0
 
+    }
+    
+    override var prefersStatusBarHidden: Bool
+    {
+        return true
     }
 }

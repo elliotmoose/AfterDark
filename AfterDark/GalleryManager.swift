@@ -14,13 +14,17 @@ class GalleryManager
         //get number of pages
         let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_ID=\(thisBarOrigin.ID)"
         Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
-            let noOfImages = Int(output!)
-            if let noOfImages = noOfImages
+            if success
             {
-                //set max number
-                thisBarOrigin.maxImageCount = noOfImages
-                handler(true)
+                let noOfImages = Int(output!)
+                if let noOfImages = noOfImages
+                {
+                    //set max number
+                    thisBarOrigin.maxImageCount = noOfImages
+                    handler(true)
+                }
             }
+
         })
     }
 

@@ -17,6 +17,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     var barTitle = UILabel()
     var tableView = UITableView()
     var blurrView = UIVisualEffectView()
+    var blurrContainerView = UIView()
     var mainBarDetailViewCell:BarDetailViewMainCell?
     
     
@@ -59,16 +60,19 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateBarTitle()
         self.UpdateReviewTab()
         
-        self.blurrView.effect = nil
+//        self.blurrView.effect = nil
+//        UIView.animate(withDuration: 1.0, animations: {
+//            self.blurrView.effect = UIBlurEffect(style: .light)
+//        })
         
-        UIView.animate(withDuration: 1.0, animations: {
-            self.blurrView.effect = UIBlurEffect(style: .light)
-        })
+//        self.blurrView.layer.timeOffset = CFTimeInterval(0.6)
+        self.blurrContainerView.alpha = 1
+        
     }
     func Initialze()
     {
-
-        DispatchQueue.main.async(execute: {
+        
+        DispatchQueue.main.async{
             //register nibs
             self.tableView.register(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
             
@@ -91,21 +95,22 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
             
             //must set frame first
-            self.galleryCont.view.frame = CGRect(x: 0, y: navBarHeight, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
+            self.galleryCont.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
             self.galleryCont.Initialize()
             
-            //self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-            self.blurrView = UIVisualEffectView(effect: nil)
+            self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
             self.blurrView.frame = CGRect(x: 0, y: navBarHeight, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
-            self.blurrView.layer.speed = 0
+           //self.blurrView.layer.speed = 0
+            self.blurrContainerView = UIView(frame: self.blurrView.frame)
+
 
             self.view.backgroundColor = ColorManager.detailViewBGColor
-            self.tableView.backgroundColor = ColorManager.detailViewBGColor
+            self.tableView.backgroundColor = UIColor.clear
             self.barIcon.backgroundColor = UIColor.black
             self.barTitle.backgroundColor = UIColor.clear
             self.barTitle.textColor = ColorManager.detailBarTitleColor
             self.barIconButton.backgroundColor = UIColor.clear
-            self.galleryCont.view.backgroundColor = ColorManager.galleryBGColor
+            self.galleryCont.view.backgroundColor = UIColor.black
             
             self.barIcon.contentMode = UIViewContentMode.scaleAspectFit
             self.barIcon.layer.cornerRadius = barIconWidth/2
@@ -117,16 +122,19 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             self.barTitle.textAlignment = .center
             self.barTitle.font = UIFont.boldSystemFont(ofSize: 22.0)
             
-            self.view.addSubview((self.galleryCont.view))
-            self.view.addSubview(self.blurrView)
-
-            self.view.addSubview(self.tableView)
-            self.view.addSubview(self.barIcon)
-            self.view.addSubview(self.barIconButton)
-            self.view.addSubview(self.barTitle)
-            
             self.addChildViewController(self.galleryCont)
             self.galleryCont.didMove(toParentViewController: self)
+            
+            self.blurrContainerView.addSubview(self.blurrView)
+            self.view.addSubview(self.galleryCont.view)
+            self.view.addSubview(self.blurrContainerView)
+
+            self.view.addSubview(self.tableView)
+            self.view.addSubview(self.barTitle)
+            self.view.addSubview(self.barIcon)
+            self.view.addSubview(self.barIconButton)
+            
+          
             
             BarManager.singleton.detailDelegate = self
             ReviewManager.singleton.delegate = self
@@ -143,7 +151,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
             
             
-        })
+        }
     }
 
 
@@ -362,21 +370,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
         }
         
-        var x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
         if(x < 0)
         {
+
+            let offset = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+
             
-            if x < -100
-            {
-                x = -100
-            }
-            var offset = (CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts())))
-            if offset > 1
-            {
-            offset = 0.95
-            }
-            
-            self.blurrView.layer.timeOffset = CFTimeInterval(offset)
+            //self.blurrView.layer.timeOffset = CFTimeInterval(offset)
+            self.blurrContainerView.alpha = offset
             barIcon.alpha = offset
             barIconButton.alpha = offset
             barTitle.alpha = offset
@@ -396,20 +398,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
         }
         
-        var x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
         if(x < 0)
         {
             
-            if x < -100
-            {
-                x = -100
-            }
-            var offset = (CGFloat(1) - (x/(-Sizing.HundredRelativeHeightPts())))
-            if offset > 1
-            {
-                offset = 0.95
-            }
-            self.blurrView.layer.timeOffset = CFTimeInterval(offset)
+            
+            let offset = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+            //self.blurrView.layer.timeOffset = CFTimeInterval(offset)
+            self.blurrContainerView.alpha = offset
+            
             barIcon.alpha = offset
             barIconButton.alpha = offset
             barTitle.alpha = offset

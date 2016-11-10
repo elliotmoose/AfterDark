@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,37 +17,7 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="493" height="240"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Kh-hi-HOS">
-                        <rect key="frame" x="8" y="8" width="477" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="6dZ-mR-y19"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMI-b2-9vF">
-                        <rect key="frame" x="8" y="34" width="477" height="198"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-                <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="2Kh-hi-HOS" secondAttribute="trailing" id="Gnw-Ib-21W"/>
-                    <constraint firstItem="UMI-b2-9vF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="H0q-IR-DCF"/>
-                    <constraint firstItem="UMI-b2-9vF" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Lp7-8L-5ld"/>
-                    <constraint firstItem="2Kh-hi-HOS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="M1G-by-Ao4"/>
-                    <constraint firstItem="UMI-b2-9vF" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="OdE-3z-lvE"/>
-                    <constraint firstItem="UMI-b2-9vF" firstAttribute="top" secondItem="2Kh-hi-HOS" secondAttribute="bottom" constant="5" id="We3-XB-LDF"/>
-                    <constraint firstItem="2Kh-hi-HOS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="i5Q-iM-QoA"/>
-                </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="descriptionBodyLabel" destination="UMI-b2-9vF" id="pB1-V4-qXe"/>
-                <outlet property="descriptionTitle" destination="2Kh-hi-HOS" id="nq4-XP-ehm"/>
-            </connections>
             <point key="canvasLocation" x="601.5" y="445.5"/>
         </tableViewCell>
     </objects>

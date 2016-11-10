@@ -10,6 +10,7 @@ class Bar{
     var maxImageCount = -1
     var description : String = ""
     var contact : String = ""
+    var website : String = ""
     var loc_long : Float = 0
     var loc_lat : Float = 0
     var openClosingHours:String?
@@ -20,6 +21,7 @@ class Bar{
     {
         name = "Untitled"
         contact = ""
+        website = ""
         openClosingHours = ""
         ID = ""
         bookingAvailable = "0"

@@ -3,7 +3,6 @@ class Account {
     
     
     static let singleton = Account()
-    let urlLogin = "http://mooselliot.net23.net/Login.php"
     var user_name: String?
     var user_ID :String?
     var user_Email : String?
@@ -16,7 +15,9 @@ class Account {
 
     func Login(_ username:String,password:String,handler: @escaping (_ success:Bool,_ resultString : String)->Void)
     {
+        let urlLogin = Network.domain + "Login.php"
         let postParam = String("username=\(username)&password=\(password)")
+        
         Network.singleton.DataFromUrlWithPost(urlLogin,postParam: postParam!,handler: {(success,output) -> Void in
             if let output = output
             {
@@ -37,7 +38,7 @@ class Account {
 
                     self.Save()
                     
-                    handler(success,"Login Success")
+                    handler(true,"Login Success")
                 }
                 else if outputString == "Invalid Password"
                 {
@@ -56,7 +57,32 @@ class Account {
         })
     }
 
-
+    func CreateNewAccount(_ username: String, _ password: String, _ email: String, _ dateOfBirth : String, handler: @escaping (_ success : Bool, _ response: String)-> Void)
+    {
+        let postParam = "username=\(username)&password=\(password)&email=\(email)&DOB=\(dateOfBirth)"
+        let urlCreateAccount = Network.domain + "CreateAccount.php"
+        
+        Network.singleton.StringFromUrlWithPost(urlCreateAccount,postParam: postParam,handler: {(success,output) -> Void in
+        
+            if let output = output
+            {
+                if output == "Create Account successful"
+                {
+                    handler(true, "Your account is ready")
+                }
+                else if output == "Username taken"
+                {
+                    handler(false, "Username taken")
+                }
+                else if output == "Email already in use"
+                {
+                    handler(false, "Email already in use")
+                }
+            }
+        
+        })
+    }
+    
 	func Save()
 	{
 	    let UD = UserDefaults.standard

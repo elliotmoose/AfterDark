@@ -58,11 +58,16 @@
 		A4D375631DCB5F1400274935 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4D375611DCB5F1400274935 /* LoginViewController.xib */; };
 		A4D375A41DCB68E000274935 /* DiscountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */; };
 		A4D375A51DCB68E000274935 /* DiscountDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4D375A31DCB68E000274935 /* DiscountDetailViewController.xib */; };
+		A4F9AD961DD3307C0077241F /* AddReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F9AD951DD3307C0077241F /* AddReviewTableViewCell.xib */; };
+		A4F9AD981DD333580077241F /* ReviewStarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9AD971DD333580077241F /* ReviewStarSlider.swift */; };
 		A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80D1DC8C90C00B9D124 /* Discount.swift */; };
 		A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */; };
 		A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */; };
 		A4F9B81C1DCAF3B300B9D124 /* ClaimFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */; };
 		A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */; };
+		A4F9FAFD1DD2D42A007E3B37 /* AddReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FAFB1DD2D42A007E3B37 /* AddReviewTableViewCell.swift */; };
+		A4FEA3AD1DD0415400F00783 /* NewAccountFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEA3AB1DD0415400F00783 /* NewAccountFormViewController.swift */; };
+		A4FEA3AE1DD0415400F00783 /* NewAccountFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FEA3AC1DD0415400F00783 /* NewAccountFormViewController.xib */; };
 		CMZEAUVGS388LV53P5VGCAKD /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */; };
 		COW598EYJYF4HIT1Y0COUZ1V /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */; };
 		DC3FC990F6FCFF020AB280F3 /* Pods_AfterDarkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D6CA664F14543EDE76CA7E1 /* Pods_AfterDarkUITests.framework */; };
@@ -153,11 +158,16 @@
 		A4D375611DCB5F1400274935 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailViewController.swift; sourceTree = "<group>"; };
 		A4D375A31DCB68E000274935 /* DiscountDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountDetailViewController.xib; sourceTree = "<group>"; };
+		A4F9AD951DD3307C0077241F /* AddReviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddReviewTableViewCell.xib; sourceTree = "<group>"; };
+		A4F9AD971DD333580077241F /* ReviewStarSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewStarSlider.swift; sourceTree = "<group>"; };
 		A4F9B80D1DC8C90C00B9D124 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
 		A4F9B8101DC9BFA800B9D124 /* DiscountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountCell.xib; sourceTree = "<group>"; };
 		A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClaimFormViewController.swift; sourceTree = "<group>"; };
 		A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClaimFormViewController.xib; sourceTree = "<group>"; };
+		A4F9FAFB1DD2D42A007E3B37 /* AddReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewTableViewCell.swift; sourceTree = "<group>"; };
+		A4FEA3AB1DD0415400F00783 /* NewAccountFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAccountFormViewController.swift; sourceTree = "<group>"; };
+		A4FEA3AC1DD0415400F00783 /* NewAccountFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAccountFormViewController.xib; sourceTree = "<group>"; };
 		A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AfterDark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AfterDark/Pods-AfterDark.debug.xcconfig"; sourceTree = "<group>"; };
 		ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -273,8 +283,7 @@
 				A494505C1DCDEE270081AF72 /* Managers */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
-				A4D375601DCB5F1400274935 /* LoginViewController.swift */,
-				A4D375611DCB5F1400274935 /* LoginViewController.xib */,
+				A4FEA3AA1DD0411E00F00783 /* Account Views */,
 			);
 			path = AfterDark;
 			sourceTree = "<group>";
@@ -393,6 +402,17 @@
 			name = "Settings View";
 			sourceTree = "<group>";
 		};
+		A4FEA3AA1DD0411E00F00783 /* Account Views */ = {
+			isa = PBXGroup;
+			children = (
+				A4D375601DCB5F1400274935 /* LoginViewController.swift */,
+				A4D375611DCB5F1400274935 /* LoginViewController.xib */,
+				A4FEA3AB1DD0415400F00783 /* NewAccountFormViewController.swift */,
+				A4FEA3AC1DD0415400F00783 /* NewAccountFormViewController.xib */,
+			);
+			name = "Account Views";
+			sourceTree = "<group>";
+		};
 		C1561CE883909CBE4AF9A0BA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +445,9 @@
 				98FCB1971DBFB5C9008C9307 /* ReviewCell.swift */,
 				98FCB19B1DC12B7D008C9307 /* RatingStarView.swift */,
 				98FCB1981DBFB5C9008C9307 /* ReviewCell.xib */,
+				A4F9AD971DD333580077241F /* ReviewStarSlider.swift */,
+				A4F9FAFB1DD2D42A007E3B37 /* AddReviewTableViewCell.swift */,
+				A4F9AD951DD3307C0077241F /* AddReviewTableViewCell.xib */,
 			);
 			name = Reviews;
 			sourceTree = "<group>";
@@ -501,7 +524,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = kohbroco;
 				TargetAttributes = {
 					98F3E48A1DB0009B000EAF08 = {
@@ -551,6 +574,8 @@
 				98FCB19A1DBFB5C9008C9307 /* ReviewCell.xib in Resources */,
 				985E9DE11DB5245B001E0815 /* BarDetailViewController.xib in Resources */,
 				98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */,
+				A4FEA3AE1DD0415400F00783 /* NewAccountFormViewController.xib in Resources */,
+				A4F9AD961DD3307C0077241F /* AddReviewTableViewCell.xib in Resources */,
 				A4D375A51DCB68E000274935 /* DiscountDetailViewController.xib in Resources */,
 				982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */,
 				A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */,
@@ -731,11 +756,13 @@
 				986E18421DC4B2950098637D /* CategoryDetailView.swift in Sources */,
 				986469251DBE278700781BC0 /* IconCell.swift in Sources */,
 				A481322C1DCC4CB700178251 /* OpeningHoursCell.swift in Sources */,
+				A4F9FAFD1DD2D42A007E3B37 /* AddReviewTableViewCell.swift in Sources */,
 				982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */,
 				A4D375621DCB5F1400274935 /* LoginViewController.swift in Sources */,
 				98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */,
 				98FCB1991DBFB5C9008C9307 /* ReviewCell.swift in Sources */,
 				A49450551DCDED840081AF72 /* ReservationManager.swift in Sources */,
+				A4F9AD981DD333580077241F /* ReviewStarSlider.swift in Sources */,
 				98FD6FFD1DB89E0C00688514 /* ReviewsViewController.swift in Sources */,
 				98F3E4BF1DB001CE000EAF08 /* BarListTableViewController.swift in Sources */,
 				98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */,
@@ -754,6 +781,7 @@
 				98FD6FF71DB8716300688514 /* TransparentView.swift in Sources */,
 				H76WSUQ9WFAYGEXHYPUR7S5W /* customEnums.swift in Sources */,
 				GALD5LG20WJ7W6ECBYHH54UL /* Sizing.swift in Sources */,
+				A4FEA3AD1DD0415400F00783 /* NewAccountFormViewController.swift in Sources */,
 				A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */,
 				A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */,
 				98FD70041DB89EA900688514 /* DiscountViewController.swift in Sources */,
@@ -837,8 +865,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -881,8 +911,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -901,6 +933,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

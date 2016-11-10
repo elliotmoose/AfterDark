@@ -74,16 +74,14 @@ class Network {
         task.resume()
         
     }
-
-    
-func DataFromUrlWithPost(_ inputUrl: String, postParam: String,handler: @escaping (_ success:Bool,_ output : Data?) -> Void) {
+    func StringFromUrlWithPost(_ inputUrl: String, postParam: String,handler: @escaping (_ success:Bool,_ output : String?) -> Void) {
         
         let url = URL(string: inputUrl)!
-
-let request = NSMutableURLRequest(url: url)
-request.httpMethod = "POST"
-request.httpBody = postParam.data(using: String.Encoding.utf8)
-
+        
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = postParam.data(using: String.Encoding.utf8)
+        
         let task = URLSession.shared.dataTask(with: request as URLRequest)
         { data, response, error in
             
@@ -96,7 +94,43 @@ request.httpBody = postParam.data(using: String.Encoding.utf8)
                     handler(false,nil)
                 }
                 
-
+                
+            }
+            else if let data = data
+            {
+                let outString = String(data: data, encoding: String.Encoding.utf8)
+                DispatchQueue.main.async {
+                    handler(true,outString)
+                }
+            }
+            
+        }
+        
+        task.resume()
+        
+    }
+    
+    func DataFromUrlWithPost(_ inputUrl: String, postParam: String,handler: @escaping (_ success:Bool,_ output : Data?) -> Void) {
+        
+        let url = URL(string: inputUrl)!
+        
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = postParam.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest)
+        { data, response, error in
+            
+            
+            if let error = error
+            {
+                print(error)
+                
+                DispatchQueue.main.async {
+                    handler(false,nil)
+                }
+                
+                
             }
             else if let data = data
             {

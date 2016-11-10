@@ -60,6 +60,21 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     }
 
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0
+        {
+            return "Description"
+        }
+        else
+        {
+            return ""
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let headerView = view as! UITableViewHeaderFooterView
+        headerView.textLabel?.textColor = UIColor.white
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")
@@ -69,13 +84,17 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         case IndexPath(row: 0, section: 0):
         
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: IndexPath(row: 0, section: 0)) as! DescriptionCell
-            descriptionCell.descriptionBodyLabel.text = BarManager.singleton.displayedDetailBar.description
-            descriptionCell.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.HundredRelativeHeightPts()*1.5)
+            
+            descriptionCell.textLabel?.text = BarManager.singleton.displayedDetailBar.description
+            descriptionCell.textLabel?.numberOfLines = 0
             descriptionCell.selectionStyle = .none
-            descriptionCell.descriptionBodyLabel.textColor = ColorManager.descriptionCellTextColor
-            descriptionCell.descriptionTitle.textColor = ColorManager.descriptionCellTextColor
+            
+            //colors
+            descriptionCell.textLabel?.textColor = ColorManager.descriptionCellTextColor
             descriptionCell.backgroundColor = ColorManager.descriptionCellBGColor
+            
             return descriptionCell
+            
         case IndexPath(row: 1, section: 0):
             var cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: IndexPath(row: 1, section: 0)) as? IconCell
             if cell == nil
@@ -147,6 +166,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Detail.textColor = ColorManager.descriptionCellTextColor
             cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
+            cell?.Detail.text = BarManager.singleton.displayedDetailBar.website
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             cell?.selectionStyle = .none
 
@@ -176,34 +196,87 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         switch indexPath
         {
         case IndexPath(row: 0, section: 0):
-            return Sizing.HundredRelativeHeightPts()*1.5
+            return UITableViewAutomaticDimension
+        
+        case IndexPath(row: 2, section : 0):
+            
+            if openingHoursCell != nil
+            {
+                if (openingHoursCell?.isExpanded)!
+                {
+                    return 360
+                }
+                else
+                {
+                    return 80
+                }
+
+            }
+            else
+            {
+                return 70
+            }
         default: return 70
         }
         
     }
 
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath
+        {
+        case IndexPath(row: 0, section: 0):
+            
+            return UITableViewAutomaticDimension
+            
+            
+        case IndexPath(row: 2, section : 0):
+            
+            if openingHoursCell != nil
+            {
+                if (openingHoursCell?.isExpanded)!
+                {
+                    return 360
+                }
+                else
+                {
+                    return 80
+                }
+                
+            }
+            else
+            {
+                return 70
+            }
+        default: return 70
+        
+        }
+    }
 
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        
+        
         if indexPath.row == 2 && openingHoursCell != nil
         {
-            let thisCell = openingHoursCell
-            if thisCell!.isExpanded
+            
+            if openingHoursCell!.isExpanded
             {
                 //collapse
-                thisCell!.isExpanded = false
-                thisCell!.CollapseCell()
+                openingHoursCell!.isExpanded = false
+                openingHoursCell!.CollapseCell()
             }
             else
             {
                 //expand
-                thisCell!.isExpanded = true
-                thisCell!.ExpandCell()
+                openingHoursCell!.isExpanded = true
+                openingHoursCell!.ExpandCell()
             }
             
             tableView.beginUpdates()
             tableView.endUpdates()
+
         }
         
         //make reservation cell
@@ -212,10 +285,11 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             BarDetailTableViewController.singleton.navigationController?.pushViewController(ReservationViewController.singleton, animated: true)
         }
         
-
+        
 
     }
 
+    
 
 
     

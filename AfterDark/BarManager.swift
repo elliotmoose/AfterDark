@@ -69,44 +69,73 @@ class BarManager: NSObject
                     if self.mainBarList.count == 0
                     {
                         self.mainBarList = tempMainBarList
+                        
+
                     }
                     else
                     {
+                        //stores the old list (for future comparison)
                         let cache = self.mainBarList
                         var allOldBarNames = [String]()
+                        
+                        //gets all the names of the old bar
                         for oldBar in cache
                         {
                             allOldBarNames.append(oldBar.name)
                         }
                         
+                        //get the new bar list
                         self.mainBarList = tempMainBarList
-                        for newBar in self.mainBarList
+                        
+                        //start comparions
+                        for newBar in self.mainBarList//for each bar in new list
                         {
-                            let indexInCache = allOldBarNames.index(of: newBar.name)
-                            let oldBar = cache[indexInCache!]
-                            
-                            if oldBar.icon != nil
+                            //if the old bar list contains this new bar
+                            if allOldBarNames.contains(newBar.name)
                             {
-                                newBar.icon = oldBar.icon
+                                let indexInCache = allOldBarNames.index(of: newBar.name)
+                                let oldBar = cache[indexInCache!]
+                                
+                                if oldBar.icon != nil
+                                {
+                                    newBar.icon = oldBar.icon
+                                }
+                                
+                                if oldBar.Images.count != 0
+                                {
+                                    newBar.Images = oldBar.Images
+                                }
                             }
-                            
-                            if oldBar.Images.count != 0
-                            {
-                                newBar.Images = oldBar.Images
-                            }
+
                         }
                         
                         
                     }
                 }
                 
+
+                
                 //callback to update UI before continue loading images
                 self.listDelegate?.UpdateBarListTableDisplay()
                 
                 self.LoadAllBarIcons()
             }
+            
+
             handler()
         });
+        
+        //***testing only***
+        if Settings.modelBarActive
+        {
+            self.LoadModelBar()
+            
+            
+            //callback to update UI before continue loading images
+            self.listDelegate?.UpdateBarListTableDisplay()
+        }
+
+
     }
     
     
@@ -203,6 +232,24 @@ class BarManager: NSObject
         return tempBarList
     }
     
+    
+    func LoadModelBar()
+    {
+        let modelBar = Bar()
+        modelBar.name = "Model Bar"
+        modelBar.bookingAvailable = "1"
+        modelBar.contact = "91839283"
+        modelBar.description = "This is a model Bar used for testing purposes. It can be used for offline viewing and debugging"
+        modelBar.icon = #imageLiteral(resourceName: "AfterDarkIcon")
+        modelBar.openClosingHours = "2pm - 12am daily"
+        
+        var newRating = Rating()
+        newRating.InjectValues(4, pricex: 3, ambiencex: 3, foodx: 5, servicex: 5)
+        let newReview = Review(rating: newRating, ID: "2", title: "Great Bar", description: "Amazing food and wonderful service", user_name: "mooselliot", date: NSDate(timeIntervalSinceNow: 0) as Date)
+        
+        modelBar.reviews.append(newReview)
+        mainBarList.append(modelBar)
+    }
 //    func BarIconsDataToArray(data:NSData) ->
 //    {
 //        let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
