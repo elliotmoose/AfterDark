@@ -15,7 +15,6 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     
     var images = [UIImage]()
     
-    
     var currentPageIndex = 0
     
     
@@ -25,10 +24,6 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         self.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.HundredRelativeWidthPts()*3)
@@ -52,7 +47,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         currentPageIndex = 0
         //check if bar has pre loaded images
         let barOrigin = BarManager.singleton.displayedDetailBar
-        if barOrigin.Images.count != 0 && barOrigin.Images.count > 0
+        if barOrigin.Images.count != 0 && barOrigin.Images.count > 0 && barOrigin.maxImageCount > 0
         {
             //then load from memory 
             
@@ -111,11 +106,12 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         
         self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
         
+//        let pc = UIPageControl.appearance()
+//        pc.pageIndicatorTintColor = ColorManager.galleryPageControlDotNormalColor
+//        pc.currentPageIndicatorTintColor = ColorManager.galleryPageControlDotHighlightColor
+//        pc.backgroundColor = ColorManager.galleryPageControlBGColor
+
         
-        let pc = UIPageControl.appearance()
-        pc.pageIndicatorTintColor = ColorManager.galleryPageControlDotNormalColor
-        pc.currentPageIndicatorTintColor = ColorManager.galleryPageControlDotHighlightColor
-        pc.backgroundColor = ColorManager.galleryPageControlBGColor
         self.pageViewController.view.backgroundColor = ColorManager.galleryBGColor
         
 
@@ -127,6 +123,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
 
         
         self.view.addSubview(self.pageViewController.view)
+        
     }
     
     
@@ -176,6 +173,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     func viewControllerAtIndex(_ index: Int) ->ContentViewController {
         if (self.pages.count == 0) || (index >= self.pages.count) {
             let vc = ContentViewController(frame: self.view.frame)
+            
             vc.pageIndex = index
             
             if index >= 0 && index < BarManager.singleton.displayedDetailBar.Images.count
@@ -219,6 +217,17 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
             
 
         }
+        
+    }
+    
+    func UpdateFrameDuringScroll()
+    {
+        
+        for page in pages
+        {
+            page.imageView.frame = self.view.frame
+        }
+        viewControllerAtIndex(currentPageIndex).imageView.frame = self.view.frame
     }
 }
 
@@ -231,10 +240,7 @@ class ContentViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-
-
-        
+        self.view.backgroundColor = UIColor.clear
     }
     
     
@@ -242,6 +248,7 @@ class ContentViewController: UIViewController
     {
         super.init(nibName: nil, bundle: nil)
         self.view = UIView(frame: frame)
+        self.view.backgroundColor = UIColor.clear
         imageView = UIImageView(frame: frame)
         imageView.contentMode = .scaleAspectFill
         self.view.addSubview(imageView)

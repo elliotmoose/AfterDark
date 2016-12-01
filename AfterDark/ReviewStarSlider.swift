@@ -45,6 +45,11 @@ class ReviewStarSlider: UISlider {
         
     }
     
+    func SetStarLayerColor(color : UIColor)
+    {
+        ratingStarView?.starLayerImage.tintColor = color
+    }
+    
     func AddGestures()
     {
         //tap gesture

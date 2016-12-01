@@ -8,12 +8,24 @@
 
 import UIKit
 
-class ReviewsViewController: UITableViewController {
+protocol AddReviewCellDelegate : class {
+    func ShowAddDetailReviewController()
+    func HideAddDetailReviewController()
+}
+
+class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
 
     var allCells = [ReviewCell]()
+    var addReviewCell : AddReviewTableViewCell?;
+    var delegate : TabDelegate?
+    
+    var displayReviews = [Review]()
+    var hasGivenReviewForThisBar = false
+    var myReview : Review?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
     }
 
@@ -27,40 +39,102 @@ class ReviewsViewController: UITableViewController {
             cell.CollapseCell()
         }
         
-        self.tableView.reloadData()
+        //reload tableview
+        ReloadReviewTableData()
+        
     }
 
+    func ReloadReviewTableData()
+    {
+        //first get reviews to display
+        displayReviews = BarManager.singleton.displayedDetailBar.reviews
+        
+        //first check if you have a review for this bar
+        hasGivenReviewForThisBar = false
+        
+        var indexOfMyReview = -1
+        for x in 0...(displayReviews.count - 1)
+        {
+            guard x < displayReviews.count else {break}
+            
+            let review = displayReviews[x]
+            
+            if review.user_name == Account.singleton.user_name
+            {
+                //set variable
+                hasGivenReviewForThisBar = true
+                
+                //set my review
+                myReview = review
+                
+                //set up removal
+                indexOfMyReview = x
+            }
+        }
+        
+        if indexOfMyReview != -1
+        {
+            //then remove your review from the displayed reviews
+            displayReviews.remove(at: indexOfMyReview)
+        }
+        
+        //then reload the data
+        self.tableView.reloadData()
     
+    }
     func Initialize()
     {
         tableView.register(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        self.tableView.autoresizesSubviews = false
     }
 
+
+    
+    //=======================================================================================
+    //                                  number of rows/sections
+    //=======================================================================================
+    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return BarManager.singleton.displayedDetailBar.reviews.count + 1
+        return displayReviews.count + 1
     }
 
-    
+    //=======================================================================================
+    //                                  cell for row
+    //=======================================================================================
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //create add review cell
         if indexPath == IndexPath(row: 0, section: 0)
         {
-            let cell = Bundle.main.loadNibNamed("AddReviewTableViewCell", owner: self, options: nil)?[0] as? AddReviewTableViewCell
-            
-            
-            
-            
-            
-            return cell!
+            if hasGivenReviewForThisBar
+            {
+                let cell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
+                
+                
+                if let myReview = myReview
+                {
+                    cell?.SetContent(myReview.title, body: myReview.description, avgRating: myReview.rating.avg, priceRating: myReview.rating.price, ambienceRating: myReview.rating.ambience, serviceRating: myReview.rating.service, foodRating: myReview.rating.food)
+                }
+                cell?.collapseIndicator.alpha = 0
+                cell?.ExpandCell()
+                return cell!
+
+            }
+            else
+            {
+                let cell = Bundle.main.loadNibNamed("AddReviewTableViewCell", owner: self, options: nil)?[0] as? AddReviewTableViewCell
+                
+                self.addReviewCell = cell;
+                cell?.delegate = self
+                
+                return cell!
+            }
         }
         
         
@@ -79,9 +153,7 @@ class ReviewsViewController: UITableViewController {
         }
         
         
-        let thisBarReview = BarManager.singleton.displayedDetailBar.reviews[indexPath.row - 1]
-
- 
+        let thisBarReview = displayReviews[indexPath.row - 1]
 
         cell?.SetContent(thisBarReview.title, body: thisBarReview.description, avgRating: thisBarReview.rating.avg, priceRating: thisBarReview.rating.price, ambienceRating: thisBarReview.rating.ambience, serviceRating: thisBarReview.rating.service, foodRating: thisBarReview.rating.food)
 
@@ -89,11 +161,26 @@ class ReviewsViewController: UITableViewController {
 
         return cell!
     }
+    
+    
+    
+    //=======================================================================================
+    //                                  height for row
+    //=======================================================================================
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.row  == 0 //*** required otherwise index out of range for below statements
         {
-            return 250
+            
+            if hasGivenReviewForThisBar
+            {
+                return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.5
+            }
+            else
+            {
+                return 100
+            }
+        
         }
         
         var thisCell : ReviewCell?
@@ -110,12 +197,12 @@ class ReviewsViewController: UITableViewController {
         if thisCell!.isExpanded
         {
             //then give expanded height
-            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.3
+            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.5
         }
         else
         {
             //give collapsed height
-            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*1.3
+            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*1.5
         }
         
         
@@ -127,7 +214,14 @@ class ReviewsViewController: UITableViewController {
         
         if indexPath.row  == 0 //*** required otherwise index out of range for below statements
         {
-            return 250
+            if hasGivenReviewForThisBar
+            {
+                return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.5
+            }
+            else
+            {
+                return 100
+            }
         }
         
         var thisCell : ReviewCell?
@@ -155,6 +249,10 @@ class ReviewsViewController: UITableViewController {
         }
     }
     
+    
+    //=======================================================================================
+    //                                  select row
+    //=======================================================================================
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row  == 0 //*** required otherwise index out of range for below statements
@@ -194,6 +292,17 @@ class ReviewsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    //methods for add review detailed controller (coming from review cell)
+    func ShowAddDetailReviewController()
+    {
+        self.delegate?.NavCont().pushViewController(AddDetailedReviewViewController.singleton, animated: true)
+        self.delegate?.NavCont().navigationBar.topItem?.title = BarManager.singleton.displayedDetailBar.name
+    }
+    
+    func HideAddDetailReviewController()
+    {
+        self.delegate?.NavCont().popViewController(animated: true)
+    }
     
 }
 

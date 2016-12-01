@@ -73,7 +73,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let headerView = view as! UITableViewHeaderFooterView
-        headerView.textLabel?.textColor = UIColor.white
+        headerView.textLabel?.textColor = ColorManager.descriptionTitleColor
+        headerView.tintColor = ColorManager.descriptionTitleBGColor
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,24 +116,13 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             if cell == nil
             {
                 cell = OpeningHoursCell()
-                
-                
             }
-            
-            cell?.backgroundColor = ColorManager.descriptionCellBGColor
-            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
-            cell?.Icon?.image = UIImage(named: "Clock-48")?.withRenderingMode(.alwaysTemplate)
-            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
-            cell?.selectionStyle = .none
-            if BarManager.singleton.displayedDetailBar.openClosingHours == nil
-            {
-                BarManager.singleton.displayedDetailBar.openClosingHours = "Unknown"
-            }
+
             
-            cell?.Detail.text = BarManager.singleton.displayedDetailBar.openClosingHours
-            
+            cell?.LoadOpeningHours(openingHours: BarManager.singleton.displayedDetailBar.openClosingHours)
             openingHoursCell = cell!
+            
             return cell!
 
         case IndexPath(row: 3, section: 0):
@@ -214,9 +204,9 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             }
             else
             {
-                return 70
+                return 60
             }
-        default: return 70
+        default: return 60
         }
         
     }
@@ -245,9 +235,9 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             }
             else
             {
-                return 70
+                return 60
             }
-        default: return 70
+        default: return 60
         
         }
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryDetailView: UITableViewController {
 
-    var displayedBars = [Bar]()
+    var displayedBarIDs = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,23 +34,39 @@ class CategoryDetailView: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayedBars.count
+        return displayedBarIDs.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BarListTableViewCell", for: indexPath) as! BarListTableViewCell
 
-        let thisBar = displayedBars[indexPath.row]
-        cell.SetContent(thisBar.icon, barName: thisBar.name, barRating: thisBar.rating)
+        let barID = displayedBarIDs[indexPath.row]
+        let thisBar = BarManager.singleton.BarFromBarID(barID)
+        
+        if let thisBar = thisBar
+        {
+            cell.SetContent(thisBar.icon, barName: thisBar.name, barRating: thisBar.rating)
+        }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = indexPath.row
-        BarManager.singleton.DisplayBarDetails(displayedBars[row])
-        self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+        let barID = displayedBarIDs[indexPath.row]
+        let thisBar = BarManager.singleton.BarFromBarID(barID)
+        
+        if let thisBar = thisBar{
+            BarManager.singleton.DisplayBarDetails(thisBar)
+            BarDetailTableViewController.singleton.UpdateDisplays()
+            self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+        }
+        else
+        {
+            NSLog("Cant find bar of ID: \(barID)")
+        }
+        
+        
     }
     
 

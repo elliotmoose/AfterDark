@@ -8,7 +8,11 @@
 
 import UIKit
 
-class BarDetailViewMainCell: UITableViewCell {
+protocol TabDelegate : class {
+    func NavCont() -> UINavigationController
+}
+
+class BarDetailViewMainCell: UITableViewCell, TabDelegate {
 
     var tab1 : UIButton
     var tab2 : UIButton
@@ -22,6 +26,7 @@ class BarDetailViewMainCell: UITableViewCell {
     var locationCont = LocationViewController()
     var discountCont = DiscountViewController()
     
+    var delegate : MainCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,6 +62,8 @@ class BarDetailViewMainCell: UITableViewCell {
 
     func Initialize()
     {
+
+        //init tabs
         self.descriptionCont = DescriptionViewController.init(nibName: nil, bundle: nil)
         self.descriptionCont.view = UIView(frame: .zero)
         self.descriptionCont.Initialize()
@@ -64,29 +71,35 @@ class BarDetailViewMainCell: UITableViewCell {
         self.reviewCont.Initialize()
         
 
+        //sizing
         let tabWidth = Sizing.ScreenWidth()/4
         let tabHeight = Sizing.HundredRelativeHeightPts()/3
         let mainViewWidth = Sizing.ScreenWidth()
         let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/
         
         let tabContFrame = CGRect(x: 0, y: tabHeight, width: mainViewWidth, height: mainViewHeight - tabHeight)
-        let detailViewFrame = CGRect(x: 0, y: 0, width: mainViewWidth, height: mainViewHeight - tabHeight)
+        let detailViewFrame = CGRect(x: 0, y: 0, width: mainViewWidth, height: mainViewHeight - tabHeight  - 20/*status bar*/ - (self.delegate?.NavCont().navigationBar.bounds.height)!/*nav bar height*/)
         let highlighterHeight: CGFloat = 4.5
         //status bar height?
         
+        //initialize and frame
         tabHighlighter = UIView.init(frame: CGRect(x: 0, y: tabHeight - highlighterHeight, width: tabWidth, height: highlighterHeight))
         tab1 = UIButton.init(frame: CGRect(x: 0, y: 0, width: tabWidth, height: tabHeight))
         tab2 = UIButton.init(frame: CGRect(x: tabWidth, y: 0, width: tabWidth, height: tabHeight))
         tab3 = UIButton.init(frame: CGRect(x: Sizing.ScreenWidth() - (tabWidth*2), y: 0, width: tabWidth, height: tabHeight))
         tab4 = UIButton.init(frame: CGRect(x: Sizing.ScreenWidth() - tabWidth, y: 0, width: tabWidth, height: tabHeight))
         
+        //frames
         tabCont.view.frame = tabContFrame
         self.descriptionCont.view.frame = detailViewFrame;
+        self.descriptionCont.tableView?.frame = detailViewFrame
         self.reviewCont.view.frame = detailViewFrame;
         self.reviewCont.tableView.frame = detailViewFrame
         self.locationCont.view.frame = detailViewFrame;
         self.discountCont.view.frame = detailViewFrame;
+        self.discountCont.tableView?.frame = detailViewFrame
         
+        //colors
         let labelColor = ColorManager.detailTabBGColor
         let contentBackgroundColor = ColorManager.descriptionBGColor
         let tabSelectColor = ColorManager.detailTabHighlightedColor
@@ -109,18 +122,19 @@ class BarDetailViewMainCell: UITableViewCell {
         tab4.setTitleColor(tabSelectColor, for: UIControlState.selected)
         
         tabHighlighter.backgroundColor = tabSelectColor
-        
         self.tabCont.view.backgroundColor = UIColor.white
         descriptionCont.view.backgroundColor = contentBackgroundColor
         reviewCont.view.backgroundColor = contentBackgroundColor
         locationCont.view.backgroundColor = contentBackgroundColor
         discountCont.view.backgroundColor = contentBackgroundColor
         
+        //tab titles
         tab1.setTitle("Details", for: UIControlState())
         tab2.setTitle("Reviews", for: UIControlState())
         tab3.setTitle("Location", for: UIControlState())
         tab4.setTitle("Discount", for: UIControlState())
         
+        //subviews
         self.addSubview(tab1)
         self.addSubview(tab2)
         self.addSubview(tab3)
@@ -132,16 +146,24 @@ class BarDetailViewMainCell: UITableViewCell {
         self.tabCont.addChildViewController(self.locationCont)
         self.tabCont.addChildViewController(self.discountCont)
         
-        
+        //actions and events
         tab1.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
         tab2.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
         tab3.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
         tab4.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
+        
+        //label tags
         tab1.tag = 0
         tab2.tag = 1
         tab3.tag = 2
         tab4.tag = 3
         
+        //turn resizing off
+        self.autoresizesSubviews = false
+        self.reviewCont.tableView.autoresizesSubviews = false
+        
+        //delegate
+        reviewCont.delegate = self
     }
     
     func ChangeTab(_ sender: AnyObject )
@@ -193,6 +215,10 @@ class BarDetailViewMainCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func NavCont() -> UINavigationController {
+        return (self.delegate?.NavCont())!
     }
     
 }

@@ -31,7 +31,7 @@ class ReviewManager
         }
         
         
-        let urlGetReviewsForBar = "http://mooselliot.net23.net/GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(indexOfFirstReview)&Count=\(count)"
+        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(indexOfFirstReview)&Count=\(count)"
         Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
         if success
         {
@@ -44,7 +44,7 @@ class ReviewManager
                     newReview.initWithDict(dict)
                     allReviewsForBar.append(newReview)
                 }
-                bar.reviews = bar.reviews + allReviewsForBar
+                bar.reviews = allReviewsForBar
                 handler(true)
             }
         }
@@ -71,4 +71,34 @@ class ReviewManager
         }
     }
 
+    func AddReview(title : String,body : String, rating : Rating,bar : Bar,userID : String,handler: @escaping (_ success : Bool,_ error : String) -> ())
+    {
+        
+        let url = Network.domain + "/AddReview.php"
+        let postParam = "title=\(title)&body=\(body)&avg=\(rating.avg)&price=\(rating.price)&food=\(rating.food)&service=\(rating.service)&ambience=\(rating.ambience)&Bar_ID=\(bar.ID)&User_ID=\(userID)"
+        
+        Network.singleton.DataFromUrlWithPost(url,postParam: postParam,handler: {(success,output) -> Void in
+            
+            if let output = output
+            {
+                let jsonData = (output as NSData).mutableCopy() as! NSMutableData
+                
+                NSLog(String(data: output, encoding: .utf8)!)
+                let dict = Network.JsonDataToDict(jsonData)
+                
+                if dict["success"] as! String == "false"
+                {
+                    let errorMessage = dict["detail"] as! String
+                    handler(false,errorMessage)
+                }
+                
+                if dict["success"] as! String == "true"
+                {
+                    handler(true,"no error!")
+                }
+            }
+            
+        })
+
+    }
 }

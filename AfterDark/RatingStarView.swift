@@ -95,6 +95,8 @@ class RatingStarView: UIView {
     {
         starColorLayer.frame = CGRect(x: 0 , y: 0, width: CGFloat(rating/5) * self.frame.width, height: self.frame.size.height)
     }
+    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

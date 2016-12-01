@@ -10,10 +10,16 @@ import Foundation
 
 struct Category{
     var name : String = ""
-    var bars = [Bar]()
+    var barIDs = [String]()
     
     init(dict : NSDictionary)
     {
         
+    }
+    
+    init(name : String, barIDs : [String])
+    {
+        self.name = name
+        self.barIDs = barIDs
     }
 }

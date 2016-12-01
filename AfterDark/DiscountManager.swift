@@ -35,7 +35,7 @@ class DiscountManager
     
     func LoadAllDiscounts()
     {
-        let urlGetAllDiscounts = "http://mooselliot.net23.net/GetAllDiscounts.php"
+        let urlGetAllDiscounts = Network.domain + "GetAllDiscounts.php"
         Network.singleton.DictArrayFromUrl(urlGetAllDiscounts, handler: {(success,output)
         in
             if success
@@ -45,8 +45,10 @@ class DiscountManager
                     for dict in output{
                         let newDiscount = Discount(dict: dict)
                         
+                        let barID = newDiscount.bar_ID! as String
+                        
                         //add the loaded discount to its respective bar
-                        BarManager.singleton.BarFromBarID(newDiscount.bar_ID!)?.discounts.append(newDiscount)
+                        BarManager.singleton.BarFromBarID(barID)?.discounts.append(newDiscount)
                         
                         //update discount display
                         self.delegate?.UpdateDiscountTab()

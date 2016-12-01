@@ -18,7 +18,7 @@ class CategoriesManager
     var allCategories = [Category]()
     func LoadAllCategories()
     {
-        let urlLoadAllCategories = "http://mooselliot.net23.net/GetAllCategories.php"
+        let urlLoadAllCategories = Network.domain + "GetAllCategories.php"
         Network.singleton.DictArrayFromUrl(urlLoadAllCategories, handler: {
             (
             success,output) -> Void in
@@ -50,7 +50,7 @@ class CategoriesManager
                                     if barID is String
                                     {
                                         let newBarID = barID as! String
-                                        newCat.bars.append(BarManager.singleton.BarFromBarID(newBarID)!)
+                                        newCat.barIDs.append(newBarID)
                                         
 
                                     }

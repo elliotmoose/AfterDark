@@ -12,7 +12,7 @@ class GalleryManager
     func LoadMaxPages(_ thisBarOrigin: Bar, handler: @escaping (_ success: Bool)-> Void)
     {
         //get number of pages
-        let urlNumberOfImages = "http://mooselliot.net23.net/GetNumberOfImages.php?Bar_ID=\(thisBarOrigin.ID)"
+        let urlNumberOfImages = Network.domain + "GetNumberOfImages.php?Bar_ID=\(thisBarOrigin.ID)"
         Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
             if success
             {
@@ -36,12 +36,17 @@ class GalleryManager
                     for index in 0...thisBarOrigin.maxImageCount
                     {
         
-                        let urlLoadImageAtIndex = "http://mooselliot.net23.net/GetBarGalleryImage.php?Bar_ID=\(thisBarOrigin.ID)&Image_Index=\(index)"
+                        let ID = thisBarOrigin.ID
+                        let i = index;
+                        let urlLoadImageAtIndex = Network.domain + "GetBarGalleryImage.php?Bar_ID=\(ID)&Image_Index=\(i)"
                         Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler:
                         {
                                 (success,output)->Void in
                                 if let output = output
                                 {
+                                    
+                                    guard output != "nil" else {return}
+                                    
                                     if success == true
                                     {
                                         let imageString = output

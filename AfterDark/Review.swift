@@ -21,7 +21,7 @@ struct Review{
         self.title = dict["Review_Title"] as! String
         self.description = dict["Review_Text"] as! String
         self.user_name = dict["User_Name"] as! String
-		 self.ID = dict["Review_ID"] as! String
+        self.ID = dict["Review_ID"] as! String
     }
 
     mutating func InjectValues(_ rate: Rating, descrip: String, username: String

@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="351" height="84"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="351" height="83.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="351" height="83"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95k-w1-88Q">
@@ -26,7 +26,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Clock-48" translatesAutoresizingMaskIntoConstraints="NO" id="Xeq-58-zLm">
-                        <rect key="frame" x="11" y="27" width="30" height="30"/>
+                        <rect key="frame" x="16" y="27" width="30" height="30"/>
                         <color key="tintColor" red="0.98823529409999999" green="0.4823529412" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="4Rv-k1-WJs"/>
@@ -38,7 +38,7 @@
                     <constraint firstItem="95k-w1-88Q" firstAttribute="leading" secondItem="Xeq-58-zLm" secondAttribute="trailing" constant="8" id="Ucu-It-Dhe"/>
                     <constraint firstItem="95k-w1-88Q" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="knh-Sb-Rih"/>
                     <constraint firstItem="Xeq-58-zLm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sBl-zX-I0o"/>
-                    <constraint firstItem="Xeq-58-zLm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="3" id="u5f-xu-ATl"/>
+                    <constraint firstItem="Xeq-58-zLm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="u5f-xu-ATl"/>
                     <constraint firstItem="95k-w1-88Q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="wPx-nU-aEG"/>
                 </constraints>
             </tableViewCellContentView>

@@ -26,6 +26,12 @@ class Account {
 
                 //output here is a dict array
                 let array = Network.JsonDataToDictArray(mutableOut)
+                
+                guard array.count > 0 else
+                {
+                    NSLog("Cant log in,check connection")
+                    return
+                }
                 let dict = array[0] 
                 
                 
@@ -38,49 +44,84 @@ class Account {
 
                     self.Save()
                     
-                    handler(true,"Login Success")
+                    DispatchQueue.main.async {
+                        handler(true,"Login Success")
+                    }
                 }
                 else if outputString == "Invalid Password"
                 {
-                    handler(false,"Invalid Password")
+                    DispatchQueue.main.async {
+                        handler(false,"Invalid Password")
+                    }
                 }
                 else if outputString == "Invalid ID"
                 {
-                    handler(false,"Invalid Username")
+                    DispatchQueue.main.async {
+                        handler(false,"Invalid Username")
+                    }
                 }
                 
             }
             else
             {
-                 handler(false,"Can't connect to server")
+                DispatchQueue.main.async {
+                    handler(false,"Can't connect to server")
+                }
             }
         })
     }
 
-    func CreateNewAccount(_ username: String, _ password: String, _ email: String, _ dateOfBirth : String, handler: @escaping (_ success : Bool, _ response: String)-> Void)
+    func CreateNewAccount(_ username: String, _ password: String, _ email: String, _ dateOfBirth : String, handler: @escaping (_ success : Bool, _ response: String, _ dictOut : NSDictionary)-> Void)
     {
-        let postParam = "username=\(username)&password=\(password)&email=\(email)&DOB=\(dateOfBirth)"
-        let urlCreateAccount = Network.domain + "CreateAccount.php"
+
         
-        Network.singleton.StringFromUrlWithPost(urlCreateAccount,postParam: postParam,handler: {(success,output) -> Void in
+        
+        
+        let postParam = "username=\(username)&password=\(password)&email=\(email)&DOB=\(dateOfBirth)"
+        let urlCreateAccount = Network.domain + "AddNewAccount.php"
+        
+        Network.singleton.DataFromUrlWithPost(urlCreateAccount,postParam: postParam,handler: {(success,output) -> Void in
         
             if let output = output
             {
-                if output == "Create Account successful"
+                let jsonData = (output as NSData).mutableCopy() as! NSMutableData
+                
+//                let stringData = String(data: jsonData as Data, encoding: .utf8)
+//                NSLog(stringData!)
+                
+                let dict = Network.JsonDataToDict(jsonData)
+                
+                if dict["success"] as! String == "false"
                 {
-                    handler(true, "Your account is ready")
+                    let errorMessage = dict["detail"] as! String
+                    DispatchQueue.main.async {
+                        handler(false,errorMessage,dict)
+                    }
                 }
-                else if output == "Username taken"
+                
+                if dict["success"] as! String == "true"
                 {
-                    handler(false, "Username taken")
-                }
-                else if output == "Email already in use"
-                {
-                    handler(false, "Email already in use")
+                    DispatchQueue.main.async {
+                        handler(true,"Account created",dict)
+                    }
+                    
                 }
             }
         
         })
+    }
+    
+    func LogOut()
+    {
+        let UD = UserDefaults.standard
+        
+        user_name = ""
+        user_ID = ""
+        user_Email = ""
+        
+        UD.setValue("",forKey: "user_name")
+        UD.setValue("",forKey: "User_ID")
+        UD.setValue("",forKey: "User_Email")
     }
     
 	func Save()

@@ -29,4 +29,35 @@ class PopupManager{
         
         presentationViewCont.present(alert, animated: true, completion: nil)
     }
+    
+    func Popup(title : String , body : String, presentationViewCont : UIViewController, handler: @escaping ()->Void)
+    {
+        let alert = UIAlertController(title: title, message: body, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            
+            //call back when ok clicked
+            handler();
+            
+        }))
+        
+        presentationViewCont.present(alert, animated: true, completion: nil)
+    }
+    
+    func PopupWithCancel(title : String , body : String, presentationViewCont : UIViewController, handler: @escaping ()->Void)
+    {
+        let alert = UIAlertController(title: title, message: body, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { action in
+            
+            //call back when ok clicked
+            handler();
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+
+            
+        }))
+        
+        
+        presentationViewCont.present(alert, animated: true, completion: nil)
+    }
 }

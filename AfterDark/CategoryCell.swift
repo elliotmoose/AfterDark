@@ -24,6 +24,6 @@ class CategoryCell: UICollectionViewCell {
     func SetContent(_ category : Category)
     {
         self.categoryTitleLabel.text = category.name
-        self.descriptionLabel.text = "\(category.bars.count) Bars"
+        self.descriptionLabel.text = "\(category.barIDs.count) Bars"
     }
 }

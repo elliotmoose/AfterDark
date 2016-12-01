@@ -19,8 +19,8 @@ class BarManager: NSObject
 {
     static let singleton = BarManager()
     //constants
-    let urlAllBarNames = "http://mooselliot.net23.net/GetAllBarNames.php"
-    let urlBarIconImage = "http://mooselliot.net23.net/GetBarIconImage.php"
+    let urlAllBarNames = Network.domain + "GetAllBarNames.php"
+    let urlBarIconImage = Network.domain + "GetBarIconImage.php"
     
     
     
@@ -144,7 +144,7 @@ class BarManager: NSObject
         for bar in mainBarList
         {
             let thisBarFormattedName = bar.name.replacingOccurrences(of: " ", with: "+")
-            let urlNonImageBarInfo = "http://mooselliot.net23.net/GetBarNonImageInfo.php?Bar_Name=\(thisBarFormattedName)"
+            let urlNonImageBarInfo = Network.domain + "GetBarNonImageInfo.php?Bar_Name=\(thisBarFormattedName)"
             Network.singleton.DictArrayFromUrl(urlNonImageBarInfo, handler: {(success,output) -> Void in
                 if success
                 {
@@ -154,7 +154,44 @@ class BarManager: NSObject
                         
                         bar.description = dict["Bar_Description"] as! String
                         bar.contact = dict["Bar_Contact"] as! String
-                        bar.openClosingHours = dict["Bar_OpeningClosingHours"] as? String
+
+                        //get opening hours
+                        if let monday = dict["OH_Monday"] as? String
+                        {
+                            bar.openClosingHours[0] = monday
+                        }
+                        
+                        if let tuesday = dict["OH_Tuesday"] as? String
+                        {
+                            bar.openClosingHours[1] = tuesday
+                        }
+                        
+                        if let wednesday = dict["OH_Wednesday"] as? String
+                        {
+                            bar.openClosingHours[2] = wednesday
+                        }
+                        
+                        if let thursday = dict["OH_Thursday"] as? String
+                        {
+                            bar.openClosingHours[3] = thursday
+                        }
+                        
+                        if let friday = dict["OH_Friday"] as? String
+                        {
+                            bar.openClosingHours[4] = friday
+                        }
+                        
+                        if let saturday = dict["OH_Saturday"] as? String
+                        {
+                            bar.openClosingHours[5] = saturday
+                        }
+                        
+                        if let sunday = dict["OH_Sunday"] as? String
+                        {
+                            bar.openClosingHours[6] = sunday
+                        }
+                        
+                        
                         bar.loc_lat = Float(dict["Bar_Location_Latitude"] as! String)!
                         bar.loc_long = Float(dict["Bar_Location_Longitude"] as! String)!
                         bar.bookingAvailable = dict.value(forKey: "Booking_Available") as! String
@@ -192,7 +229,7 @@ class BarManager: NSObject
             if bar.icon == nil
             {
                 let barNameForUrl = bar.name.replacingOccurrences(of: " ", with: "+")
-                let requestUrl = "http://mooselliot.net23.net/GetBarIconImage.php?Bar_Name=\(barNameForUrl)"
+                let requestUrl = Network.domain + "GetBarIconImage.php?Bar_Name=\(barNameForUrl)"
                 Network.singleton.StringFromUrl(requestUrl, handler: {(success,output)-> Void in
                     
                     if success
@@ -241,7 +278,7 @@ class BarManager: NSObject
         modelBar.contact = "91839283"
         modelBar.description = "This is a model Bar used for testing purposes. It can be used for offline viewing and debugging"
         modelBar.icon = #imageLiteral(resourceName: "AfterDarkIcon")
-        modelBar.openClosingHours = "2pm - 12am daily"
+        modelBar.openClosingHours[0] = "2pm - 12am daily"
         
         var newRating = Rating()
         newRating.InjectValues(4, pricex: 3, ambiencex: 3, foodx: 5, servicex: 5)
@@ -305,8 +342,17 @@ class BarManager: NSObject
     {
         let newBar = Bar()
         newBar.name = dict.value(forKey: "Bar_Name") as! String
-        newBar.ID = dict.value(forKey: "Bar_ID") as! String
-        newBar.rating.InjectValues(Float(dict.value(forKey: "Bar_Rating_Avg") as! String)!, pricex: Float(dict.value(forKey: "Bar_Rating_Price") as! String)!, ambiencex: Float(dict.value(forKey: "Bar_Rating_Ambience") as! String)!,foodx: Float(dict.value(forKey: "Bar_Rating_Food") as! String)!, servicex: Float(dict.value(forKey: "Bar_Rating_Service") as! String)!)
+        newBar.ID = String(describing: (dict.value(forKey: "Bar_ID") as? Int)!)
+        
+        let ratingAvg = dict.value(forKey: "Bar_Rating_Avg") as! Float
+        let ratingPrice = dict.value(forKey: "Bar_Rating_Price") as! Float
+        let ratingAmbience = dict.value(forKey: "Bar_Rating_Ambience") as! Float
+        let ratingFood = dict.value(forKey: "Bar_Rating_Food") as! Float
+        let ratingService = dict.value(forKey: "Bar_Rating_Service") as! Float
+        
+        
+        newBar.rating.InjectValues(ratingAvg, pricex: ratingPrice, ambiencex:ratingAmbience,foodx: ratingFood, servicex: ratingService)
+        
         return newBar
     }
     

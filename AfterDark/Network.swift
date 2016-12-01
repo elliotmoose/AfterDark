@@ -8,20 +8,20 @@ class Network {
 
     
     //Urls
-    static let domain = "http://mooselliot.net23.net/"
-    
+    //static let domain = "http://mooselliot.net23.net/"
+    static let domain = "http://localhost/AfterDarkServer/"
     
     
     init()
     {
         session = URLSession.shared
     }
-
+    
     //Load Method
     func DataFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : Data?) -> Void) {
         
         let url = URL(string: inputUrl)!
-
+        
         let task = session.dataTask(with: url)
         { data, response, error in
             
@@ -45,7 +45,7 @@ class Network {
         task.resume()
         
     }
-
+    
     func StringFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : String?) -> Void) {
         
         let url = URL(string: inputUrl)!
@@ -74,6 +74,8 @@ class Network {
         task.resume()
         
     }
+    
+    //post functions
     func StringFromUrlWithPost(_ inputUrl: String, postParam: String,handler: @escaping (_ success:Bool,_ output : String?) -> Void) {
         
         let url = URL(string: inputUrl)!
@@ -144,14 +146,12 @@ class Network {
         task.resume()
         
     }
-
-
-
-
-func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : [NSDictionary]) -> Void) {
+    
+    
+    func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : [NSDictionary]) -> Void) {
         
         let url = URL(string: inputUrl)!
-
+        
         let task = session.dataTask(with: url)
         {
             data, response, error in
@@ -160,7 +160,7 @@ func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ o
             {
                 print(error)
                 handler(false,[])
-
+                
             }
             else if let data = data
             {
@@ -168,23 +168,25 @@ func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ o
                 
                 DispatchQueue.main.async {
                     handler(true,Network.JsonDataToDictArray(out))
-
+                    
                 }
             }
             
         }
-    
+        
         task.resume()
         
     }
-static func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
+    
+    //json data management
+    static func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
     {
         var output = [NSDictionary]()
         var tempArr: NSMutableArray = NSMutableArray()
         
         do{
-
-
+            
+            
             
             let arr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
             if arr.count == 0
@@ -211,4 +213,23 @@ static func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
         return output
     }
     
+    static func JsonDataToDict(_ data : NSMutableData) -> NSDictionary
+    {
+        var output = NSDictionary()
+        
+        do{
+            
+            output = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
+            
+            
+            
+        } catch let error as NSError {
+            print(error)
+            
+        }
+        
+        return output
+    }
 }
+
+

@@ -31,6 +31,7 @@ class NewAccountFormViewController: UIViewController {
     @IBOutlet weak var confirmEmailLabel: UILabel!
     @IBOutlet weak var dobLabel: UILabel!
     
+    weak var delegate : LoginDelegate?
     
     @IBAction func CreateButtonPressed(_ sender: Any) {
         let username = usernameTextField.text
@@ -105,12 +106,51 @@ class NewAccountFormViewController: UIViewController {
         }
         else //if no issues
         {
+            if Settings.dummyAppOn
+            {
+                PopupManager.singleton.Popup(title: "Account created!", body: "Your account is ready!", presentationViewCont: self, handler: {
+                    
+                    //dismiiss new account view
+                    self.dismiss(animated: true, completion: nil)
+                    
+                    //dismiss login view
+                    self.delegate?.Dismiss()
+
+                    Account.singleton.user_name = username
+                    Account.singleton.user_ID = "0"
+                    Account.singleton.user_Email = email
+                })
+
+                return
+            }
+            
             Account.singleton.CreateNewAccount(username!, password!, email!, dob!, handler:
-                {(success,result) -> Void in
+                {(success,result,dict) -> Void in
                     
                     if success
                     {
-                        PopupManager.singleton.Popup(title: "Account created!", body: result, presentationViewCont: self)
+                        PopupManager.singleton.Popup(title: "Account created!", body: result, presentationViewCont: self, handler: {
+                            
+                            //dismiiss new account view
+                            self.dismiss(animated: true, completion: nil)
+                            
+                            //dismiss login view
+                            self.delegate?.Dismiss()
+ 
+                            //update login details
+                            let username = dict["User_Name"] as? String
+                            let ID = String(describing: (dict["User_ID"] as? Int)!)
+                            let email = dict["User_Email"] as? String
+                            
+                            Account.singleton.user_name = username
+                            Account.singleton.user_ID = ID
+                            Account.singleton.user_Email = email
+                            Account.singleton.Save()
+                        
+                        })
+                       
+                        
+                    
                     }
                     else
                     {

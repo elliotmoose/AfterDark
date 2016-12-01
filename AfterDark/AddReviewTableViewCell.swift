@@ -12,7 +12,9 @@ protocol AddReviewDelegate : class {
     func ratingUpdated(slider : ReviewStarSlider)
 }
 
-class AddReviewTableViewCell: UITableViewCell,AddReviewDelegate{
+
+class AddReviewTableViewCell: UITableViewCell,AddReviewDelegate,AddDetailReviewDelegate{
+    
     
     @IBOutlet weak var avgSlider: ReviewStarSlider!
     
@@ -34,6 +36,15 @@ class AddReviewTableViewCell: UITableViewCell,AddReviewDelegate{
     
     @IBOutlet weak var serviceLabel: UILabel!
     
+    var isExpanded : Bool = false
+    
+    weak var delegate : AddReviewCellDelegate?
+    
+    @IBAction func writeReviewButtonPressed(_ sender: Any) {
+        self.delegate?.ShowAddDetailReviewController()
+        AddDetailedReviewViewController.singleton.avgSlider.SetRating(rating: avgSlider.currentRating)
+        AddDetailedReviewViewController.singleton.ratingUpdated(slider: AddDetailedReviewViewController.singleton.avgSlider)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,11 +56,19 @@ class AddReviewTableViewCell: UITableViewCell,AddReviewDelegate{
         ambienceSlider.delegate = self
         serviceSlider.delegate = self
 
-
+        self.pricingLabel.alpha = 0
+        self.foodLabel.alpha = 0
+        self.ambienceLabel.alpha = 0
+        self.serviceLabel.alpha = 0
+        self.pricingSlider.alpha = 0
+        self.foodSlider.alpha = 0
+        self.ambienceSlider.alpha = 0
+        self.serviceSlider.alpha = 0
         
-        
+        AddDetailedReviewViewController.singleton.delegate = self
     }
 
+    
     internal func ratingUpdated(slider : ReviewStarSlider) {
        
         if slider == avgSlider
@@ -76,10 +95,45 @@ class AddReviewTableViewCell: UITableViewCell,AddReviewDelegate{
         
     }
     
+    func ExpandCell()
+    {
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.pricingLabel.alpha = 1
+            self.foodLabel.alpha = 1
+            self.ambienceLabel.alpha = 1
+            self.serviceLabel.alpha = 1
+            self.pricingSlider.alpha = 1
+            self.foodSlider.alpha = 1
+            self.ambienceSlider.alpha = 1
+            self.serviceSlider.alpha = 1
+
+        })
+    }
+    
+    func CollapseCell()
+    {
+        UIView.animate(withDuration: 0.5, animations: {
+            
+            self.pricingLabel.alpha = 0
+            self.foodLabel.alpha = 0
+            self.ambienceLabel.alpha = 0
+            self.serviceLabel.alpha = 0
+            self.pricingSlider.alpha = 0
+            self.foodSlider.alpha = 0
+            self.ambienceSlider.alpha = 0
+            self.serviceSlider.alpha = 0
+            
+        })
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
+    func dissmissAddDetailReviewView() {
+        self.delegate?.HideAddDetailReviewController()
+    }
 }

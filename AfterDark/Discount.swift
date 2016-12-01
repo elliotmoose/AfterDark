@@ -20,9 +20,17 @@ class Discount
     {
         name = dict["discount_name"] as? String
         details = dict["discount_description"] as? String
-        discount_ID = dict["discount_ID"] as? String
-        bar_ID = dict["Bar_ID"] as? String
+        discount_ID = String(describing: dict["discount_ID"] as! Int)
+        bar_ID = String(describing: (dict["Bar_ID"] as? Int)!)
         amount = dict["discount_amount"] as? String
     }
     
+    init(name : String, details:String , amount : String, discountID : String, bar_ID: String)
+    {
+        self.name = name
+        self.details = details
+        self.amount = amount
+        self.discount_ID = discountID
+        self.bar_ID = bar_ID
+    }
 }

@@ -9,10 +9,16 @@
 import UIKit
 
 class AccountTableViewController: UITableViewController {
-        static let singleton = AccountTableViewController(nibName: "AccountTableViewController", bundle: Bundle.main)
+
+    
+    static let singleton = AccountTableViewController(nibName: "AccountTableViewController", bundle: Bundle.main)
+    
+
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
 
@@ -38,7 +44,7 @@ class AccountTableViewController: UITableViewController {
         }
         else if section == 1
         {
-            return 0
+            return 2
         }
         
         return 0
@@ -92,7 +98,16 @@ class AccountTableViewController: UITableViewController {
             {
                 cell?.detailTextLabel?.text = "\(Account.singleton.user_Email!)"
             }
-
+        case IndexPath(row: 0, section: 1):
+            
+            cell?.textLabel?.text = "Change Password"
+            cell?.accessoryType = .disclosureIndicator
+            
+        case IndexPath(row: 1, section: 1):
+            
+            cell?.textLabel?.text = "Log Out"
+            cell?.accessoryType = .disclosureIndicator
+        
         default:
             break
         }
@@ -103,13 +118,37 @@ class AccountTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath {
-        case IndexPath(row: 0, section: 0):
+            
+            //change pass
+        case IndexPath(row: 0, section: 1):
+            self.navigationController?.pushViewController(ChangePasswordViewController.singleton, animated: true)
             break
+            
+            //log out
+        case IndexPath(row: 1, section: 1):
+            
+
+            
+            //must change back to bar list view
+            PopupManager.singleton.PopupWithCancel(title: "Log Out", body: "Are you sure you want to log out?", presentationViewCont: self, handler: {
+            
+                //logout and reload account view
+                Account.singleton.LogOut()
+                self.tableView.reloadData()
+                
+                //reset app to login page
+                self.tabBarController?.selectedIndex = 1;
+                self.tabBarController?.viewControllers?[1].present(LoginViewController.singleton, animated: true, completion: nil)
+            })
+            
+            
+
         default:
             break
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-       
+    
+    
 }

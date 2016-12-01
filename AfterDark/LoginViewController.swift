@@ -8,7 +8,11 @@
 
 import UIKit
 
-class LoginViewController: UIViewController,UITextFieldDelegate {
+protocol LoginDelegate : class {
+    func Dismiss()
+}
+
+class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
 
     static let singleton = LoginViewController(nibName: "LoginViewController", bundle: Bundle.main)
     
@@ -70,6 +74,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         afterDarkIconVerticalConstraint.constant = 0
         afterDarkIconHorizontalConstraint.constant = 0
         self.view.layoutIfNeeded()
+        
+        NewAccountFormViewController.singleton.delegate = self;
         
     }
 
@@ -198,6 +204,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         textField.resignFirstResponder()
         SignIn()
         return false
+    }
+    
+    func Dismiss()
+    {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func ForgotPasswordButtonPressed()
