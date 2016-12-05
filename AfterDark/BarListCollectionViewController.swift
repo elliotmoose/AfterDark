@@ -1,19 +1,18 @@
 //
-//  BarListViewController.swift
+//  BarListCollectionViewController.swift
 //  AfterDark
 //
-//  Created by Swee Har Ng on 14/10/16.
+//  Created by Koh Yi Zhi Elliot - Ezekiel on 2/12/16.
 //  Copyright © 2016 kohbroco. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
+private let reuseIdentifier = "Cell"
 
-class BarListTableViewController: UIViewController,BarManagerToListTableDelegate,UITableViewDelegate,UITableViewDataSource,SortListDelegate{
-    
-    
-    @IBOutlet weak var tableView: UITableView!
+class BarListCollectionViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,BarManagerToListTableDelegate,SortListDelegate {
+
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var barDisplayMode: DisplayBarListMode = .avgRating
     var activityIndicator : UIActivityIndicatorView?
@@ -27,7 +26,7 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         //*******************************************************************
         //                  app start, main init throughout
         //*******************************************************************
@@ -57,13 +56,13 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
         //load data
         self.RetrieveDataFromUrls()
         
-
         
-
+        
+        
     }
     
-
-
+    
+    
     
     //============================================================================
     //                         internal initializing
@@ -73,32 +72,43 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
     {
         //ui init*********************************************************************
         DispatchQueue.main.async {
-            //tableview init
-            self.tableView.delegate = self
-            self.tableView.dataSource = self
             
+            //collection view delegate
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
+            
+            //collection view items
+            let toolBarHeight = CGFloat(40)
+
+            //collection view init
+            self.collectionView.frame = CGRect(x: 0, y: toolBarHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.navBarHeight - toolBarHeight)
+            let layout = UICollectionViewFlowLayout()
+            layout.itemSize = CGSize(width: Sizing.itemWidth, height: Sizing.itemHeight)
+            self.collectionView.collectionViewLayout = layout
             
             //init refresh button
             self.activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0,width: 20,height: 20))
-            self.activityIndicator?.color = UIColor.gray
             self.activityIndicator?.startAnimating()
-            self.refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(BarListTableViewController.refresh))
+            self.refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(BarListCollectionViewController.refresh))
             self.navigationItem.rightBarButtonItem = self.refreshButton
             
             //nav bar and tab bar translucency for framing purposes
             self.navigationController?.navigationBar.isTranslucent = false
             self.tabBarController?.tabBar.isTranslucent = false
             
+            //colors
+            self.collectionView.backgroundColor = ColorManager.barListBGColor
+            self.activityIndicator?.color = UIColor.gray
+
             //========================================================================================
             //                                      sorting
             //========================================================================================
-
+            
             
             //tool bar items
-            let toolBarHeight = CGFloat(40)
             let toolBar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: toolBarHeight))
             let flexSpace = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
-
+            
             //tool bar view
             self.sortByButton = UIButton(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: toolBarHeight))
             //let arrow = UIImageView.init(image: #imageLiteral(resourceName: "arrow"))
@@ -110,7 +120,7 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
             
             //button
             let sortbutton =  UIBarButtonItem.init(customView: self.sortByButton)
-
+            
             toolBar.items = [flexSpace,sortbutton,flexSpace]
             
             //add tool bar
@@ -120,10 +130,6 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
             //delegate
             ChangeListSortViewController.singleton.delegate = self
             
-
-        
-            //shift down bar list tableview for control view
-            self.tableView.frame = CGRect(x: 0, y: toolBarHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight())
             
             
             
@@ -131,21 +137,20 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
         
         //non ui init*********************************************************************
         DispatchQueue.global(qos: .default).async{
-        
-            //register bar list table view cell
-                self.tableView.register(UINib(nibName: "BarListTableViewCell", bundle: nil), forCellReuseIdentifier: "BarListTableViewCell")
             
+            //register bar list table view cell
+            self.collectionView.register(UINib(nibName: "BarListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BarListCollectionViewCell")
             //set self as bar manager delegate
             BarManager.singleton.listDelegate = self
             
-        
+            
         }
         
-
-
-
+        
+        
+        
     }
-
+    
     
     //============================================================================
     //                         loading all data from urls
@@ -181,7 +186,7 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
             })
             
         }
-
+        
     }
     
     func SetDisplayMode(mode : DisplayBarListMode)
@@ -191,26 +196,26 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
         switch mode {
         case .alphabetical:
             sortByButton.setTitle("Sort by: A-Z", for: .normal)
-
+            
         case .avgRating:
             sortByButton.setTitle("Sort by: Top Rated", for: .normal)
-
+            
         case .priceRating:
             sortByButton.setTitle("Sort by: Best Prices", for: .normal)
-
+            
         case .serviceRating:
             sortByButton.setTitle("Sort by: Best Service", for: .normal)
-
+            
         case .foodRating:
             sortByButton.setTitle("Sort by: Best Food", for: .normal)
-
+            
         case .ambienceRating:
             sortByButton.setTitle("Sort by: Best Ambience", for: .normal)
-
+            
         }
         
         
-
+        
         
     }
     
@@ -246,8 +251,7 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
             //update that index path
             DispatchQueue.main.async {
                 let indexPaths = [indexPath]
-                self.tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.none)
-                
+                self.collectionView.reloadItems(at: indexPaths)
                 //check if its being viewed
                 if BarManager.singleton.displayedDetailBar.name == bar.name
                 {
@@ -256,106 +260,59 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
                     
                     //update that icon in discount detail view controller
                     DiscountDetailViewController.singleton.barIconImageView.image = bar.icon
-
+                    
                 }
             }
         }
-
-
+        
+        
     }
     
     func ReloadTable()
     {
         DispatchQueue.main.async {
-        self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
 
-    //============================================================================
-    //                                 number of section and rows
-    //============================================================================
-    func numberOfSections(in tableView: UITableView) -> Int
-    {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+
         let count = BarManager.singleton.displayBarList.count
         return count
+        
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        let count = BarManager.singleton.displayBarList[section].count
 
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        let count = BarManager.singleton.displayBarList[section].count
+        
         return count
     }
 
-    //============================================================================
-    //                                create bar cells
-    //============================================================================
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BarListTableViewCell", for: indexPath) as! BarListTableViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BarListCollectionViewCell", for: indexPath) as! BarListCollectionViewCell
         let thisSection = BarManager.singleton.displayBarList[indexPath.section]
         let thisBar = thisSection[indexPath.row]
         
-        cell.SetContent(thisBar.icon, barName: thisBar.name, barRating: thisBar.rating,displayMode: barDisplayMode)
+        cell.SetContent(bar : thisBar,displayMode: barDisplayMode)
         
-        
+        cell.layer.cornerRadius = Sizing.itemCornerRadius
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
-    //============================================================================
-    //                                 selected bar cell
-    //============================================================================
-    //show bar detail view
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //prep for display
         BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
         BarDetailTableViewController.singleton.UpdateDisplays()
         self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
         
-        tableView.deselectRow(at: indexPath, animated: true)
-
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
-
-    //============================================================================
-    //                                 section header
-    //============================================================================
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        if barDisplayMode == .alphabetical
-        {
-            let firstSection  = BarManager.singleton.displayBarList[section]
-            
-            if firstSection.count == 0
-            {
-                return ""
-            }
-            else
-            {
-                let firstBarInSection = firstSection[0]
-                return String(describing: firstBarInSection.name.characters.first!)
-            }
-        }
-        else
-        {
-            return ""
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-   
-        let headerView = view as! UITableViewHeaderFooterView
-        headerView.backgroundView?.backgroundColor = ColorManager.barListSectionHeaderColor
-   
-    }
-    
-    
     
     //============================================================================
     //                                 refresh button
@@ -363,7 +320,7 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
     
     func refresh()
     {
-
+        
         
         DispatchQueue.main.async(execute: {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
@@ -406,6 +363,5 @@ class BarListTableViewController: UIViewController,BarManagerToListTableDelegate
     {
         self.navigationController?.pushViewController(ChangeListSortViewController.singleton, animated: true)
     }
-    
-}
 
+}

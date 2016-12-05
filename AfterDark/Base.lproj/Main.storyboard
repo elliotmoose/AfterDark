@@ -14,7 +14,7 @@
             <objects>
                 <navigationController id="M7v-7V-ftZ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="aW0-Lg-KVx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yCE-y1-hSJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yCE-y1-hSJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.24702778459999999" green="0.24707666040000001" blue="0.2470246851" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -35,7 +35,7 @@
             <objects>
                 <navigationController id="5ay-4L-82d" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="qnQ-V2-Nex"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9VR-7P-6KU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9VR-7P-6KU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -109,14 +109,76 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NH7-s2-dEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1735" y="581"/>
+            <point key="canvasLocation" x="1734" y="1339"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="A5B-xk-ta7">
+            <objects>
+                <navigationController id="A5q-gA-LvA" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="047-kt-aDb"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="z71-3w-dHH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pT2-8F-9ac" kind="relationship" relationship="rootViewController" id="Wjr-12-H8y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fS9-uy-oNZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="953" y="579"/>
+        </scene>
+        <!--Bar List Collection View Controller-->
+        <scene sceneID="sgV-Yu-rh9">
+            <objects>
+                <viewController id="pT2-8F-9ac" customClass="BarListCollectionViewController" customModule="AfterDark" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wr2-d7-p8i"/>
+                        <viewControllerLayoutGuide type="bottom" id="hup-KZ-AGI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aev-Ci-joj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1fg-oz-vzX">
+                                <rect key="frame" x="0.0" y="110" width="375" height="508"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aCw-8y-rDE">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="q40-vD-Pba">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XNu-Rb-wDs"/>
+                    <connections>
+                        <outlet property="collectionView" destination="1fg-oz-vzX" id="ZMc-NW-Bb1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rr6-l0-dF5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1856.8" y="578.86056971514245"/>
         </scene>
         <!--Item-->
         <scene sceneID="LRL-WC-POw">
             <objects>
                 <navigationController id="Nch-S0-qmt" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="gEX-Ff-16D"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="I8O-tW-4Tl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I8O-tW-4Tl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,13 +193,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="44S-9h-gT6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="581"/>
+            <point key="canvasLocation" x="953" y="1339"/>
         </scene>
         <!--Categories-->
         <scene sceneID="VMj-Kr-KH9">
             <objects>
                 <collectionViewController id="Si6-St-rIE" customClass="CategorizedCollectionViewController" customModule="AfterDark" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="gVv-ie-Ce3">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="gVv-ie-Ce3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AoH-Gk-2jm">
@@ -181,7 +243,7 @@
                         <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="5ay-4L-82d" kind="relationship" relationship="viewControllers" id="zLh-b2-4Bf"/>
+                        <segue destination="A5q-gA-LvA" kind="relationship" relationship="viewControllers" id="JnV-5b-GsJ"/>
                         <segue destination="M7v-7V-ftZ" kind="relationship" relationship="viewControllers" id="v6n-xH-8id"/>
                         <segue destination="Nch-S0-qmt" kind="relationship" relationship="viewControllers" id="6H9-8o-8RK"/>
                     </connections>

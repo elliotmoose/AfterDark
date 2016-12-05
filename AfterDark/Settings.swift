@@ -5,7 +5,7 @@ class Settings
     static let ignoreUserDefaults = false
     static let bypassLoginPage = false
     static let modelBarActive = false
-    static let dummyAppOn = true
+    static let dummyAppOn = false
     static let singleton = Settings()
     
     

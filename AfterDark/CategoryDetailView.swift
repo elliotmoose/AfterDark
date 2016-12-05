@@ -39,14 +39,14 @@ class CategoryDetailView: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BarListTableViewCell", for: indexPath) as! BarListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BarListCollectionViewCell", for: indexPath) as! BarListCollectionViewCell
 
         let barID = displayedBarIDs[indexPath.row]
         let thisBar = BarManager.singleton.BarFromBarID(barID)
         
         if let thisBar = thisBar
         {
-            cell.SetContent(thisBar.icon, barName: thisBar.name, barRating: thisBar.rating)
+            cell.SetContent(thisBar.icon, barName: thisBar.name, barRating: thisBar.rating, displayMode: .alphabetical)
         }
         
         return cell

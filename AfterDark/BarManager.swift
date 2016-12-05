@@ -415,27 +415,27 @@ class BarManager: NSObject
         case .avgRating:
             
             var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.avg < $1.rating.avg})
+            singleArray.sort(by: {$0.rating.avg > $1.rating.avg})
             displayBarList.append(singleArray)
             break;
         case .priceRating:
             var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.price < $1.rating.price})
+            singleArray.sort(by: {$0.rating.price > $1.rating.price})
             displayBarList.append(singleArray)
             break;
         case .foodRating:
             var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.food < $1.rating.food})
+            singleArray.sort(by: {$0.rating.food > $1.rating.food})
             displayBarList.append(singleArray)
             break;
         case .ambienceRating:
             var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.ambience < $1.rating.ambience})
+            singleArray.sort(by: {$0.rating.ambience > $1.rating.ambience})
             displayBarList.append(singleArray)
             break;
         case .serviceRating:
             var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.service < $1.rating.service})
+            singleArray.sort(by: {$0.rating.service > $1.rating.service})
             displayBarList.append(singleArray)
             break;
             

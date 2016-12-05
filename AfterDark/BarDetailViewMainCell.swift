@@ -73,12 +73,12 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
 
         //sizing
         let tabWidth = Sizing.ScreenWidth()/4
-        let tabHeight = Sizing.HundredRelativeHeightPts()/3
+        let tabHeight = Sizing.tabHeight
         let mainViewWidth = Sizing.ScreenWidth()
-        let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/
+        let mainViewHeight = Sizing.mainViewHeight
         
-        let tabContFrame = CGRect(x: 0, y: tabHeight, width: mainViewWidth, height: mainViewHeight - tabHeight)
-        let detailViewFrame = CGRect(x: 0, y: 0, width: mainViewWidth, height: mainViewHeight - tabHeight  - 20/*status bar*/ - (self.delegate?.NavCont().navigationBar.bounds.height)!/*nav bar height*/)
+        let tabContFrame = CGRect(x: 0, y: tabHeight, width: mainViewWidth, height: mainViewHeight + Sizing.statusBarHeight)
+        let detailViewFrame = CGRect(x: 0, y: 0, width: mainViewWidth, height: mainViewHeight - tabHeight)
         let highlighterHeight: CGFloat = 4.5
         //status bar height?
         

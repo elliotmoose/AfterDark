@@ -49,6 +49,21 @@ class DummyMode
         
         CategoriesManager.singleton.allCategories.append(cheapCat)
         
+        let chillCat = Category(name: "Chill", barIDs: ["0"])
+        
+        CategoriesManager.singleton.allCategories.append(chillCat)
+        
+        let dinnerCat = Category(name: "Dinner", barIDs: ["1"])
+        
+        CategoriesManager.singleton.allCategories.append(dinnerCat)
+        
+        let ambienceCat = Category(name: "Ambience", barIDs: ["0","1"])
+        
+        CategoriesManager.singleton.allCategories.append(ambienceCat)
+        
+        let musicCat = Category(name: "Music", barIDs: ["0","1"])
+        
+        CategoriesManager.singleton.allCategories.append(musicCat)
         //prep log in page
     }
     

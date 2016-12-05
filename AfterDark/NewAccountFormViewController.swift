@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewAccountFormViewController: UIViewController {
+class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
 
     static let singleton = NewAccountFormViewController(nibName: "NewAccountFormViewController", bundle: Bundle.main)
     
@@ -31,7 +31,14 @@ class NewAccountFormViewController: UIViewController {
     @IBOutlet weak var confirmEmailLabel: UILabel!
     @IBOutlet weak var dobLabel: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    
+    let datePicker = UIDatePicker(frame: CGRect.zero)
+
     weak var delegate : LoginDelegate?
+    
+    var activeField : UITextField?
     
     @IBAction func CreateButtonPressed(_ sender: Any) {
         let username = usernameTextField.text
@@ -187,6 +194,7 @@ class NewAccountFormViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         
+        registerForKeyboardNotifications()
         //reset label colors
         usernameLabel.textColor = UIColor.black
         passwordLabel.textColor = UIColor.black
@@ -197,18 +205,29 @@ class NewAccountFormViewController: UIViewController {
     
     
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        deregisterFromKeyboardNotifications()
+    }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: Bundle.main)
         Bundle.main.loadNibNamed("NewAccountFormViewController", owner: self, options: nil)
         self.modalTransitionStyle = .flipHorizontal
         
-        let datePicker = UIDatePicker(frame: CGRect.zero)
         datePicker.datePickerMode = .date
         datePicker.setDate(Date(timeIntervalSince1970: 946684800), animated: false)
         datePicker.addTarget(self, action: #selector(DateUpdated), for: .valueChanged)
         
         dobTextField.inputView = datePicker
         addKeyboardToolBar()
+        
+        //delegates
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
+        emailTextField.delegate = self
+        confirmEmailTextField.delegate = self
+        dobTextField.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -220,9 +239,9 @@ class NewAccountFormViewController: UIViewController {
         return true
     }
     
-    func DateUpdated()
+    func DateUpdated(sender : Any)
     {
-        
+
     }
     
     func addKeyboardToolBar()
@@ -235,20 +254,146 @@ class NewAccountFormViewController: UIViewController {
             UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneWithNumberPad))]
         numberToolbar.sizeToFit()
         dobTextField.inputAccessoryView = numberToolbar
+        emailTextField.inputAccessoryView = numberToolbar
+        passwordTextField.inputAccessoryView = numberToolbar
+        confirmPasswordTextField.inputAccessoryView = numberToolbar
+        confirmEmailTextField.inputAccessoryView = numberToolbar
+        usernameTextField.inputAccessoryView = numberToolbar
     }
     
     func cancelNumberPad()
     {
-        dobTextField.endEditing(true)
+        let txtfield = FirstResponder()
+        txtfield.endEditing(true)
         
     }
     
     func doneWithNumberPad()
     {
-        dobTextField.endEditing(true)
+        let txtfield = FirstResponder()
+
+        if txtfield == dobTextField
+        {
+            
+            //fill text field with current date string
+            let date = datePicker.date
+            
+            let format = DateFormatter()
+            format.dateFormat = "dd/MM/yyyy"
+            
+            dobTextField.text = format.string(from: date)
+        }
+        else if(txtfield == usernameTextField)
+        {
+            passwordTextField.becomeFirstResponder()
+        }
+        else if(txtfield == passwordTextField)
+        {
+            confirmPasswordTextField.becomeFirstResponder()
+        }
+        else if(txtfield == confirmPasswordTextField)
+        {
+            emailTextField.becomeFirstResponder()
+        }
+        else if(txtfield == emailTextField)
+        {
+            confirmEmailTextField.becomeFirstResponder()
+        }
+        else if(txtfield == confirmEmailTextField)
+        {
+            
+        }
+
         
         
+
+        txtfield.endEditing(true)
+    }
+    
+    func FirstResponder() -> UITextField
+    {
+        if usernameTextField.isFirstResponder
+        {
+            return usernameTextField
+        }
         
+        if passwordTextField.isFirstResponder
+        {
+            return passwordTextField
+        }
         
+        if confirmPasswordTextField.isFirstResponder
+        {
+            return confirmPasswordTextField
+        }
+        
+        if emailTextField.isFirstResponder
+        {
+            return emailTextField
+        }
+        
+        if confirmEmailTextField.isFirstResponder
+        {
+            return confirmEmailTextField
+        }
+        
+        if dobTextField.isFirstResponder
+        {
+            return dobTextField
+        }
+        
+        return usernameTextField
+    }
+    
+    //notifictioncenter
+    func registerForKeyboardNotifications(){
+        //Adding notifies on keyboard appearing
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func deregisterFromKeyboardNotifications(){
+        //Removing notifies on keyboard appearing
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    //textfield delegate functions
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeField = nil
+    }
+    
+    func keyboardWasShown(notification: NSNotification){
+        //Need to calculate keyboard exact size due to Apple suggestions
+        self.scrollView.isScrollEnabled = true
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize!.height
+        if let activeField = self.activeField {
+            if (!aRect.contains(activeField.frame.origin)){
+                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification){
+        //Once keyboard disappears, restore original positions
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        self.view.endEditing(true)
+        self.scrollView.isScrollEnabled = false
     }
 }

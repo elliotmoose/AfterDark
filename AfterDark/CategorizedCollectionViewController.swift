@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class CategorizedCollectionViewController: UICollectionViewController,CategoryManagerDelegate {
 
-    let categoryTableViewCont = CategoryDetailView()
+    let categoryCollectionViewCont = CategoryDetailCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         
         
     }
-
+ 
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,24 +75,12 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        categoryTableViewCont.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
+        categoryCollectionViewCont.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
         BarDetailTableViewController.singleton.UpdateDisplays()
-        self.navigationController?.pushViewController(categoryTableViewCont, animated: true)
+        self.navigationController?.pushViewController(categoryCollectionViewCont, animated: true)
+        
     }
 
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
     
-    }
-    */
 
 }

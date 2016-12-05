@@ -7,7 +7,11 @@
 //
 
 import UIKit
-
+protocol SortListDelegate : class
+{
+    func UpdateBarListTableDisplay()
+    func SetDisplayMode(mode: DisplayBarListMode)
+}
 class ChangeListSortViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     static let singleton = ChangeListSortViewController(nibName: "ChangeListSortViewController", bundle: Bundle.main)
@@ -15,7 +19,7 @@ class ChangeListSortViewController: UIViewController,UITableViewDelegate,UITable
 
     @IBOutlet weak var tableView: UITableView!
     
-    
+    weak var delegate : SortListDelegate?
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -93,27 +97,29 @@ class ChangeListSortViewController: UIViewController,UITableViewDelegate,UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath {
         case IndexPath(row: 0, section: 0):
-            BarManager.singleton.ArrangeBarList(.alphabetical)
+            self.delegate?.SetDisplayMode(mode: .alphabetical)
         case IndexPath(row: 1, section: 0):
-            BarManager.singleton.ArrangeBarList(.alphabetical)
+            self.delegate?.SetDisplayMode(mode: .avgRating)
 
         case IndexPath(row: 2, section: 0):
-            BarManager.singleton.ArrangeBarList(.alphabetical)
+            self.delegate?.SetDisplayMode(mode: .priceRating)
 
         case IndexPath(row: 3, section: 0):
-            BarManager.singleton.ArrangeBarList(.alphabetical)
+            self.delegate?.SetDisplayMode(mode: .foodRating)
 
         case IndexPath(row: 4, section: 0):
-            BarManager.singleton.ArrangeBarList(.alphabetical)
+            self.delegate?.SetDisplayMode(mode: .serviceRating)
 
         case IndexPath(row: 5, section: 0):
-            BarManager.singleton.ArrangeBarList(.alphabetical)
+            self.delegate?.SetDisplayMode(mode: .ambienceRating)
 
             
         default:
             title = "oops"
         }
 
+        self.delegate?.UpdateBarListTableDisplay()
+        self.navigationController?.popViewController(animated: true)
     }
 
 }

@@ -33,12 +33,33 @@ class BarListTableViewCell: UITableViewCell {
         // Configure the view for the seleced state
     }
     
-    func SetContent(_ barIconImage : UIImage?, barName : String, barRating : Rating)
+    func SetContent(_ barIconImage : UIImage?, barName : String, barRating : Rating,displayMode : DisplayBarListMode)
     {
         
         self.bar_Icon.image = barIconImage;
         self.bar_NameLabel.text = barName
-        self.bar_RatingLabel.text = String(format: "%.1f",barRating.avg)
+        
+        switch displayMode {
+        case .alphabetical:
+            self.bar_RatingLabel.text = String(format: "%.1f",barRating.avg)
+        case .avgRating:
+            self.bar_RatingLabel.text = String(format: "%.1f",barRating.avg)
+        case .priceRating:
+            self.bar_RatingLabel.text = String(format: "%.1f",barRating.price)
+
+        case .foodRating:
+            self.bar_RatingLabel.text = String(format: "%.1f",barRating.food)
+
+        case .serviceRating:
+            self.bar_RatingLabel.text = String(format: "%.1f",barRating.service)
+
+        case .ambienceRating:
+            self.bar_RatingLabel.text = String(format: "%.1f",barRating.ambience)
+
+        default:
+            self.bar_RatingLabel.text = String(format: "%.1f",barRating.avg)
+
+        }
     }
     
 

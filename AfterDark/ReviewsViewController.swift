@@ -30,8 +30,10 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        self.view.frame = Sizing.DetailTabViewFrame()
-        self.tableView.frame = Sizing.DetailTabSubViewFrame()
+        
+        let detailTabViewFrame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.mainViewHeight - Sizing.tabBarHeight + Sizing.statusBarHeight)
+        self.view.frame = detailTabViewFrame
+        self.tableView.frame = detailTabViewFrame
         
         for cell in allCells
         {

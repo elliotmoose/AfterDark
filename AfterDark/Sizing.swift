@@ -6,11 +6,36 @@ class Sizing
     
     static let singleton = Sizing()
     
-    static let mainViewHeight = Sizing.ScreenHeight() - Sizing.HundredRelativeHeightPts()*2/*gallery min height*/ - 49/*tab bar*/ - 88
+    
+    //bar blown up dimensions
+
+    static let minGalleryHeight = Sizing.ScreenHeight()/3
+    static let maxGalleryHeight = Sizing.ScreenHeight()/2
+    
+    static let mainViewHeight = Sizing.ScreenHeight() - Sizing.minGalleryHeight - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.navBarHeight
+    static let tabHeight = Sizing.HundredRelativeHeightPts()/3
+
+    
+    
+    //system dimensions
+    static let tabBarHeight : CGFloat = 49
+    static let statusBarHeight : CGFloat = 20
+    static let navBarHeight : CGFloat = 44
     
     
     static let discountCellHeight : CGFloat = 60
     
+    //collection view
+    static let itemInsetFromEdge : CGFloat = 6
+    static let itemWidth = Sizing.ScreenWidth() - itemInsetFromEdge*2
+    static let itemHeight = Sizing.ScreenHeight()/2.5
+    static let itemCornerRadius: CGFloat = 7
+    
+    
+    
+    
+    
+    //static functions
     class func HundredRelativeWidthPts()->CGFloat
     {
     	return 375/UIScreen.main.bounds.size.width*100
@@ -31,23 +56,5 @@ class Sizing
         return UIScreen.main.bounds.size.height
     }
 
-    class func DetailTabViewFrame() ->CGRect{
-        let tabHeight = HundredRelativeHeightPts()/3
-        let mainViewWidth = ScreenWidth()
-        let mainViewHeight = ScreenHeight() - HundredRelativeHeightPts()*2/*gallery min height*/ - 88/*tab bar*/
-        
-        let detailViewFrame = CGRect(x: 0, y: tabHeight, width: mainViewWidth, height: mainViewHeight - tabHeight )
-
-        return detailViewFrame
-    }
     
-    class func DetailTabSubViewFrame() ->CGRect{
-        let tabHeight = HundredRelativeHeightPts()/3
-        let mainViewWidth = ScreenWidth()
-        let mainViewHeight = ScreenHeight() - HundredRelativeHeightPts()*2/*gallery min height*/ - 88/*tab bar*/
-        
-        let detailViewFrame = CGRect(x: 0, y: 0, width: mainViewWidth, height: mainViewHeight - tabHeight)
-        
-        return detailViewFrame
-    }
 }

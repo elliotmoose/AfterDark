@@ -31,8 +31,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     var galleryCont = GalleryViewController.singleton
     
     //constants
-    let minGalleryHeight = Sizing.HundredRelativeHeightPts()*2
-    let maxGalleryHeight = Sizing.HundredRelativeHeightPts()*3
+    let minGalleryHeight = Sizing.minGalleryHeight
+    let maxGalleryHeight = Sizing.maxGalleryHeight
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -379,7 +379,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             }
             else
             {
-                scrollView.setContentOffset(CGPoint(x: 0,y: Sizing.HundredRelativeHeightPts()), animated: true)
+                scrollView.setContentOffset(CGPoint(x: 0,y: maxGalleryHeight - minGalleryHeight), animated: true)
             }
         }
     }
@@ -419,12 +419,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     
     func UpdateScrollAlphas(_ scrollView: UIScrollView)
     {
-        let x = scrollView.contentOffset.y - Sizing.HundredRelativeHeightPts()
+        let x = scrollView.contentOffset.y - (maxGalleryHeight - minGalleryHeight)
         if(x < 0)
         {
             
             
-            let offset = (1 - (x/(-Sizing.HundredRelativeHeightPts())))
+            let offset = (1 - (x/(-(maxGalleryHeight - minGalleryHeight))))
             
 
             

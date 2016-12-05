@@ -83,7 +83,8 @@ class ReviewCell: UITableViewCell {
         serviceRatingStars = RatingStarView(frame: CGRect(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 3,width: 0,height: starHeight))
         foodRatingStars = RatingStarView(frame: CGRect(x: starsXCoord,y: avgRatingStarYCoord + (starHeight + gap) * 4,width: 0,height: starHeight))
 
-        collapseIndicator.frame = CGRect(x: starsXCoord + (avgStarsLabel?.frame.size.width)! + 5, y: avgRatingStarYCoord, width: 20, height: 20)
+        collapseIndicator.frame = CGRect(x: starsXCoord + (avgStarsLabel?.frame.size.width)! + 10, y: avgRatingStarYCoord, width: 20, height: 20)
+        collapseIndicator.center = CGPoint(x: collapseIndicator.center.x, y: (avgRatingStars?.center.y)!)
 
         self.addSubview(avgRatingStars!)
         self.addSubview(priceRatingStars!)
@@ -142,7 +143,8 @@ class ReviewCell: UITableViewCell {
         serviceStarsLabel?.frame = CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 3,width: starLabelWidth,height: starHeight)
         foodStarsLabel?.frame = CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 4,width: starLabelWidth,height: starHeight)
         
-        collapseIndicator.frame = CGRect(x: starsXCoord + (avgStarsLabel?.frame.size.width)! + 5, y: avgRatingStarYCoord, width: 20, height: 20)
+        collapseIndicator.frame = CGRect(x: starsXCoord + (avgStarsLabel?.frame.size.width)! + 20, y: avgRatingStarYCoord, width: 20, height: 20)
+        collapseIndicator.center = CGPoint(x: collapseIndicator.center.x, y: (avgRatingStars?.center.y)!)
 
         self.CollapseCell()
 

@@ -114,7 +114,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
                     self.createAccountButton.alpha = 1
                     self.forgotPasswordButton.alpha = 1
                     
-                    
                 })
                 
             })
@@ -133,6 +132,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
     
     func SignIn()
     {
+        
+        
         let username = usernameTextField.text
         let password = passwordTextField.text
         
@@ -145,6 +146,41 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
             
             //activity indicator
             SetIconToLoading()
+            
+            //dummy app
+            if Settings.dummyAppOn
+            {
+                self.EnableTextFields()
+                self.SetIconToDoneLoading()
+                
+                if username == "Admin" && password == "Admin"
+                {
+                    //log in success
+                    self.dismiss(animated: true, completion: nil)
+                    self.ResetTextFields()
+                }
+                else
+                {
+                    
+                    
+                    if username == "Admin"
+                    {
+                        //log in fail
+                        PopupManager.singleton.Popup(title: "Oops!", body: "Wrong Password!", presentationViewCont: self)
+                        
+                        self.passwordTextField.text = ""
+                    }
+                    else
+                    {
+                        //log in fail
+                        PopupManager.singleton.Popup(title: "Oops!", body: "Username not recognized!", presentationViewCont: self)
+                        self.ResetTextFields()
+                    }
+                }
+                
+                return
+            }
+        
             
             
             //login

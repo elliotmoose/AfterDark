@@ -13,8 +13,6 @@
 		610E1BE19DE238E09147FB63 /* Pods_AfterDarkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E152F3B0BE0E8AE102E03747 /* Pods_AfterDarkTests.framework */; };
 		980C8A311DBA1CCE00A2EE0F /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */; };
 		980C8A321DBA1CCE00A2EE0F /* DescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */; };
-		982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */; };
-		982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */; };
 		982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */; };
 		985E9DE11DB5245B001E0815 /* BarDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 985E9DDF1DB5245B001E0815 /* BarDetailViewController.xib */; };
 		986469251DBE278700781BC0 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986469231DBE278700781BC0 /* IconCell.swift */; };
@@ -23,7 +21,6 @@
 		986E183A1DC3D50C0098637D /* CategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986E18391DC3D50C0098637D /* CategoriesManager.swift */; };
 		986E183F1DC49E4A0098637D /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986E183D1DC49E4A0098637D /* CategoryCell.swift */; };
 		986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 986E183E1DC49E4A0098637D /* CategoryCell.xib */; };
-		986E18421DC4B2950098637D /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986E18411DC4B2950098637D /* CategoryDetailView.swift */; };
 		988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */; };
 		98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */; };
 		98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */; };
@@ -32,7 +29,6 @@
 		98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */; };
 		98F3E4A61DB0009B000EAF08 /* AfterDarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4A51DB0009B000EAF08 /* AfterDarkTests.swift */; };
 		98F3E4B11DB0009B000EAF08 /* AfterDarkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4B01DB0009B000EAF08 /* AfterDarkUITests.swift */; };
-		98F3E4BF1DB001CE000EAF08 /* BarListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4BE1DB001CE000EAF08 /* BarListTableViewController.swift */; };
 		98FCB1991DBFB5C9008C9307 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FCB1971DBFB5C9008C9307 /* ReviewCell.swift */; };
 		98FCB19A1DBFB5C9008C9307 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FCB1981DBFB5C9008C9307 /* ReviewCell.xib */; };
 		98FCB19C1DC12B7D008C9307 /* RatingStarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FCB19B1DC12B7D008C9307 /* RatingStarView.swift */; };
@@ -53,6 +49,10 @@
 		A439FF551DEEDECE005BFAC4 /* ChangeListSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */; };
 		A439FF561DEEDECE005BFAC4 /* ChangeListSortViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A439FF541DEEDECE005BFAC4 /* ChangeListSortViewController.xib */; };
 		A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF571DEFCC52005BFAC4 /* DummyMode.swift */; };
+		A439FF5C1DF172E4005BFAC4 /* BarListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF5B1DF172E4005BFAC4 /* BarListCollectionViewController.swift */; };
+		A439FF5F1DF172FB005BFAC4 /* BarListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF5D1DF172FB005BFAC4 /* BarListCollectionViewCell.swift */; };
+		A439FF601DF172FB005BFAC4 /* BarListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A439FF5E1DF172FB005BFAC4 /* BarListCollectionViewCell.xib */; };
+		A439FF621DF2A670005BFAC4 /* CategoryDetailCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF611DF2A670005BFAC4 /* CategoryDetailCollectionView.swift */; };
 		A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47A542E1DC8988800C465F5 /* DiscountManager.swift */; };
 		A481322C1DCC4CB700178251 /* OpeningHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481322A1DCC4CB700178251 /* OpeningHoursCell.swift */; };
 		A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A481322B1DCC4CB700178251 /* OpeningHoursCell.xib */; };
@@ -115,8 +115,6 @@
 		90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		980C8A2F1DBA1CCE00A2EE0F /* DescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		980C8A301DBA1CCE00A2EE0F /* DescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionCell.xib; sourceTree = "<group>"; };
-		982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarListTableViewCell.swift; path = ../BarListTableViewCell.swift; sourceTree = "<group>"; };
-		982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BarListTableViewCell.xib; path = ../BarListTableViewCell.xib; sourceTree = "<group>"; };
 		982BA8F31DB3C7E200C4B759 /* BarDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarDetailTableViewController.swift; path = ../BarDetailTableViewController.swift; sourceTree = "<group>"; };
 		985E9DDF1DB5245B001E0815 /* BarDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarDetailViewController.xib; sourceTree = "<group>"; };
 		986469231DBE278700781BC0 /* IconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 		986E18391DC3D50C0098637D /* CategoriesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesManager.swift; sourceTree = "<group>"; };
 		986E183D1DC49E4A0098637D /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		986E183E1DC49E4A0098637D /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
-		986E18411DC4B2950098637D /* CategoryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		988D7A291DB6630E002E3769 /* BarDetailViewMainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarDetailViewMainCell.swift; sourceTree = "<group>"; };
 		98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorizedCollectionViewController.swift; sourceTree = "<group>"; };
 		98F3E48B1DB0009B000EAF08 /* AfterDark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfterDark.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,7 +137,6 @@
 		98F3E4AC1DB0009B000EAF08 /* AfterDarkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AfterDarkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F3E4B01DB0009B000EAF08 /* AfterDarkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterDarkUITests.swift; sourceTree = "<group>"; };
 		98F3E4B21DB0009B000EAF08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98F3E4BE1DB001CE000EAF08 /* BarListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarListTableViewController.swift; path = ../BarListTableViewController.swift; sourceTree = "<group>"; };
 		98FCB1971DBFB5C9008C9307 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		98FCB1981DBFB5C9008C9307 /* ReviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
 		98FCB19B1DC12B7D008C9307 /* RatingStarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingStarView.swift; sourceTree = "<group>"; };
@@ -161,6 +157,10 @@
 		A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListSortViewController.swift; sourceTree = "<group>"; };
 		A439FF541DEEDECE005BFAC4 /* ChangeListSortViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeListSortViewController.xib; sourceTree = "<group>"; };
 		A439FF571DEFCC52005BFAC4 /* DummyMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyMode.swift; sourceTree = "<group>"; };
+		A439FF5B1DF172E4005BFAC4 /* BarListCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarListCollectionViewController.swift; sourceTree = "<group>"; };
+		A439FF5D1DF172FB005BFAC4 /* BarListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarListCollectionViewCell.swift; sourceTree = "<group>"; };
+		A439FF5E1DF172FB005BFAC4 /* BarListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarListCollectionViewCell.xib; sourceTree = "<group>"; };
+		A439FF611DF2A670005BFAC4 /* CategoryDetailCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailCollectionView.swift; sourceTree = "<group>"; };
 		A47A542E1DC8988800C465F5 /* DiscountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountManager.swift; sourceTree = "<group>"; };
 		A481322A1DCC4CB700178251 /* OpeningHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpeningHoursCell.swift; path = ../OpeningHoursCell.swift; sourceTree = "<group>"; };
 		A481322B1DCC4CB700178251 /* OpeningHoursCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OpeningHoursCell.xib; path = ../OpeningHoursCell.xib; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 				986E183D1DC49E4A0098637D /* CategoryCell.swift */,
 				986E183E1DC49E4A0098637D /* CategoryCell.xib */,
 				98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */,
-				986E18411DC4B2950098637D /* CategoryDetailView.swift */,
+				A439FF611DF2A670005BFAC4 /* CategoryDetailCollectionView.swift */,
 			);
 			name = "Categorized View";
 			sourceTree = "<group>";
@@ -324,11 +324,11 @@
 		98FD6FF11DB7C93900688514 /* Bar List View */ = {
 			isa = PBXGroup;
 			children = (
-				98F3E4BE1DB001CE000EAF08 /* BarListTableViewController.swift */,
-				982BA8EA1DB2B81100C4B759 /* BarListTableViewCell.swift */,
 				A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */,
 				A439FF541DEEDECE005BFAC4 /* ChangeListSortViewController.xib */,
-				982BA8EB1DB2B81100C4B759 /* BarListTableViewCell.xib */,
+				A439FF5B1DF172E4005BFAC4 /* BarListCollectionViewController.swift */,
+				A439FF5D1DF172FB005BFAC4 /* BarListCollectionViewCell.swift */,
+				A439FF5E1DF172FB005BFAC4 /* BarListCollectionViewCell.xib */,
 			);
 			name = "Bar List View";
 			sourceTree = "<group>";
@@ -603,11 +603,11 @@
 				A4F9AD961DD3307C0077241F /* AddReviewTableViewCell.xib in Resources */,
 				A4D375A51DCB68E000274935 /* DiscountDetailViewController.xib in Resources */,
 				A405E0691DDAC3EF00B9672D /* ChangePasswordViewController.xib in Resources */,
-				982BA8ED1DB2B81100C4B759 /* BarListTableViewCell.xib in Resources */,
 				A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */,
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
 				98F3E4981DB0009B000EAF08 /* Assets.xcassets in Resources */,
+				A439FF601DF172FB005BFAC4 /* BarListCollectionViewCell.xib in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
 				A494505A1DCDEE000081AF72 /* ReservationViewController.xib in Resources */,
@@ -779,22 +779,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A439FF5C1DF172E4005BFAC4 /* BarListCollectionViewController.swift in Sources */,
 				986E183A1DC3D50C0098637D /* CategoriesManager.swift in Sources */,
-				986E18421DC4B2950098637D /* CategoryDetailView.swift in Sources */,
 				986469251DBE278700781BC0 /* IconCell.swift in Sources */,
 				A481322C1DCC4CB700178251 /* OpeningHoursCell.swift in Sources */,
 				A4F9FAFD1DD2D42A007E3B37 /* AddReviewTableViewCell.swift in Sources */,
-				982BA8EC1DB2B81100C4B759 /* BarListTableViewCell.swift in Sources */,
 				A4D375621DCB5F1400274935 /* LoginViewController.swift in Sources */,
 				98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */,
 				98FCB1991DBFB5C9008C9307 /* ReviewCell.swift in Sources */,
+				A439FF621DF2A670005BFAC4 /* CategoryDetailCollectionView.swift in Sources */,
 				A49450551DCDED840081AF72 /* ReservationManager.swift in Sources */,
 				A4F9AD981DD333580077241F /* ReviewStarSlider.swift in Sources */,
 				98FD6FFD1DB89E0C00688514 /* ReviewsViewController.swift in Sources */,
-				98F3E4BF1DB001CE000EAF08 /* BarListTableViewController.swift in Sources */,
 				98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */,
 				A4F9B81C1DCAF3B300B9D124 /* ClaimFormViewController.swift in Sources */,
 				982BA8F51DB3C7E200C4B759 /* BarDetailTableViewController.swift in Sources */,
+				A439FF5F1DF172FB005BFAC4 /* BarListCollectionViewCell.swift in Sources */,
 				98FD70001DB89E3F00688514 /* LocationViewController.swift in Sources */,
 				A49450591DCDEE000081AF72 /* ReservationViewController.swift in Sources */,
 				A439FEF31DDD8A6C005BFAC4 /* testViewController.swift in Sources */,
