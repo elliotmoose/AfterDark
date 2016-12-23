@@ -41,6 +41,8 @@
 		98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FD70031DB89EA900688514 /* DiscountViewController.xib */; };
 		98FD70081DB8EE6200688514 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD70061DB8EE6200688514 /* DescriptionViewController.swift */; };
 		A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A400F8731DCB0F44009F8994 /* PopupManager.swift */; };
+		A401DB9C1E089366003C5F95 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401DB9B1E089366003C5F95 /* CacheManager.swift */; };
+		A401DB9E1E092444003C5F95 /* ExtensionsAndStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401DB9D1E092444003C5F95 /* ExtensionsAndStructs.swift */; };
 		A405E0681DDAC3EF00B9672D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */; };
 		A405E0691DDAC3EF00B9672D /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */; };
 		A439FEF31DDD8A6C005BFAC4 /* testViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FEF21DDD8A6C005BFAC4 /* testViewController.swift */; };
@@ -149,6 +151,8 @@
 		98FD70031DB89EA900688514 /* DiscountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountViewController.xib; sourceTree = "<group>"; };
 		98FD70061DB8EE6200688514 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DescriptionViewController.swift; path = ../../DescriptionViewController.swift; sourceTree = "<group>"; };
 		A400F8731DCB0F44009F8994 /* PopupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupManager.swift; sourceTree = "<group>"; };
+		A401DB9B1E089366003C5F95 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		A401DB9D1E092444003C5F95 /* ExtensionsAndStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionsAndStructs.swift; sourceTree = "<group>"; };
 		A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		A439FEF21DDD8A6C005BFAC4 /* testViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testViewController.swift; sourceTree = "<group>"; };
@@ -371,7 +375,6 @@
 				98FD70031DB89EA900688514 /* DiscountViewController.xib */,
 				A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */,
 				A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */,
-				A47A542E1DC8988800C465F5 /* DiscountManager.swift */,
 				A4F9B80D1DC8C90C00B9D124 /* Discount.swift */,
 			);
 			name = Discounts;
@@ -399,8 +402,11 @@
 			isa = PBXGroup;
 			children = (
 				A439FF571DEFCC52005BFAC4 /* DummyMode.swift */,
+				A401DB9D1E092444003C5F95 /* ExtensionsAndStructs.swift */,
+				A47A542E1DC8988800C465F5 /* DiscountManager.swift */,
 				90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */,
 				986E18391DC3D50C0098637D /* CategoriesManager.swift */,
+				A401DB9B1E089366003C5F95 /* CacheManager.swift */,
 				A400F8731DCB0F44009F8994 /* PopupManager.swift */,
 				GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */,
 				QFTSZAZA620UQ50HVYGSV2BC /* Network.swift */,
@@ -779,6 +785,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A401DB9C1E089366003C5F95 /* CacheManager.swift in Sources */,
 				A439FF5C1DF172E4005BFAC4 /* BarListCollectionViewController.swift in Sources */,
 				986E183A1DC3D50C0098637D /* CategoriesManager.swift in Sources */,
 				986469251DBE278700781BC0 /* IconCell.swift in Sources */,
@@ -810,6 +817,7 @@
 				H76WSUQ9WFAYGEXHYPUR7S5W /* customEnums.swift in Sources */,
 				GALD5LG20WJ7W6ECBYHH54UL /* Sizing.swift in Sources */,
 				A4FEA3AD1DD0415400F00783 /* NewAccountFormViewController.swift in Sources */,
+				A401DB9E1E092444003C5F95 /* ExtensionsAndStructs.swift in Sources */,
 				A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */,
 				A439FF551DEEDECE005BFAC4 /* ChangeListSortViewController.swift in Sources */,
 				A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */,

@@ -14,24 +14,46 @@ class ReviewManager
         
     }
 
+    func LoadAllReviews()
+    {
+        for bar in BarManager.singleton.mainBarList
+        {
+            //load first 5 reviews
+            ReviewManager.singleton.LoadReviews(bar,lowerBound: 0,count: 5,handler:
+                {
+                    (success) -> Void in
+                    
+                    if bar.name == BarManager.singleton.displayedDetailBar.name
+                    {
+                        self.delegate?.UpdateReviewTab()
+                        
+                    }
+                    
+                    
+            })
+        }
+    }
+    
     func LoadReviews(_ bar: Bar,lowerBound : Int,count: Int, handler:@escaping (_ success: Bool)-> Void)
     {
         var indexOfFirstReview = lowerBound
         var offset = 0
         //sort out which has been loaded and which to load
+        //while index of first review to load is less than the number of reviews (e.g asking to load review 0 but reviews 0 to 3 have already been loaded. so increase index until 4 so that it doesnt reload 0-3)
         while indexOfFirstReview < bar.reviews.count
         {
             indexOfFirstReview += 1
             offset += 1
             if offset >= count
             {
-                //if function has been redundant (e.g ask for a load that has already been loaded
+                //if loading smth that has already been loaded
                 return
             }
         }
         
+        let userID = Account.singleton.user_ID
         
-        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(indexOfFirstReview)&Count=\(count)"
+        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(indexOfFirstReview)&Count=\(count)&User_ID=\(userID!)"
         Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
         if success
         {
@@ -51,26 +73,52 @@ class ReviewManager
         })
     }
     
-    func LoadAllReviews()
+
+    
+    func ReloadReviews(_ bar: Bar,lowerBound : Int,count: Int, handler:@escaping (_ success: Bool)-> Void)
+    {
+        
+        bar.reviews.removeAll()
+        
+        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(lowerBound)&Count=\(count)&User_ID=\(Account.singleton.user_ID!)"
+        Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
+            if success
+            {
+                if output.count != 0
+                {
+                    var allReviewsForBar = bar.reviews
+                    for dict in output
+                    {
+                        var newReview = Review()
+                        newReview.initWithDict(dict)
+                        allReviewsForBar.append(newReview)
+                    }
+                    bar.reviews = allReviewsForBar
+                    handler(true)
+                }
+            }
+        })
+    }
+    
+    func ReloadAllReviews()
     {
         for bar in BarManager.singleton.mainBarList
         {
             //load first 5 reviews
-            ReviewManager.singleton.LoadReviews(bar,lowerBound: 0,count: 5,handler:
+            ReviewManager.singleton.ReloadReviews(bar,lowerBound: 0,count: 5,handler:
                 {
                     (success) -> Void in
                     
                     if bar.name == BarManager.singleton.displayedDetailBar.name
                     {
                         self.delegate?.UpdateReviewTab()
-
+                        
                     }
                     
                     
             })
         }
     }
-
     func AddReview(title : String,body : String, rating : Rating,bar : Bar,userID : String,handler: @escaping (_ success : Bool,_ error : String) -> ())
     {
         

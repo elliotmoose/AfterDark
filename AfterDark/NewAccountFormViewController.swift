@@ -251,7 +251,7 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         numberToolbar.items = [
             UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelNumberPad)),
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneWithNumberPad))]
+            UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneWithNumberPad))]
         numberToolbar.sizeToFit()
         dobTextField.inputAccessoryView = numberToolbar
         emailTextField.inputAccessoryView = numberToolbar

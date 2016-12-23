@@ -29,8 +29,8 @@ class Sizing
     static let itemInsetFromEdge : CGFloat = 6
     static let itemWidth = Sizing.ScreenWidth() - itemInsetFromEdge*2
     static let itemHeight = Sizing.ScreenHeight()/2.5
-    static let itemCornerRadius: CGFloat = 7
-    
+    static let itemCornerRadius: CGFloat = 2.5
+    static let sectionHeaderHeight : CGFloat = 40
     
     
     

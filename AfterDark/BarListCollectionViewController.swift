@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class BarListCollectionViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,BarManagerToListTableDelegate,SortListDelegate {
+class BarListCollectionViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,BarManagerToListTableDelegate,SortListDelegate ,LoggedInEventDelegate{
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -32,6 +32,8 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
         //*******************************************************************
         
         //login page
+        var loggedIn = false //this is so that we can initialize before we load data in
+        Account.singleton.delegate = self
         Account.singleton.Load()
         if Account.singleton.user_name == "" || Account.singleton.user_name == nil
         {
@@ -39,6 +41,10 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             {
                 self.present(LoginViewController.singleton, animated: false, completion: nil)
             }
+        }
+        else
+        {
+            loggedIn = true
         }
         
         //ui and non ui initializing
@@ -53,15 +59,19 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             return
         }
         
-        //load data
-        self.RetrieveDataFromUrls()
-        
-        
+        if loggedIn
+        {
+            self.hasLoggedIn()
+        }
+
+    
         
         
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.collectionView.reloadData()
+    }
     
     
     //============================================================================
@@ -84,6 +94,8 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             self.collectionView.frame = CGRect(x: 0, y: toolBarHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.navBarHeight - toolBarHeight)
             let layout = UICollectionViewFlowLayout()
             layout.itemSize = CGSize(width: Sizing.itemWidth, height: Sizing.itemHeight)
+            layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+
             self.collectionView.collectionViewLayout = layout
             
             //init refresh button
@@ -97,6 +109,9 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             self.tabBarController?.tabBar.isTranslucent = false
             
             //colors
+            self.navigationController?.navigationBar.tintColor = UIColor.orange
+            self.navigationController?.navigationBar.barTintColor = UIColor.black
+            self.navigationController?.navigationBar.barStyle = .black;
             self.collectionView.backgroundColor = ColorManager.barListBGColor
             self.activityIndicator?.color = UIColor.gray
 
@@ -117,7 +132,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             self.sortByButton .setTitleColor(UIColor.black, for: .normal)
             self.sortByButton .backgroundColor = UIColor.gray
             self.sortByButton .addTarget(self, action: #selector(self.ShowChangeListSortView), for: .touchUpInside)
-            
+            self.AddShadow(view: self.sortByButton)
             //button
             let sortbutton =  UIBarButtonItem.init(customView: self.sortByButton)
             
@@ -129,7 +144,6 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             
             //delegate
             ChangeListSortViewController.singleton.delegate = self
-            
             
             
             
@@ -155,6 +169,11 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
     //============================================================================
     //                         loading all data from urls
     //============================================================================
+    func hasLoggedIn() {
+        RetrieveDataFromUrls()
+        LoadCachedData()
+    }
+    
     func RetrieveDataFromUrls()
     {
         //loading of data from internet******************************************************
@@ -187,6 +206,15 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             
         }
         
+    }
+    
+    func LoadCachedData()
+    {
+        DispatchQueue.global(qos: .default).async{
+
+            CacheManager.singleton.Load()
+            
+        }
     }
     
     func SetDisplayMode(mode : DisplayBarListMode)
@@ -291,13 +319,16 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BarListCollectionViewCell", for: indexPath) as! BarListCollectionViewCell
         let thisSection = BarManager.singleton.displayBarList[indexPath.section]
         let thisBar = thisSection[indexPath.row]
         
+        //set cell display content
         cell.SetContent(bar : thisBar,displayMode: barDisplayMode)
         
         cell.layer.cornerRadius = Sizing.itemCornerRadius
+        
         return cell
     }
 
@@ -321,7 +352,6 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
     func refresh()
     {
         
-        
         DispatchQueue.main.async(execute: {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
         })
@@ -333,7 +363,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
                 
             })
             
-            ReviewManager.singleton.LoadAllReviews()
+            ReviewManager.singleton.ReloadAllReviews()
             
             DiscountManager.singleton.LoadAllDiscounts()
             
@@ -364,4 +394,14 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
         self.navigationController?.pushViewController(ChangeListSortViewController.singleton, animated: true)
     }
 
+    func AddShadow(view : UIView)
+    {
+        view.layer.shadowOpacity = 0.6
+        view.layer.shadowOffset = CGSize(width: 1.5, height: 4)
+        view.clipsToBounds = false
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }

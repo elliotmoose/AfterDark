@@ -1,4 +1,9 @@
 import Foundation
+
+protocol LoggedInEventDelegate : class {
+    func hasLoggedIn()
+}
+
 class Account {
     
     
@@ -6,6 +11,8 @@ class Account {
     var user_name: String?
     var user_ID :String?
     var user_Email : String?
+    
+    weak var delegate : LoggedInEventDelegate?
     
     init() {
 
@@ -21,45 +28,61 @@ class Account {
         Network.singleton.DataFromUrlWithPost(urlLogin,postParam: postParam!,handler: {(success,output) -> Void in
             if let output = output
             {
-                
-                let mutableOut = (output as NSData).mutableCopy() as! NSMutableData
+                do
+                {
+                    if let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? NSDictionary
+                    {
+                        if let success = dict["success"] as? String
+                        {
+                            if success == "true"
+                            {
+                                if let userDetails = dict["detail"] as? NSDictionary
+                                {
+                                    self.user_name = userDetails["User_Name"] as? String
+                                    self.user_Email = userDetails["User_Email"] as? String
+                                    self.user_ID = userDetails["User_ID"] as? String
+                                }
+                                
+                                self.Save()
+                                
+                                DispatchQueue.main.async {
+                                    handler(true,"Login Success")
+                                    self.delegate?.hasLoggedIn()
+                                }
+                            }
+                            else
+                            {
+                                if let detail = dict["detail"] as? String
+                                {
+                                    if detail == "Invalid Password"
+                                    {
+                                        DispatchQueue.main.async {
+                                            handler(false,"Invalid Password")
+                                        }
+                                    }
+                                    
+                                    if detail == "Invalid ID"
+                                    {
+                                        DispatchQueue.main.async {
+                                            handler(false,"Invalid Username")
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+                        else
+                        {
+                            NSLog("Cant log in,check connection")
+                            
+                        }
+                    }
+                }
+                catch let error as NSError
+                {
+                    print(error)
+                }
 
-                //output here is a dict array
-                let array = Network.JsonDataToDictArray(mutableOut)
-                
-                guard array.count > 0 else
-                {
-                    NSLog("Cant log in,check connection")
-                    return
-                }
-                let dict = array[0] 
-                
-                
-                let outputString = dict["result"] as! String
-                if outputString == "Login Success"
-                {
-                    self.user_name = dict["User_Name"] as? String
-                    self.user_Email = dict["User_Email"] as? String
-                    self.user_ID = dict["User_ID"] as? String
-
-                    self.Save()
-                    
-                    DispatchQueue.main.async {
-                        handler(true,"Login Success")
-                    }
-                }
-                else if outputString == "Invalid Password"
-                {
-                    DispatchQueue.main.async {
-                        handler(false,"Invalid Password")
-                    }
-                }
-                else if outputString == "Invalid ID"
-                {
-                    DispatchQueue.main.async {
-                        handler(false,"Invalid Username")
-                    }
-                }
                 
             }
             else
@@ -140,9 +163,18 @@ class Account {
             let UD = UserDefaults.standard
             
             self.user_name = UD.value(forKey: "user_name") as? String
-            
             self.user_ID = UD.value(forKey: "User_ID") as? String
             self.user_Email = UD.value(forKey: "User_Email") as? String
+            
+            if self.user_ID == nil || self.user_name == nil || self.user_Email == nil
+            {
+                //push login screen
+                self.user_name = ""
+                self.user_ID = ""
+                self.user_Email = ""
+                
+            }
+            
         }
 	}
 }

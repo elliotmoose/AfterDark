@@ -140,7 +140,6 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             cell?.Detail.text = BarManager.singleton.displayedDetailBar.contact
-            cell?.selectionStyle = .none
             return cell!
 
         case IndexPath(row: 4, section: 0):
@@ -158,7 +157,6 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.Detail.text = BarManager.singleton.displayedDetailBar.website
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
-            cell?.selectionStyle = .none
 
             return cell!
 
@@ -267,6 +265,31 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             tableView.beginUpdates()
             tableView.endUpdates()
 
+        }
+        
+        if indexPath.row == 3
+        {
+            let phonenumber = BarManager.singleton.displayedDetailBar.contact
+            if let url = URL(string: "tel://\(phonenumber)")
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
+        if indexPath.row == 4
+        {
+            if let url = URL(string: BarManager.singleton.displayedDetailBar.website)
+            {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         //make reservation cell

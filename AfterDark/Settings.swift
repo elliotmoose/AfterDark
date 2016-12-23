@@ -11,18 +11,18 @@ class Settings
     
     init()
     {
-        self.LoadSettings()
+        //self.LoadSettings()
     }
-
-    func SaveSettings()
-    {
-        UserDefaults.standard.setValue(Account.singleton.user_name, forKey: "username")
-    }
-
-    func LoadSettings()
-    {
-        
-    }
+//
+//    func SaveSettings()
+//    {
+//        UserDefaults.standard.setValue(Account.singleton.user_name, forKey: "username")
+//    }
+//
+//    func LoadSettings()
+//    {
+//        
+//    }
 
 
 }

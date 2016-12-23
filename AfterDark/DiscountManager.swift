@@ -16,7 +16,9 @@ protocol DiscountManagerToDetailTableDelegate : class
 class DiscountManager
 {
     static let singleton = DiscountManager()
+    
     weak var delegate : DiscountManagerToDetailTableDelegate?
+    
     
 //    func LoadDiscount(_ bar : Bar,handler:@escaping (_ success: Bool)-> Void)
 //    {

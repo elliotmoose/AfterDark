@@ -133,7 +133,12 @@ class AddReviewTableViewCell: UITableViewCell,AddReviewDelegate,AddDetailReviewD
         // Configure the view for the selected state
     }
     
-    func dissmissAddDetailReviewView() {
+    func DismissAddDetailReviewView() {
         self.delegate?.HideAddDetailReviewController()
+    }
+    
+    func UpdateReviewTable()
+    {
+        self.delegate?.ReloadReviewTableData()
     }
 }

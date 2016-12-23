@@ -130,9 +130,9 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         
         //tab titles
         tab1.setTitle("Details", for: UIControlState())
-        tab2.setTitle("Reviews", for: UIControlState())
-        tab3.setTitle("Location", for: UIControlState())
-        tab4.setTitle("Discount", for: UIControlState())
+        tab2.setTitle("Discount", for: UIControlState())
+        tab3.setTitle("Reviews", for: UIControlState())
+        tab4.setTitle("Location", for: UIControlState())
         
         //subviews
         self.addSubview(tab1)
@@ -142,9 +142,9 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         self.addSubview(tabCont.view)
         self.addSubview(tabHighlighter)
         self.tabCont.addChildViewController(self.descriptionCont)
+        self.tabCont.addChildViewController(self.discountCont)
         self.tabCont.addChildViewController(self.reviewCont)
         self.tabCont.addChildViewController(self.locationCont)
-        self.tabCont.addChildViewController(self.discountCont)
         
         //actions and events
         tab1.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
@@ -164,6 +164,39 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         
         //delegate
         reviewCont.delegate = self
+        
+        
+        //shadows
+        self.layer.shadowOpacity = 0.4
+        self.layer.shadowOffset = CGSize(width: 2, height: -3)
+        self.clipsToBounds = false
+        
+        tab1.layer.shadowOpacity = 0.4
+        tab1.layer.shadowOffset = CGSize(width: 0, height: 2)
+        tab1.layer.shadowRadius = 2
+        tab1.clipsToBounds = false
+        
+        tab2.layer.shadowOpacity = 0.4
+        tab2.layer.shadowOffset = CGSize(width: 0, height: 2)
+        tab2.layer.shadowRadius = 2
+        tab2.clipsToBounds = false
+        
+        tab3.layer.shadowOpacity = 0.4
+        tab3.layer.shadowOffset = CGSize(width: 0, height: 2)
+        tab3.layer.shadowRadius = 2
+        tab3.clipsToBounds = false
+        
+        tab4.layer.shadowOpacity = 0.4
+        tab4.layer.shadowOffset = CGSize(width: 0, height: 2)
+        tab4.layer.shadowRadius = 2
+        tab4.clipsToBounds = false
+        
+        self.bringSubview(toFront: tab1)
+        self.bringSubview(toFront: tab2)
+        self.bringSubview(toFront: tab3)
+        self.bringSubview(toFront: tab4)
+        self.bringSubview(toFront: tabHighlighter)
+
     }
     
     func ChangeTab(_ sender: AnyObject )

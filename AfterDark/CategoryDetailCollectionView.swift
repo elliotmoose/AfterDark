@@ -50,7 +50,11 @@ class CategoryDetailCollectionView: UIViewController, UICollectionViewDataSource
     
     override func viewWillAppear(_ animated: Bool) {
         self.collectionView?.reloadData()
+        
+        self.title = CategoriesManager.singleton.displayedCategory?.name
     }
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         
         return 1

@@ -34,6 +34,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     let minGalleryHeight = Sizing.minGalleryHeight
     let maxGalleryHeight = Sizing.maxGalleryHeight
     
+    var refreshButton : UIBarButtonItem?
+    var activityIndicator : UIActivityIndicatorView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialze()
@@ -86,7 +89,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.tableView.register(UINib(nibName: "BarDetailViewController", bundle: nil), forCellReuseIdentifier: "BarDetailViewController")
         
         //widths and heights
-        let navBarHeight : CGFloat = 0
         let barIconWidth = self.minGalleryHeight/2
         let barTitleWidth = Sizing.HundredRelativeWidthPts() * 2
         let barTitleHeight = Sizing.HundredRelativeHeightPts() * 0.3
@@ -94,9 +96,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         let barRatingHeight = Sizing.HundredRelativeWidthPts()*0.2
         
         //init with frames
-        self.tableView = UITableView.init(frame: CGRect(x: 0, y: navBarHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - navBarHeight - 49))
-        self.barIcon = UIImageView.init(frame: CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, width: barIconWidth,height: barIconWidth))
-        self.barIconButton = UIButton.init(frame: CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + navBarHeight + yOffset, width: barIconWidth,height: barIconWidth))
+        self.tableView = UITableView.init(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - 49))
+        self.barIcon = UIImageView.init(frame: CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + yOffset, width: barIconWidth,height: barIconWidth))
+        self.barIconButton = UIButton.init(frame: CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + yOffset, width: barIconWidth,height: barIconWidth))
         self.barTitle = UILabel.init(frame: CGRect(x: (Sizing.ScreenWidth() - barTitleWidth)/2, y: self.barIcon.frame.origin.y + barIconWidth + 20 + yOffset, width: barTitleWidth, height: barTitleHeight))
         
         self.barRatingView.SetSizeFromHeight(barRatingHeight)
@@ -110,6 +112,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         //init blurr view
         self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         self.blurrView.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
+        
+        //init refresh button
+        self.activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0,width: 20,height: 20))
+        self.activityIndicator?.startAnimating()
+        self.refreshButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(BarDetailTableViewController.Refresh))
+        self.navigationItem.rightBarButtonItem = self.refreshButton
         
         //colors
         self.view.backgroundColor = ColorManager.detailViewBGColor
@@ -192,6 +200,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     {
         DispatchQueue.main.async(execute: {
 
+        self.title = BarManager.singleton.displayedDetailBar.name
         self.barTitle.text = BarManager.singleton.displayedDetailBar.name
         })
     }
@@ -341,10 +350,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
             
         }
         else
-        {            let navBarHeight : CGFloat = 0
+        {
+            
+            let yOffset = -Sizing.HundredRelativeHeightPts()*0.2
+
             let barIconWidth = self.minGalleryHeight/2
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIViewAnimationOptions(), animations: {
-                self.barIcon.frame = CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + navBarHeight, width: barIconWidth,height: barIconWidth)
+                self.barIcon.frame = CGRect(x: (Sizing.ScreenWidth() - barIconWidth)/2 , y: (self.minGalleryHeight - barIconWidth)/2 + yOffset, width: barIconWidth,height: barIconWidth)
+                
+
                 self.barIcon.layer.cornerRadius = barIconWidth/2
                 
                 self.navigationController?.isNavigationBarHidden = false
@@ -362,7 +376,50 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     }
     
 
-    
+    func Refresh()
+    {
+        //refresh button -> spinner
+        DispatchQueue.main.async(execute: {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
+        })
+        
+        
+        //load generic details -> load reviews and discounts -> gallery image
+        BarManager.singleton.ReloadBar(ID: BarManager.singleton.displayedDetailBar.ID,handler: {
+            (success,error,bar) -> Void in
+            
+            if success
+            {
+                //update current bar info
+                let thisBar = BarManager.singleton.displayedDetailBar
+                thisBar.name = bar.name
+                thisBar.icon = bar.icon
+                thisBar.bookingAvailable = bar.bookingAvailable
+                thisBar.contact = bar.contact
+                thisBar.description = bar.description
+                thisBar.loc_lat  = bar.loc_lat
+                thisBar.loc_long = bar.loc_long
+                thisBar.rating = bar.rating
+                thisBar.website = bar.website // not done
+                thisBar.openClosingHours = bar.openClosingHours
+                
+                //update displays
+                self.UpdateBarIcon()
+                self.UpdateBarTitle()
+                self.UpdateDescriptionTab()
+                self.UpdateBarRating()
+            }
+            else
+            {
+                PopupManager.singleton.Popup(title: "Error", body: error, presentationViewCont: self)
+            }
+            
+            //spinner -> refresh button
+            DispatchQueue.main.async(execute: {
+                self.navigationItem.rightBarButtonItem = self.refreshButton
+            })
+        })
+    }
     
     //============================================================================
     //                                  scroll mechanics

@@ -13,8 +13,13 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
     static let singleton = ClaimFormViewController()
     @IBOutlet weak var spentAmountTextField: UITextField!
     
+    @IBOutlet weak var qrImageView: UIImageView!
+    
+    var currentDiscount : Discount?
+    
     @IBAction func claimOnClick(_ sender: Any) {
         submitClaimRequest()
+        spentAmountTextField.resignFirstResponder()
     }
     
     var currentString = ""
@@ -25,6 +30,10 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
         
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        currentDiscount = nil
+    }
+    
     func Initialize()
     {
         spentAmountTextField.text = "$0.00"
@@ -106,20 +115,53 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
         }
         else
         {
-            //submit request for discount
-            DiscountManager.singleton.ClaimDiscount(handler: {(success) in
-                
-                if success
-                {
-                    //popup success
-                }
-                else
-                {
-                    //error
-                }
-                
-            })
+            //make qr code : format: userID,username,barID,discountID,amount,date
+            let userID = Account.singleton.user_ID
+            let username = Account.singleton.user_name
+            let index = spentAmountTextField.text?.index(after: (spentAmountTextField.text?.startIndex)!)
+            let amount :String = (spentAmountTextField.text?.substring(from: index!))!
+            
+            guard let currentDiscount = currentDiscount else
+            {
+                NSLog("error: discount doesnt exist")
+                return
+            }
+            
+            let discountID = currentDiscount.discount_ID
+            
+            let barID = currentDiscount.bar_ID
+            
+            let inputString = "\(userID!),\(username!),\(barID!),\(discountID!),\(amount)"
+            
+            
+            
+            
+            //set ui image
+            GenerateQRCode(input: inputString)
+            
         }
         //activity indicator
     }
+    
+    func GenerateQRCode(input : String)
+    {
+        let stringData = input.data(using: .utf8)
+        
+        let qrFilter = CIFilter(name: "CIQRCodeGenerator")
+        
+        qrFilter?.setValue(stringData, forKey: "inputMessage")
+        
+        let image = qrFilter?.outputImage
+        
+        if let image = image
+        {
+            let transform = CGAffineTransform.init(scaleX: 5, y: 5); // Scale by 5 times along both dimensions
+            let out = image.applying(transform)
+            qrImageView.image = UIImage(ciImage: out)
+            
+        }
+    }
+    
+
+    
 }

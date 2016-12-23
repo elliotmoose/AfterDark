@@ -9,7 +9,8 @@
 import UIKit
 
 protocol AddDetailReviewDelegate : class {
-    func dissmissAddDetailReviewView()
+    func DismissAddDetailReviewView()
+    func UpdateReviewTable()
 }
 
 class AddDetailedReviewViewController: UIViewController,AddReviewDelegate {
@@ -93,7 +94,7 @@ class AddDetailedReviewViewController: UIViewController,AddReviewDelegate {
             
             PopupManager.singleton.Popup(title: "Done!", body: "Your review has been added! Thank you", presentationViewCont: self,handler: {
                 
-                self.delegate?.dissmissAddDetailReviewView()
+                self.delegate?.DismissAddDetailReviewView()
                 self.titleTextField.text = ""
                 self.descriptionTextField.text = ""
                 
@@ -110,7 +111,18 @@ class AddDetailedReviewViewController: UIViewController,AddReviewDelegate {
             {
                 PopupManager.singleton.Popup(title: "Done!", body: "Your review has been added! Thank you", presentationViewCont: self,handler: {
                     
-                self.delegate?.dissmissAddDetailReviewView()
+                    //dismiss view
+                    self.delegate?.DismissAddDetailReviewView()
+                    
+                    //reload reviews so that it shows your review
+                    ReviewManager.singleton.ReloadReviews(currentBar, lowerBound: 0, count: 5, handler:{
+                        (Bool) -> Void in
+                        
+                        //update ui
+                        self.delegate?.UpdateReviewTable()
+                        
+                    })
+                    
                     self.titleTextField.text = ""
                     self.descriptionTextField.text = ""
                     
@@ -152,12 +164,24 @@ class AddDetailedReviewViewController: UIViewController,AddReviewDelegate {
         loadSpinner.color = UIColor.white
         loadSpinner.tintColor = UIColor.white
         
+        //slider colors
         avgSlider.SetStarLayerColor(color: self.view.backgroundColor!)
         pricingSlider.SetStarLayerColor(color: self.view.backgroundColor!)
         foodSlider.SetStarLayerColor(color: self.view.backgroundColor!)
         ambienceSlider.SetStarLayerColor(color: self.view.backgroundColor!)
         serviceSlider.SetStarLayerColor(color: self.view.backgroundColor!)
 
+        //shadows
+        titleTextField.layer.shadowOpacity = 0.3
+        titleTextField.layer.shadowColor = UIColor.black.cgColor
+        titleTextField.layer.shadowOffset = CGSize(width: 2, height: 2)
+        titleTextField.clipsToBounds = false
+        descriptionTextField.layer.shadowOpacity = 0.3
+        descriptionTextField.layer.shadowColor = UIColor.black.cgColor
+        descriptionTextField.layer.shadowOffset = CGSize(width: 1, height: 2)
+        descriptionTextField.clipsToBounds = false
+
+        
         titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSForegroundColorAttributeName: ColorManager.placeholderTextColor])
         descriptionTextField.attributedPlaceholder = NSAttributedString(string: "Description", attributes: [NSForegroundColorAttributeName: ColorManager.placeholderTextColor])
 

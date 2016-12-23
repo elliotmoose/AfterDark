@@ -55,6 +55,10 @@ class BarManager: NSObject
         //start loading reviews
         
     }
+    
+    //====================================================================================
+    //                                  BAR NAMES AND ICONS
+    //====================================================================================
     func LoadGenericBarData(_ handler: @escaping ()-> Void)//consits of 2 key details: name, ratings , however, we do not wanna overwrite already loaded details (e.g. icon,description)
     {
         //Load All Bar Names
@@ -138,7 +142,9 @@ class BarManager: NSObject
 
     }
     
-    
+    //====================================================================================
+    //                                  LOAD BAR DETAILS
+    //====================================================================================
     func LoadAllNonImageDetailBarData(_ handler: @escaping () -> Void)
     {
         for bar in mainBarList
@@ -152,8 +158,16 @@ class BarManager: NSObject
                     {
                         let dict = output[0]
                         
-                        bar.description = dict["Bar_Description"] as! String
-                        bar.contact = dict["Bar_Contact"] as! String
+                        if let description = dict["Bar_Description"] as? String
+                        {
+                            bar.description = description
+                        }
+                        
+                        if let contact = dict["Bar_Contact"] as? String
+                        {
+                            bar.contact = contact
+                        }
+                        
 
                         //get opening hours
                         if let monday = dict["OH_Monday"] as? String
@@ -191,11 +205,20 @@ class BarManager: NSObject
                             bar.openClosingHours[6] = sunday
                         }
                         
+                        if let loc_lat = dict["Bar_Location_Latitude"] as? String
+                        {
+                            bar.loc_lat = Float(loc_lat)!
+                        }
                         
-                        bar.loc_lat = Float(dict["Bar_Location_Latitude"] as! String)!
-                        bar.loc_long = Float(dict["Bar_Location_Longitude"] as! String)!
-                        bar.bookingAvailable = dict.value(forKey: "Booking_Available") as! String
-
+                        if let loc_long = dict["Bar_Location_Longitude"] as? String
+                        {
+                            bar.loc_long = Float(loc_long)!
+                        }
+                        
+                        if let bookingAvailable = dict.value(forKey: "Booking_Available") as? Int
+                        {
+                            bar.bookingAvailable = String(describing: bookingAvailable)
+                        }
                         
                         if self.displayedDetailBar.name == bar.name
                         {
@@ -222,6 +245,9 @@ class BarManager: NSObject
     }
     
     
+    //====================================================================================
+    //                                  BAR ICONS
+    //====================================================================================
     func LoadAllBarIcons()
     {
         for bar in mainBarList
@@ -250,7 +276,64 @@ class BarManager: NSObject
             }
         }
     }
-    //different data handlers
+    //====================================================================================
+    //                                  RELOAD BAR
+    //====================================================================================
+    func ReloadBar(ID : String, handler: @escaping (_ success : Bool,_ error :String, _ bar : Bar) -> Void)
+    {
+        let url = Network.domain + "ReloadBarData.php?Bar_ID=\(ID)"
+        //generic data -> reviews discounts -> gallery
+        
+        Network.singleton.DataFromUrl(url, handler: {
+            (success,output) -> Void in
+            if success
+            {
+                if let output = output
+                {
+                    do
+                    {
+                        let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as! NSDictionary
+                        
+                        
+                        let success = dict["success"] as? String
+                        
+                        guard success != nil else {return}
+                        
+                        if success == "true"
+                        {
+                            //then detail is another dict
+                            let detailDict = dict["detail"] as? NSDictionary
+                            handler(true,"",self.NewBarFromDict(detailDict!))
+                            
+                        }
+                        else
+                        {
+                            let detailString = dict["detail"] as? String
+                            
+                            guard detailString != nil else {return}
+                            handler(false,detailString!,Bar())
+                            
+                        }
+                    }
+                    catch let error as NSError
+                    {
+                        NSLog(error.description)
+                    }
+                }
+            }
+        
+        })
+        
+  
+    }
+    
+    
+    
+    
+    //====================================================================================
+    //                                  DATA HANDLERS
+    //====================================================================================
+    
     func BarListGenericDataToArray(_ data:Data) -> [Bar]
     {
         
@@ -287,36 +370,7 @@ class BarManager: NSObject
         modelBar.reviews.append(newReview)
         mainBarList.append(modelBar)
     }
-//    func BarIconsDataToArray(data:NSData) ->
-//    {
-//        let retrievedArray = self.JSONToArray(data.mutableCopy() as! NSMutableData)
-//
-//        var dictArray = [NSDictionary]()
-//        for index in 0...(retrievedArray.count - 1)
-//        {
-//            let barDict = retrievedArray[index] as! NSDictionary
-//            dictArray.append(barDict)
-//        }
-//        
-//        //inject icons into data array
-//        for index in 0...(mainBarList.count-1)
-//        {
-//            let thisBar = mainBarList[index]
-//            for i in 0...(barListIcons.count-1)
-//            {
-//                if barListIcons[i].valueForKey("Bar_Name") as? String == thisBar.name
-//                {
-//                    let base64Image = barListIcons[i].valueForKey("Bar_Icon") as? String
-//                    if let base64Image = base64Image
-//                    {
-//                        let dataDecoded:NSData = NSData(base64EncodedString: base64Image, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-//                        thisBar.icon = UIImage(data: dataDecoded)
-//                    }
-//                    
-//                }
-//            }
-//        }
-//    }
+
     
     
     
@@ -340,18 +394,126 @@ class BarManager: NSObject
     
     func NewBarFromDict(_ dict: NSDictionary) ->Bar
     {
+        
+        var errors = [String]();
+        
         let newBar = Bar()
-        newBar.name = dict.value(forKey: "Bar_Name") as! String
-        newBar.ID = String(describing: (dict.value(forKey: "Bar_ID") as? Int)!)
         
-        let ratingAvg = dict.value(forKey: "Bar_Rating_Avg") as! Float
-        let ratingPrice = dict.value(forKey: "Bar_Rating_Price") as! Float
-        let ratingAmbience = dict.value(forKey: "Bar_Rating_Ambience") as! Float
-        let ratingFood = dict.value(forKey: "Bar_Rating_Food") as! Float
-        let ratingService = dict.value(forKey: "Bar_Rating_Service") as! Float
+        let ratingAvg = dict.value(forKey: "Bar_Rating_Avg") as? Float
+        let ratingPrice = dict.value(forKey: "Bar_Rating_Price") as? Float
+        let ratingAmbience = dict.value(forKey: "Bar_Rating_Ambience") as? Float
+        let ratingFood = dict.value(forKey: "Bar_Rating_Food") as? Float
+        let ratingService = dict.value(forKey: "Bar_Rating_Service") as? Float
+        
+
+        
+        if let name = dict["Bar_Name"] as? String
+        {
+            newBar.name = name
+        }
+        else
+        {
+            errors.append("Bar has no Name")
+        }
         
         
-        newBar.rating.InjectValues(ratingAvg, pricex: ratingPrice, ambiencex:ratingAmbience,foodx: ratingFood, servicex: ratingService)
+        if let ID = dict["Bar_ID"] as? Int
+        {
+            newBar.ID = String(describing: ID)
+        }
+        
+        if let iconString = dict["Bar_Icon"] as? String
+        {
+            let dataDecoded:Data = Data(base64Encoded: iconString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
+            let icon = UIImage(data: dataDecoded)
+            newBar.icon = icon
+        }
+        else
+        {
+            errors.append("no bar icon in dict")
+        }
+        
+        if let description = dict["Bar_Description"] as? String
+        {
+            newBar.description = description
+        }
+        
+        if let contact = dict["Bar_Contact"] as? String
+        {
+            newBar.contact = contact
+        }
+        
+        
+        //get opening hours
+        if let monday = dict["OH_Monday"] as? String
+        {
+            newBar.openClosingHours[0] = monday
+        }
+        
+        if let tuesday = dict["OH_Tuesday"] as? String
+        {
+            newBar.openClosingHours[1] = tuesday
+        }
+        
+        if let wednesday = dict["OH_Wednesday"] as? String
+        {
+            newBar.openClosingHours[2] = wednesday
+        }
+        
+        if let thursday = dict["OH_Thursday"] as? String
+        {
+            newBar.openClosingHours[3] = thursday
+        }
+        
+        if let friday = dict["OH_Friday"] as? String
+        {
+            newBar.openClosingHours[4] = friday
+        }
+        
+        if let saturday = dict["OH_Saturday"] as? String
+        {
+            newBar.openClosingHours[5] = saturday
+        }
+        
+        if let sunday = dict["OH_Sunday"] as? String
+        {
+            newBar.openClosingHours[6] = sunday
+        }
+        
+        if let loc_lat = dict["Bar_Location_Latitude"] as? String
+        {
+            newBar.loc_lat = Float(loc_lat)!
+        }
+        
+        if let loc_long = dict["Bar_Location_Longitude"] as? String
+        {
+            newBar.loc_long = Float(loc_long)!
+        }
+        
+        if let bookingAvailable = dict.value(forKey: "Booking_Available") as? Int
+        {
+            newBar.bookingAvailable = String(describing: bookingAvailable)
+        }
+
+        if let website = dict["Bar_Website"] as? String
+        {
+            newBar.website = website
+        }
+        
+        if ratingAvg != nil && ratingPrice != nil && ratingAmbience != nil && ratingFood != nil && ratingService != nil
+        {
+            newBar.rating.InjectValues(ratingAvg!, pricex: ratingPrice!, ambiencex:ratingAmbience!,foodx: ratingFood!, servicex: ratingService!)
+        }
+        else
+        {
+            errors.append("no rating in this dict")
+        }
+        
+        if errors.count != 0
+        {
+            NSLog(errors.joined(separator: "\n"))
+        }
+        
         
         return newBar
     }

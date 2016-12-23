@@ -99,7 +99,7 @@ class ChangePasswordViewController: UIViewController {
                     PopupManager.singleton.Popup(title: "Success", body: "Password Successfully Changed!", presentationViewCont: self, handler: {
                         
                         //clean up
-                        self.navigationController?.popViewController(animated: true)
+                        let _ = self.navigationController?.popViewController(animated: true)
                     
                         self.newPassTxtField.text = ""
                         self.oldPassTxtField.text = ""
@@ -116,6 +116,10 @@ class ChangePasswordViewController: UIViewController {
                 else if detail == "User Not Found"
                 {
                     NSLog("User Not Found")
+                }
+                else
+                {
+                    PopupManager.singleton.Popup(title: "Failed", body: detail!, presentationViewCont: self)
                 }
                 
                 }

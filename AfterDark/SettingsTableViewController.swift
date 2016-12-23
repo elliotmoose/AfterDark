@@ -12,6 +12,9 @@ class SettingsTableViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barStyle = .black;
+        self.navigationController?.navigationBar.tintColor = UIColor.orange
+        self.navigationController?.navigationBar.barTintColor = UIColor.black
 
         self.navigationController?.navigationBar.isTranslucent = false;
         self.tabBarController?.tabBar.isTranslucent = false;

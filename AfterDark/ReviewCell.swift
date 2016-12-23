@@ -13,6 +13,7 @@ class ReviewCell: UITableViewCell {
     @IBOutlet weak var ReviewTitleLabel: UILabel!
     @IBOutlet weak var ReviewBodyLabel: UILabel!
     
+    @IBOutlet weak var ReviewByLabel: UILabel!
     var isExpanded = false
     
     //rating stars display
@@ -42,6 +43,7 @@ class ReviewCell: UITableViewCell {
         
         self.ReviewTitleLabel.textColor = ColorManager.reviewTitleColor
         self.ReviewBodyLabel.textColor = ColorManager.reviewTitleColor
+        self.ReviewByLabel.textColor = ColorManager.reviewTitleColor
         self.backgroundColor = ColorManager.reviewCellBGColor
         ReviewBodyLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         ReviewBodyLabel.numberOfLines = 0
@@ -104,12 +106,12 @@ class ReviewCell: UITableViewCell {
 
 
     
-    func SetContent(_ title: String,body: String,avgRating : Float,priceRating: Float, ambienceRating: Float,serviceRating: Float, foodRating: Float)
+    func SetContent(_ title: String,body: String,avgRating : Float,priceRating: Float, ambienceRating: Float,serviceRating: Float, foodRating: Float, username : String)
     {
 
         ReviewTitleLabel.text = title
         ReviewBodyLabel.text = body
-        
+        ReviewByLabel.text = "Review by: \(username)"
         //for height
         self.textLabel?.text = body
         self.avgRatingStars?.SetRating(avgRating)

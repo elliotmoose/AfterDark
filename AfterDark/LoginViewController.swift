@@ -27,6 +27,12 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var afterDarkIconHorizontalConstraint: NSLayoutConstraint!
     @IBOutlet weak var afterDarkIconVerticalConstraint: NSLayoutConstraint!
+    
+    var activeField : UITextField?
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,34 +55,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
         
     }
     
-    func Initialize()
-    {
-        loginIconImageView.layer.cornerRadius = loginIconImageView.frame.size.width/2
-        grayViewOverlay.layer.cornerRadius = grayViewOverlay.frame.size.width/2
-        grayViewOverlay.alpha = 0
-        
-        usernameTextField.clearButtonMode = .whileEditing
-        usernameLabel.alpha = 0
-        usernameTextField.alpha = 0
-        passwordLabel.alpha = 0
-        passwordTextField.alpha = 0
-        self.signInButton.alpha = 0
-        self.createAccountButton.alpha = 0
-        self.forgotPasswordButton.alpha = 0
-        
-        self.signInButton.addTarget(self, action: #selector(SignIn), for: .touchUpInside)
-        self.createAccountButton.addTarget(self, action: #selector(CreateAccountButtonPressed), for: .touchUpInside)
-        self.forgotPasswordButton.addTarget(self, action: #selector(ForgotPasswordButtonPressed), for: .touchUpInside)
-
-        usernameTextField.delegate = self
-        passwordTextField.delegate = self
-        
-        afterDarkIconVerticalConstraint.constant = 0
-        afterDarkIconHorizontalConstraint.constant = 0
-        self.view.layoutIfNeeded()
-        
-        NewAccountFormViewController.singleton.delegate = self;
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        deregisterFromKeyboardNotifications()
     }
 
     override func awakeFromNib() {
@@ -85,7 +65,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
 
-        
+        registerForKeyboardNotifications()
         ResetTextFields()
 
 
@@ -121,13 +101,44 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
         else
         {
             //fade out
-            self.dismiss(animated: true, completion: nil)
+            Dismiss()
         }
         
         
 
         
 
+    }
+    
+    func Initialize()
+    {
+        loginIconImageView.layer.cornerRadius = loginIconImageView.frame.size.width/2
+        grayViewOverlay.layer.cornerRadius = grayViewOverlay.frame.size.width/2
+        grayViewOverlay.alpha = 0
+        
+        usernameTextField.clearButtonMode = .whileEditing
+        usernameLabel.alpha = 0
+        usernameTextField.alpha = 0
+        passwordLabel.alpha = 0
+        passwordTextField.alpha = 0
+        self.signInButton.alpha = 0
+        self.createAccountButton.alpha = 0
+        self.forgotPasswordButton.alpha = 0
+        
+        self.signInButton.addTarget(self, action: #selector(SignIn), for: .touchUpInside)
+        self.createAccountButton.addTarget(self, action: #selector(CreateAccountButtonPressed), for: .touchUpInside)
+        self.forgotPasswordButton.addTarget(self, action: #selector(ForgotPasswordButtonPressed), for: .touchUpInside)
+        
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        afterDarkIconVerticalConstraint.constant = 0
+        afterDarkIconHorizontalConstraint.constant = 0
+        self.view.layoutIfNeeded()
+        
+        NewAccountFormViewController.singleton.delegate = self;
+        
+        addKeyboardToolBar()
     }
     
     func SignIn()
@@ -156,7 +167,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
                 if username == "Admin" && password == "Admin"
                 {
                     //log in success
-                    self.dismiss(animated: true, completion: nil)
+                    Dismiss()
                     self.ResetTextFields()
                 }
                 else
@@ -193,7 +204,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
                 
                 if success{
                     //log in success
-                    self.dismiss(animated: true, completion: nil)
+                    self.Dismiss()
                     self.ResetTextFields()
 
                 }
@@ -300,5 +311,116 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
     override var prefersStatusBarHidden: Bool
     {
         return true
+    }
+    
+    
+    func addKeyboardToolBar()
+    {
+        let numberToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: 30))
+        numberToolbar.barStyle = UIBarStyle.default
+        numberToolbar.items = [
+            UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelNumberPad)),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneWithNumberPad))]
+        numberToolbar.sizeToFit()
+        passwordTextField.inputAccessoryView = numberToolbar
+        usernameTextField.inputAccessoryView = numberToolbar
+    }
+    
+    func cancelNumberPad()
+    {
+        let txtfield = FirstResponder()
+        txtfield.endEditing(true)
+        
+    }
+    
+    func doneWithNumberPad()
+    {
+        let txtfield = FirstResponder()
+
+        if txtfield == usernameTextField
+        {
+            passwordTextField.becomeFirstResponder()
+        }
+        else
+        {
+            passwordTextField.resignFirstResponder()
+        }
+
+        
+        
+        
+        
+        txtfield.endEditing(true)
+    }
+    
+    
+    func FirstResponder() -> UITextField
+    {
+        
+        if usernameTextField.isFirstResponder
+        {
+            return usernameTextField
+        }
+        else if passwordTextField.isFirstResponder
+        {
+            return passwordTextField
+        }
+        else
+        {
+            return usernameTextField
+        }
+    }
+    
+    //text field delegate functions
+    //notifictioncenter
+    func registerForKeyboardNotifications(){
+        //Adding notifies on keyboard appearing
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func deregisterFromKeyboardNotifications(){
+        //Removing notifies on keyboard appearing
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    //textfield delegate functions
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeField = nil
+    }
+    
+    func keyboardWasShown(notification: NSNotification){
+        //Need to calculate keyboard exact size due to Apple suggestions
+        self.scrollView.isScrollEnabled = true
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize!.height
+        if let activeField = self.activeField {
+            if (!aRect.contains(activeField.frame.origin)){
+                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification){
+        //Once keyboard disappears, restore original positions
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        self.scrollView.isScrollEnabled = false
     }
 }

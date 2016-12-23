@@ -178,6 +178,7 @@ class Network {
         
     }
     
+    
     //json data management
     static func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
     {

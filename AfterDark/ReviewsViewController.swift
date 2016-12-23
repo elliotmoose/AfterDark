@@ -11,6 +11,7 @@ import UIKit
 protocol AddReviewCellDelegate : class {
     func ShowAddDetailReviewController()
     func HideAddDetailReviewController()
+    func ReloadReviewTableData()
 }
 
 class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
@@ -121,7 +122,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
                 
                 if let myReview = myReview
                 {
-                    cell?.SetContent(myReview.title, body: myReview.description, avgRating: myReview.rating.avg, priceRating: myReview.rating.price, ambienceRating: myReview.rating.ambience, serviceRating: myReview.rating.service, foodRating: myReview.rating.food)
+                    cell?.SetContent(myReview.title, body: myReview.description, avgRating: myReview.rating.avg, priceRating: myReview.rating.price, ambienceRating: myReview.rating.ambience, serviceRating: myReview.rating.service, foodRating: myReview.rating.food,username: myReview.user_name)
                 }
                 cell?.collapseIndicator.alpha = 0
                 cell?.ExpandCell()
@@ -157,7 +158,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         
         let thisBarReview = displayReviews[indexPath.row - 1]
 
-        cell?.SetContent(thisBarReview.title, body: thisBarReview.description, avgRating: thisBarReview.rating.avg, priceRating: thisBarReview.rating.price, ambienceRating: thisBarReview.rating.ambience, serviceRating: thisBarReview.rating.service, foodRating: thisBarReview.rating.food)
+        cell?.SetContent(thisBarReview.title, body: thisBarReview.description, avgRating: thisBarReview.rating.avg, priceRating: thisBarReview.rating.price, ambienceRating: thisBarReview.rating.ambience, serviceRating: thisBarReview.rating.service, foodRating: thisBarReview.rating.food,username: thisBarReview.user_name)
 
 
 
