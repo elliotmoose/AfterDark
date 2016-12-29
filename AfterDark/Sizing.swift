@@ -33,7 +33,7 @@ class Sizing
     static let sectionHeaderHeight : CGFloat = 40
     
     //reviews view controller
-    static let cellUnexpandedHeight = Sizing.HundredRelativeHeightPts()*1.8
+    static let cellUnexpandedHeight : CGFloat = 160 + 53
     static let cellExpansionDiff = Sizing.HundredRelativeHeightPts()*0.8 + 12
     
     //static functions

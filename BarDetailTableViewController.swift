@@ -24,6 +24,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     var barRatingView = RatingStarView()
     var tableView = UITableView()
     var blurrView = UIVisualEffectView()
+    var tempBlurrView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    
     var mainBarDetailViewCell:BarDetailViewMainCell?
 
     
@@ -59,24 +61,26 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         mainBarDetailViewCell?.CellWillAppear()
         galleryCont.ToPresentNewDetailBar()
         
+        tempBlurrView.alpha = 1
 
     }
     
 
     override func viewDidAppear(_ animated: Bool) {
         
+        tempBlurrView.alpha = 0
         blurrView.layer.timeOffset = CFTimeInterval(1)
-
+        
         //reset layouts
         self.barIcon.alpha = 1
         self.barTitle.alpha = 1
         let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.size.height);
         self.tableView.setContentOffset(bottomOffset, animated: false)
-        
-        self.UpdateBarIcon()
-        self.UpdateBarTitle()
-        self.UpdateReviewTab()
-        self.UpdateBarRating()
+//
+//        self.UpdateBarIcon()
+//        self.UpdateBarTitle()
+//        self.UpdateReviewTab()
+//        self.UpdateBarRating()
 
         
         
@@ -113,6 +117,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         //init blurr view
         self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         self.blurrView.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
+        self.tempBlurrView.frame = self.blurrView.frame
+        
         
         //init refresh button
         self.activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0,width: 20,height: 20))
@@ -149,6 +155,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         
         self.view.addSubview(self.galleryCont.view)
         self.view.addSubview(self.blurrView)
+        self.view.addSubview(self.tempBlurrView)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.barTitle)
         self.view.addSubview(self.barRatingView)

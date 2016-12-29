@@ -11,8 +11,8 @@ import UIKit
 class ReviewCell: UITableViewCell {
 
     @IBOutlet weak var ReviewTitleLabel: UILabel!
-    @IBOutlet weak var ReviewBodyLabel: UILabel!
     
+    @IBOutlet weak var ReviewBodyTextView: UITextView!
     @IBOutlet weak var ReviewByLabel: UILabel!
     var isExpanded = false
     
@@ -42,11 +42,9 @@ class ReviewCell: UITableViewCell {
         self.selectionStyle = .none
         
         self.ReviewTitleLabel.textColor = ColorManager.reviewTitleColor
-        self.ReviewBodyLabel.textColor = ColorManager.reviewTitleColor
         self.ReviewByLabel.textColor = ColorManager.reviewTitleColor
         self.backgroundColor = ColorManager.reviewCellBGColor
-        ReviewBodyLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        ReviewBodyLabel.numberOfLines = 0
+
         
         //for height of cell
         self.textLabel?.textColor = UIColor.clear
@@ -54,11 +52,13 @@ class ReviewCell: UITableViewCell {
         self.textLabel?.numberOfLines = 0
         
         let distanceFromLeft : CGFloat = 10
-        let avgRatingStarYCoord = (self.textLabel?.frame.size.height)! + (self.textLabel?.frame.origin.y)!
+        let avgRatingStarYCoord : CGFloat = 152 + 8
         let starLabelWidth = Sizing.HundredRelativeWidthPts()*1
         let starsXCoord = distanceFromLeft + starLabelWidth
         let starHeight = Sizing.HundredRelativeHeightPts()*0.2
         let gap : CGFloat = 3
+        
+        
         
         //by default the frame follows the height set, hence we can set width as 0
         avgStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord,width: starLabelWidth,height: starHeight))
@@ -110,7 +110,6 @@ class ReviewCell: UITableViewCell {
     {
 
         ReviewTitleLabel.text = title
-        ReviewBodyLabel.text = body
         ReviewByLabel.text = "Review by: \(username)"
         //for height
         self.textLabel?.text = body
@@ -120,10 +119,9 @@ class ReviewCell: UITableViewCell {
         self.serviceRatingStars?.SetRating(serviceRating)
         self.foodRatingStars?.SetRating(foodRating)
 
- 
-        let heightOfLabel = body.heightWithConstrainedWidth(self.ReviewBodyLabel.frame.width, font: self.ReviewBodyLabel.font)
-        let avgRatingStarYCoord = heightOfLabel + 45/*self.ReviewBodyLabel.frame.origin.y*/
-        
+
+        let avgRatingStarYCoord : CGFloat = 152 + 8
+
         let distanceFromLeft : CGFloat = 10
         let starLabelWidth = Sizing.HundredRelativeWidthPts()*1
         let starsXCoord = distanceFromLeft + starLabelWidth

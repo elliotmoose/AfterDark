@@ -29,7 +29,7 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
         self.tableView?.rowHeight = Sizing.discountCellHeight
 
         //color
-        let tableViewBackGroundColor = ColorManager.descriptionCellBGColor
+        let tableViewBackGroundColor = ColorManager.discountTableBGColor
         tableView?.backgroundColor = tableViewBackGroundColor
         
         //delegates

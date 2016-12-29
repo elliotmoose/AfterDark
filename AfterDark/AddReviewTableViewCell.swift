@@ -13,7 +13,11 @@ protocol AddReviewDelegate : class {
 }
 
 
-class AddReviewTableViewCell: UITableViewCell,AddDetailReviewDelegate{
+class AddReviewTableViewCell: UITableViewCell,AddDetailReviewDelegate,AddReviewDelegate{
+    internal func ratingUpdated(slider: ReviewStarSlider) {
+        avgLabel.text = "\(avgSlider.currentRating)"
+    }
+
     
     
     @IBOutlet weak var avgSlider: ReviewStarSlider!
@@ -35,15 +39,16 @@ class AddReviewTableViewCell: UITableViewCell,AddDetailReviewDelegate{
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-
+        
+        avgSlider.delegate = self
         AddDetailedReviewViewController.singleton.delegate = self
 
         //ui
         //shadows
         submitReviewButton.layer.shadowOpacity = 1;
-        submitReviewButton.layer.shadowColor = UIColor.gray.cgColor
-        submitReviewButton.layer.shadowOffset = CGSize(width: 2, height: 2)
-        submitReviewButton.layer.shadowRadius = 2
+        submitReviewButton.layer.shadowColor = UIColor.darkGray.cgColor
+        submitReviewButton.layer.shadowOffset = CGSize(width: 1.5, height: 2)
+        submitReviewButton.layer.shadowRadius = 0
         submitReviewButton.clipsToBounds = false
         submitReviewButton.layer.cornerRadius = 6
     }

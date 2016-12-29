@@ -50,13 +50,13 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krb-BG-K12">
                         <rect key="frame" x="23" y="54" width="413" height="36"/>
-                        <color key="backgroundColor" red="0.9373854949" green="0.9373854949" blue="0.9373854949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="K7Q-HF-nxR"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                         <state key="normal" title="Submit Review">
-                            <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
                             <action selector="writeReviewButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="z8G-uO-efW"/>

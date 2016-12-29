@@ -39,6 +39,9 @@ class ColorManager
     static let descriptionCellTextColor = UIColor.white
     static let reservationCellColor = UIColor.orange
     
+    //discount view
+    static let discountTableBGColor = UIColor.darkGray
+    
     //reviews view
     static let reviewTitleColor = UIColor.white
     static let reviewCellBGColor = UIColor.black

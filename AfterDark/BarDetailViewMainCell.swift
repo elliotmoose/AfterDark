@@ -94,7 +94,7 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         self.descriptionCont.view.frame = detailViewFrame;
         self.descriptionCont.tableView?.frame = detailViewFrame
         self.reviewCont.view.frame = detailViewFrame;
-        self.reviewCont.tableView.frame = detailViewFrame
+        self.reviewCont.tableView?.frame = detailViewFrame
         self.locationCont.view.frame = detailViewFrame;
         self.discountCont.view.frame = detailViewFrame;
         self.discountCont.tableView?.frame = detailViewFrame
@@ -160,7 +160,7 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         
         //turn resizing off
         self.autoresizesSubviews = false
-        self.reviewCont.tableView.autoresizesSubviews = false
+        self.reviewCont.tableView?.autoresizesSubviews = false
         
         //delegate
         reviewCont.delegate = self

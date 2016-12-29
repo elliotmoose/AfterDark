@@ -14,8 +14,8 @@ protocol AddReviewCellDelegate : class {
     func ReloadReviewTableData()
 }
 
-class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
-
+class ReviewsViewController: UIViewController,AddReviewCellDelegate,UITableViewDataSource,UITableViewDelegate {
+    
     var allCells = [ReviewCell]()
     var addReviewCell : AddReviewTableViewCell?;
     var delegate : TabDelegate?
@@ -24,17 +24,18 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
     var hasGivenReviewForThisBar = false
     var myReview : Review?
     
+    var tableView : UITableView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         
-        let detailTabViewFrame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.mainViewHeight - Sizing.tabBarHeight)
-        self.view.frame = detailTabViewFrame
-        self.tableView.frame = detailTabViewFrame
+        //        let detailTabViewFrame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.mainViewHeight)
+        //        self.view.frame = detailTabViewFrame
+        //        self.tableView.frame = detailTabViewFrame
         
         for cell in allCells
         {
@@ -46,7 +47,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         ReloadReviewTableData()
         
     }
-
+    
     func ReloadReviewTableData()
     {
         //first get reviews to display
@@ -88,35 +89,42 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         }
         
         //then reload the data
-        self.tableView.reloadData()
-    
+        self.tableView?.reloadData()
+        
     }
     func Initialize()
     {
-        tableView.register(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
-        self.tableView.autoresizesSubviews = false
+        tableView = UITableView(frame: CGRect(x: 0, y: 0,width: Sizing.ScreenWidth(),height: Sizing.mainViewHeight))
+        tableView?.register(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "ReviewCell")
+        self.tableView?.autoresizesSubviews = false
+        
+        
+        tableView?.backgroundColor = UIColor.black
+        self.view.addSubview(tableView!)
+        tableView?.dataSource = self
+        tableView?.delegate = self
     }
-
-
+    
+    
     
     //=======================================================================================
     //                                  number of rows/sections
     //=======================================================================================
     
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayReviews.count + 1
     }
-
+    
     //=======================================================================================
     //                                  cell for row
     //=======================================================================================
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //create add review cell
         if indexPath == IndexPath(row: 0, section: 0)
@@ -133,7 +141,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
                 cell?.collapseIndicator.alpha = 0
                 cell?.ExpandCell()
                 return cell!
-
+                
             }
             else
             {
@@ -156,18 +164,18 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         else
         {
             cell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
-
+            
             //cell = tableView.dequeueReusableCellWithIdentifier("ReviewCell", forIndexPath: indexPath) as? ReviewCell
             allCells.append(cell!)
         }
         
         
         let thisBarReview = displayReviews[indexPath.row - 1]
-
+        
         cell?.SetContent(thisBarReview.title, body: thisBarReview.description, avgRating: thisBarReview.rating.avg, priceRating: thisBarReview.rating.price, ambienceRating: thisBarReview.rating.ambience, serviceRating: thisBarReview.rating.service, foodRating: thisBarReview.rating.food,username: thisBarReview.user_name)
-
-
-
+        
+        
+        
         return cell!
     }
     
@@ -176,20 +184,20 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
     //=======================================================================================
     //                                  height for row
     //=======================================================================================
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.row  == 0 //*** required otherwise index out of range for below statements
         {
             
             if hasGivenReviewForThisBar
             {
-                return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
+                return Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
             }
             else
             {
                 return 100
             }
-        
+            
         }
         
         var thisCell : ReviewCell?
@@ -206,26 +214,26 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         if thisCell!.isExpanded
         {
             //then give expanded height
-            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
+            return Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
         }
         else
         {
             //give collapsed height
-            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight
+            return Sizing.cellUnexpandedHeight
         }
         
         
         
-
+        
     }
-
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.row  == 0 //*** required otherwise index out of range for below statements
         {
             if hasGivenReviewForThisBar
             {
-                return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
+                return Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
             }
             else
             {
@@ -241,7 +249,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         else
         {
             thisCell = Bundle.main.loadNibNamed("ReviewCell", owner: self, options: nil)?[0] as? ReviewCell
-
+            
             allCells.append(thisCell!)
         }
         
@@ -249,12 +257,12 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         if thisCell!.isExpanded
         {
             //then give expanded height
-            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
+            return Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
         }
         else
         {
             //give collapsed height
-            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight
+            return Sizing.cellUnexpandedHeight
         }
     }
     
@@ -262,7 +270,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
     //=======================================================================================
     //                                  select row
     //=======================================================================================
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row  == 0 //*** required otherwise index out of range for below statements
         {
@@ -300,7 +308,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     //methods for add review detailed controller (coming from review cell)
     func ShowAddDetailReviewController()
     {

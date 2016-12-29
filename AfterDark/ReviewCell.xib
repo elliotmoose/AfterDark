@@ -19,14 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="503" height="233"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review Body" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zet-rR-KKg">
-                        <rect key="frame" x="13" y="43" width="477" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahz-4L-29k">
-                        <rect key="frame" x="13" y="13" width="477" height="25"/>
+                        <rect key="frame" x="13" y="11" width="477" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="GqB-a1-uHg"/>
                         </constraints>
@@ -35,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review by: Elliot" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iV-QA-g9u">
-                        <rect key="frame" x="316" y="200.5" width="174" height="30"/>
+                        <rect key="frame" x="316" y="201" width="174" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="174" id="ITY-yV-StL"/>
                             <constraint firstAttribute="height" constant="30" id="Uvd-Qm-okU"/>
@@ -44,20 +38,31 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Vj-gS-og7">
+                        <rect key="frame" x="13" y="33" width="477" height="120"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="120" id="Pqk-SG-OTM"/>
+                        </constraints>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="6Vj-gS-og7" secondAttribute="trailing" constant="5" id="64e-tr-1zd"/>
                     <constraint firstItem="Ahz-4L-29k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="9JA-4u-I3D"/>
                     <constraint firstItem="5iV-QA-g9u" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" constant="5" id="Bht-WS-moW"/>
                     <constraint firstAttribute="trailingMargin" secondItem="5iV-QA-g9u" secondAttribute="trailing" constant="5" id="OVa-KZ-txR"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="zet-rR-KKg" secondAttribute="trailing" constant="5" id="QOG-Dq-Dq7"/>
-                    <constraint firstItem="Ahz-4L-29k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="UJf-Xp-O0E"/>
+                    <constraint firstItem="6Vj-gS-og7" firstAttribute="top" secondItem="Ahz-4L-29k" secondAttribute="bottom" constant="-3" id="Rvj-g8-GKo"/>
+                    <constraint firstItem="Ahz-4L-29k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="UJf-Xp-O0E"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Ahz-4L-29k" secondAttribute="trailing" constant="5" id="eiz-CX-Axk"/>
-                    <constraint firstItem="zet-rR-KKg" firstAttribute="top" secondItem="Ahz-4L-29k" secondAttribute="bottom" constant="5" id="pAn-9C-WNh"/>
-                    <constraint firstItem="zet-rR-KKg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="xND-Wb-hX7"/>
+                    <constraint firstItem="6Vj-gS-og7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="gkN-Mu-2Ed"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="ReviewBodyLabel" destination="zet-rR-KKg" id="CX9-ch-3pD"/>
+                <outlet property="ReviewBodyTextView" destination="6Vj-gS-og7" id="113-fo-5e0"/>
                 <outlet property="ReviewByLabel" destination="5iV-QA-g9u" id="HFU-VI-28X"/>
                 <outlet property="ReviewTitleLabel" destination="Ahz-4L-29k" id="WiV-ZC-ioZ"/>
             </connections>

@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7EX-LP-Ru6">
-                    <rect key="frame" x="-5" y="114" width="330" height="60"/>
+                    <rect key="frame" x="-5" y="146" width="330" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="bxT-Ec-ZrJ"/>
                     </constraints>
@@ -53,7 +53,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1F-wB-edY">
-                    <rect key="frame" x="16" y="87" width="135" height="21"/>
+                    <rect key="frame" x="16" y="119" width="135" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="2y5-h5-NhF"/>
                         <constraint firstAttribute="width" constant="135" id="4Da-OF-JWj"/>
@@ -75,7 +75,7 @@
                 <constraint firstItem="7EX-LP-Ru6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-5" id="cDs-Lk-Gwb"/>
                 <constraint firstItem="Nco-kn-Azj" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="f1d-MA-Sda"/>
                 <constraint firstAttribute="trailing" secondItem="7EX-LP-Ru6" secondAttribute="trailing" constant="-5" id="hDJ-fc-zhY"/>
-                <constraint firstItem="Nco-kn-Azj" firstAttribute="top" secondItem="7EX-LP-Ru6" secondAttribute="bottom" constant="40" id="yOr-6Q-J0S"/>
+                <constraint firstItem="Nco-kn-Azj" firstAttribute="top" secondItem="7EX-LP-Ru6" secondAttribute="bottom" constant="8" id="yOr-6Q-J0S"/>
             </constraints>
             <point key="canvasLocation" x="83.5" y="54.5"/>
         </view>
