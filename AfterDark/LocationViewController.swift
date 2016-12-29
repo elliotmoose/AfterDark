@@ -11,13 +11,16 @@ import GoogleMaps
 class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMapViewDelegate{
 
     var mapView : GMSMapView?
-    var button : UIButton?
+    var focusLocationButton : UIButton?
+    var openGoogleMapsButton : UIButton?
+    var zoomOutButton : UIButton?
     
     let targetImage = #imageLiteral(resourceName: "target1x")
-    let compassImage = #imageLiteral(resourceName: "Compass")
+    let compassImage = #imageLiteral(resourceName: "compass-1")
+    let forwardArrowImage = #imageLiteral(resourceName: "Forward Arrow-104").newImageWithSize(CGSize(width: 25, height: 25))
+    let pointObjectImage = #imageLiteral(resourceName: "PointObjects").newImageWithSize(CGSize(width: 25, height: 25))
     
     var locationManager : CLLocationManager?
-    var latestLocation : CLLocationCoordinate2D?
     var mapBehaviourMode = 0
     
     override func viewDidLoad() {
@@ -44,22 +47,55 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         marker.map = mapView
         
         
-        //button
+        //focusLocationButton
         let targetWidth : CGFloat = 45
-        button = UIButton(frame: CGRect(x: Sizing.ScreenWidth() - 20 - targetWidth, y: Sizing.mainViewHeight - Sizing.tabHeight - targetWidth - 20 - Sizing.statusBarHeight, width: targetWidth, height: targetWidth))
+        focusLocationButton = UIButton(frame: CGRect(x: Sizing.ScreenWidth() - 20 - targetWidth, y: 20, width: targetWidth, height: targetWidth))
 
-        //set up button image
-        button?.setImage(targetImage.withRenderingMode(.alwaysTemplate), for: .normal)
-        button?.tintColor = ColorManager.deselectedIconColor
-        button?.backgroundColor = UIColor.white
-        button?.layer.cornerRadius = targetWidth/2
-        button?.addTarget(self, action: #selector(ToggleMapBehaviour), for: .touchDown)
-        view.addSubview(button!)
+            //set up button image
+        focusLocationButton?.imageView?.contentMode = .scaleAspectFit
+        focusLocationButton?.setImage(targetImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        focusLocationButton?.tintColor = ColorManager.deselectedIconColor
+        focusLocationButton?.backgroundColor = UIColor.white
+        focusLocationButton?.layer.cornerRadius = targetWidth/2
+        focusLocationButton?.addTarget(self, action: #selector(ToggleMapBehaviour), for: .touchDown)
+        view.addSubview(focusLocationButton!)
+            //shadow
+        focusLocationButton?.clipsToBounds = false
+        focusLocationButton?.layer.shadowOpacity = 0.3
+        focusLocationButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
+        focusLocationButton?.layer.shadowRadius = 10
         
-        button?.clipsToBounds = false
-        button?.layer.shadowOpacity = 0.3
-        button?.layer.shadowOffset = CGSize(width: 0, height: 0)
-        button?.layer.shadowRadius = 10
+        //openGoogleMapsButton
+        openGoogleMapsButton = UIButton(frame: CGRect(x: 20, y: 20, width: targetWidth, height: targetWidth))
+        openGoogleMapsButton?.imageView?.contentMode = .scaleAspectFit
+        openGoogleMapsButton?.setImage(forwardArrowImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        openGoogleMapsButton?.tintColor = ColorManager.selectedIconColor
+        openGoogleMapsButton?.backgroundColor = UIColor.white
+        openGoogleMapsButton?.layer.cornerRadius = targetWidth/2
+        openGoogleMapsButton?.addTarget(self, action: #selector(OpenGoogleMaps), for: .touchDown)
+        view.addSubview(openGoogleMapsButton!)
+
+            //shadow
+        openGoogleMapsButton?.clipsToBounds = false
+        openGoogleMapsButton?.layer.shadowOpacity = 0.3
+        openGoogleMapsButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
+        openGoogleMapsButton?.layer.shadowRadius = 10
+        
+        //zoomOutButton
+        zoomOutButton = UIButton(frame: CGRect(x: Sizing.ScreenWidth()/2 - targetWidth/2, y: 20, width: targetWidth, height: targetWidth))
+        zoomOutButton?.imageView?.contentMode = .scaleAspectFit
+        zoomOutButton?.setImage(pointObjectImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        zoomOutButton?.tintColor = ColorManager.selectedIconColor
+        zoomOutButton?.backgroundColor = UIColor.white
+        zoomOutButton?.layer.cornerRadius = targetWidth/2
+        zoomOutButton?.addTarget(self, action: #selector(ZoomToIncludeStartAndEndLocation), for: .touchDown)
+        view.addSubview(zoomOutButton!)
+        
+        //shadow
+        zoomOutButton?.clipsToBounds = false
+        zoomOutButton?.layer.shadowOpacity = 0.3
+        zoomOutButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
+        zoomOutButton?.layer.shadowRadius = 10
         
         //location manager
         locationManager = CLLocationManager()
@@ -111,6 +147,9 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         }
     }
     
+    //================================================================================================
+    //                                          BUTTON SELECTORS
+    //================================================================================================
     func ToggleMapBehaviour()
     {
         //when button is tapped
@@ -128,6 +167,41 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         
     }
     
+    func OpenGoogleMaps()
+    {
+
+        let barLocLat = BarManager.singleton.displayedDetailBar.loc_lat
+        let barLocLong = BarManager.singleton.displayedDetailBar.loc_long
+        
+        guard barLocLat != 0 && barLocLong != 0 else {
+            
+            PopupManager.singleton.Popup(title: "Oops!", body: "This bar does not have a registered google maps location", presentationViewCont: self)
+            return
+        }
+        //1.329486,103.88217
+        let startAdd = "My%20Location"
+        let endAdd = "\(barLocLat),\(barLocLong)"
+        
+        let newUrl = URL(string: "comgooglemaps://?saddr=\(startAdd)&daddr=\(endAdd)&directionsmode=transit")
+        
+        guard let url = newUrl else {return}
+        
+        if UIApplication.shared.canOpenURL(url)
+        {
+            UIApplication.shared.openURL(url)
+        }
+        else
+        {
+            //means user doesnt have application
+            if UIApplication.shared.canOpenURL(url)
+            {
+                UIApplication.shared.openURL(url)
+            }
+        }
+        
+        
+        
+    }
 
     func StartFollowLocation()
     {
@@ -135,8 +209,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         locationManager?.startUpdatingLocation()
         
         //ui
-        button?.tintColor = ColorManager.selectedIconColor
-        button?.setImage(targetImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        focusLocationButton?.tintColor = ColorManager.selectedIconColor
+        focusLocationButton?.setImage(targetImage.withRenderingMode(.alwaysTemplate), for: .normal)
         
         //change view angle
         mapView?.animate(toViewingAngle: 0)
@@ -151,8 +225,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         locationManager?.startUpdatingHeading()
         
         //ui
-        button?.tintColor = ColorManager.selectedIconColor
-        button?.setImage(compassImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        focusLocationButton?.tintColor = ColorManager.selectedIconColor
+        focusLocationButton?.setImage(compassImage.withRenderingMode(.alwaysTemplate), for: .normal)
         
         //change view angle
         mapView?.animate(toViewingAngle: 45)
@@ -168,8 +242,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         locationManager?.stopUpdatingHeading()
 
         //ui
-        button?.tintColor = ColorManager.deselectedIconColor
-        button?.setImage(targetImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        focusLocationButton?.tintColor = ColorManager.deselectedIconColor
+        focusLocationButton?.setImage(targetImage.withRenderingMode(.alwaysTemplate), for: .normal)
     }
     
     
@@ -182,7 +256,6 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
             if let location = location
             {
                 mapView?.animate(toLocation: location.coordinate)
-                latestLocation = location.coordinate
             }
             
         }
@@ -205,7 +278,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         
         //gets user location
         
-        guard let myLocation = latestLocation else {return}
+        guard let myLocation = locationManager?.location?.coordinate else {return}
         let locations = [barLocation,myLocation]
         
         //set boundary
@@ -216,7 +289,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         }
         
         //update map
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 100)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 200)
         mapView?.animate(with: update)
     }
     

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 extension String{
     public func AddPercentEncodingForURL(plusForSpace : Bool = false) -> String?
     {
@@ -31,5 +31,18 @@ extension String{
         
         return encoded
         
+    }
+}
+
+extension UIImage
+{
+    public func newImageWithSize(_ size : CGSize) -> UIImage
+    {
+        UIGraphicsBeginImageContext(size)
+        self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }
