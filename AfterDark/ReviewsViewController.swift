@@ -32,7 +32,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         
-        let detailTabViewFrame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.mainViewHeight - Sizing.tabBarHeight + Sizing.statusBarHeight)
+        let detailTabViewFrame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.mainViewHeight - Sizing.tabBarHeight)
         self.view.frame = detailTabViewFrame
         self.tableView.frame = detailTabViewFrame
         
@@ -183,7 +183,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
             
             if hasGivenReviewForThisBar
             {
-                return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.5
+                return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
             }
             else
             {
@@ -206,12 +206,12 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         if thisCell!.isExpanded
         {
             //then give expanded height
-            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.5
+            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
         }
         else
         {
             //give collapsed height
-            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*1.5
+            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight
         }
         
         
@@ -225,7 +225,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         {
             if hasGivenReviewForThisBar
             {
-                return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.5
+                return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
             }
             else
             {
@@ -249,12 +249,12 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         if thisCell!.isExpanded
         {
             //then give expanded height
-            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*2.3
+            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight + Sizing.cellExpansionDiff
         }
         else
         {
             //give collapsed height
-            return UITableViewAutomaticDimension + Sizing.HundredRelativeHeightPts()*1.3
+            return UITableViewAutomaticDimension + Sizing.cellUnexpandedHeight
         }
     }
     

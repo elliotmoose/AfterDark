@@ -32,8 +32,9 @@ class Sizing
     static let itemCornerRadius: CGFloat = 2.5
     static let sectionHeaderHeight : CGFloat = 40
     
-    
-    
+    //reviews view controller
+    static let cellUnexpandedHeight = Sizing.HundredRelativeHeightPts()*1.8
+    static let cellExpansionDiff = Sizing.HundredRelativeHeightPts()*0.8 + 12
     
     //static functions
     class func HundredRelativeWidthPts()->CGFloat

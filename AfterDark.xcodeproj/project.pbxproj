@@ -467,8 +467,8 @@
 			children = (
 				UU28XIPGAXC48ERNYJTSE0MZ /* Review.swift */,
 				98FD6FFC1DB89E0C00688514 /* ReviewsViewController.swift */,
-				98FCB1971DBFB5C9008C9307 /* ReviewCell.swift */,
 				98FCB19B1DC12B7D008C9307 /* RatingStarView.swift */,
+				98FCB1971DBFB5C9008C9307 /* ReviewCell.swift */,
 				98FCB1981DBFB5C9008C9307 /* ReviewCell.xib */,
 				A4F9AD971DD333580077241F /* ReviewStarSlider.swift */,
 				A4F9FAFB1DD2D42A007E3B37 /* AddReviewTableViewCell.swift */,

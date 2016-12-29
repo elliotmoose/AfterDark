@@ -3,7 +3,7 @@ class Settings
 {
     //test
     static let ignoreUserDefaults = false
-    static let bypassLoginPage = false
+    static let bypassLoginPage = true
     static let modelBarActive = false
     static let dummyAppOn = true
     static let singleton = Settings()

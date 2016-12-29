@@ -121,9 +121,8 @@ class ReviewCell: UITableViewCell {
         self.foodRatingStars?.SetRating(foodRating)
 
  
-        let offset = Sizing.HundredRelativeHeightPts()*0.25
         let heightOfLabel = body.heightWithConstrainedWidth(self.ReviewBodyLabel.frame.width, font: self.ReviewBodyLabel.font)
-        let avgRatingStarYCoord = heightOfLabel + (self.ReviewBodyLabel.frame.origin.y) + offset
+        let avgRatingStarYCoord = heightOfLabel + 45/*self.ReviewBodyLabel.frame.origin.y*/
         
         let distanceFromLeft : CGFloat = 10
         let starLabelWidth = Sizing.HundredRelativeWidthPts()*1
