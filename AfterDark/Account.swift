@@ -23,7 +23,7 @@ class Account {
     func Login(_ username:String,password:String,handler: @escaping (_ success:Bool,_ resultString : String)->Void)
     {
         let urlLogin = Network.domain + "Login.php"
-        let postParam = String("username=\(username)&password=\(password)")
+        let postParam = String("username=\(username.AddPercentEncodingForURL(plusForSpace: true)!)&password=\(password.AddPercentEncodingForURL(plusForSpace: true)!)")
         
         Network.singleton.DataFromUrlWithPost(urlLogin,postParam: postParam!,handler: {(success,output) -> Void in
             if let output = output
@@ -100,7 +100,7 @@ class Account {
         
         
         
-        let postParam = "username=\(username)&password=\(password)&email=\(email)&DOB=\(dateOfBirth)"
+        let postParam = "username=\(username.AddPercentEncodingForURL(plusForSpace: true)!)&password=\(password.AddPercentEncodingForURL(plusForSpace: true)!)&email=\(email.AddPercentEncodingForURL(plusForSpace: true)!)&DOB=\(dateOfBirth.AddPercentEncodingForURL(plusForSpace: true)!)"
         let urlCreateAccount = Network.domain + "AddNewAccount.php"
         
         Network.singleton.DataFromUrlWithPost(urlCreateAccount,postParam: postParam,handler: {(success,output) -> Void in

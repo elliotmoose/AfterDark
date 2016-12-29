@@ -111,7 +111,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
                                 sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
      
-        return CGSize(width: Sizing.ScreenWidth(), height: Sizing.HundredRelativeHeightPts())
+        return CGSize(width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight()/4)
     }
     
     

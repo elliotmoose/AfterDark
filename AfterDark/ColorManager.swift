@@ -48,6 +48,10 @@ class ColorManager
     static let ratingStarLabelTextColor = UIColor.white
     static let expandArrowColor = UIColor.white
     
+    //location view
+    static let deselectedIconColor = UIColor.darkGray
+    static let selectedIconColor = UIColor.init(hue: 217/360, saturation: 0.73, brightness: 0.96, alpha: 1)
+    
     //detailed review
     static let placeholderTextColor = UIColor.lightGray
     
@@ -60,6 +64,7 @@ class ColorManager
     static let discountTitleLabelTextColor = UIColor.white
     static let discountClaimViewBGColor = UIColor.darkGray
     static let descriptionTextViewTextColor = UIColor.lightGray
+    
     
     //account creation view
     static let accountCreationHighlightErrorColor = UIColor.red

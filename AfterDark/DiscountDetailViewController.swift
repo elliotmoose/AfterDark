@@ -25,7 +25,9 @@ class DiscountDetailViewController: UIViewController {
     
     @IBAction func claimNowOnClick(_ sender: UIButton) {
         ClaimFormViewController.singleton.currentDiscount = self.currentDiscount
-        self.present(ClaimFormViewController.singleton, animated: true, completion: nil)
+//        self.present(ClaimFormViewController.singleton, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(ClaimFormViewController.singleton, animated: true)
     }
     
     override func viewDidLoad() {
@@ -58,7 +60,6 @@ class DiscountDetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        currentDiscount = nil
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

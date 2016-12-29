@@ -47,8 +47,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
     
     override func viewWillAppear(_ animated: Bool) {
-        
 
+        
+        self.AnimateBlurrView()
         self.UpdateBarIcon()
         self.UpdateBarTitle()
         self.UpdateReviewTab()
@@ -58,13 +59,14 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         mainBarDetailViewCell?.CellWillAppear()
         galleryCont.ToPresentNewDetailBar()
         
-        self.AnimateBlurrView()
 
     }
     
 
     override func viewDidAppear(_ animated: Bool) {
         
+        blurrView.layer.timeOffset = CFTimeInterval(1)
+
         //reset layouts
         self.barIcon.alpha = 1
         self.barTitle.alpha = 1
@@ -77,7 +79,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateBarRating()
 
         
-        blurrView.layer.timeOffset = CFTimeInterval(1)
         
         
     }
@@ -234,7 +235,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     func UpdateReviewTab()
     {
         DispatchQueue.main.async(execute: {
-                self.mainBarDetailViewCell?.reviewCont.tableView.reloadData()
+                self.mainBarDetailViewCell?.reviewCont.ReloadReviewTableData()
             })
 
     }

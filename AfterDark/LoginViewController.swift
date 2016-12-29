@@ -247,6 +247,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
         }
     }
     
+    func SignInTimeOut()
+    {
+        
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         SignIn()

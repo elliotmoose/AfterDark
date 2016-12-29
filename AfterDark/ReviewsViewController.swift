@@ -52,6 +52,12 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
         //first get reviews to display
         displayReviews = BarManager.singleton.displayedDetailBar.reviews
         
+        if displayReviews.count <= 0
+        {
+            print("ERROR: Cant Load: no reviews to load")
+            return
+        }
+        
         //first check if you have a review for this bar
         hasGivenReviewForThisBar = false
         
@@ -304,7 +310,7 @@ class ReviewsViewController: UITableViewController,AddReviewCellDelegate {
     
     func HideAddDetailReviewController()
     {
-        self.delegate?.NavCont().popViewController(animated: true)
+        let _ = self.delegate?.NavCont().popViewController(animated: true)
     }
     
 }

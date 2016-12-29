@@ -66,7 +66,10 @@ class ReviewManager
                     newReview.initWithDict(dict)
                     allReviewsForBar.append(newReview)
                 }
+                
                 bar.reviews = allReviewsForBar
+                
+                
                 handler(true)
             }
         }
@@ -94,6 +97,7 @@ class ReviewManager
                         allReviewsForBar.append(newReview)
                     }
                     bar.reviews = allReviewsForBar
+                    
                     handler(true)
                 }
             }
@@ -112,7 +116,6 @@ class ReviewManager
                     if bar.name == BarManager.singleton.displayedDetailBar.name
                     {
                         self.delegate?.UpdateReviewTab()
-                        
                     }
                     
                     

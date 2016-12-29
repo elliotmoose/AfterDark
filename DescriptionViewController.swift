@@ -154,6 +154,8 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.backgroundColor = ColorManager.descriptionCellBGColor
             cell?.Detail.textColor = ColorManager.descriptionCellTextColor
             cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.withRenderingMode(.alwaysTemplate)
+            
+            
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.Detail.text = BarManager.singleton.displayedDetailBar.website
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);

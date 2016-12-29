@@ -13,6 +13,7 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
     static let singleton = ClaimFormViewController()
     @IBOutlet weak var spentAmountTextField: UITextField!
     
+    @IBOutlet weak var claimButton: UIButton!
     @IBOutlet weak var qrImageView: UIImageView!
     
     var currentDiscount : Discount?
@@ -31,7 +32,7 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        currentDiscount = nil
+
     }
     
     func Initialize()
@@ -41,6 +42,16 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
         self.modalPresentationStyle = .currentContext
         self.modalTransitionStyle = .crossDissolve
         spentAmountTextField.delegate = self
+        
+        
+        //shadows
+        spentAmountTextField.layer.shadowOpacity = 0.4
+        spentAmountTextField.layer.shadowOffset = CGSize(width: 2, height: 2)
+        spentAmountTextField.clipsToBounds = false
+        
+        claimButton.layer.shadowOpacity = 0.4
+        claimButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        claimButton.clipsToBounds = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -158,6 +169,7 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
             let transform = CGAffineTransform.init(scaleX: 5, y: 5); // Scale by 5 times along both dimensions
             let out = image.applying(transform)
             qrImageView.image = UIImage(ciImage: out)
+            
             
         }
     }

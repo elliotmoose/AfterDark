@@ -25,7 +25,6 @@
 		98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */; };
 		98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */; };
 		98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4941DB0009B000EAF08 /* Main.storyboard */; };
-		98F3E4981DB0009B000EAF08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4971DB0009B000EAF08 /* Assets.xcassets */; };
 		98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */; };
 		98F3E4A61DB0009B000EAF08 /* AfterDarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4A51DB0009B000EAF08 /* AfterDarkTests.swift */; };
 		98F3E4B11DB0009B000EAF08 /* AfterDarkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4B01DB0009B000EAF08 /* AfterDarkUITests.swift */; };
@@ -45,7 +44,7 @@
 		A401DB9E1E092444003C5F95 /* ExtensionsAndStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401DB9D1E092444003C5F95 /* ExtensionsAndStructs.swift */; };
 		A405E0681DDAC3EF00B9672D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */; };
 		A405E0691DDAC3EF00B9672D /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */; };
-		A439FEF31DDD8A6C005BFAC4 /* testViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FEF21DDD8A6C005BFAC4 /* testViewController.swift */; };
+		A40E9CF21E14D9870079995D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A40E9CF11E14D9870079995D /* Images.xcassets */; };
 		A439FEF81DE5D9FB005BFAC4 /* AddDetailedReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FEF61DE5D9FB005BFAC4 /* AddDetailedReviewViewController.swift */; };
 		A439FEF91DE5D9FB005BFAC4 /* AddDetailedReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A439FEF71DE5D9FB005BFAC4 /* AddDetailedReviewViewController.xib */; };
 		A439FF551DEEDECE005BFAC4 /* ChangeListSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */; };
@@ -130,7 +129,6 @@
 		98F3E48B1DB0009B000EAF08 /* AfterDark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AfterDark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98F3E4951DB0009B000EAF08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		98F3E4971DB0009B000EAF08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98F3E49A1DB0009B000EAF08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		98F3E49C1DB0009B000EAF08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98F3E4A11DB0009B000EAF08 /* AfterDarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AfterDarkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,7 +153,7 @@
 		A401DB9D1E092444003C5F95 /* ExtensionsAndStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionsAndStructs.swift; sourceTree = "<group>"; };
 		A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
-		A439FEF21DDD8A6C005BFAC4 /* testViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testViewController.swift; sourceTree = "<group>"; };
+		A40E9CF11E14D9870079995D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A439FEF61DE5D9FB005BFAC4 /* AddDetailedReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDetailedReviewViewController.swift; sourceTree = "<group>"; };
 		A439FEF71DE5D9FB005BFAC4 /* AddDetailedReviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddDetailedReviewViewController.xib; sourceTree = "<group>"; };
 		A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListSortViewController.swift; sourceTree = "<group>"; };
@@ -295,14 +293,13 @@
 				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
 				986E18361DC3D45A0098637D /* Categorized View */,
-				98F3E4971DB0009B000EAF08 /* Assets.xcassets */,
 				98F3E49C1DB0009B000EAF08 /* Info.plist */,
 				A494505C1DCDEE270081AF72 /* Managers */,
 				98F3E4941DB0009B000EAF08 /* Main.storyboard */,
 				98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */,
 				A49450611DCE0F8F0081AF72 /* Settings View */,
 				A4FEA3AA1DD0411E00F00783 /* Account Views */,
-				A439FEF21DDD8A6C005BFAC4 /* testViewController.swift */,
+				A40E9CF11E14D9870079995D /* Images.xcassets */,
 			);
 			path = AfterDark;
 			sourceTree = "<group>";
@@ -601,6 +598,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				980C8A321DBA1CCE00A2EE0F /* DescriptionCell.xib in Resources */,
+				A40E9CF21E14D9870079995D /* Images.xcassets in Resources */,
 				98FCB19A1DBFB5C9008C9307 /* ReviewCell.xib in Resources */,
 				A439FEF91DE5D9FB005BFAC4 /* AddDetailedReviewViewController.xib in Resources */,
 				985E9DE11DB5245B001E0815 /* BarDetailViewController.xib in Resources */,
@@ -612,7 +610,6 @@
 				A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */,
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
-				98F3E4981DB0009B000EAF08 /* Assets.xcassets in Resources */,
 				A439FF601DF172FB005BFAC4 /* BarListCollectionViewCell.xib in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
@@ -804,7 +801,6 @@
 				A439FF5F1DF172FB005BFAC4 /* BarListCollectionViewCell.swift in Sources */,
 				98FD70001DB89E3F00688514 /* LocationViewController.swift in Sources */,
 				A49450591DCDEE000081AF72 /* ReservationViewController.swift in Sources */,
-				A439FEF31DDD8A6C005BFAC4 /* testViewController.swift in Sources */,
 				986E183F1DC49E4A0098637D /* CategoryCell.swift in Sources */,
 				A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */,
 				986E18381DC3D4C20098637D /* Category.swift in Sources */,
@@ -983,6 +979,7 @@
 			baseConfigurationReference = AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D6W5DP48V9;
 				ENABLE_BITCODE = NO;
@@ -1001,6 +998,7 @@
 			baseConfigurationReference = 5542075200E70004506FB9E4 /* Pods-AfterDark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D6W5DP48V9;
 				ENABLE_BITCODE = NO;

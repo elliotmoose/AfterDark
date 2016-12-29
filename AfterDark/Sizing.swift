@@ -26,7 +26,7 @@ class Sizing
     static let discountCellHeight : CGFloat = 60
     
     //collection view
-    static let itemInsetFromEdge : CGFloat = 6
+    static let itemInsetFromEdge : CGFloat = 10
     static let itemWidth = Sizing.ScreenWidth() - itemInsetFromEdge*2
     static let itemHeight = Sizing.ScreenHeight()/2.5
     static let itemCornerRadius: CGFloat = 2.5

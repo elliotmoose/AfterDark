@@ -94,7 +94,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             self.collectionView.frame = CGRect(x: 0, y: toolBarHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.navBarHeight - toolBarHeight)
             let layout = UICollectionViewFlowLayout()
             layout.itemSize = CGSize(width: Sizing.itemWidth, height: Sizing.itemHeight)
-            layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+            layout.sectionInset = UIEdgeInsets(top: Sizing.itemInsetFromEdge, left: 0, bottom: Sizing.itemInsetFromEdge, right: 0)
 
             self.collectionView.collectionViewLayout = layout
             

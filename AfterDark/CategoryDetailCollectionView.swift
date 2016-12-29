@@ -21,11 +21,13 @@ class CategoryDetailCollectionView: UIViewController, UICollectionViewDataSource
         //init collection view
         
         //view layout
-        let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.itemSize = CGSize(width: Sizing.itemWidth, height: Sizing.itemHeight)
+
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: Sizing.itemWidth, height: Sizing.itemHeight)
+        layout.sectionInset = UIEdgeInsets(top: Sizing.itemInsetFromEdge, left: 0, bottom: Sizing.itemInsetFromEdge, right: 0)
         
         //init collection view
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.navBarHeight), collectionViewLayout: collectionViewLayout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.navBarHeight), collectionViewLayout: layout)
         
         //add collectionview as subview
         self.view.addSubview(collectionView!)
