@@ -158,67 +158,17 @@ class BarManager: NSObject
                     {
                         let dict = output[0]
                         
-                        if let description = dict["Bar_Description"] as? String
-                        {
-                            bar.description = description
-                        }
-                        
-                        if let contact = dict["Bar_Contact"] as? String
-                        {
-                            bar.contact = contact
-                        }
-                        
+               
+                        let barDetails = self.NewBarFromDict(dict)
+                        bar.bookingAvailable = barDetails.bookingAvailable
+                        bar.description = barDetails.description
+                        bar.openClosingHours = barDetails.openClosingHours
+                        bar.loc_lat = barDetails.loc_lat
+                        bar.loc_long = barDetails.loc_long
+                        bar.address = barDetails.address
+                        bar.contact = barDetails.contact
+                        bar.website = barDetails.website
 
-                        //get opening hours
-                        if let monday = dict["OH_Monday"] as? String
-                        {
-                            bar.openClosingHours[0] = monday
-                        }
-                        
-                        if let tuesday = dict["OH_Tuesday"] as? String
-                        {
-                            bar.openClosingHours[1] = tuesday
-                        }
-                        
-                        if let wednesday = dict["OH_Wednesday"] as? String
-                        {
-                            bar.openClosingHours[2] = wednesday
-                        }
-                        
-                        if let thursday = dict["OH_Thursday"] as? String
-                        {
-                            bar.openClosingHours[3] = thursday
-                        }
-                        
-                        if let friday = dict["OH_Friday"] as? String
-                        {
-                            bar.openClosingHours[4] = friday
-                        }
-                        
-                        if let saturday = dict["OH_Saturday"] as? String
-                        {
-                            bar.openClosingHours[5] = saturday
-                        }
-                        
-                        if let sunday = dict["OH_Sunday"] as? String
-                        {
-                            bar.openClosingHours[6] = sunday
-                        }
-                        
-                        if let loc_lat = dict["Bar_Location_Latitude"] as? String
-                        {
-                            bar.loc_lat = Float(loc_lat)!
-                        }
-                        
-                        if let loc_long = dict["Bar_Location_Longitude"] as? String
-                        {
-                            bar.loc_long = Float(loc_long)!
-                        }
-                        
-                        if let bookingAvailable = dict.value(forKey: "Booking_Available") as? Int
-                        {
-                            bar.bookingAvailable = String(describing: bookingAvailable)
-                        }
                         
                         if self.displayedDetailBar.name == bar.name
                         {
@@ -488,6 +438,11 @@ class BarManager: NSObject
         if let loc_long = dict["Bar_Location_Longitude"] as? String
         {
             newBar.loc_long = Float(loc_long)!
+        }
+        
+        if let address = dict["Bar_Address"] as? String
+        {
+            newBar.address = address
         }
         
         if let bookingAvailable = dict.value(forKey: "Booking_Available") as? Int

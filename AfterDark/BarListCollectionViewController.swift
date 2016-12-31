@@ -109,7 +109,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             self.tabBarController?.tabBar.isTranslucent = false
             
             //colors
-            self.navigationController?.navigationBar.tintColor = UIColor.orange
+            self.navigationController?.navigationBar.tintColor = ColorManager.themeBright
             self.navigationController?.navigationBar.barTintColor = UIColor.black
             self.navigationController?.navigationBar.barStyle = .black;
             self.collectionView.backgroundColor = ColorManager.barListBGColor
@@ -130,7 +130,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             //arrow.frame  = CGRect(x: Sizing.ScreenWidth() - Sizing.HundredRelativeWidthPts(), y: toolBarHeight/4, width: toolBarHeight/2, height: toolBarHeight/2)
             self.sortByButton .setTitle("Sort by: Top Rated", for: .normal)
             self.sortByButton .setTitleColor(UIColor.black, for: .normal)
-            self.sortByButton .backgroundColor = UIColor.gray
+            self.sortByButton .backgroundColor = ColorManager.barListSortButtonColor
             self.sortByButton .addTarget(self, action: #selector(self.ShowChangeListSortView), for: .touchUpInside)
             self.AddShadow(view: self.sortByButton)
             //button
@@ -210,6 +210,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
     
     func LoadCachedData()
     {
+        CacheManager.singleton.ClearCache()
         DispatchQueue.global(qos: .default).async{
 
             CacheManager.singleton.Load()

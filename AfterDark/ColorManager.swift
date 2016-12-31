@@ -5,6 +5,8 @@ class ColorManager
     
     //Global Colors
     static let darkGray = UIColor.init(hue: 0, saturation: 0, brightness: 0.15, alpha: 1)
+    static let gold = UIColor.init(hue: 41/360, saturation: 0.7, brightness: 0.63, alpha: 1)
+    static let themeBright = ColorManager.gold
     
     
     //Bar List Colors
@@ -12,7 +14,7 @@ class ColorManager
     static let barListBGColor = UIColor.gray
     static let barListTitleColor = UIColor.white
     static let barListSectionHeaderColor = UIColor.orange
-    
+    static let barListSortButtonColor = ColorManager.gold
     //Detail View Colors
     static let barIconDefaultColor = UIColor.black
     static let barCellColor = UIColor.darkGray
@@ -34,7 +36,7 @@ class ColorManager
     static let descriptionBGColor = UIColor.black
     static let descriptionTitleColor = UIColor.white
     static let descriptionTitleBGColor = ColorManager.darkGray
-    static let descriptionIconsTintColor = UIColor.orange
+    static let descriptionIconsTintColor = ColorManager.themeBright
     static let descriptionCellBGColor = UIColor.black
     static let descriptionCellTextColor = UIColor.white
     static let reservationCellColor = UIColor.orange
@@ -46,7 +48,7 @@ class ColorManager
     static let reviewTitleColor = UIColor.white
     static let reviewCellBGColor = UIColor.black
     
-    static let ratingStarColor = UIColor.orange
+    static let ratingStarColor = ColorManager.themeBright
     static let ratingStarBGColor = UIColor.gray
     static let ratingStarLabelTextColor = UIColor.white
     static let expandArrowColor = UIColor.white
@@ -61,8 +63,8 @@ class ColorManager
     //discount claim view
     static let barHeaderViewColor = UIColor.darkGray
     static let discountTitleBGColor = UIColor.white
-    static let discountCellValueTextColor = UIColor.orange
-    static let claimButtonColor = UIColor.orange
+    static let discountCellValueTextColor = ColorManager.themeBright
+    static let claimButtonColor = ColorManager.themeBright
     static let claimBarTitleTextColor = UIColor.white
     static let discountTitleLabelTextColor = UIColor.white
     static let discountClaimViewBGColor = UIColor.darkGray

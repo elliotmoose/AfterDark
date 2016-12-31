@@ -26,7 +26,7 @@ class BarListCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         ratingStarImage.image = (ratingStarImage.image?.withRenderingMode(.alwaysTemplate))!
-        
+        ratingStarImage.tintColor = ColorManager.themeBright
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
         self.layer.shadowRadius = 2

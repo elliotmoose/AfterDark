@@ -137,17 +137,29 @@ class ReviewManager
                 NSLog(String(data: output, encoding: .utf8)!)
                 let dict = Network.JsonDataToDict(jsonData)
                 
-                if dict["success"] as! String == "false"
+                if let success = dict["success"] as? String
                 {
-                    let errorMessage = dict["detail"] as! String
-                    handler(false,errorMessage)
+                    if success == "false"
+                    {
+                        let errorMessage = dict["detail"] as! String
+                        handler(false,errorMessage)
+                    }
+                    
+                    if success == "true"
+                    {
+                        handler(true,"no error!")
+                    }
+                    
                 }
                 
-                if dict["success"] as! String == "true"
-                {
-                    handler(true,"no error!")
-                }
+                handler(false,"server failed to handle request")
+                print(String(data: output, encoding: .utf8))
+                
+                
             }
+            
+            handler(false,"cant connect to server")
+
             
         })
 

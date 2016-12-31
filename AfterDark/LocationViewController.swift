@@ -11,9 +11,13 @@ import GoogleMaps
 class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMapViewDelegate{
 
     var mapView : GMSMapView?
+    let marker = GMSMarker()
+    
     var focusLocationButton : UIButton?
+    var focusBarButton : UIButton?
     var openGoogleMapsButton : UIButton?
     var zoomOutButton : UIButton?
+    
     
     let targetImage = #imageLiteral(resourceName: "target1x")
     let compassImage = #imageLiteral(resourceName: "compass-1")
@@ -27,9 +31,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         super.viewDidLoad()
         
         //map init
-        GMSServices.provideAPIKey("AIzaSyANTsheZ7ClHH98Js5p1QA-7QIqw_KPrLQ")
+        GMSServices.provideAPIKey(Settings.googleServicesKey)
         
-        let barTitle = BarManager.singleton.displayedDetailBar.name
         let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
         let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
         
@@ -39,11 +42,6 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         mapView?.delegate = self
         view = mapView
         
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
-        marker.title = barTitle
-        marker.snippet = BarManager.singleton.displayedDetailBar.name
         marker.map = mapView
         
         
@@ -66,7 +64,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         focusLocationButton?.layer.shadowRadius = 10
         
         //openGoogleMapsButton
-        openGoogleMapsButton = UIButton(frame: CGRect(x: 20, y: 20, width: targetWidth, height: targetWidth))
+        openGoogleMapsButton = UIButton(frame : CGRect(x: Sizing.ScreenWidth() - 20 - targetWidth, y: 40 + targetWidth, width: targetWidth, height: targetWidth))
         openGoogleMapsButton?.imageView?.contentMode = .scaleAspectFit
         openGoogleMapsButton?.setImage(forwardArrowImage.withRenderingMode(.alwaysTemplate), for: .normal)
         openGoogleMapsButton?.tintColor = ColorManager.selectedIconColor
@@ -82,7 +80,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         openGoogleMapsButton?.layer.shadowRadius = 10
         
         //zoomOutButton
-        zoomOutButton = UIButton(frame: CGRect(x: Sizing.ScreenWidth()/2 - targetWidth/2, y: 20, width: targetWidth, height: targetWidth))
+        zoomOutButton = UIButton(frame: CGRect(x: 20, y: 40 + targetWidth, width: targetWidth, height: targetWidth))
         zoomOutButton?.imageView?.contentMode = .scaleAspectFit
         zoomOutButton?.setImage(pointObjectImage.withRenderingMode(.alwaysTemplate), for: .normal)
         zoomOutButton?.tintColor = ColorManager.selectedIconColor
@@ -104,18 +102,50 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         locationManager?.distanceFilter = 10
         locationManager?.headingFilter = 5
         
+        //focusbarbutton
+        focusBarButton = UIButton(frame: CGRect(x: 20, y: 20, width: targetWidth, height: targetWidth))
+        
+        //set up button image
+        focusBarButton?.imageView?.contentMode = .scaleAspectFit
+        focusBarButton?.setImage(#imageLiteral(resourceName: "Marker-48").newImageWithSize(CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate), for: .normal)
+        focusBarButton?.tintColor = ColorManager.selectedIconColor
+        focusBarButton?.backgroundColor = UIColor.white
+        focusBarButton?.layer.cornerRadius = targetWidth/2
+        focusBarButton?.addTarget(self, action: #selector(FocusBarLocation), for: .touchDown)
+        view.addSubview(focusBarButton!)
+        //shadow
+        focusBarButton?.clipsToBounds = false
+        focusBarButton?.layer.shadowOpacity = 0.3
+        focusBarButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
+        focusBarButton?.layer.shadowRadius = 10
         
     }
 
     
     
     override func viewDidAppear(_ animated: Bool) {
+        SetBarMarker()
         FocusBarLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         locationManager?.stopUpdatingLocation()
         locationManager?.stopUpdatingHeading()
+    }
+    
+
+    
+    func SetBarMarker()
+    {
+        let barTitle = BarManager.singleton.displayedDetailBar.name
+        let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
+        let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
+        
+        // Creates a marker in the center of the map.
+        
+        marker.position = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
+        marker.snippet = barTitle
+        marker.title = "\(BarManager.singleton.displayedDetailBar.address)"
     }
     
     func FocusCurrentLocation()
@@ -136,6 +166,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     
     func FocusBarLocation()
     {
+        StopFollow()
         let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
         let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
         let barLocation = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
@@ -272,6 +303,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     
     func ZoomToIncludeStartAndEndLocation()
     {
+        StopFollow()
+        
         let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
         let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
         let barLocation = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)

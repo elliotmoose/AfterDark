@@ -110,6 +110,15 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
+            if BarManager.singleton.displayedDetailBar.address != ""
+            {
+                cell?.Detail.text = BarManager.singleton.displayedDetailBar.address
+            }
+            else
+            {
+                cell?.Detail.text = "no address given"
+            }
+            
             return cell!
         case  IndexPath(row: 2, section: 0):
             var cell = tableView.dequeueReusableCell(withIdentifier: "OpeningHoursCell", for: IndexPath(row: 2, section: 0)) as? OpeningHoursCell

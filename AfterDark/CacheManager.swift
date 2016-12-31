@@ -30,6 +30,13 @@ class CacheManager
         if let archive = archivedData
         {
             let dict = NSKeyedUnarchiver.unarchiveObject(with: archive) as? NSMutableDictionary
+            
+            guard let _ = dict else
+            {
+                categoryImages = NSMutableDictionary()
+                return
+            }
+            
             categoryImages = dict!
         }
         else
@@ -52,5 +59,11 @@ class CacheManager
         {
             categoryImages = NSMutableDictionary()
         }
+    }
+    
+    func ClearCache()
+    {
+        let UD = UserDefaults.standard
+        UD.set(nil, forKey: "Category_Images")
     }
 }

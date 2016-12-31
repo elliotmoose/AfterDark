@@ -25,7 +25,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     var tableView = UITableView()
     var blurrView = UIVisualEffectView()
     var tempBlurrView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-    
+    var tempBlurrContainerView = UIView()
     var mainBarDetailViewCell:BarDetailViewMainCell?
 
     
@@ -43,7 +43,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         super.viewDidLoad()
         Initialze()
 
-        
+
         //blurrView.layer.timeOffset = CFTimeInterval(1)
     }
 
@@ -61,31 +61,27 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         mainBarDetailViewCell?.CellWillAppear()
         galleryCont.ToPresentNewDetailBar()
         
-        tempBlurrView.alpha = 1
-
+        tempBlurrContainerView.alpha = 1
     }
     
 
     override func viewDidAppear(_ animated: Bool) {
         
-        tempBlurrView.alpha = 0
+        tempBlurrContainerView.alpha = 0
         blurrView.layer.timeOffset = CFTimeInterval(1)
         
         //reset layouts
-        self.barIcon.alpha = 1
-        self.barTitle.alpha = 1
-        let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.size.height);
-        self.tableView.setContentOffset(bottomOffset, animated: false)
-//
-//        self.UpdateBarIcon()
-//        self.UpdateBarTitle()
-//        self.UpdateReviewTab()
-//        self.UpdateBarRating()
-
-        
-        
+        ResetVisualLayout()
         
     }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        //reset layouts
+        ResetVisualLayout()
+    }
+    
     func Initialze()
     {
         self.tableView.autoresizesSubviews = false
@@ -118,7 +114,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         self.blurrView.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
         self.tempBlurrView.frame = self.blurrView.frame
-        
+        self.tempBlurrContainerView.frame = self.blurrView.frame
         
         //init refresh button
         self.activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0,width: 20,height: 20))
@@ -134,7 +130,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.barTitle.textColor = ColorManager.detailBarTitleColor
         self.barIconButton.backgroundColor = UIColor.clear
         self.galleryCont.view.backgroundColor = UIColor.black
-        
+
         //layers
         self.barIcon.contentMode = UIViewContentMode.scaleAspectFit
         self.barIcon.layer.cornerRadius = barIconWidth/2
@@ -152,10 +148,11 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         //subviews
         self.addChildViewController(self.galleryCont)
         self.galleryCont.didMove(toParentViewController: self)
+        self.tempBlurrContainerView.addSubview(tempBlurrView)
         
         self.view.addSubview(self.galleryCont.view)
         self.view.addSubview(self.blurrView)
-        self.view.addSubview(self.tempBlurrView)
+        self.view.addSubview(self.tempBlurrContainerView)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.barTitle)
         self.view.addSubview(self.barRatingView)
@@ -207,8 +204,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     func UpdateBarTitle()
     {
         DispatchQueue.main.async(execute: {
-
-        self.title = BarManager.singleton.displayedDetailBar.name
+            
+            
+        //self.title = BarManager.singleton.displayedDetailBar.name
         self.barTitle.text = BarManager.singleton.displayedDetailBar.name
         })
     }
@@ -542,6 +540,15 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         blurrView.layer.timeOffset = CFTimeInterval(offset)
         
         
+    }
+    
+    func ResetVisualLayout()
+    {
+        //reset layouts
+        self.barIcon.alpha = 1
+        self.barTitle.alpha = 1
+        let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.bounds.size.height);
+        self.tableView.setContentOffset(bottomOffset, animated: false)
     }
     //============================================================================
     //                                 delegate functions

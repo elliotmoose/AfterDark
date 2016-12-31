@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="Pkg-oI-EPH">
             <objects>
                 <navigationController id="M7v-7V-ftZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="aW0-Lg-KVx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yCE-y1-hSJ">
+                    <tabBarItem key="tabBarItem" title="Home" image="Home" id="aW0-Lg-KVx"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yCE-y1-hSJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.24702778459999999" green="0.24707666040000001" blue="0.2470246851" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.63137254901960782" green="0.49019607843137253" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -35,14 +35,14 @@
             <objects>
                 <navigationController id="5ay-4L-82d" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="qnQ-V2-Nex"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9VR-7P-6KU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9VR-7P-6KU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.63137254901960782" green="0.49019607843137253" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.63137254901960782" green="0.49019607843137253" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.24702778459999999" green="0.24707666040000001" blue="0.2470246851" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.63137254901960782" green="0.49019607843137253" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -111,12 +111,12 @@
             </objects>
             <point key="canvasLocation" x="1734" y="1339"/>
         </scene>
-        <!--Item-->
+        <!--List-->
         <scene sceneID="A5B-xk-ta7">
             <objects>
                 <navigationController id="A5q-gA-LvA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="047-kt-aDb"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="z71-3w-dHH">
+                    <tabBarItem key="tabBarItem" title="List" image="List" id="047-kt-aDb"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="z71-3w-dHH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -173,12 +173,12 @@
             </objects>
             <point key="canvasLocation" x="1856.8" y="578.86056971514245"/>
         </scene>
-        <!--Item-->
+        <!--Settings-->
         <scene sceneID="LRL-WC-POw">
             <objects>
                 <navigationController id="Nch-S0-qmt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="gEX-Ff-16D"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I8O-tW-4Tl">
+                    <tabBarItem key="tabBarItem" title="Settings" image="Settings" id="gEX-Ff-16D"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="I8O-tW-4Tl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -240,7 +240,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="0.63137254901960782" green="0.49019607843137253" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="A5q-gA-LvA" kind="relationship" relationship="viewControllers" id="JnV-5b-GsJ"/>
@@ -253,4 +253,9 @@
             <point key="canvasLocation" x="42" y="34"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Home" width="30" height="30"/>
+        <image name="List" width="30" height="30"/>
+        <image name="Settings" width="30" height="30"/>
+    </resources>
 </document>

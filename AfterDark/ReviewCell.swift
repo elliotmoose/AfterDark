@@ -112,7 +112,7 @@ class ReviewCell: UITableViewCell {
         ReviewTitleLabel.text = title
         ReviewByLabel.text = "Review by: \(username)"
         //for height
-        self.textLabel?.text = body
+        self.ReviewBodyTextView.text = body
         self.avgRatingStars?.SetRating(avgRating)
         self.priceRatingStars?.SetRating(priceRating)
         self.ambienceRatingStars?.SetRating(ambienceRating)
@@ -146,6 +146,8 @@ class ReviewCell: UITableViewCell {
         collapseIndicator.center = CGPoint(x: collapseIndicator.center.x, y: (avgRatingStars?.center.y)!)
 
         self.CollapseCell()
+
+        self.ReviewBodyTextView.setContentOffset(CGPoint.zero, animated: false)
 
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

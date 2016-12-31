@@ -22,11 +22,11 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         
         CategoriesManager.singleton.delegate = self
         
-        self.title = "Categories"
+        self.title = "HOME"
         
         //navigation controller
         self.navigationController?.navigationBar.barStyle = .black;
-        self.navigationController?.navigationBar.tintColor = UIColor.orange
+        self.navigationController?.navigationBar.tintColor = ColorManager.themeBright
         self.navigationController?.navigationBar.barTintColor = UIColor.black
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.layer.shadowOpacity = 0.5
