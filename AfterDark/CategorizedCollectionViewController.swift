@@ -73,8 +73,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell",for: indexPath) as? CategoryCell
         cell!.SetContent(CategoriesManager.singleton.allCategories[indexPath.row])
-        
-        
+                
         return cell!
     }
 
@@ -114,6 +113,16 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         return CGSize(width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight()/4)
     }
     
+    func ReloadCell(index: Int)
+    {
+        if (collectionView?.numberOfItems(inSection: 0))! < index+1
+        {
+            return
+        }
+        //reloads by index
+        collectionView?.reloadItems(at: [IndexPath(row: index ,section:0)])
+        
+    }
     
 
 }

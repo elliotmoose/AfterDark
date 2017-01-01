@@ -114,6 +114,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             self.navigationController?.navigationBar.barStyle = .black;
             self.collectionView.backgroundColor = ColorManager.barListBGColor
             self.activityIndicator?.color = UIColor.gray
+            self.tabBarController?.tabBar.tintColor = ColorManager.themeBright
 
             //========================================================================================
             //                                      sorting
@@ -129,6 +130,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             //let arrow = UIImageView.init(image: #imageLiteral(resourceName: "arrow"))
             //arrow.frame  = CGRect(x: Sizing.ScreenWidth() - Sizing.HundredRelativeWidthPts(), y: toolBarHeight/4, width: toolBarHeight/2, height: toolBarHeight/2)
             self.sortByButton .setTitle("Sort by: Top Rated", for: .normal)
+            self.sortByButton.titleLabel?.font = UIFont(name: "Mohave", size: 19)
             self.sortByButton .setTitleColor(UIColor.black, for: .normal)
             self.sortByButton .backgroundColor = ColorManager.barListSortButtonColor
             self.sortByButton .addTarget(self, action: #selector(self.ShowChangeListSortView), for: .touchUpInside)
@@ -341,7 +343,10 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
         //prep for display
         BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
         BarDetailTableViewController.singleton.UpdateDisplays()
+        
         self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+        
+        BarDetailTableViewController.singleton.ResetToFirstTab()
         
         collectionView.deselectItem(at: indexPath, animated: true)
     }

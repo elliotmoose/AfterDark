@@ -56,6 +56,10 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         confirmEmailLabel.textColor = UIColor.black
         dobLabel.textColor = UIColor.black
         
+
+        
+        
+        
         var issues = [String]()
         if confirmPassword != password
         {
@@ -100,6 +104,40 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
             issues.append("- fill in date of birth")
             dobLabel.textColor = ColorManager.accountCreationHighlightErrorColor
         }
+        
+        //check username and password for length
+        let (allowedUsernameLength,usernameMessage) = CheckForDisallowedLength(input: username!, maxLength: 20, minLength: 4)
+        
+        if !allowedUsernameLength
+        {
+            issues.append("- " + usernameMessage + " for username")
+            usernameLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+        }
+        
+        
+        let (allowedPasswordLength,passwordMessage) = CheckForDisallowedLength(input: password!, maxLength: 20, minLength: 4)
+        
+        if !allowedPasswordLength
+        {
+            issues.append("- " + passwordMessage + " for password")
+            passwordLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+        }
+        
+        //check username and password for disallowed characters
+        let disallowed = ["%","$","#","!","^","&","(",")",":",";","/","\\","[","]","=","+","?"]
+        if !CheckForDisallowedCharacters(string: username!,disallowedCharacters: disallowed) || !CheckForDisallowedCharacters(string: password!,disallowedCharacters: disallowed)
+        {
+            issues.append("- punctuation is not allowed in usernames and passwords")
+        }
+        
+        //check for valid email
+        if !CheckForValidEmail(email: email!)
+        {
+            confirmEmailTextField.textColor = ColorManager.accountCreationHighlightErrorColor
+            emailTextField.textColor = ColorManager.accountCreationHighlightErrorColor
+            issues.append("- email is not valid")
+        }
+        
         
         if issues.count != 0
         {
@@ -180,7 +218,61 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         
     }
     
+    func CheckForDisallowedCharacters(string : String,disallowedCharacters : [String]) -> Bool
+    {
+        for char in disallowedCharacters
+        {
+            if string.contains(char)
+            {
+                return false
+            }
+        }
+        
+        return true
+        
+    }
     
+    func CheckForValidEmail(email : String) -> Bool
+    {
+        //first check for disallowed characters?
+        //if CheckForDisallowedCharacters(string: email, disallowedCharacters: ])
+        
+        let components = email.components(separatedBy: "@")
+        
+        if components.count == 2
+        {
+            if components[1].contains(".")
+            {
+                return true
+            }
+            else
+            {
+                return false
+            }
+        }
+        else
+        {
+            return false
+        }
+        
+    }
+    
+    func CheckForDisallowedLength(input : String, maxLength : Int, minLength : Int) -> (Bool,String) //success,message
+    {
+        let length = input.characters.count
+        if length > maxLength
+        {
+            return (false,"A maximum of \(maxLength) is allowed")
+        }
+        else if length < minLength
+        {
+            return (false,"A minimum of \(minLength) is required")
+        }
+        else //success
+        {
+            return (true,"allowed")
+        }
+    }
     
     
     

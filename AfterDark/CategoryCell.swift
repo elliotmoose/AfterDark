@@ -13,6 +13,8 @@ class CategoryCell: UICollectionViewCell {
     @IBOutlet weak var categoryTitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var categoryImageView: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -33,4 +35,6 @@ class CategoryCell: UICollectionViewCell {
         self.descriptionLabel.text = "\(category.description)"
         self.categoryImageView.image = category.imageView?.image
     }
+    
+    
 }

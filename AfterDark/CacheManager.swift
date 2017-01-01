@@ -14,7 +14,6 @@ class CacheManager
     
     var categoryImages : NSMutableDictionary?
     
-    
     init()
     {
     }
@@ -43,6 +42,7 @@ class CacheManager
         {
             categoryImages = NSMutableDictionary()
         }
+                
     }
     
     func Save()
@@ -65,5 +65,23 @@ class CacheManager
     {
         let UD = UserDefaults.standard
         UD.set(nil, forKey: "Category_Images")
+    }
+    
+    
+    //==============================================================================================================
+    //                                                 LOGIN RELATED
+    //==============================================================================================================
+    
+    func RememberMeUsername() -> String?
+    {
+        let UD = UserDefaults.standard
+        return UD.value(forKey: "rememberMeUsername") as? String
+    }
+    
+    func SaveUsername(username : String)
+    {
+        let UD = UserDefaults.standard
+        UD.setValue(username, forKey: "rememberMeUsername")
+
     }
 }

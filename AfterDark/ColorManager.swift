@@ -75,6 +75,8 @@ class ColorManager
     static let accountCreationHighlightErrorColor = UIColor.red
 	init()
 	{
-	    
-	}    
+        
+	}
+    
+    
 }

@@ -34,10 +34,6 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
     
     }
 
-    func CellWillAppear()
-    {
-        ChangeTab(tab1)
-    }
     
     required init?(coder aDecoder: NSCoder) {
         tab1 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))

@@ -12,6 +12,7 @@ import UIKit
 protocol CategoryManagerDelegate : class
 {
     func ReloadCategoriesView()
+    func ReloadCell(index: Int)
 }
 class CategoriesManager
 {
@@ -90,6 +91,17 @@ class CategoriesManager
                                                 newCat.imageView?.image = loadedImage
                                                 //when done -> save image in cache ***
                                                 CacheManager.singleton.categoryImages?.setValue(loadedImage, forKey: name)
+                                                
+                                                //update UI (get index -> delegat to collecionView and reload index)
+                                                for i in 0...self.allCategories.count-1
+                                                {
+                                                    if self.allCategories[i].name == newCat.name
+                                                    {
+                                                        DispatchQueue.main.async {
+                                                            self.delegate?.ReloadCell(index: i)
+                                                        }
+                                                    }
+                                                }
                                                 
                                             }
                                             else

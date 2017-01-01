@@ -13,6 +13,7 @@ struct Category{
     var barIDs = [String]()
     var imageView : UIImageView?
     var description : String = ""
+    
     init(dict : NSDictionary)
     {
         if let catName = dict["Category_Name"] as? String

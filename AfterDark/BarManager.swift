@@ -245,15 +245,21 @@ class BarManager: NSObject
                         let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as! NSDictionary
                         
                         
-                        let success = dict["success"] as? String
-                        
-                        guard success != nil else {return}
+                        guard let success = dict["success"] as? String else {return}
                         
                         if success == "true"
                         {
                             //then detail is another dict
-                            let detailDict = dict["detail"] as? NSDictionary
-                            handler(true,"",self.NewBarFromDict(detailDict!))
+                            if let detailDict = dict["detail"] as? NSDictionary
+                            {
+                                handler(true,"",self.NewBarFromDict(detailDict))
+                            }
+                            else
+                            {
+                                handler(false,"unknown server response",Bar())
+                                let errorString = String(data: output, encoding: .utf8)
+                                print("ERROR: \(errorString)")
+                            }
                             
                         }
                         else

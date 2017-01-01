@@ -67,6 +67,14 @@ class ReviewCell: UITableViewCell {
         serviceStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 3,width: starLabelWidth,height: starHeight))
         foodStarsLabel = UILabel(frame: CGRect(x: distanceFromLeft,y: avgRatingStarYCoord + (starHeight + gap) * 4,width: starLabelWidth,height: starHeight))
         
+        
+        //avgStarsLabel?.font = UIFont(name: "Montserrat", size: 17)
+        //priceStarsLabel?.font = UIFont(name: "Montserrat", size: 17)
+        //ambienceStarsLabel?.font = UIFont(name: "Montserrat", size: 17)
+        //serviceStarsLabel?.font = UIFont(name: "Montserrat", size: 17)
+        //foodStarsLabel?.font = UIFont(name: "Montserrat", size: 17)
+
+        
         avgStarsLabel!.text = "Average:"
         priceStarsLabel!.text = "Pricing:"
         ambienceStarsLabel!.text = "Ambience:"

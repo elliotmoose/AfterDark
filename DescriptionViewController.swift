@@ -74,6 +74,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let headerView = view as! UITableViewHeaderFooterView
         headerView.textLabel?.textColor = ColorManager.descriptionTitleColor
+        headerView.textLabel?.font = UIFont(name: "Mohave", size: 20)
         headerView.tintColor = ColorManager.descriptionTitleBGColor
     }
     

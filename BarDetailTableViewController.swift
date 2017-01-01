@@ -47,6 +47,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         //blurrView.layer.timeOffset = CFTimeInterval(1)
     }
 
+    //reset tab
+    func ResetToFirstTab()
+    {
+        guard let _ = mainBarDetailViewCell?.tab1 else {return}
+        mainBarDetailViewCell?.ChangeTab((mainBarDetailViewCell?.tab1)!)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
 
@@ -58,7 +64,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         self.UpdateDiscountTab()
         self.UpdateBarRating()
         
-        mainBarDetailViewCell?.CellWillAppear()
+//        mainBarDetailViewCell?.CellWillAppear()
         galleryCont.ToPresentNewDetailBar()
         
         tempBlurrContainerView.alpha = 1
@@ -143,7 +149,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         
         //fonts
         self.barTitle.textAlignment = .center
-        self.barTitle.font = UIFont.boldSystemFont(ofSize: 22.0)
+        self.barTitle.font = UIFont(name: "Mohave-Bold", size: 22)
+        
         
         //subviews
         self.addChildViewController(self.galleryCont)
@@ -204,7 +211,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     func UpdateBarTitle()
     {
         DispatchQueue.main.async(execute: {
-            
             
         //self.title = BarManager.singleton.displayedDetailBar.name
         self.barTitle.text = BarManager.singleton.displayedDetailBar.name
@@ -316,7 +322,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
                 self.mainBarDetailViewCell!.Initialize()
             }
 
-            self.mainBarDetailViewCell?.CellWillAppear()
+//            self.mainBarDetailViewCell?.CellWillAppear()
             return self.mainBarDetailViewCell
         }
     }

@@ -3,9 +3,9 @@ class Settings
 {
     //test
     static let ignoreUserDefaults = false
-    static let bypassLoginPage = true
+    static let bypassLoginPage = false
     static let modelBarActive = false
-    static let dummyAppOn = false
+    static let dummyAppOn = true
     static let singleton = Settings()
     
     static let googleServicesKey = "AIzaSyANTsheZ7ClHH98Js5p1QA-7QIqw_KPrLQ"
