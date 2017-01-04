@@ -66,6 +66,8 @@
 		A473F99F1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F99D1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift */; };
 		A473F9A31E1B2AD100F640F9 /* CategoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9A11E1B2AD100F640F9 /* CategoryTableCell.swift */; };
 		A473F9A41E1B2AD100F640F9 /* CategoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9A21E1B2AD100F640F9 /* CategoryTableCell.xib */; };
+		A473F9A91E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9A71E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift */; };
+		A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9A81E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib */; };
 		A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47A542E1DC8988800C465F5 /* DiscountManager.swift */; };
 		A481322C1DCC4CB700178251 /* OpeningHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481322A1DCC4CB700178251 /* OpeningHoursCell.swift */; };
 		A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A481322B1DCC4CB700178251 /* OpeningHoursCell.xib */; };
@@ -187,6 +189,8 @@
 		A473F99D1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewController.swift; sourceTree = "<group>"; };
 		A473F9A11E1B2AD100F640F9 /* CategoryTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableCell.swift; sourceTree = "<group>"; };
 		A473F9A21E1B2AD100F640F9 /* CategoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryTableCell.xib; sourceTree = "<group>"; };
+		A473F9A71E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarBlownUpTableViewCell.swift; sourceTree = "<group>"; };
+		A473F9A81E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarBlownUpTableViewCell.xib; sourceTree = "<group>"; };
 		A47A542E1DC8988800C465F5 /* DiscountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountManager.swift; sourceTree = "<group>"; };
 		A481322A1DCC4CB700178251 /* OpeningHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpeningHoursCell.swift; path = ../OpeningHoursCell.swift; sourceTree = "<group>"; };
 		A481322B1DCC4CB700178251 /* OpeningHoursCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OpeningHoursCell.xib; path = ../OpeningHoursCell.xib; sourceTree = "<group>"; };
@@ -284,6 +288,8 @@
 				98CEE0BD1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift */,
 				A439FF611DF2A670005BFAC4 /* CategoryDetailCollectionView.swift */,
 				A473F99D1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift */,
+				A473F9A71E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift */,
+				A473F9A81E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib */,
 				A473F9A11E1B2AD100F640F9 /* CategoryTableCell.swift */,
 				A473F9A21E1B2AD100F640F9 /* CategoryTableCell.xib */,
 			);
@@ -654,6 +660,7 @@
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
 				A439FF601DF172FB005BFAC4 /* BarListCollectionViewCell.xib in Resources */,
+				A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
 				A473F96E1E16C04100F640F9 /* Mohave-Bold.otf in Resources */,
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
@@ -862,6 +869,7 @@
 				A401DB9E1E092444003C5F95 /* ExtensionsAndStructs.swift in Sources */,
 				A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */,
 				A439FF551DEEDECE005BFAC4 /* ChangeListSortViewController.swift in Sources */,
+				A473F9A91E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift in Sources */,
 				A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */,
 				A473F99F1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift in Sources */,
 				A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */,

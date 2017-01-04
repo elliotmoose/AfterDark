@@ -51,7 +51,9 @@ class ReviewsViewController: UIViewController,AddReviewCellDelegate,UITableViewD
     func ReloadReviewTableData()
     {
         //first get reviews to display
-        displayReviews = BarManager.singleton.displayedDetailBar.reviews
+        guard let _ = BarManager.singleton.displayedDetailBar else {return}
+        
+        displayReviews = BarManager.singleton.displayedDetailBar!.reviews
         
         if displayReviews.count <= 0
         {
@@ -312,8 +314,9 @@ class ReviewsViewController: UIViewController,AddReviewCellDelegate,UITableViewD
     //methods for add review detailed controller (coming from review cell)
     func ShowAddDetailReviewController()
     {
+        guard let _ = BarManager.singleton.displayedDetailBar else {return}
         self.delegate?.NavCont().pushViewController(AddDetailedReviewViewController.singleton, animated: true)
-        self.delegate?.NavCont().navigationBar.topItem?.title = BarManager.singleton.displayedDetailBar.name
+        self.delegate?.NavCont().navigationBar.topItem?.title = BarManager.singleton.displayedDetailBar!.name
     }
     
     func HideAddDetailReviewController()

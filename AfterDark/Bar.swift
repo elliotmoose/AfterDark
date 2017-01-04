@@ -4,6 +4,7 @@ class Bar{
     var ID : String
     var rating = Rating()
     var reviews = [Review]()
+    var totalReviewCount = 0
     
     var discounts = [Discount]()
     
@@ -22,6 +23,7 @@ class Bar{
     var loc_long : Float = 0
     var loc_lat : Float = 0
     var address : String = ""
+    
     //opening hours
     var openClosingHours = [String]()
     

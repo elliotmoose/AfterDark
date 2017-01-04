@@ -6,16 +6,18 @@ class Sizing
     
     static let singleton = Sizing()
     
-    
+    //bar list
+    static let barCellHeight : CGFloat = 90
+    static let catTabHeight : CGFloat = 45
     //bar blown up dimensions
-
     static let minGalleryHeight = Sizing.ScreenHeight()/3
     static let maxGalleryHeight = Sizing.ScreenHeight()/2
     
-    static let mainViewHeight = Sizing.ScreenHeight() - Sizing.minGalleryHeight - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.navBarHeight
+    static let mainViewHeight = Sizing.ScreenHeight() - Sizing.statusBarHeight - Sizing.navBarHeight - Sizing.catTabHeight - Sizing.barCellHeight - Sizing.tabBarHeight
+    static let mainViewHeightWithTabs = Sizing.mainViewHeight + Sizing.tabHeight
     static let tabHeight = Sizing.HundredRelativeHeightPts()/3
-
-    
+    static let blownUpCellHeight = Sizing.mainViewHeight
+    static let galleryHeight = Sizing.ScreenHeight()/4
     
     //system dimensions
     static let tabBarHeight : CGFloat = 49

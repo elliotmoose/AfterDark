@@ -28,16 +28,10 @@ class BarManager: NSObject
     var mainBarList: [Bar] = []
     var displayBarList: [[Bar]] = [[]]
     var barListIcons: [NSDictionary] = []
-    var displayedDetailBar = Bar()
+    var displayedDetailBar : Bar? = nil
     weak var detailDelegate:BarManagerToDetailTableDelegate?
     weak var listDelegate :BarManagerToListTableDelegate?
     
-    //methods
-    fileprivate override init()
-    {
-        displayedDetailBar.name = "display Bar"
-        displayedDetailBar.description = "description"
-    }
     
     func DisplayBarDetails(_ bar : Bar)
     {
@@ -170,7 +164,7 @@ class BarManager: NSObject
                         bar.website = barDetails.website
 
                         
-                        if self.displayedDetailBar.name == bar.name
+                        if self.displayedDetailBar != nil && self.displayedDetailBar?.name == bar.name
                         {
                             self.detailDelegate?.UpdateDescriptionTab()
                         }

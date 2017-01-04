@@ -284,7 +284,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
                 let indexPaths = [indexPath]
                 self.collectionView.reloadItems(at: indexPaths)
                 //check if its being viewed
-                if BarManager.singleton.displayedDetailBar.name == bar.name
+                if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar?.name == bar.name
                 {
                     //update that icon in bar detail view
                     BarDetailTableViewController.singleton.UpdateBarIcon()
@@ -328,7 +328,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
         let thisBar = thisSection[indexPath.row]
         
         //set cell display content
-        cell.SetContent(bar : thisBar,displayMode: barDisplayMode)
+        cell.SetContent(bar : thisBar)
         
         cell.layer.cornerRadius = Sizing.itemCornerRadius
         

@@ -12,7 +12,9 @@ private let reuseIdentifier = "Cell"
 
 class CategorizedCollectionViewController: UICollectionViewController,CategoryManagerDelegate {
 
-    let categoryCollectionViewCont = CategoryDetailCollectionView()
+    //let categoryCollectionViewCont = CategoryDetailCollectionView()
+    let barListTableViewController = CategoryDetailTableViewController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,14 +95,24 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
+//        //update bars to display
+//        categoryCollectionViewCont.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
+//        
+//        //update selected category (for navigation title)
+//        CategoriesManager.singleton.displayedCategory = CategoriesManager.singleton.allCategories[indexPath.row]
+//        
+//        //push category detail
+//        self.navigationController?.pushViewController(categoryCollectionViewCont, animated: true)
+        
         //update bars to display
-        categoryCollectionViewCont.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
+        barListTableViewController.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
         
         //update selected category (for navigation title)
         CategoriesManager.singleton.displayedCategory = CategoriesManager.singleton.allCategories[indexPath.row]
         
-        //push category detail
-        self.navigationController?.pushViewController(categoryCollectionViewCont, animated: true)
+        //push view controller
+        self.navigationController?.pushViewController(barListTableViewController, animated: true)
+        
         
         
     }

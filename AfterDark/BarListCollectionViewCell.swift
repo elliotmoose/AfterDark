@@ -35,7 +35,7 @@ class BarListCollectionViewCell: UICollectionViewCell {
     }
 
     
-    func SetContent(bar : Bar,displayMode : DisplayBarListMode)
+    func SetContent(bar : Bar)
     {
         
         self.barImage.image = bar.icon;

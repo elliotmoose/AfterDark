@@ -77,7 +77,7 @@ class CategoryDetailCollectionView: UIViewController, UICollectionViewDataSource
         
         if let thisBar = thisBar
         {
-            cell.SetContent(bar : thisBar, displayMode: .alphabetical)
+            cell.SetContent(bar : thisBar)
         }
         
         cell.layer.cornerRadius = Sizing.itemCornerRadius

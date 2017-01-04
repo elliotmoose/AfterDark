@@ -33,9 +33,15 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         //map init
         GMSServices.provideAPIKey(Settings.googleServicesKey)
         
-        let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
-        let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
+        var loc_lat : Double = 0
+        var loc_long : Double = 0
         
+        if BarManager.singleton.displayedDetailBar != nil
+        {
+            loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_lat)
+            loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_long)
+        }
+
         let camera = GMSCameraPosition.camera(withLatitude: loc_lat, longitude: loc_long, zoom: 17)
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         mapView?.isMyLocationEnabled = true
@@ -125,7 +131,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     
     override func viewDidAppear(_ animated: Bool) {
         SetBarMarker()
-        FocusBarLocation()
+        FocusCurrentLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -137,15 +143,16 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     
     func SetBarMarker()
     {
-        let barTitle = BarManager.singleton.displayedDetailBar.name
-        let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
-        let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
+        guard BarManager.singleton.displayedDetailBar != nil else {return}
+        let barTitle = BarManager.singleton.displayedDetailBar?.name
+        let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_lat)
+        let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_long)
         
         // Creates a marker in the center of the map.
         
         marker.position = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
         marker.snippet = barTitle
-        marker.title = "\(BarManager.singleton.displayedDetailBar.address)"
+        marker.title = "\(BarManager.singleton.displayedDetailBar?.address)"
     }
     
     func FocusCurrentLocation()
@@ -167,8 +174,9 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     func FocusBarLocation()
     {
         StopFollow()
-        let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
-        let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
+        guard let bar = BarManager.singleton.displayedDetailBar else {return}
+        let loc_lat = CLLocationDegrees(bar.loc_lat)
+        let loc_long = CLLocationDegrees(bar.loc_long)
         let barLocation = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
         
         if let mapView = mapView
@@ -200,9 +208,14 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     
     func OpenGoogleMaps()
     {
-
-        let barLocLat = BarManager.singleton.displayedDetailBar.loc_lat
-        let barLocLong = BarManager.singleton.displayedDetailBar.loc_long
+        var barLocLat : Float = 0
+        var barLocLong : Float = 0
+        if BarManager.singleton.displayedDetailBar != nil
+        {
+            barLocLat = BarManager.singleton.displayedDetailBar!.loc_lat
+            barLocLong = BarManager.singleton.displayedDetailBar!.loc_long
+        }
+       
         
         guard barLocLat != 0 && barLocLong != 0 else {
             
@@ -305,8 +318,9 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     {
         StopFollow()
         
-        let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_lat)
-        let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar.loc_long)
+        guard let bar = BarManager.singleton.displayedDetailBar else {print("no bar to include in zoom out");return}
+        let loc_lat = CLLocationDegrees(bar.loc_lat)
+        let loc_long = CLLocationDegrees(bar.loc_long)
         let barLocation = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
         
         //gets user location

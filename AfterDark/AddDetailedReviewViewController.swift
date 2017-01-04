@@ -50,7 +50,7 @@ class AddDetailedReviewViewController: UIViewController,AddReviewDelegate {
     //METHODS
     @IBAction func SubmitButtonPressed(_ sender: Any) {
         
-        let currentBar = BarManager.singleton.displayedDetailBar
+        guard let currentBar = BarManager.singleton.displayedDetailBar else {return}
         
         //checks
         var errors = [String]()

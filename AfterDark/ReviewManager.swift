@@ -23,7 +23,7 @@ class ReviewManager
                 {
                     (success) -> Void in
                     
-                    if bar.name == BarManager.singleton.displayedDetailBar.name
+                    if BarManager.singleton.displayedDetailBar != nil && bar.name == BarManager.singleton.displayedDetailBar?.name
                     {
                         self.delegate?.UpdateReviewTab()
                         
@@ -62,9 +62,16 @@ class ReviewManager
                 var allReviewsForBar = [Review]()
                 for dict in output
                 {
-                    var newReview = Review()
-                    newReview.initWithDict(dict)
-                    allReviewsForBar.append(newReview)
+                    if let count = dict["COUNT(*)"] as? Int
+                    {
+                        bar.totalReviewCount = count
+                    }
+                    else
+                    {
+                        var newReview = Review()
+                        newReview.initWithDict(dict)
+                        allReviewsForBar.append(newReview)
+                    }
                 }
                 
                 bar.reviews = allReviewsForBar
@@ -92,9 +99,19 @@ class ReviewManager
                     var allReviewsForBar = bar.reviews
                     for dict in output
                     {
-                        var newReview = Review()
-                        newReview.initWithDict(dict)
-                        allReviewsForBar.append(newReview)
+                        if let count = dict["COUNT(*)"] as? Int
+                        {
+                            bar.totalReviewCount = count
+                        }
+                        else
+                        {
+                            var newReview = Review()
+                            newReview.initWithDict(dict)
+                            allReviewsForBar.append(newReview)
+                        }
+                        
+                        
+                        
                     }
                     bar.reviews = allReviewsForBar
                     
@@ -113,7 +130,7 @@ class ReviewManager
                 {
                     (success) -> Void in
                     
-                    if bar.name == BarManager.singleton.displayedDetailBar.name
+                    if BarManager.singleton.displayedDetailBar != nil && bar.name == BarManager.singleton.displayedDetailBar?.name
                     {
                         self.delegate?.UpdateReviewTab()
                     }

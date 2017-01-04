@@ -50,7 +50,14 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return BarManager.singleton.displayedDetailBar.discounts.count
+        if let bar = BarManager.singleton.displayedDetailBar
+        {
+            return bar.discounts.count
+        }
+        else
+        {
+            return 0
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -68,7 +75,10 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
             cell = DiscountCell()
         }
         
-        cell?.Load(discount: BarManager.singleton.displayedDetailBar.discounts[indexPath.row])
+        if let bar = BarManager.singleton.displayedDetailBar
+        {
+            cell?.Load(discount: bar.discounts[indexPath.row])
+        }
         
         return cell!
     }
@@ -76,8 +86,10 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         
-        DiscountDetailViewController.singleton.Load(bar: BarManager.singleton.displayedDetailBar, discount: BarManager.singleton.displayedDetailBar.discounts[row])
-        
+        if let bar = BarManager.singleton.displayedDetailBar
+        {
+            DiscountDetailViewController.singleton.Load(bar: bar, discount: bar.discounts[row])
+        }
         BarDetailTableViewController.singleton.navigationController?.pushViewController(DiscountDetailViewController.singleton, animated: true)
     }
     /*

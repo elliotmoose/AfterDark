@@ -50,8 +50,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //reset tab
     func ResetToFirstTab()
     {
-        guard let _ = mainBarDetailViewCell?.tab1 else {return}
-        mainBarDetailViewCell?.ChangeTab((mainBarDetailViewCell?.tab1)!)
+        guard let _ = mainBarDetailViewCell?.tabs[0] else {return}
+        mainBarDetailViewCell?.ChangeTab((mainBarDetailViewCell?.tabs[0])!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,8 +113,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         
         
         //set frame first
-        self.galleryCont.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight)
-        self.galleryCont.Initialize()
+        self.galleryCont.Initialize(frame : CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: self.maxGalleryHeight) )
         
         //init blurr view
         self.blurrView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -155,9 +154,10 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         //subviews
         self.addChildViewController(self.galleryCont)
         self.galleryCont.didMove(toParentViewController: self)
+        self.view.addSubview(self.galleryCont.view)
+
         self.tempBlurrContainerView.addSubview(tempBlurrView)
         
-        self.view.addSubview(self.galleryCont.view)
         self.view.addSubview(self.blurrView)
         self.view.addSubview(self.tempBlurrContainerView)
         self.view.addSubview(self.tableView)
@@ -203,17 +203,19 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     
     func UpdateBarIcon()
     {
+        guard let bar = BarManager.singleton.displayedDetailBar else {return}
         DispatchQueue.main.async(execute: {
-        self.barIcon.image = BarManager.singleton.displayedDetailBar.icon
+        self.barIcon.image = bar.icon
 
         })
     }
     func UpdateBarTitle()
     {
+        guard let bar = BarManager.singleton.displayedDetailBar else {return}
         DispatchQueue.main.async(execute: {
             
         //self.title = BarManager.singleton.displayedDetailBar.name
-        self.barTitle.text = BarManager.singleton.displayedDetailBar.name
+        self.barTitle.text = bar.name
         })
     }
     func UpdateGallery()
@@ -223,8 +225,9 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     
     func UpdateBarRating()
     {
+        guard let bar = BarManager.singleton.displayedDetailBar else {return}
         DispatchQueue.main.async(execute: {
-            self.barRatingView.SetRating(BarManager.singleton.displayedDetailBar.rating.avg)
+            self.barRatingView.SetRating(bar.rating.avg)
         })
     }
     
@@ -390,6 +393,8 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
     func Refresh()
     {
+        
+        guard let _ = BarManager.singleton.displayedDetailBar else {return}
         //refresh button -> spinner
         DispatchQueue.main.async(execute: {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.activityIndicator!)
@@ -397,13 +402,21 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
         
         
         //load generic details -> load reviews and discounts -> gallery image
-        BarManager.singleton.ReloadBar(ID: BarManager.singleton.displayedDetailBar.ID,handler: {
+        BarManager.singleton.ReloadBar(ID: BarManager.singleton.displayedDetailBar!.ID,handler: {
             (success,error,bar) -> Void in
             
             if success
             {
                 //update current bar info
-                let thisBar = BarManager.singleton.displayedDetailBar
+                guard let thisBar = BarManager.singleton.displayedDetailBar else {
+                    
+                    //spinner -> refresh button
+                    DispatchQueue.main.async(execute: {
+                        self.navigationItem.rightBarButtonItem = self.refreshButton
+                    })
+                    
+                    return
+                }
                 thisBar.name = bar.name
                 thisBar.icon = bar.icon
                 thisBar.bookingAvailable = bar.bookingAvailable

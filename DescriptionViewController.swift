@@ -19,7 +19,6 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
     }
 
-
     func Initialize()
     {
        
@@ -51,7 +50,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if BarManager.singleton.displayedDetailBar.bookingAvailable == "1"
+        if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar!.bookingAvailable == "1"
         {
             return 6
         }
@@ -80,14 +79,16 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")
-
+        
+        guard BarManager.singleton.displayedDetailBar != nil else {return tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath)}
+        
         switch indexPath
         {
         case IndexPath(row: 0, section: 0):
         
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: IndexPath(row: 0, section: 0)) as! DescriptionCell
             
-            descriptionCell.textLabel?.text = BarManager.singleton.displayedDetailBar.description
+            descriptionCell.textLabel?.text = BarManager.singleton.displayedDetailBar?.description
             descriptionCell.textLabel?.numberOfLines = 0
             descriptionCell.selectionStyle = .none
             
@@ -111,9 +112,9 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             
-            if BarManager.singleton.displayedDetailBar.address != ""
+            if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar!.address != ""
             {
-                cell?.Detail.text = BarManager.singleton.displayedDetailBar.address
+                cell?.Detail.text = BarManager.singleton.displayedDetailBar!.address
             }
             else
             {
@@ -130,7 +131,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
 
             
-            cell?.LoadOpeningHours(openingHours: BarManager.singleton.displayedDetailBar.openClosingHours)
+            cell?.LoadOpeningHours(openingHours: BarManager.singleton.displayedDetailBar!.openClosingHours)
             openingHoursCell = cell!
             
             return cell!
@@ -149,7 +150,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             cell?.Icon?.image = UIImage(named: "Phone-48")?.withRenderingMode(.alwaysTemplate)
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
-            cell?.Detail.text = BarManager.singleton.displayedDetailBar.contact
+            cell?.Detail.text = BarManager.singleton.displayedDetailBar?.contact
             return cell!
 
         case IndexPath(row: 4, section: 0):
@@ -167,7 +168,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
             
             
             cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
-            cell?.Detail.text = BarManager.singleton.displayedDetailBar.website
+            cell?.Detail.text = BarManager.singleton.displayedDetailBar?.website
             cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
 
             return cell!
@@ -256,7 +257,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        
+        guard let _ = BarManager.singleton.displayedDetailBar else {return}
         
         if indexPath.row == 2 && openingHoursCell != nil
         {
@@ -281,7 +282,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         
         if indexPath.row == 3
         {
-            let phonenumber = BarManager.singleton.displayedDetailBar.contact
+            let phonenumber = BarManager.singleton.displayedDetailBar?.contact
             if let url = URL(string: "tel://\(phonenumber)")
             {
                 if UIApplication.shared.canOpenURL(url)
@@ -294,7 +295,7 @@ class DescriptionViewController: UIViewController, UITableViewDelegate,UITableVi
         
         if indexPath.row == 4
         {
-            if let url = URL(string: BarManager.singleton.displayedDetailBar.website)
+            if let url = URL(string: BarManager.singleton.displayedDetailBar!.website)
             {
                 if UIApplication.shared.canOpenURL(url)
                 {

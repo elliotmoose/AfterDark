@@ -14,11 +14,9 @@ protocol TabDelegate : class {
 
 class BarDetailViewMainCell: UITableViewCell, TabDelegate {
 
-    var tab1 : UIButton
-    var tab2 : UIButton
-    var tab3 : UIButton
-    var tab4 : UIButton
-    var tabHighlighter: UIView
+    var tabs = [UIButton]()
+
+    var tabHighlighter: UIView?
     
     var tabCont = UITabBarController()
     var descriptionCont = DescriptionViewController()
@@ -36,22 +34,22 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
 
     
     required init?(coder aDecoder: NSCoder) {
-        tab1 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tab2 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tab3 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tab4 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tabHighlighter = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab1 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab2 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab3 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab4 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tabHighlighter = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         super.init(coder: aDecoder)
 
     }
 
     init(frame: CGRect)
     {
-        tab1 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tab2 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tab3 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tab4 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tabHighlighter = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab1 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab2 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab3 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tab4 = UIButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tabHighlighter = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         super.init(style: UITableViewCellStyle.default, reuseIdentifier: "BarDetailHeaderView")
         self.frame = frame
     }
@@ -68,10 +66,11 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         
 
         //sizing
-        let tabWidth = Sizing.ScreenWidth()/4
         let tabHeight = Sizing.tabHeight
         let mainViewWidth = Sizing.ScreenWidth()
         let mainViewHeight = Sizing.mainViewHeight
+        let numberOfTabs = 4
+        let tabWidth = Sizing.ScreenWidth()/CGFloat(numberOfTabs)
         
         let tabContFrame = CGRect(x: 0, y: tabHeight, width: mainViewWidth, height: mainViewHeight + Sizing.statusBarHeight)
         let detailViewFrame = CGRect(x: 0, y: 0, width: mainViewWidth, height: mainViewHeight - tabHeight)
@@ -80,10 +79,48 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         
         //initialize and frame
         tabHighlighter = UIView.init(frame: CGRect(x: 0, y: tabHeight - highlighterHeight, width: tabWidth, height: highlighterHeight))
-        tab1 = UIButton.init(frame: CGRect(x: 0, y: 0, width: tabWidth, height: tabHeight))
-        tab2 = UIButton.init(frame: CGRect(x: tabWidth, y: 0, width: tabWidth, height: tabHeight))
-        tab3 = UIButton.init(frame: CGRect(x: Sizing.ScreenWidth() - (tabWidth*2), y: 0, width: tabWidth, height: tabHeight))
-        tab4 = UIButton.init(frame: CGRect(x: Sizing.ScreenWidth() - tabWidth, y: 0, width: tabWidth, height: tabHeight))
+
+        guard let tabHighlighter = tabHighlighter else {return}
+        
+        
+        //init tab buttons
+
+        for index in 0...numberOfTabs-1
+        {
+            let newTab = UIButton(frame: CGRect(x: tabWidth * CGFloat(index), y: 0, width: tabWidth, height: tabHeight))
+            newTab.tag = index
+            
+            //colors
+            newTab.backgroundColor = UIColor.black
+            newTab.setTitleColor(ColorManager.themeGray, for: .normal)
+            newTab.setTitleColor(ColorManager.themeBright, for: .selected)
+            
+            newTab.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
+            
+            switch index {
+            case 0:
+                newTab.setTitle("Details", for: .normal)
+            case 1:
+                newTab.setTitle("Discount", for: .normal)
+            case 2:
+                newTab.setTitle("Reviews", for: .normal)
+            case 3:
+                newTab.setTitle("Location", for: .normal)
+            default:
+                break
+            }
+            
+            newTab.layer.shadowOpacity = 0.4
+            newTab.layer.shadowOffset = CGSize(width: 0, height: 2)
+            newTab.layer.shadowRadius = 2
+            newTab.clipsToBounds = false
+            
+            tabs.append(newTab)
+            
+            self.addSubview(newTab)
+            
+        }
+        
         
         //frames
         tabCont.view.frame = tabContFrame
@@ -102,20 +139,7 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         let tabDeselectColor = ColorManager.detailTabDeselectedColor
         
         self.backgroundColor = UIColor.clear
-        tab1.backgroundColor = labelColor
-        tab2.backgroundColor = labelColor
-        tab3.backgroundColor = labelColor
-        tab4.backgroundColor = labelColor
-        
-        tab1.setTitleColor(tabDeselectColor, for: UIControlState())
-        tab2.setTitleColor(tabDeselectColor, for: UIControlState())
-        tab3.setTitleColor(tabDeselectColor, for: UIControlState())
-        tab4.setTitleColor(tabDeselectColor, for: UIControlState())
-        
-        tab1.setTitleColor(tabSelectColor, for: UIControlState.selected)
-        tab2.setTitleColor(tabSelectColor, for: UIControlState.selected)
-        tab3.setTitleColor(tabSelectColor, for: UIControlState.selected)
-        tab4.setTitleColor(tabSelectColor, for: UIControlState.selected)
+
         
         tabHighlighter.backgroundColor = tabSelectColor
         self.tabCont.view.backgroundColor = UIColor.white
@@ -124,17 +148,9 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         locationCont.view.backgroundColor = contentBackgroundColor
         discountCont.view.backgroundColor = contentBackgroundColor
         
-        //tab titles
-        tab1.setTitle("Details", for: UIControlState())
-        tab2.setTitle("Discount", for: UIControlState())
-        tab3.setTitle("Reviews", for: UIControlState())
-        tab4.setTitle("Location", for: UIControlState())
         
         //subviews
-        self.addSubview(tab1)
-        self.addSubview(tab2)
-        self.addSubview(tab3)
-        self.addSubview(tab4)
+
         self.addSubview(tabCont.view)
         self.addSubview(tabHighlighter)
         self.tabCont.addChildViewController(self.descriptionCont)
@@ -142,18 +158,7 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         self.tabCont.addChildViewController(self.reviewCont)
         self.tabCont.addChildViewController(self.locationCont)
         
-        //actions and events
-        tab1.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
-        tab2.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
-        tab3.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
-        tab4.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
-        
-        //label tags
-        tab1.tag = 0
-        tab2.tag = 1
-        tab3.tag = 2
-        tab4.tag = 3
-        
+
         //turn resizing off
         self.autoresizesSubviews = false
         self.reviewCont.tableView?.autoresizesSubviews = false
@@ -166,31 +171,14 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         self.layer.shadowOpacity = 0.4
         self.layer.shadowOffset = CGSize(width: 2, height: -3)
         self.clipsToBounds = false
+
         
-        tab1.layer.shadowOpacity = 0.4
-        tab1.layer.shadowOffset = CGSize(width: 0, height: 2)
-        tab1.layer.shadowRadius = 2
-        tab1.clipsToBounds = false
+        for tab in tabs
+        {
+            self.bringSubview(toFront: tab)
+        }
         
-        tab2.layer.shadowOpacity = 0.4
-        tab2.layer.shadowOffset = CGSize(width: 0, height: 2)
-        tab2.layer.shadowRadius = 2
-        tab2.clipsToBounds = false
-        
-        tab3.layer.shadowOpacity = 0.4
-        tab3.layer.shadowOffset = CGSize(width: 0, height: 2)
-        tab3.layer.shadowRadius = 2
-        tab3.clipsToBounds = false
-        
-        tab4.layer.shadowOpacity = 0.4
-        tab4.layer.shadowOffset = CGSize(width: 0, height: 2)
-        tab4.layer.shadowRadius = 2
-        tab4.clipsToBounds = false
-        
-        self.bringSubview(toFront: tab1)
-        self.bringSubview(toFront: tab2)
-        self.bringSubview(toFront: tab3)
-        self.bringSubview(toFront: tab4)
+
         self.bringSubview(toFront: tabHighlighter)
 
     }
@@ -200,31 +188,15 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         tabCont.selectedIndex = sender.tag
         let button = sender as! UIButton
         button.isSelected = true
+
         
-        //select button, deselect others
-        switch sender.tag
+        for tab in tabs
         {
-        case 0:
-            tab2.isSelected = false;
-            tab3.isSelected = false;
-            tab4.isSelected = false;
-        case 1:
-            tab1.isSelected = false;
-            tab3.isSelected = false;
-            tab4.isSelected = false;
+            if tab.tag != sender.tag
+            {
+                tab.isSelected = false
+            }
             
-        case 2:
-            tab1.isSelected = false;
-            tab2.isSelected = false;
-            tab4.isSelected = false;
-            
-        case 3:
-            tab1.isSelected = false;
-            tab2.isSelected = false;
-            tab3.isSelected = false;
-        default:
-            
-            break
         }
         
         MoveHighlight(sender.tag)
@@ -232,8 +204,12 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
     
     func MoveHighlight(_ index:Int)
     {
+        guard let _ = tabHighlighter else {return}
+
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 4, initialSpringVelocity: 4, options: UIViewAnimationOptions(), animations: {
-            self.tabHighlighter.frame = CGRect( x: self.tabHighlighter.frame.size.width * CGFloat(index),  y: self.tabHighlighter.frame.origin.y,  width: self.tabHighlighter.frame.size.width,  height: self.tabHighlighter.frame.size.height)
+
+
+            self.tabHighlighter!.frame = CGRect( x: self.tabHighlighter!.frame.size.width * CGFloat(index),  y: self.tabHighlighter!.frame.origin.y,  width: self.tabHighlighter!.frame.size.width,  height: self.tabHighlighter!.frame.size.height)
             }, completion: nil)
     }
     func InjectData(_ bar:Bar)

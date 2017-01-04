@@ -24,19 +24,21 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+    }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.HundredRelativeWidthPts()*3)
-        if pages.count == 0
-        {
-            self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
-
-        }
-        else
-        {
-            self.pageViewController.setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
-
-        }
+//        //self.view.frame = CGRect(x: 0, y: Sizing.tabHeight, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight)
+//        if pages.count == 0
+//        {
+//            self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
+//
+//        }
+//        else
+//        {
+//            self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
+//
+//        }
 
     }
 
@@ -46,8 +48,8 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         pages.removeAll()
         currentPageIndex = 0
         //check if bar has pre loaded images
-        let barOrigin = BarManager.singleton.displayedDetailBar
-        if barOrigin.Images.count != 0 && barOrigin.Images.count > 0 && barOrigin.maxImageCount > 0
+        guard let barOrigin = BarManager.singleton.displayedDetailBar else {return}
+        if barOrigin.Images.count > 0 && barOrigin.maxImageCount > 0
         {
             //then load from memory 
             
@@ -92,19 +94,21 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         }
         
         
-        //update UI
-        self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
+//        //update UI
+        self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
     }
 
-    func Initialize()
+    func Initialize(frame : CGRect)
     {
 
        
         
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        self.pageViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.pageViewController.view.frame = frame
         
         self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
+        
+        
         
 //        let pc = UIPageControl.appearance()
 //        pc.pageIndicatorTintColor = ColorManager.galleryPageControlDotNormalColor
@@ -123,7 +127,9 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
 
         
         self.view.addSubview(self.pageViewController.view)
+        self.view.clipsToBounds = true
         
+
     }
     
     
@@ -171,14 +177,16 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     //***************************************************************************************
 
     func viewControllerAtIndex(_ index: Int) ->ContentViewController {
+        guard let bar = BarManager.singleton.displayedDetailBar else {return ContentViewController(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight))}
+        
         if (self.pages.count == 0) || (index >= self.pages.count) {
-            let vc = ContentViewController(frame: self.view.frame)
+            let vc = ContentViewController(frame: CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight))
             
             vc.pageIndex = index
             
-            if index >= 0 && index < BarManager.singleton.displayedDetailBar.Images.count
+            if index >= 0 && index < bar.Images.count
             {
-                vc.imageView.image = BarManager.singleton.displayedDetailBar.Images[index]
+                vc.imageView.image = bar.Images[index]
             }
             
             return vc
@@ -186,9 +194,9 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         
         let vc = pages[index]
         vc.pageIndex = index
-        if index >= 0 && index < BarManager.singleton.displayedDetailBar.Images.count
+        if index >= 0 && index < bar.Images.count
         {
-            vc.imageView.image = BarManager.singleton.displayedDetailBar.Images[index]
+            vc.imageView.image = bar.Images[index]
         }
         return vc
     }
@@ -252,6 +260,8 @@ class ContentViewController: UIViewController
         imageView = UIImageView(frame: frame)
         imageView.contentMode = .scaleAspectFill
         self.view.addSubview(imageView)
+        self.view.clipsToBounds = false
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
