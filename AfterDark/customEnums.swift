@@ -8,7 +8,12 @@ enum DisplayBarListMode
     case serviceRating
     
 }
-
+enum Arrangement
+{
+    case nearby
+    case priceLow
+    case avgRating
+}
 struct Rating {
     var avg: Float
     var price: Float

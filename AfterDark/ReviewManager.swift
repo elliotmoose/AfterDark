@@ -51,9 +51,9 @@ class ReviewManager
             }
         }
         
-        let userID = Account.singleton.user_ID
+        guard let userID = Account.singleton.user_ID else {return}
         
-        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(indexOfFirstReview)&Count=\(count)&User_ID=\(userID!)"
+        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(indexOfFirstReview)&Count=\(count)&User_ID=\(userID)"
         Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
         if success
         {

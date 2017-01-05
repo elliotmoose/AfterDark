@@ -40,7 +40,22 @@ class Account {
                                 {
                                     self.user_name = userDetails["User_Name"] as? String
                                     self.user_Email = userDetails["User_Email"] as? String
-                                    self.user_ID = userDetails["User_ID"] as? String
+                                    
+                                    if let userID = userDetails["User_ID"] as? Int
+                                    {
+                                        self.user_ID = "\(userID)"
+                                    }
+                                    else if let userID = userDetails["User_ID"] as? String
+                                    {
+                                        self.user_ID = userID
+                                    }
+                                }
+                                else
+                                {
+                                    DispatchQueue.main.async {
+                                        handler(false,"Server Fault")
+                                        return
+                                    }
                                 }
                                 
                                 self.Save()
@@ -61,11 +76,17 @@ class Account {
                                         }
                                     }
                                     
-                                    if detail == "Invalid ID"
+                                    if detail == "Invalid Username"
                                     {
                                         DispatchQueue.main.async {
                                             handler(false,"Invalid Username")
                                         }
+                                    }
+                                }
+                                else
+                                {
+                                    DispatchQueue.main.async {
+                                        handler(false,"Server Fault")
                                     }
                                 }
                                 
@@ -80,7 +101,7 @@ class Account {
                 }
                 catch let error as NSError
                 {
-                    print(error)
+                    print("Cant log in : \(error)" )
                 }
 
                 

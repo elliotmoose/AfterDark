@@ -90,7 +90,7 @@ class CategoryDetailCollectionView: UIViewController, UICollectionViewDataSource
         let thisBar = BarManager.singleton.BarFromBarID(barID)
         
         if let thisBar = thisBar{
-            BarManager.singleton.DisplayBarDetails(thisBar)
+            BarManager.singleton.displayedDetailBar = thisBar
             BarDetailTableViewController.singleton.UpdateDisplays()
             self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
             BarDetailTableViewController.singleton.ResetToFirstTab()

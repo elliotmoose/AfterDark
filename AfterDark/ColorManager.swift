@@ -22,9 +22,8 @@ class ColorManager
     static let barCellColor = UIColor.darkGray
     
     //gallery colors
-    static let galleryBGColor = UIColor.clear
-    static let galleryPageControlBGColor = UIColor.clear
-    static let galleryPageControlDotHighlightColor = UIColor.black
+    static let galleryBGColor = UIColor.black
+    static let galleryPageControlDotHighlightColor = UIColor.white
     static let galleryPageControlDotNormalColor = UIColor.lightGray
     
     //details view
@@ -41,11 +40,11 @@ class ColorManager
     static let descriptionIconsTintColor = ColorManager.themeBright
     static let descriptionCellBGColor = UIColor.black
     static let descriptionCellTextColor = UIColor.white
-    static let reservationCellColor = UIColor.orange
+    static let reservationCellColor = ColorManager.themeBright
     
     //discount view
-    static let discountTableBGColor = UIColor.darkGray
-    
+    static let discountTableBGColor = UIColor(hue: 0, saturation: 0, brightness: 0.1, alpha: 1)
+    static let discountCellTextColor = UIColor.black
     //reviews view
     static let reviewTitleColor = UIColor.white
     static let reviewCellBGColor = UIColor.black

@@ -30,7 +30,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
     
     //view controllers
-    var galleryCont = GalleryViewController.singleton
+    var galleryCont = GalleryViewController()
     
     //constants
     let minGalleryHeight = Sizing.minGalleryHeight
@@ -58,7 +58,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
 
         
         self.AnimateBlurrView()
-        self.UpdateBarIcon()
         self.UpdateBarTitle()
         self.UpdateReviewTab()
         self.UpdateDiscountTab()
@@ -194,21 +193,12 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     //============================================================================
     func UpdateDisplays()
     {
-        self.UpdateBarIcon()
         self.UpdateGallery()
         self.UpdateTabs()
         self.UpdateBarTitle()
         self.UpdateBarRating()
     }
     
-    func UpdateBarIcon()
-    {
-        guard let bar = BarManager.singleton.displayedDetailBar else {return}
-        DispatchQueue.main.async(execute: {
-        self.barIcon.image = bar.icon
-
-        })
-    }
     func UpdateBarTitle()
     {
         guard let bar = BarManager.singleton.displayedDetailBar else {return}
@@ -242,7 +232,7 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
     {
         //update bar description tab
         DispatchQueue.main.async(execute: {
-        self.mainBarDetailViewCell?.descriptionCont.tableView?.reloadData()
+        self.mainBarDetailViewCell?.detailsCont.tableView?.reloadData()
         })
     }
     
@@ -418,7 +408,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
                     return
                 }
                 thisBar.name = bar.name
-                thisBar.icon = bar.icon
                 thisBar.bookingAvailable = bar.bookingAvailable
                 thisBar.contact = bar.contact
                 thisBar.description = bar.description
@@ -429,7 +418,6 @@ class BarDetailTableViewController: UIViewController, UITableViewDelegate,UITabl
                 thisBar.openClosingHours = bar.openClosingHours
                 
                 //update displays
-                self.UpdateBarIcon()
                 self.UpdateBarTitle()
                 self.UpdateDescriptionTab()
                 self.UpdateBarRating()

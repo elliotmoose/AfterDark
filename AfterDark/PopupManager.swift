@@ -60,4 +60,33 @@ class PopupManager{
         
         presentationViewCont.present(alert, animated: true, completion: nil)
     }
+    
+    func PopupWithTextInput(title : String , body : String, presentationViewCont : UIViewController, handler: @escaping (_ textBody : String)->Void)
+    {
+        
+        var body = ""
+        
+        
+        
+        let alert = UIAlertController(title: title, message: body, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField(configurationHandler: {
+            (textfield) -> Void in
+        })
+        
+        
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { action in
+            
+            //call back when ok clicked
+            handler(alert.textFields![0].text!);
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            
+            
+        }))
+        
+
+        presentationViewCont.present(alert, animated: true, completion: nil)
+    }
 }

@@ -15,6 +15,7 @@ class Sizing
     
     static let mainViewHeight = Sizing.ScreenHeight() - Sizing.statusBarHeight - Sizing.navBarHeight - Sizing.catTabHeight - Sizing.barCellHeight - Sizing.tabBarHeight
     static let mainViewHeightWithTabs = Sizing.mainViewHeight + Sizing.tabHeight
+    static let mainViewWithoutGalleryAndTabs = Sizing.mainViewHeight - Sizing.tabHeight - Sizing.galleryHeight
     static let tabHeight = Sizing.HundredRelativeHeightPts()/3
     static let blownUpCellHeight = Sizing.mainViewHeight
     static let galleryHeight = Sizing.ScreenHeight()/4

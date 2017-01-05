@@ -38,7 +38,6 @@ class BarListCollectionViewCell: UICollectionViewCell {
     func SetContent(bar : Bar)
     {
         
-        self.barImage.image = bar.icon;
         self.barNameLabel.text = bar.name
         self.barRatingLabel.text = String(format: "%.1f", bar.rating.avg)
     }

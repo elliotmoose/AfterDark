@@ -8,9 +8,18 @@
 
 import UIKit
 import Foundation
+
+protocol DiscountToMainCellDelegate : class {
+    func PushViewController(viewCont : UIViewController)
+}
+
+
 class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    
     var tableView: UITableView?
+    
+    weak var delegate : DiscountToMainCellDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +38,9 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
         self.tableView?.rowHeight = Sizing.discountCellHeight
 
         //color
-        let tableViewBackGroundColor = ColorManager.discountTableBGColor
-        tableView?.backgroundColor = tableViewBackGroundColor
+        
+        tableView?.backgroundColor = ColorManager.discountTableBGColor
+        tableView?.separatorColor = UIColor.clear
         
         //delegates
         tableView?.dataSource = self
@@ -90,7 +100,7 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
         {
             DiscountDetailViewController.singleton.Load(bar: bar, discount: bar.discounts[row])
         }
-        BarDetailTableViewController.singleton.navigationController?.pushViewController(DiscountDetailViewController.singleton, animated: true)
+        self.delegate?.PushViewController(viewCont: DiscountDetailViewController.singleton)
     }
     /*
     // MARK: - Navigation

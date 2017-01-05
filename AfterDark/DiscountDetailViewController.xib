@@ -114,9 +114,7 @@
                                         <constraint firstItem="WHs-4U-GIa" firstAttribute="leading" secondItem="qhW-vm-QrP" secondAttribute="leading" id="wMM-Vy-KlB"/>
                                     </constraints>
                                 </view>
-                                <vibrancyEffect>
-                                    <blurEffect style="light"/>
-                                </vibrancyEffect>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <constraints>

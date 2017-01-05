@@ -58,6 +58,18 @@ class GalleryManager
                                             thisBarOrigin.Images.append(image)
                                             
                                             //update UI at page:
+                                            //this is for discounts page
+                                            if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
+                                            {
+                                                if thisBarOrigin.Images.count == 1 && currentDisc.bar_ID == thisBarOrigin.ID
+                                                {
+                                                    DiscountDetailViewController.singleton.UpdateImage(image : image)
+                                                }
+                                            }
+                                            
+                                            
+                                            
+                                            
                                             handler(true)
                                         }
                                         

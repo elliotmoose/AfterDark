@@ -19,7 +19,7 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
     var tabHighlighter: UIView?
     
     var tabCont = UITabBarController()
-    var descriptionCont = DescriptionViewController()
+    var detailsCont = DetailsViewController()
     var reviewCont = ReviewsViewController()
     var locationCont = LocationViewController()
     var discountCont = DiscountViewController()
@@ -58,9 +58,9 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
     {
 
         //init tabs
-        self.descriptionCont = DescriptionViewController.init(nibName: nil, bundle: nil)
-        self.descriptionCont.view = UIView(frame: .zero)
-        self.descriptionCont.Initialize()
+        self.detailsCont = DetailsViewController.init(nibName: nil, bundle: nil)
+        self.detailsCont.view = UIView(frame: .zero)
+        self.detailsCont.Initialize()
         
         self.reviewCont.Initialize()
         
@@ -124,8 +124,8 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         
         //frames
         tabCont.view.frame = tabContFrame
-        self.descriptionCont.view.frame = detailViewFrame;
-        self.descriptionCont.tableView?.frame = detailViewFrame
+        self.detailsCont.view.frame = detailViewFrame;
+        self.detailsCont.tableView?.frame = detailViewFrame
         self.reviewCont.view.frame = detailViewFrame;
         self.reviewCont.tableView?.frame = detailViewFrame
         self.locationCont.view.frame = detailViewFrame;
@@ -143,7 +143,7 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
         
         tabHighlighter.backgroundColor = tabSelectColor
         self.tabCont.view.backgroundColor = UIColor.white
-        descriptionCont.view.backgroundColor = contentBackgroundColor
+        detailsCont.view.backgroundColor = contentBackgroundColor
         reviewCont.view.backgroundColor = contentBackgroundColor
         locationCont.view.backgroundColor = contentBackgroundColor
         discountCont.view.backgroundColor = contentBackgroundColor
@@ -153,7 +153,7 @@ class BarDetailViewMainCell: UITableViewCell, TabDelegate {
 
         self.addSubview(tabCont.view)
         self.addSubview(tabHighlighter)
-        self.tabCont.addChildViewController(self.descriptionCont)
+        self.tabCont.addChildViewController(self.detailsCont)
         self.tabCont.addChildViewController(self.discountCont)
         self.tabCont.addChildViewController(self.reviewCont)
         self.tabCont.addChildViewController(self.locationCont)

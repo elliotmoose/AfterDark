@@ -8,14 +8,15 @@
 
 import UIKit
 
-class BarBlownUpTableViewCell: UITableViewCell,TabDelegate {
+class BarBlownUpTableViewCell: UITableViewCell,TabDelegate ,DiscountToMainCellDelegate{
 
     
     var tabCont = UITabBarController()
-    var descriptionCont = DescriptionViewController()
-    var reviewCont = ReviewsViewController()
+    var detailsCont = DetailsViewController()
+    var reviewCont = ReviewViewController(nibName: "ReviewViewController", bundle: Bundle.main)
     var discountCont = DiscountViewController()
-    var galleryCont = GalleryViewController.singleton
+    var descriptionCont = DescriptionViewController()
+    var galleryCont = GalleryViewController()
 
     
     var tabs = [UIButton]()
@@ -34,11 +35,12 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate {
     func CellWillAppear()
     {
         galleryCont.ToPresentNewDetailBar()
+        self.galleryCont.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight)
+        
+        
+        
         guard tabs.count > 0 else {return}
         ChangeTab(tabs[0])
-        
-        self.galleryCont.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight)
-
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -49,12 +51,13 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate {
     
     func Initialize()
     {
+        //self
+        self.selectionStyle = .none
         
         //init tabs
-        self.descriptionCont = DescriptionViewController.init(nibName: nil, bundle: nil)
-        self.descriptionCont.view = UIView(frame: .zero)
-        self.descriptionCont.Initialize()
-        self.reviewCont.Initialize()
+        self.detailsCont = DetailsViewController.init(nibName: nil, bundle: nil)
+        self.detailsCont.view = UIView(frame: .zero)
+        self.detailsCont.Initialize()
         
         //sizing
         let tabHeight = Sizing.tabHeight
@@ -85,7 +88,7 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate {
             case 2:
                 newTab.setTitle("Reviews", for: .normal)
             case 3:
-                newTab.setTitle("Gallery", for: .normal)
+                newTab.setTitle("About Us", for: .normal)
             default:
                 break
             }
@@ -103,21 +106,20 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate {
             }
         
         //init view controllers
-        let tabContFrame = CGRect(x: 0, y: tabHeight + Sizing.galleryHeight, width: Sizing.ScreenWidth(), height: Sizing.mainViewHeightWithTabs)
+        let tabContFrame = CGRect(x: 0, y: tabHeight + Sizing.galleryHeight, width: Sizing.ScreenWidth()*2, height: Sizing.mainViewHeightWithTabs)
         let detailViewFrame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.mainViewHeight - tabHeight - Sizing.galleryHeight)
 
         //frames
-        tabCont.view.frame = tabContFrame
-        self.descriptionCont.view.frame = detailViewFrame;
-        self.descriptionCont.tableView?.frame = detailViewFrame
-        self.reviewCont.view.frame = detailViewFrame;
-        self.reviewCont.tableView?.frame = detailViewFrame
+
+        self.detailsCont.view.frame = detailViewFrame;
+        self.detailsCont.tableView?.frame = detailViewFrame
         self.discountCont.view.frame = detailViewFrame;
         self.discountCont.tableView?.frame = detailViewFrame
+        self.descriptionCont.view.frame = detailViewFrame
         
-        //delegate
-        reviewCont.delegate = self
-        
+        //delegates
+        //reviewCont.delegate = self
+        discountCont.delegate = self
         
         //shadows
         self.layer.shadowOpacity = 0.4
@@ -126,9 +128,13 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate {
     
         
         self.addSubview(tabCont.view)
-        self.tabCont.addChildViewController(self.descriptionCont)
+        self.tabCont.addChildViewController(self.detailsCont)
         self.tabCont.addChildViewController(self.discountCont)
         self.tabCont.addChildViewController(self.reviewCont)
+        self.tabCont.addChildViewController(self.descriptionCont)
+        tabCont.view.frame = tabContFrame
+        tabCont.viewDidLayoutSubviews()
+        tabCont.view.layoutSubviews()
         
         
         //gallery
@@ -176,6 +182,10 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate {
 
     func NavCont() -> UINavigationController {
         return (self.delegate?.NavCont())!
+    }
+    
+    func PushViewController(viewCont: UIViewController) {
+        self.delegate?.NavCont().pushViewController(viewCont, animated: true)
     }
 
 }

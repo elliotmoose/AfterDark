@@ -157,7 +157,9 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
             //register bar list table view cell
             self.collectionView.register(UINib(nibName: "BarListCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BarListCollectionViewCell")
             //set self as bar manager delegate
-            BarManager.singleton.listDelegate = self
+            
+            
+            //===in case clash with new sysstemBarManager.singleton.listDelegate = self
             
             
         }
@@ -253,7 +255,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
     func UpdateBarListTableDisplay()
     {
         //arrange before display
-        BarManager.singleton.ArrangeBarList(barDisplayMode)
+//        BarManager.singleton.ArrangeBarList(barDisplayMode)
         
         //after arrange -> load
         self.ReloadTable()
@@ -262,40 +264,40 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
     
     func UpdateCellForBar(_ bar : Bar)
     {
-        //get bar indexPath in display Bar List
-        var indexPath: IndexPath?
-        for sectionIndex in 0...BarManager.singleton.displayBarList.count-1
-        {
-            let section = BarManager.singleton.displayBarList[sectionIndex]
-            for rowIndex in 0...section.count-1
-            {
-                let barx = section[rowIndex]
-                if bar.name == barx.name
-                {
-                    indexPath = IndexPath(row: rowIndex, section: sectionIndex)
-                }
-            }
-        }
-        
-        if let indexPath = indexPath
-        {
-            //update that index path
-            DispatchQueue.main.async {
-                let indexPaths = [indexPath]
-                self.collectionView.reloadItems(at: indexPaths)
-                //check if its being viewed
-                if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar?.name == bar.name
-                {
-                    //update that icon in bar detail view
-                    BarDetailTableViewController.singleton.UpdateBarIcon()
-                    
-                    //update that icon in discount detail view controller
-                    DiscountDetailViewController.singleton.barIconImageView.image = bar.icon
-                    
-                }
-            }
-        }
-        
+//        //get bar indexPath in display Bar List
+//        var indexPath: IndexPath?
+//        for sectionIndex in 0...BarManager.singleton.displayBarList.count-1
+//        {
+//            let section = BarManager.singleton.displayBarList[sectionIndex]
+//            for rowIndex in 0...section.count-1
+//            {
+//                let barx = section[rowIndex]
+//                if bar.name == barx.name
+//                {
+//                    indexPath = IndexPath(row: rowIndex, section: sectionIndex)
+//                }
+//            }
+//        }
+//        
+//        if let indexPath = indexPath
+//        {
+//            //update that index path
+//            DispatchQueue.main.async {
+//                let indexPaths = [indexPath]
+//                self.collectionView.reloadItems(at: indexPaths)
+//                //check if its being viewed
+//                if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar?.name == bar.name
+//                {
+//                    //update that icon in bar detail view
+//                    BarDetailTableViewController.singleton.UpdateBarIcon()
+//                    
+//                    //update that icon in discount detail view controller
+//                    DiscountDetailViewController.singleton.barIconImageView.image = bar.icon
+//                    
+//                }
+//            }
+//        }
+//        
         
     }
     
@@ -308,30 +310,31 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
 
-        let count = BarManager.singleton.displayBarList.count
-        return count
-        
+//        let count = BarManager.singleton.displayBarList.count
+//        return count
+            return 0
     }
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        let count = BarManager.singleton.displayBarList[section].count
-        
-        return count
+//        let count = BarManager.singleton.displayBarList[section].count
+//        
+//        return count
+        return 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BarListCollectionViewCell", for: indexPath) as! BarListCollectionViewCell
-        let thisSection = BarManager.singleton.displayBarList[indexPath.section]
-        let thisBar = thisSection[indexPath.row]
-        
-        //set cell display content
-        cell.SetContent(bar : thisBar)
-        
-        cell.layer.cornerRadius = Sizing.itemCornerRadius
-        
+//        let thisSection = BarManager.singleton.displayBarList[indexPath.section]
+//        let thisBar = thisSection[indexPath.row]
+//        
+//        //set cell display content
+//        cell.SetContent(bar : thisBar)
+//        
+//        cell.layer.cornerRadius = Sizing.itemCornerRadius
+//        
         return cell
     }
 
@@ -341,14 +344,14 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //prep for display
-        BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
-        BarDetailTableViewController.singleton.UpdateDisplays()
-        
-        self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
-        
-        BarDetailTableViewController.singleton.ResetToFirstTab()
-        
-        collectionView.deselectItem(at: indexPath, animated: true)
+//        BarManager.singleton.DisplayBarDetails(BarManager.singleton.displayBarList[indexPath.section][indexPath.row])
+//        BarDetailTableViewController.singleton.UpdateDisplays()
+//        
+//        self.navigationController?.pushViewController(BarDetailTableViewController.singleton, animated: true)
+//        
+//        BarDetailTableViewController.singleton.ResetToFirstTab()
+//        
+//        collectionView.deselectItem(at: indexPath, animated: true)
     }
     
     //============================================================================

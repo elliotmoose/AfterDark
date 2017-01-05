@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,MainCellDelegate {
+class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,MainCellDelegate,BarManagerToListTableDelegate {
     
     //constants
     let tabHeight : CGFloat = Sizing.catTabHeight
@@ -30,12 +30,19 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     var viewState = 1 //0 = no maps 1 = maps and bar list 2 = full maps..?
     
     var barBlownUpCell : BarBlownUpTableViewCell?
+    
+    var recentSelectedCell : CategoryTableCell?
+    
     //runtime object variables
     //var barBlownUp : Bar?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //non ui init
+        BarManager.singleton.catListDelegate = self
+        
+        
         //init location view
         locationCont.view.backgroundColor = UIColor.blue
         locationCont.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: locationViewHeight)
@@ -104,6 +111,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         //init tableView
         tableView = UITableView(frame: CGRect(x: 0, y: locationViewHeight + tabHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight()))
+        tableView?.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.1, alpha: 1)
+        tableView?.separatorColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1)
+        tableView?.tableFooterView = UIView() //remove seperator lines
         tableView?.delegate = self
         tableView?.dataSource = self
         self.view.addSubview(tableView!)
@@ -133,6 +143,50 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         }
         
         MoveHighlight(sender.tag)
+        
+        //******* UNBLOW FIRST
+        SetViewState(state: 1)
+
+        if let _ = BarManager.singleton.displayedDetailBar
+        {
+            UnblowBarWithHandler {
+                switch sender.tag {
+                case 0:
+                    self.SetArrangement(arrangement: .nearby)
+                case 1:
+                    self.SetArrangement(arrangement: .avgRating)
+                case 2:
+                    self.SetArrangement(arrangement: .priceLow)
+                    
+                default:
+                    self.SetArrangement(arrangement: .avgRating)
+                }
+            }
+        }
+        else
+        {
+            switch sender.tag {
+            case 0:
+                self.SetArrangement(arrangement: .nearby)
+            case 1:
+                self.SetArrangement(arrangement: .avgRating)
+            case 2:
+                self.SetArrangement(arrangement: .priceLow)
+                
+            default:
+                self.SetArrangement(arrangement: .avgRating)
+            }
+
+        }
+        
+        recentSelectedCell?.SetDeselected()
+        recentSelectedCell = nil
+        
+       
+        
+        
+        
+        
     }
     
     func MoveHighlight(_ index:Int)
@@ -147,11 +201,20 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        //load distancing
+        BarManager.singleton.ReloadAllDistanceMatrix()
+        
+        //since view will appear is called before will disappear, 2 instances of this class will clash as it will load another before it unloads the previous displayed bar
+        BarManager.singleton.displayedDetailBar = nil
         self.tableView?.reloadData()
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-         BarManager.singleton.displayedDetailBar = nil
+        SetViewState(state: 1)
+         UnblowBar()
+        
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -231,7 +294,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         return cell
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
@@ -251,49 +313,73 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                 row -= 1
             }
 
-            
+
         }
+        
+        
+        
         let barID = displayedBarIDs[row]
         let thisBar = BarManager.singleton.BarFromBarID(barID)
         
         guard let _ = thisBar else {return}
         
-        //if no bar is being blown up, blow this one up & change view state
-        if  BarManager.singleton.displayedDetailBar == nil
+        
+       
+        //selection, location, and blow up
+        if let cell = tableView.cellForRow(at: indexPath) as? CategoryTableCell
         {
-            //close map
-            SetViewState(state: 0)
             
-            
-            //dim others ** must dim first so that bar blown up cell does not interrup
-            DimCellsBelowIndex(row)
-            
-            //display this bar
-            BlowBarUp(bar: thisBar!)
-            
+            //unblow
+            if BarManager.singleton.displayedDetailBar != nil //THIS IS WHEN ITS BLOW UP -> CLOSE IMMEDIATELY
+            {
+                //close immediately
+                SetViewState(state: 1)
+                UnblowBar()
+            }
+            else //THIS IS WHEN ITS NOT BLOWN UP -> SELECTION AND MOVEMENT TO BLOW UP
+            {
+                
+                //deselect previous
+                if let _ = recentSelectedCell
+                {
+                    if recentSelectedCell! == cell //if same cell
+                    {
+                        
+                        //DESELECT ALL CELLS -> BLOW UP
+                        cell.SetDeselected()
+                        recentSelectedCell = nil
 
-        }
-        else //if bar is blown up
-        {
-            //if blown up bar is same bar, change view state
-            if  BarManager.singleton.displayedDetailBar!.ID == thisBar!.ID
-            {
-                SetViewState(state: 1)
-                UnblowBar()
+                        //BLOW UP (ABOVE CONDITION ALREADY CONFIRMS THERE IS NO BAR BLOWN UP HERE)
+                        //close map and blow up
+                        SetViewState(state: 0)
+                        BlowBarUp(bar: thisBar!)
+                        
+                        
+                        
+                    }
+                    else //if diff cell, select this, deselect previous
+                    {
+                        recentSelectedCell!.SetDeselected()
+                        cell.SetSelected()
+                        recentSelectedCell = cell
+                        locationCont.SetBar(bar : thisBar!)
+                    }
+                }
+                else //if first cell, select this
+                {
+                    cell.SetSelected()
+                    recentSelectedCell = cell
+                    locationCont.SetBar(bar : thisBar!)
+                }
                 
-                //dim others ** must unblow first so that bar blownup doesnt interrup
-                UnDimCellsBelowIndex(row)
-            }
-            else //else, means bar is different, unblow
-            {
-                SetViewState(state: 1)
-                UnblowBar()
                 
-                //dim others ** must unblow first so that bar blownup doesnt interrup
-                UnDimCellsBelowIndex(row)
             }
             
+            
         }
+        
+        
+        
     }
 
     
@@ -302,20 +388,26 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     {
          BarManager.singleton.displayedDetailBar = bar
         
-        //scroll to row
         guard let index = displayedBarIDs.index(of: bar.ID) else {return}
         
         let thisCell = tableView?.cellForRow(at: IndexPath(row: index, section: 0))
         
         //insert blown up -> scroll to row after inserting
         tableView?.beginUpdates()
+        
+            //insert
         tableView?.insertRows(at: [IndexPath(row:index + 1 ,section: 0)], with: .middle)
 
+            //scroll to row
         CATransaction.setCompletionBlock({
-            self.tableView?.setContentOffset(CGPoint(x: 0, y: CGFloat(index) * thisCell!.frame.height), animated: true)
+            //self.tableView?.setContentOffset(CGPoint(x: 0, y: CGFloat(index) * thisCell!.frame.height), animated: true)
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+                self.tableView?.contentInset = UIEdgeInsetsMake(-(CGFloat(index) * thisCell!.frame.height), 0, 0, 0)
+            }, completion: nil)
         })
         
         tableView?.endUpdates()
+        
         CATransaction.commit()
         
         
@@ -339,12 +431,15 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         tableView?.deleteRows(at: [IndexPath(row:index + 1 ,section: 0)], with: .middle)
         tableView?.endUpdates()
         
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+            self.tableView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }, completion: nil)
         
+        recentSelectedCell = nil
     }
-    
-    func BlowUpAnotherBar(bar : Bar)
+    func UnblowBarWithHandler(_ handler : @escaping () -> Void)
     {
-        //step 1: remove current bar
+        
         guard let ID =  BarManager.singleton.displayedDetailBar?.ID else {return}
         //scroll to row
         guard let index = displayedBarIDs.index(of: ID) else {return}
@@ -353,44 +448,21 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         
         tableView?.beginUpdates()
-        tableView?.deleteRows(at: [IndexPath(row:index + 1 ,section: 0)], with: .middle)
-        
         CATransaction.setCompletionBlock({
-            //step 2: when delete done, blow up
-            //self.BlowBarUp(bar: bar)
-            self.SetViewState(state: 1)
+            handler()
         })
         
+        tableView?.deleteRows(at: [IndexPath(row:index + 1 ,section: 0)], with: .middle)
         tableView?.endUpdates()
         CATransaction.commit()
+        
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 5, options: .curveEaseInOut, animations: {
+            self.tableView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }, completion: nil)
 
+        recentSelectedCell = nil
     }
     
-    func DimCellsBelowIndex(_ index : Int)
-    {
-        guard (index + 1) <= (displayedBarIDs.count-1) else {return}
-        for i in (index+1)...displayedBarIDs.count-1
-        {
-            if let cell = tableView?.cellForRow(at: IndexPath(row: i, section: 0)) as? CategoryTableCell
-            {
-                cell.DimCell()
-            }
-            
-        }
-    }
-    
-    func UnDimCellsBelowIndex(_ index : Int)
-    {
-        guard index <= displayedBarIDs.count-1 else {return}
-        for i in (index)...displayedBarIDs.count-1
-        {
-            if let cell = tableView?.cellForRow(at: IndexPath(row: i, section: 0)) as? CategoryTableCell
-            {
-                cell.UnDimCell()
-            }
-            
-        }
-    }
     
     
     func ToggleViewState()
@@ -440,10 +512,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         }
     }
     
-    func NavCont() -> UINavigationController {
-        return self.navigationController!
-    }
-    
+
     
     //bar blown up data
     
@@ -454,25 +523,18 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
   
     func UpdateTabs()
     {
+        UpdateDetailsTab()
         UpdateDescriptionTab()
         UpdateReviewTab()
         UpdateDiscountTab()
     }
     
-    func UpdateDescriptionTab()
+    func UpdateDetailsTab()
     {
-        //update bar description tab
+        //update bar details tab
         DispatchQueue.main.async(execute: {
-            self.barBlownUpCell?.descriptionCont.tableView?.reloadData()
+            self.barBlownUpCell?.detailsCont.tableView?.reloadData()
         })
-    }
-    
-    func UpdateReviewTab()
-    {
-        DispatchQueue.main.async(execute: {
-            self.barBlownUpCell?.reviewCont.ReloadReviewTableData()
-        })
-        
     }
     
     func UpdateDiscountTab()
@@ -481,4 +543,163 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             self.barBlownUpCell?.discountCont.tableView?.reloadData()
         })
     }
+    
+    func UpdateReviewTab()
+    {
+        DispatchQueue.main.async(execute: {
+            //self.barBlownUpCell?.reviewCont.ReloadReviewTableData()
+        })
+        
+    }
+    
+
+    func UpdateDescriptionTab()
+    {
+        //update bar description tab
+        DispatchQueue.main.async(execute: {
+            self.barBlownUpCell?.descriptionCont.ReloadData()
+        })
+    }
+    
+    //============================================================================
+    //                                 Arrangement and displaying of bars
+    //============================================================================
+    func SetArrangementWithBarList(arrangement : Arrangement, barListInput : [Bar])
+    {
+        var barList = barListInput
+        //step 2: arrange based on attribute
+        switch arrangement {
+        case .nearby:
+            barList.sort(by: {$0.distanceFromClient < $1.distanceFromClient})
+            
+        case .avgRating:
+            barList.sort(by: {$0.rating.avg > $1.rating.avg})
+            
+        case .priceLow:
+            barList.sort(by: {$0.rating.price > $1.rating.price})
+  
+        }
+        
+        
+        //step 3: convert bar list back into bar IDs
+        displayedBarIDs.removeAll()
+        for bar in barList
+        {
+            displayedBarIDs.append(bar.ID)
+        }
+        
+        //step 4: update ui
+        DispatchQueue.main.async {
+            self.tableView?.reloadData()
+        }
+    }
+    
+    func SetArrangement(arrangement : Arrangement)
+    {
+        //step 1: convert bar list IDs into a bar list
+        var barList = [Bar]()
+        for ID in displayedBarIDs
+        {
+            let bar = BarManager.singleton.BarFromBarID(ID)
+            if let _ = bar
+            {
+                barList.append(bar!)
+            }
+        }
+        
+        //step 2: arrange based on attribute
+        
+        
+        switch arrangement {
+        case .nearby:
+            barList.sort(by: {$0.distanceFromClient < $1.distanceFromClient})
+
+        case .avgRating:
+            barList.sort(by: {$0.rating.avg > $1.rating.avg})
+
+        case .priceLow:
+            barList.sort(by: {$0.rating.price > $1.rating.price})
+
+        }
+        
+        
+        //step 3: convert bar list back into bar IDs
+        displayedBarIDs.removeAll()
+        for bar in barList
+        {
+            displayedBarIDs.append(bar.ID)
+        }
+        
+        //step 4: update ui
+        DispatchQueue.main.async {
+            self.tableView?.reloadData()
+        }
+    }
+    
+    func SetArrangementWithBarIDs(arrangement : Arrangement, barIDs : [String])
+    {
+        //step 1: convert bar list IDs into a bar list
+        var barList = [Bar]()
+        for ID in barIDs
+        {
+            let bar = BarManager.singleton.BarFromBarID(ID)
+            if let _ = bar
+            {
+                barList.append(bar!)
+            }
+        }
+        
+        //step 2: arrange based on attribute
+        
+        
+        switch arrangement {
+        case .nearby:
+            barList.sort(by: {$0.distanceFromClient < $1.distanceFromClient})
+            
+        case .avgRating:
+            barList.sort(by: {$0.rating.avg > $1.rating.avg})
+            
+        case .priceLow:
+            barList.sort(by: {$0.rating.price > $1.rating.price})
+            
+        }
+        
+        
+        //step 3: convert bar list back into bar IDs
+        displayedBarIDs.removeAll()
+        for bar in barList
+        {
+            displayedBarIDs.append(bar.ID)
+        }
+        
+        //step 4: update ui
+        DispatchQueue.main.async {
+            self.tableView?.reloadData()
+        }
+    }
+    
+    //DELEGATE FUNCTIONS
+    func UpdateCellForBar(_ bar: Bar) {
+        //step 1: find out bar index in display
+        let index = displayedBarIDs.index(of: bar.ID)
+        if let index = index
+        {
+            //step 2: update cell for that index
+            tableView?.reloadRows(at: [IndexPath(row: index, section : 0)], with: .none)
+        }
+    }
+    
+    func UpdateBarListTableDisplay() {
+        //refresh display IDs for this cat!!
+        
+        //then arrangement with ids
+    }
+    
+    
+    
+    func NavCont() -> UINavigationController {
+        return self.navigationController!
+    }
+    
+    
 }

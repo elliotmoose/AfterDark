@@ -25,9 +25,9 @@ class DummyMode
         let bar2 = Bar()
 
         var bar1rating = Rating()
-        bar1rating.InjectValues(4, pricex: 3, ambiencex: 4, foodx: 4, servicex: 5)
+        bar1rating.InjectValues(4, pricex: 5, ambiencex: 4, foodx: 4, servicex: 5)
         var bar2rating = Rating()
-        bar2rating.InjectValues(4.5, pricex: 5, ambiencex: 4, foodx: 5, servicex: 4)
+        bar2rating.InjectValues(4.5, pricex: 3, ambiencex: 4, foodx: 5, servicex: 4)
         
         let bar1review = Review(rating: bar1rating, ID: "0", title: "this bar is amazing", description: "their service is superb. food and drinks are great but a little pricey. quite a nice vibe to the place though", user_name: "mooselliot", date: NSDate() as Date)
         let bar2review = Review(rating: bar2rating, ID: "1", title: "sweet", description: "really like this bar. really chill and really cheap. its my go to", user_name: "rahul", date: NSDate() as Date)
@@ -43,6 +43,8 @@ class DummyMode
         
         //update ui
         BarManager.singleton.listDelegate?.UpdateBarListTableDisplay()
+        BarManager.singleton.catListDelegate?.UpdateBarListTableDisplay()
+
         
         //populate categories
         var cheapCat = Category(name: "Craft Beers", barIDs: ["0","1"],description : "")

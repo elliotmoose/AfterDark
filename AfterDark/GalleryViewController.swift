@@ -9,7 +9,7 @@
 import UIKit
 
 class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIPageViewControllerDelegate,UIGestureRecognizerDelegate {
-    static let singleton = GalleryViewController()
+    //static let singleton = GalleryViewController()
     var pageViewController = UIPageViewController()
     var pages = [ContentViewController]()
     
@@ -17,6 +17,7 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
     
     var currentPageIndex = 0
     
+    let pageDots = UIPageControl(frame: CGRect(x: 0, y: Sizing.galleryHeight - 25, width: Sizing.ScreenWidth(), height: 25))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,21 +25,15 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidLayoutSubviews() {
+        pageDots.frame = CGRect(x: 0, y: Sizing.galleryHeight - 25, width: Sizing.ScreenWidth(), height: 25)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        //self.view.frame = CGRect(x: 0, y: Sizing.tabHeight, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight)
-//        if pages.count == 0
-//        {
-//            self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
-//
-//        }
-//        else
-//        {
-//            self.pageViewController.setViewControllers([viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
-//
-//        }
+
 
     }
 
@@ -48,6 +43,8 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         pages.removeAll()
         currentPageIndex = 0
         //check if bar has pre loaded images
+        pageDots.numberOfPages = 0
+
         guard let barOrigin = BarManager.singleton.displayedDetailBar else {return}
         if barOrigin.Images.count > 0 && barOrigin.maxImageCount > 0
         {
@@ -58,6 +55,10 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
             {
                 pages.append(viewControllerAtIndex(index))
             }
+            
+            pageDots.numberOfPages = barOrigin.maxImageCount
+            
+
         }
         else if barOrigin.maxImageCount == -1
         {
@@ -71,11 +72,15 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
                     {
                         return
                     }
+                    
                     self.pages.removeAll()
                     for index in 0...barOrigin.maxImageCount - 1
                     {
                         self.pages.append(self.viewControllerAtIndex(index))
                     }
+                    
+                    self.pageDots.numberOfPages = barOrigin.maxImageCount
+                    
                     self.pageViewController.setViewControllers([self.viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
                     
                     
@@ -85,6 +90,8 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
                         if success
                         {
                             self.pageViewController.setViewControllers([self.viewControllerAtIndex(self.currentPageIndex)], direction: .forward, animated: false, completion: nil)
+                            
+                            
                         }
                             
                     })
@@ -110,10 +117,9 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         
         
         
-//        let pc = UIPageControl.appearance()
-//        pc.pageIndicatorTintColor = ColorManager.galleryPageControlDotNormalColor
-//        pc.currentPageIndicatorTintColor = ColorManager.galleryPageControlDotHighlightColor
-//        pc.backgroundColor = ColorManager.galleryPageControlBGColor
+
+        
+        
 
         
         self.pageViewController.view.backgroundColor = ColorManager.galleryBGColor
@@ -125,10 +131,15 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         self.addChildViewController(self.pageViewController)
         self.pageViewController.didMove(toParentViewController: self)
 
-        
+        self.view.addSubview(pageDots)
         self.view.addSubview(self.pageViewController.view)
         self.view.clipsToBounds = true
         
+        self.view.bringSubview(toFront: pageDots)
+        
+        pageDots.currentPageIndicatorTintColor = ColorManager.galleryPageControlDotHighlightColor
+        pageDots.pageIndicatorTintColor = ColorManager.galleryPageControlDotNormalColor
+        pageDots.backgroundColor = UIColor.clear
 
     }
     
@@ -164,14 +175,6 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         return viewControllerAtIndex(index)
     }
     
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return self.pages.count
-    }
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return currentPageIndex
-    }
-    
     //***************************************************************************************
     //                                      VIEW CONTROLLER
     //***************************************************************************************
@@ -203,7 +206,14 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
 
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
+        if let viewCont = pageViewController.viewControllers?.last as? ContentViewController
+        {
+            let index = viewCont.pageIndex
+            guard index >= 0 && index < pageDots.numberOfPages else {return}
+            pageDots.currentPage = index
+        }
     }
+    
     func changePage(_ direction : Int)
     {
         if direction == 0 //right swipe
@@ -248,7 +258,6 @@ class ContentViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.clear
     }
     
     
@@ -256,7 +265,6 @@ class ContentViewController: UIViewController
     {
         super.init(nibName: nil, bundle: nil)
         self.view = UIView(frame: frame)
-        self.view.backgroundColor = UIColor.clear
         imageView = UIImageView(frame: frame)
         imageView.contentMode = .scaleAspectFill
         self.view.addSubview(imageView)

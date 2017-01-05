@@ -286,7 +286,10 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
     
     func Dismiss()
     {
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        let window = UIApplication.shared.delegate?.window!!
+        window?.rootViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
+
     }
     
     func ForgotPasswordButtonPressed()

@@ -1,11 +1,11 @@
 import Foundation
 import UIKit
+import GoogleMaps
+
 protocol BarManagerToListTableDelegate :class
 {
     func UpdateBarListTableDisplay()
     func UpdateCellForBar(_ bar : Bar)
-
-
 
 }
 protocol BarManagerToDetailTableDelegate :class
@@ -23,32 +23,19 @@ class BarManager: NSObject
     let urlBarIconImage = Network.domain + "GetBarIconImage.php"
     
     
-    
     //variables
     var mainBarList: [Bar] = []
-    var displayBarList: [[Bar]] = [[]]
     var barListIcons: [NSDictionary] = []
     var displayedDetailBar : Bar? = nil
     weak var detailDelegate:BarManagerToDetailTableDelegate?
     weak var listDelegate :BarManagerToListTableDelegate?
+    weak var catListDelegate :BarManagerToListTableDelegate?
+
     
-    
-    func DisplayBarDetails(_ bar : Bar)
-    {
-        //passing by value
-//        displayedDetailBar.name = bar.name
-//        displayedDetailBar.icon = bar.icon
-//        displayedDetailBar.description = bar.description
-//        displayedDetailBar.Images = bar.Images
-//        displayedDetailBar.rating = bar.rating
-//        displayedDetailBar.loc_lat = bar.loc_lat
-//        displayedDetailBar.loc_long = bar.loc_long
-        //passing by reference
-        displayedDetailBar = bar
-        
-        //start loading reviews
-        
-    }
+//    func DisplayBarDetails(_ bar : Bar)
+//    {
+//        displayedDetailBar = bar
+//    }
     
     //====================================================================================
     //                                  BAR NAMES AND ICONS
@@ -76,7 +63,7 @@ class BarManager: NSObject
                         let cache = self.mainBarList
                         var allOldBarNames = [String]()
                         
-                        //gets all the names of the old bar
+                        //gets all the names of the old bar list
                         for oldBar in cache
                         {
                             allOldBarNames.append(oldBar.name)
@@ -93,12 +80,6 @@ class BarManager: NSObject
                             {
                                 let indexInCache = allOldBarNames.index(of: newBar.name)
                                 let oldBar = cache[indexInCache!]
-                                
-                                if oldBar.icon != nil
-                                {
-                                    newBar.icon = oldBar.icon
-                                }
-                                
                                 if oldBar.Images.count != 0
                                 {
                                     newBar.Images = oldBar.Images
@@ -115,23 +96,15 @@ class BarManager: NSObject
                 
                 //callback to update UI before continue loading images
                 self.listDelegate?.UpdateBarListTableDisplay()
-                
-                self.LoadAllBarIcons()
+                self.catListDelegate?.UpdateBarListTableDisplay()
+
             }
             
 
             handler()
         });
         
-        //***testing only***
-        if Settings.modelBarActive
-        {
-            self.LoadModelBar()
-            
-            
-            //callback to update UI before continue loading images
-            self.listDelegate?.UpdateBarListTableDisplay()
-        }
+
 
 
     }
@@ -166,14 +139,14 @@ class BarManager: NSObject
                         
                         if self.displayedDetailBar != nil && self.displayedDetailBar?.name == bar.name
                         {
-                            self.detailDelegate?.UpdateDescriptionTab()
+                            DispatchQueue.main.async {
+                                self.detailDelegate?.UpdateDescriptionTab()
+                            }
                         }
                         
                         handler()
                         
-                        DispatchQueue.main.async {
-                            self.detailDelegate?.UpdateDescriptionTab()
-                        }
+                        
                     }
                 }
             })
@@ -189,37 +162,6 @@ class BarManager: NSObject
     }
     
     
-    //====================================================================================
-    //                                  BAR ICONS
-    //====================================================================================
-    func LoadAllBarIcons()
-    {
-        for bar in mainBarList
-        {
-            if bar.icon == nil
-            {
-                let barNameForUrl = bar.name.replacingOccurrences(of: " ", with: "+")
-                let requestUrl = Network.domain + "GetBarIconImage.php?Bar_Name=\(barNameForUrl)"
-                Network.singleton.StringFromUrl(requestUrl, handler: {(success,output)-> Void in
-                    
-                    if success
-                    {
-                        if let output = output
-                        {
-                            let imageString = output
-                            let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-                            bar.icon = UIImage(data: dataDecoded)
-
-                            //update UI for that bar at bar list view controller
-
-                            self.listDelegate?.UpdateCellForBar(bar)
-                        }
-                    }
-                    
-                    })
-            }
-        }
-    }
     //====================================================================================
     //                                  RELOAD BAR
     //====================================================================================
@@ -277,8 +219,136 @@ class BarManager: NSObject
   
     }
     
+    //====================================================================================
+    //                                  LOAD DISTANCE TIME FOR BAR
+    //====================================================================================
+    private func LoadDistanceMatrixForBar(_ bar: Bar, handler : @escaping (Bool,NSDictionary?) -> Void)
+    {
+        //get time and distance from current location
+        let locationManager = CLLocationManager()
+        var myLocation = locationManager.location?.coordinate
+        
+        if myLocation == nil
+        {
+            myLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        }
+        //test 
+        var myLat = myLocation!.latitude
+        var myLong = myLocation!.longitude
+        print(myLocation)
+//        myLat = 1.2893915982879485
+//        myLong = 103.81716449584698
+        
+        //camp location
+        //latitude: 1.3353980862595003, longitude: 103.67920429226866)
+        bar.loc_lat =  1.2893408327337974
+        bar.loc_long = 103.81803572273988
+        
+        
+        
+        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=\(myLat),\(myLong)&destinations=\(bar.loc_lat),\(bar.loc_long)"
+        Network.singleton.DataFromUrl(url, handler:
+            {
+                (success,output) -> Void in
+                if success
+                {
+                    do
+                    {
+                        if let dict = try JSONSerialization.jsonObject(with: output!, options: .allowFragments) as? NSDictionary
+                        {
+                            
+                            if let rowsArr = dict["rows"] as? NSArray
+                            {
+                                if let row = rowsArr[0] as? NSDictionary
+                                {
+                                    if let elementsArr = row["elements"] as? NSArray
+                                    {
+                                        if let element = elementsArr[0] as? NSDictionary
+                                        {
+                                            //UPDATE DATA
+                                            if let distance = element["distance"] as? NSDictionary
+                                            {
+                                                if let text = distance["text"] as? String
+                                                {
+                                                    bar.distanceFromClientString = text
+                                                }
+                                                
+                                                if let value = distance["value"] as? Float
+                                                {
+                                                    bar.distanceFromClient = value
+                                                }
+                                            }
+                                            
+                                            if let duration = element["duration"] as? NSDictionary
+                                            {
+                                                if let text = duration["text"] as? String
+                                                {
+                                                    bar.durationFromClientString = text
+                                                }
+                                                
+                                                if let value = duration["value"] as? Float
+                                                {
+                                                    bar.durationFromClient = value
+                                                }
+                                            }
+                                            
+                                            bar.distanceMatrixEnabled = true
+                                            
+                                            //UPDATING OF UI
+                                            self.catListDelegate?.UpdateCellForBar(bar)
+                                            self.listDelegate?.UpdateCellForBar(bar)
+                                            
+                                            handler(true, element)
+                                            return
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        let outString = String(data: output!, encoding: .utf8)!
+                        print(outString)
+                        
+                    }
+                    catch let error as NSError
+                    {
+                        
+                    }
+                    
+                }
+                
+                //if it reaches here means failed
+                handler(false,nil)
+                bar.durationFromClientString = ""
+                bar.distanceFromClientString = ""
+                bar.distanceMatrixEnabled = false
+
+
+        })
+
+    }
     
-    
+    func ReloadAllDistanceMatrix()
+    {
+        for bar in mainBarList
+        {
+            //LOADING OF DATA
+            self.LoadDistanceMatrixForBar(bar, handler: {
+                (success,output) -> Void in
+                
+                if success
+                {
+                    
+                }
+                else
+                {
+
+                }
+                
+                
+            })
+        }
+    }
     
     //====================================================================================
     //                                  DATA HANDLERS
@@ -301,31 +371,6 @@ class BarManager: NSObject
         
         return tempBarList
     }
-    
-    
-    func LoadModelBar()
-    {
-        let modelBar = Bar()
-        modelBar.name = "Model Bar"
-        modelBar.bookingAvailable = "1"
-        modelBar.contact = "91839283"
-        modelBar.description = "This is a model Bar used for testing purposes. It can be used for offline viewing and debugging"
-        modelBar.icon = #imageLiteral(resourceName: "AfterDarkIcon")
-        modelBar.openClosingHours[0] = "2pm - 12am daily"
-        
-        var newRating = Rating()
-        newRating.InjectValues(4, pricex: 3, ambiencex: 3, foodx: 5, servicex: 5)
-        let newReview = Review(rating: newRating, ID: "2", title: "Great Bar", description: "Amazing food and wonderful service", user_name: "mooselliot", date: NSDate(timeIntervalSinceNow: 0) as Date)
-        
-        modelBar.reviews.append(newReview)
-        mainBarList.append(modelBar)
-    }
-
-    
-    
-    
-    
-    
     
     func BarFromBarID(_ barID : String) -> Bar?
     {
@@ -372,16 +417,6 @@ class BarManager: NSObject
             newBar.ID = String(describing: ID)
         }
         
-        if let iconString = dict["Bar_Icon"] as? String
-        {
-            let dataDecoded:Data = Data(base64Encoded: iconString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-            let icon = UIImage(data: dataDecoded)
-            newBar.icon = icon
-        }
-        else
-        {
-            errors.append("no bar icon in dict")
-        }
         
         if let description = dict["Bar_Description"] as? String
         {
@@ -473,92 +508,92 @@ class BarManager: NSObject
         return newBar
     }
     
-    func ArrangeBarList(_ mode: DisplayBarListMode)
-    {
-        
-        //reset output
-        displayBarList.removeAll()
-        
-        switch mode
-        {
-        case .alphabetical:
-            
-            
-            //create array of all letters
-            var allFirstLetters = [Character]()
-            for bar in mainBarList
-            {
-                let firstLetter = bar.name.characters.first
-                //if does not contain first letter add it
-                if let firstLetter = firstLetter
-                {
-                    if !allFirstLetters.contains(firstLetter)
-                    {
-                        allFirstLetters.append(firstLetter)
-                    }
-                }
-                
-            }
-            
-            //for each letter
-            for firstLetter in allFirstLetters
-            {
-                //create array
-                var arrayOfBarsForLetter = [Bar]()
-                
-                //for each bar
-                for bar in mainBarList
-                {
-                    //if has this first letter, add to array
-                    if bar.name.characters.first == firstLetter
-                    {
-                        arrayOfBarsForLetter.append(bar)
-                    }
-                }
-                
-                
-                //arrange alphabetically within array
-                arrayOfBarsForLetter.sort(by: {$0.name < $1.name})
-                
-                
-                //add array to collection of arrays of letter-arranged bars
-                
-                displayBarList.append(arrayOfBarsForLetter)
-            }
-            
-            
-            break
-            
-        case .avgRating:
-            
-            var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.avg > $1.rating.avg})
-            displayBarList.append(singleArray)
-            break;
-        case .priceRating:
-            var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.price > $1.rating.price})
-            displayBarList.append(singleArray)
-            break;
-        case .foodRating:
-            var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.food > $1.rating.food})
-            displayBarList.append(singleArray)
-            break;
-        case .ambienceRating:
-            var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.ambience > $1.rating.ambience})
-            displayBarList.append(singleArray)
-            break;
-        case .serviceRating:
-            var singleArray = mainBarList
-            singleArray.sort(by: {$0.rating.service > $1.rating.service})
-            displayBarList.append(singleArray)
-            break;
-            
-        }
-        
-    }
+//    func ArrangeBarList(_ mode: DisplayBarListMode)
+//    {
+//        
+//        //reset output
+//        displayBarList.removeAll()
+//        
+//        switch mode
+//        {
+//        case .alphabetical:
+//            
+//            
+//            //create array of all letters
+//            var allFirstLetters = [Character]()
+//            for bar in mainBarList
+//            {
+//                let firstLetter = bar.name.characters.first
+//                //if does not contain first letter add it
+//                if let firstLetter = firstLetter
+//                {
+//                    if !allFirstLetters.contains(firstLetter)
+//                    {
+//                        allFirstLetters.append(firstLetter)
+//                    }
+//                }
+//                
+//            }
+//            
+//            //for each letter
+//            for firstLetter in allFirstLetters
+//            {
+//                //create array
+//                var arrayOfBarsForLetter = [Bar]()
+//                
+//                //for each bar
+//                for bar in mainBarList
+//                {
+//                    //if has this first letter, add to array
+//                    if bar.name.characters.first == firstLetter
+//                    {
+//                        arrayOfBarsForLetter.append(bar)
+//                    }
+//                }
+//                
+//                
+//                //arrange alphabetically within array
+//                arrayOfBarsForLetter.sort(by: {$0.name < $1.name})
+//                
+//                
+//                //add array to collection of arrays of letter-arranged bars
+//                
+//                displayBarList.append(arrayOfBarsForLetter)
+//            }
+//            
+//            
+//            break
+//            
+//        case .avgRating:
+//            
+//            var singleArray = mainBarList
+//            singleArray.sort(by: {$0.rating.avg > $1.rating.avg})
+//            displayBarList.append(singleArray)
+//            break;
+//        case .priceRating:
+//            var singleArray = mainBarList
+//            singleArray.sort(by: {$0.rating.price > $1.rating.price})
+//            displayBarList.append(singleArray)
+//            break;
+//        case .foodRating:
+//            var singleArray = mainBarList
+//            singleArray.sort(by: {$0.rating.food > $1.rating.food})
+//            displayBarList.append(singleArray)
+//            break;
+//        case .ambienceRating:
+//            var singleArray = mainBarList
+//            singleArray.sort(by: {$0.rating.ambience > $1.rating.ambience})
+//            displayBarList.append(singleArray)
+//            break;
+//        case .serviceRating:
+//            var singleArray = mainBarList
+//            singleArray.sort(by: {$0.rating.service > $1.rating.service})
+//            displayBarList.append(singleArray)
+//            break;
+//            
+//        }
+//        
+//    }
     
     func JSONToArray(_ data : NSMutableData) -> NSMutableArray{
         

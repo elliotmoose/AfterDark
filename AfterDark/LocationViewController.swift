@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMapViewDelegate{
 
+    //static let singleton = LocationViewController()
     var mapView : GMSMapView?
     let marker = GMSMarker()
     
@@ -27,6 +28,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     var locationManager : CLLocationManager?
     var mapBehaviourMode = 0
     
+    var highlightedBar : Bar?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,10 +39,10 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         var loc_lat : Double = 0
         var loc_long : Double = 0
         
-        if BarManager.singleton.displayedDetailBar != nil
+        if highlightedBar != nil
         {
-            loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_lat)
-            loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_long)
+            loc_lat = CLLocationDegrees(highlightedBar!.loc_lat)
+            loc_long = CLLocationDegrees(highlightedBar!.loc_long)
         }
 
         let camera = GMSCameraPosition.camera(withLatitude: loc_lat, longitude: loc_long, zoom: 17)
@@ -85,21 +88,21 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         openGoogleMapsButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
         openGoogleMapsButton?.layer.shadowRadius = 10
         
-        //zoomOutButton
-        zoomOutButton = UIButton(frame: CGRect(x: 20, y: 40 + targetWidth, width: targetWidth, height: targetWidth))
-        zoomOutButton?.imageView?.contentMode = .scaleAspectFit
-        zoomOutButton?.setImage(pointObjectImage.withRenderingMode(.alwaysTemplate), for: .normal)
-        zoomOutButton?.tintColor = ColorManager.selectedIconColor
-        zoomOutButton?.backgroundColor = UIColor.white
-        zoomOutButton?.layer.cornerRadius = targetWidth/2
-        zoomOutButton?.addTarget(self, action: #selector(ZoomToIncludeStartAndEndLocation), for: .touchDown)
-        view.addSubview(zoomOutButton!)
-        
-        //shadow
-        zoomOutButton?.clipsToBounds = false
-        zoomOutButton?.layer.shadowOpacity = 0.3
-        zoomOutButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
-        zoomOutButton?.layer.shadowRadius = 10
+//        //zoomOutButton
+//        zoomOutButton = UIButton(frame: CGRect(x: 20, y: 40 + targetWidth, width: targetWidth, height: targetWidth))
+//        zoomOutButton?.imageView?.contentMode = .scaleAspectFit
+//        zoomOutButton?.setImage(pointObjectImage.withRenderingMode(.alwaysTemplate), for: .normal)
+//        zoomOutButton?.tintColor = ColorManager.selectedIconColor
+//        zoomOutButton?.backgroundColor = UIColor.white
+//        zoomOutButton?.layer.cornerRadius = targetWidth/2
+//        zoomOutButton?.addTarget(self, action: #selector(ZoomToIncludeStartAndEndLocation), for: .touchDown)
+//        view.addSubview(zoomOutButton!)
+//        
+//        //shadow
+//        zoomOutButton?.clipsToBounds = false
+//        zoomOutButton?.layer.shadowOpacity = 0.3
+//        zoomOutButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        zoomOutButton?.layer.shadowRadius = 10
         
         //location manager
         locationManager = CLLocationManager()
@@ -108,22 +111,22 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         locationManager?.distanceFilter = 10
         locationManager?.headingFilter = 5
         
-        //focusbarbutton
-        focusBarButton = UIButton(frame: CGRect(x: 20, y: 20, width: targetWidth, height: targetWidth))
-        
-        //set up button image
-        focusBarButton?.imageView?.contentMode = .scaleAspectFit
-        focusBarButton?.setImage(#imageLiteral(resourceName: "Marker-48").newImageWithSize(CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate), for: .normal)
-        focusBarButton?.tintColor = ColorManager.selectedIconColor
-        focusBarButton?.backgroundColor = UIColor.white
-        focusBarButton?.layer.cornerRadius = targetWidth/2
-        focusBarButton?.addTarget(self, action: #selector(FocusBarLocation), for: .touchDown)
-        view.addSubview(focusBarButton!)
-        //shadow
-        focusBarButton?.clipsToBounds = false
-        focusBarButton?.layer.shadowOpacity = 0.3
-        focusBarButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
-        focusBarButton?.layer.shadowRadius = 10
+//        //focusbarbutton
+//        focusBarButton = UIButton(frame: CGRect(x: 20, y: 20, width: targetWidth, height: targetWidth))
+//        
+//        //set up button image
+//        focusBarButton?.imageView?.contentMode = .scaleAspectFit
+//        focusBarButton?.setImage(#imageLiteral(resourceName: "Marker-48").newImageWithSize(CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate), for: .normal)
+//        focusBarButton?.tintColor = ColorManager.selectedIconColor
+//        focusBarButton?.backgroundColor = UIColor.white
+//        focusBarButton?.layer.cornerRadius = targetWidth/2
+//        focusBarButton?.addTarget(self, action: #selector(FocusBarLocation), for: .touchDown)
+//        view.addSubview(focusBarButton!)
+//        //shadow
+//        focusBarButton?.clipsToBounds = false
+//        focusBarButton?.layer.shadowOpacity = 0.3
+//        focusBarButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        focusBarButton?.layer.shadowRadius = 10
         
     }
 
@@ -139,20 +142,25 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         locationManager?.stopUpdatingHeading()
     }
     
-
+    func SetBar(bar : Bar)
+    {
+        highlightedBar = bar
+        SetBarMarker()
+        FocusBarLocation()
+    }
     
     func SetBarMarker()
     {
-        guard BarManager.singleton.displayedDetailBar != nil else {return}
-        let barTitle = BarManager.singleton.displayedDetailBar?.name
-        let loc_lat = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_lat)
-        let loc_long = CLLocationDegrees(BarManager.singleton.displayedDetailBar!.loc_long)
+        guard highlightedBar != nil else {return}
+        let barTitle = highlightedBar?.name
+        let loc_lat = CLLocationDegrees(highlightedBar!.loc_lat)
+        let loc_long = CLLocationDegrees(highlightedBar!.loc_long)
         
         // Creates a marker in the center of the map.
         
         marker.position = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
         marker.snippet = barTitle
-        marker.title = "\(BarManager.singleton.displayedDetailBar?.address)"
+        marker.title = "\(highlightedBar?.address)"
     }
     
     func FocusCurrentLocation()
@@ -174,14 +182,14 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     func FocusBarLocation()
     {
         StopFollow()
-        guard let bar = BarManager.singleton.displayedDetailBar else {return}
+        guard let bar = highlightedBar else {return}
         let loc_lat = CLLocationDegrees(bar.loc_lat)
         let loc_long = CLLocationDegrees(bar.loc_long)
         let barLocation = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
         
         if let mapView = mapView
         {
-            mapView.animate(toZoom: 17)
+            mapView.animate(toZoom: 14)
             mapView.animate(toLocation: barLocation)
         }
     }
@@ -210,10 +218,10 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     {
         var barLocLat : Float = 0
         var barLocLong : Float = 0
-        if BarManager.singleton.displayedDetailBar != nil
+        if highlightedBar != nil
         {
-            barLocLat = BarManager.singleton.displayedDetailBar!.loc_lat
-            barLocLong = BarManager.singleton.displayedDetailBar!.loc_long
+            barLocLat = highlightedBar!.loc_lat
+            barLocLong = highlightedBar!.loc_long
         }
        
         
@@ -318,7 +326,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     {
         StopFollow()
         
-        guard let bar = BarManager.singleton.displayedDetailBar else {print("no bar to include in zoom out");return}
+        guard let bar = highlightedBar else {print("no bar to include in zoom out");return}
         let loc_lat = CLLocationDegrees(bar.loc_lat)
         let loc_long = CLLocationDegrees(bar.loc_long)
         let barLocation = CLLocationCoordinate2D(latitude: loc_lat, longitude: loc_long)
@@ -336,7 +344,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         }
         
         //update map
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 200)
+        
+        let update = GMSCameraUpdate.fit(bounds, with:UIEdgeInsetsMake(100, 20, 20, 100))
         mapView?.animate(with: update)
     }
     

@@ -68,10 +68,18 @@ class DiscountDetailViewController: UIViewController {
     func Load(bar : Bar,discount : Discount)
     {
         barTitleLabel?.text = bar.name
-        barIconImageView.image = bar.icon
         discountTitleLabel?.text = discount.name
         descriptionTextView?.text = discount.details
         currentDiscount = discount
+        
+        if bar.Images.count != 0
+        {
+            barIconImageView.image = bar.Images[0]
+        }
+    }
+    func UpdateImage(image : UIImage)
+    {
+        barIconImageView.image = image
     }
     
 }

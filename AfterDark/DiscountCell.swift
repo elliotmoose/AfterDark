@@ -19,6 +19,9 @@ class DiscountCell: UITableViewCell {
         self.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.discountCellHeight)
         self.accessoryType = .disclosureIndicator
         
+        self.backgroundColor = ColorManager.discountCellTextColor
+       // self.accessoryView?.backgroundColor = UIColor.black
+        
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.numberOfLines = 1
         

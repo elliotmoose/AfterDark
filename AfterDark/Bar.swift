@@ -9,7 +9,6 @@ class Bar{
     var discounts = [Discount]()
     
     //images
-    var icon: UIImage?
     var Images: [UIImage] = []
     var maxImageCount = -1
     
@@ -23,6 +22,12 @@ class Bar{
     var loc_long : Float = 0
     var loc_lat : Float = 0
     var address : String = ""
+    var distanceFromClient : Float = 0
+    var distanceFromClientString : String = ""
+    var durationFromClient : Float = 0
+    var durationFromClientString : String = ""
+    var distanceMatrixEnabled = false
+
     
     //opening hours
     var openClosingHours = [String]()
@@ -57,7 +62,6 @@ class Bar{
         self.rating = rating
         self.reviews = reviews
         self.discounts = discounts
-        self.icon = icon
         self.Images = images
         self.maxImageCount = maximagecount
         self.description = description
