@@ -17,6 +17,9 @@ class OpeningHoursCell: UITableViewCell {
     @IBOutlet var dayLabels: [UILabel]!
     @IBOutlet var timingLabels: [UILabel]!
 
+    @IBOutlet weak var detailLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var iconLeftConstraint: NSLayoutConstraint!
+    
     //opening hours
     var openClosingHours = [String]()
     
@@ -53,6 +56,12 @@ class OpeningHoursCell: UITableViewCell {
         {
             label.alpha = 0
         }
+        
+        
+        //layouts
+        let tabWidth = Sizing.ScreenWidth()/4
+        detailLeftConstraint.constant = tabWidth  //(same as width of tabs)
+        iconLeftConstraint.constant = tabWidth/2 - Icon.frame.width/2
     }
 
     

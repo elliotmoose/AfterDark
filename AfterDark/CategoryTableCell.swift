@@ -49,10 +49,23 @@ class CategoryTableCell: UITableViewCell {
         barNameLabel.text = bar.name
         ratingStarView.SetSizeFromWidth(ratingStarContainerView.bounds.width)
         ratingStarView.SetRating(bar.rating.avg)
-        
         ratingCountLabel.text = "(\(bar.totalReviewCount) Ratings)"
+        
+        if bar.tags == ""
+        {
+            bar.tags = "nil"
+        }
+        
+        tagsLabel.text = "Tags: \(bar.tags)"
 
-
+        var priceDeterminantString = ""
+        if bar.priceDeterminant != 0
+        {
+            for _ in 0...bar.priceDeterminant-1
+            {
+                priceDeterminantString += "$"
+            }
+        }
         
         
         
@@ -60,17 +73,17 @@ class CategoryTableCell: UITableViewCell {
         {
             if bar.distanceFromClientString != "" && bar.durationFromClientString != ""
             {
-                detailLabel.text = "\(bar.distanceFromClientString) - \(bar.durationFromClientString)"
+                detailLabel.text = "\(bar.distanceFromClientString) - \(bar.durationFromClientString) - \(priceDeterminantString)"
             }
             else
             {
-                detailLabel.text = " - "
+                detailLabel.text = " - - \(priceDeterminantString)"
             }
 
         }
         else
         {
-            detailLabel.text = " - "
+            detailLabel.text = " - - \(priceDeterminantString)"
         }
         
         

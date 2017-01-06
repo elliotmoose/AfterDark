@@ -25,26 +25,77 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        
+        
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 3
+            
+        //last section
+        case tableView.numberOfSections-1:
+            return 2
+        default:
+            return 0
+        }
     }
 
-    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Account"
+        case 1:
+            return "About"
+        default:
+            return ""
+        }
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         
+        let row = indexPath.row
         if cell == nil
         {
             cell = UITableViewCell()
             cell?.accessoryType = .disclosureIndicator
         }
 
-        switch indexPath {
-        case IndexPath(row: 0, section: 0):
+        switch indexPath.section {
+        case 0:
             cell?.textLabel?.text = "Account"
+            
+        case 1:
+            if row == 0
+            {
+                cell?.textLabel?.text = "Terms"
+            }
+            else if row == 1
+            {
+                cell?.textLabel?.text = "Privacy Policy"
+            }
+            else if row == 2
+            {
+                cell?.textLabel?.text = "Open Source Libraries"
+            }
+        
+        case tableView.numberOfSections-1:
+            if row == 0
+            {
+                cell?.textLabel?.text = "Clear Cache"
+                cell?.textLabel?.textColor = ColorManager.SettingsImportantCellColor
+            }
+            else if row == 1
+            {
+                cell?.textLabel?.text = "Log Out"
+                cell?.textLabel?.textColor = ColorManager.SettingsImportantCellColor
+
+            }
+
         default:
             break
         }

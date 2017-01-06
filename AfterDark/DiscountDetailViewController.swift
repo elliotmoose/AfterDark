@@ -58,6 +58,8 @@ class DiscountDetailViewController: UIViewController {
         claimNowButton.layer.shadowOffset = CGSize(width: 0, height: 1)
         claimNowButton.layer.shadowColor = UIColor.black.cgColor
     
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

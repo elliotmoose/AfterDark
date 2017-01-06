@@ -25,7 +25,10 @@ class Sizing
     static let statusBarHeight : CGFloat = 20
     static let navBarHeight : CGFloat = 44
     
+    //details view 
+    static let detailCellHeight : CGFloat = 50
     
+    //discounts
     static let discountCellHeight : CGFloat = 60
     
     //collection view

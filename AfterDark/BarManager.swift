@@ -12,8 +12,6 @@ protocol BarManagerToDetailTableDelegate :class
 {
 
     func UpdateDescriptionTab()
-    
-    
 }
 class BarManager: NSObject
 {
@@ -235,14 +233,6 @@ class BarManager: NSObject
         //test 
         var myLat = myLocation!.latitude
         var myLong = myLocation!.longitude
-        print(myLocation)
-//        myLat = 1.2893915982879485
-//        myLong = 103.81716449584698
-        
-        //camp location
-        //latitude: 1.3353980862595003, longitude: 103.67920429226866)
-        bar.loc_lat =  1.2893408327337974
-        bar.loc_long = 103.81803572273988
         
         
         
@@ -428,6 +418,23 @@ class BarManager: NSObject
             newBar.contact = contact
         }
         
+        if let tags = dict["Bar_Tags"] as? String
+        {
+            newBar.tags = tags
+        }
+ 
+        if let priceDeterminant = dict["Bar_PriceDeterminant"] as? Int
+        {
+            newBar.priceDeterminant = priceDeterminant
+        }
+        else if let priceDeterminant = dict["Bar_PriceDeterminant"] as? String
+        {
+            if let determinant = Int(priceDeterminant)
+            {
+                newBar.priceDeterminant = determinant
+            }
+        }
+        
         
         //get opening hours
         if let monday = dict["OH_Monday"] as? String
@@ -467,12 +474,12 @@ class BarManager: NSObject
         
         if let loc_lat = dict["Bar_Location_Latitude"] as? String
         {
-            newBar.loc_lat = Float(loc_lat)!
+            newBar.loc_lat = Double(loc_lat)!
         }
         
         if let loc_long = dict["Bar_Location_Longitude"] as? String
         {
-            newBar.loc_long = Float(loc_long)!
+            newBar.loc_long = Double(loc_long)!
         }
         
         if let address = dict["Bar_Address"] as? String

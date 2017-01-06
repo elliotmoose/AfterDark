@@ -27,7 +27,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
 
         let mainViewHeight = Sizing.mainViewHeight
         tableView = UITableView(frame: CGRect(x: 0, y: 0,width: Sizing.ScreenWidth(),height: mainViewHeight))
-    
+        tableView?.contentInset = UIEdgeInsetsMake((Sizing.mainViewWithoutGalleryAndTabs - 3*Sizing.detailCellHeight)/2, 0, 0, 0)
+        
         let tableViewBackGroundColor = ColorManager.descriptionCellBGColor
         tableView?.backgroundColor = tableViewBackGroundColor
         tableView?.separatorColor = UIColor.clear
@@ -53,10 +54,10 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
         
         if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar!.bookingAvailable == "1"
         {
-            return 5
+            return 4
         }
         
-        return 4
+        return 3
     }
 
 
@@ -107,12 +108,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
 
 
             }
-            cell?.backgroundColor = ColorManager.descriptionCellBGColor
-            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
+
             cell?.Icon?.image = UIImage(named: "Marker-48")?.withRenderingMode(.alwaysTemplate)
-            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
-            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
-            
             if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar!.address != ""
             {
                 cell?.Detail.text = BarManager.singleton.displayedDetailBar!.address
@@ -129,8 +126,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
             {
                 cell = OpeningHoursCell()
             }
-            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
-
             
             cell?.LoadOpeningHours(openingHours: BarManager.singleton.displayedDetailBar!.openClosingHours)
             openingHoursCell = cell!
@@ -142,15 +137,10 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
             if cell == nil
             {
                 cell = IconCell()
-
-
             }
             
-            cell?.backgroundColor = ColorManager.descriptionCellBGColor
-            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
+           
             cell?.Icon?.image = UIImage(named: "Phone-48")?.withRenderingMode(.alwaysTemplate)
-            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
-            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
             cell?.Detail.text = BarManager.singleton.displayedDetailBar?.contact
             return cell!
 
@@ -163,14 +153,9 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
 
             }
             
-            cell?.backgroundColor = ColorManager.descriptionCellBGColor
-            cell?.Detail.textColor = ColorManager.descriptionCellTextColor
             cell?.Icon?.image = UIImage(named: "Domain Filled-50")?.withRenderingMode(.alwaysTemplate)
-            
-            
-            cell?.Icon?.tintColor = ColorManager.descriptionIconsTintColor
             cell?.Detail.text = BarManager.singleton.displayedDetailBar?.website
-            cell?.separatorInset = UIEdgeInsetsMake(0, cell!.bounds.size.width, 0, 0);
+            
 
             return cell!
 
@@ -196,6 +181,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+  
         switch indexPath
         {
 
@@ -209,15 +196,15 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
                 }
                 else
                 {
-                    return Sizing.mainViewWithoutGalleryAndTabs/4
+                    return Sizing.detailCellHeight
                 }
 
             }
             else
             {
-                return Sizing.mainViewWithoutGalleryAndTabs/4
+                return Sizing.detailCellHeight
             }
-        default: return Sizing.mainViewWithoutGalleryAndTabs/4
+        default: return Sizing.detailCellHeight
         }
         
     }
@@ -236,17 +223,20 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
                 }
                 else
                 {
-                    return Sizing.mainViewWithoutGalleryAndTabs/4
+                    return Sizing.detailCellHeight
                 }
                 
             }
             else
             {
-                return Sizing.mainViewWithoutGalleryAndTabs/4
+                return Sizing.detailCellHeight
             }
-        default: return Sizing.mainViewWithoutGalleryAndTabs/4
+        default: return Sizing.detailCellHeight
         }
+        
     }
+    
+    
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -133,8 +133,8 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         //check for valid email
         if !CheckForValidEmail(email: email!)
         {
-            confirmEmailTextField.textColor = ColorManager.accountCreationHighlightErrorColor
-            emailTextField.textColor = ColorManager.accountCreationHighlightErrorColor
+            confirmEmailLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+            emailLabel.textColor = ColorManager.accountCreationHighlightErrorColor
             issues.append("- email is not valid")
         }
         
@@ -183,9 +183,9 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
                             self.delegate?.Dismiss()
  
                             //update login details
-                            let username = dict["User_Name"] as? String
-                            let ID = String(describing: (dict["User_ID"] as? Int)!)
-                            let email = dict["User_Email"] as? String
+                            let username = dict!["User_Name"] as? String
+                            let ID = String(describing: (dict!["User_ID"] as? Int)!)
+                            let email = dict!["User_Email"] as? String
                             
                             Account.singleton.user_name = username
                             Account.singleton.user_ID = ID

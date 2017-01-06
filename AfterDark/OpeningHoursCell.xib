@@ -32,7 +32,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opening Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mft-NU-9bC">
-                        <rect key="frame" x="52" y="14" width="260" height="18.5"/>
+                        <rect key="frame" x="88" y="14" width="224" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -45,49 +45,49 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKo-PT-M8W">
-                        <rect key="frame" x="179" y="53.5" width="125" height="18.5"/>
+                        <rect key="frame" x="215" y="53.5" width="89" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDI-RI-itG">
-                        <rect key="frame" x="179" y="79.5" width="125" height="18.5"/>
+                        <rect key="frame" x="215" y="79.5" width="89" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Tu-QH-x7g">
-                        <rect key="frame" x="179" y="105.5" width="125" height="18.5"/>
+                        <rect key="frame" x="215" y="105.5" width="89" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfd-a6-H4Q">
-                        <rect key="frame" x="179" y="131.5" width="125" height="18.5"/>
+                        <rect key="frame" x="215" y="131.5" width="89" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-S0-gUU">
-                        <rect key="frame" x="179" y="157.5" width="125" height="18.5"/>
+                        <rect key="frame" x="215" y="157.5" width="89" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8Q-np-Ibz">
-                        <rect key="frame" x="179" y="183.5" width="125" height="18.5"/>
+                        <rect key="frame" x="215" y="183.5" width="89" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeU-LM-yXC">
-                        <rect key="frame" x="179" y="209.5" width="125" height="18.5"/>
+                        <rect key="frame" x="215" y="209.5" width="89" height="18.5"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRU-4T-Zy8">
-                        <rect key="frame" x="52" y="52.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="52.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="KbV-Rl-P2H"/>
                         </constraints>
@@ -96,7 +96,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0E-Y7-TZJ">
-                        <rect key="frame" x="52" y="78.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="78.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="SXH-Bg-o9i"/>
                         </constraints>
@@ -105,7 +105,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvD-1C-h1C">
-                        <rect key="frame" x="52" y="104.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="104.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="122" id="SUj-cV-hlC"/>
                             <constraint firstAttribute="height" constant="20" id="bZf-E7-Jxs"/>
@@ -115,7 +115,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iwb-xT-LmT">
-                        <rect key="frame" x="52" y="130.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="130.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="3IF-YJ-gKl"/>
                         </constraints>
@@ -124,7 +124,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fb2-89-7sV">
-                        <rect key="frame" x="52" y="156.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="156.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="4l2-a5-8rF"/>
                         </constraints>
@@ -133,7 +133,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saturday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzR-Ew-6Z1">
-                        <rect key="frame" x="52" y="182.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="182.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="dAY-kd-B5q"/>
                         </constraints>
@@ -142,7 +142,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjH-81-UX3">
-                        <rect key="frame" x="52" y="208.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="208.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="bGk-sM-VL1"/>
                         </constraints>
@@ -152,6 +152,7 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="mft-NU-9bC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="80" id="2Gf-cZ-aiH"/>
                     <constraint firstItem="xDd-W4-eDF" firstAttribute="leading" secondItem="ZNP-Z5-OR4" secondAttribute="trailing" constant="200" id="2N7-1F-hpU"/>
                     <constraint firstItem="YRU-4T-Zy8" firstAttribute="leading" secondItem="mft-NU-9bC" secondAttribute="leading" id="3cf-Da-wVi"/>
                     <constraint firstItem="sDI-RI-itG" firstAttribute="centerY" secondItem="Q0E-Y7-TZJ" secondAttribute="centerY" id="702-ge-G3g"/>
@@ -167,7 +168,6 @@
                     <constraint firstItem="W8Q-np-Ibz" firstAttribute="centerY" secondItem="KzR-Ew-6Z1" secondAttribute="centerY" id="FAX-Ms-D79"/>
                     <constraint firstItem="YRU-4T-Zy8" firstAttribute="width" secondItem="zvD-1C-h1C" secondAttribute="width" id="GKC-zn-cS9"/>
                     <constraint firstItem="YRU-4T-Zy8" firstAttribute="top" secondItem="mft-NU-9bC" secondAttribute="bottom" constant="20" id="Ik6-Rk-1Ya"/>
-                    <constraint firstItem="mft-NU-9bC" firstAttribute="leading" secondItem="ZNP-Z5-OR4" secondAttribute="trailing" constant="8" id="JUB-hG-G1G"/>
                     <constraint firstItem="xDd-W4-eDF" firstAttribute="top" secondItem="mft-NU-9bC" secondAttribute="top" id="Jft-d0-fO9"/>
                     <constraint firstItem="6Tu-QH-x7g" firstAttribute="centerY" secondItem="zvD-1C-h1C" secondAttribute="centerY" id="KZk-Y3-GDR"/>
                     <constraint firstItem="zvD-1C-h1C" firstAttribute="top" secondItem="Q0E-Y7-TZJ" secondAttribute="bottom" constant="6" id="KyI-60-ny2"/>
@@ -206,6 +206,8 @@
                 <outlet property="Arrow" destination="xDd-W4-eDF" id="ztz-aD-6ug"/>
                 <outlet property="Detail" destination="mft-NU-9bC" id="obe-p1-Kd5"/>
                 <outlet property="Icon" destination="ZNP-Z5-OR4" id="3by-ZI-8oo"/>
+                <outlet property="detailLeftConstraint" destination="2Gf-cZ-aiH" id="bOP-qR-Adg"/>
+                <outlet property="iconLeftConstraint" destination="vyV-14-vjD" id="6Hh-D8-s7Z"/>
                 <outletCollection property="dayLabels" destination="YRU-4T-Zy8" collectionClass="NSMutableArray" id="eEV-gf-c4i"/>
                 <outletCollection property="dayLabels" destination="Q0E-Y7-TZJ" collectionClass="NSMutableArray" id="f38-os-zg3"/>
                 <outletCollection property="dayLabels" destination="zvD-1C-h1C" collectionClass="NSMutableArray" id="hMu-JX-udO"/>

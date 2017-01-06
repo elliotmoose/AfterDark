@@ -115,7 +115,7 @@ class Account {
         })
     }
 
-    func CreateNewAccount(_ username: String, _ password: String, _ email: String, _ dateOfBirth : String, handler: @escaping (_ success : Bool, _ response: String, _ dictOut : NSDictionary)-> Void)
+    func CreateNewAccount(_ username: String, _ password: String, _ email: String, _ dateOfBirth : String, handler: @escaping (_ success : Bool, _ response: String, _ dictOut : NSDictionary?)-> Void)
     {
 
         
@@ -128,27 +128,72 @@ class Account {
         
             if let output = output
             {
-                let jsonData = (output as NSData).mutableCopy() as! NSMutableData
-                
-//                let stringData = String(data: jsonData as Data, encoding: .utf8)
-//                NSLog(stringData!)
-                
-                let dict = Network.JsonDataToDict(jsonData)
-                
-                if dict["success"] as! String == "false"
+
+                do
                 {
-                    let errorMessage = dict["detail"] as! String
-                    DispatchQueue.main.async {
-                        handler(false,errorMessage,dict)
+                    if let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? NSDictionary
+                    {
+                        if let successful = dict["success"] as? String
+                        {
+                            if successful == "false"
+                            {
+                                let errorMessage = dict["detail"] as! String
+                                DispatchQueue.main.async {
+                                    handler(false,errorMessage,nil)
+                                }
+                                return
+                            }
+                            else if successful == "true"
+                            {
+                                if let outputDict = dict["detail"] as? NSDictionary
+                                {
+                                    DispatchQueue.main.async {
+                                        handler(true,"Account created",outputDict)
+                                    }
+                                    return
+                                }
+                                else
+                                {
+                                    DispatchQueue.main.async {
+                                        handler(false,"Invalid server response",nil)
+                                    }
+                                    return
+                                }
+                                
+                            }
+                        }
+                        else
+                        {
+                            DispatchQueue.main.async {
+                                handler(false,"Invalid server response",nil)
+                            }
+                            return
+                        }
+
                     }
+
+                }
+                catch let error as NSError
+                {
+                    DispatchQueue.main.async {
+                        let outString = String(data: output, encoding: .utf8)
+                        handler(false,"Invalid server response: \(outString!)" ,nil)
+                    }
+                    return
                 }
                 
-                if dict["success"] as! String == "true"
-                {
-                    DispatchQueue.main.async {
-                        handler(true,"Account created",dict)
-                    }
-                    
+                DispatchQueue.main.async {
+                    let outString = String(data: output, encoding: .utf8)
+                    handler(false,"Invalid server response: \(outString!)" ,nil)
+                }
+                return
+                
+               
+            }
+            else
+            {
+                DispatchQueue.main.async {
+                    handler(false,"No server repsonse. Check connection",nil)
                 }
             }
         

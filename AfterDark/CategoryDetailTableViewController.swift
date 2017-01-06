@@ -547,7 +547,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     func UpdateReviewTab()
     {
         DispatchQueue.main.async(execute: {
-            //self.barBlownUpCell?.reviewCont.ReloadReviewTableData()
+            self.barBlownUpCell?.reviewCont.reloadData()
         })
         
     }
@@ -576,7 +576,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             barList.sort(by: {$0.rating.avg > $1.rating.avg})
             
         case .priceLow:
-            barList.sort(by: {$0.rating.price > $1.rating.price})
+            barList.sort(by: {$0.priceDeterminant < $1.priceDeterminant})
   
         }
         
@@ -618,7 +618,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             barList.sort(by: {$0.rating.avg > $1.rating.avg})
 
         case .priceLow:
-            barList.sort(by: {$0.rating.price > $1.rating.price})
+            barList.sort(by: {$0.priceDeterminant < $1.priceDeterminant})
 
         }
         
@@ -660,7 +660,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             barList.sort(by: {$0.rating.avg > $1.rating.avg})
             
         case .priceLow:
-            barList.sort(by: {$0.rating.price > $1.rating.price})
+            barList.sort(by: {$0.priceDeterminant < $1.priceDeterminant})
             
         }
         

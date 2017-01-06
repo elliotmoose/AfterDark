@@ -46,7 +46,7 @@
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="sWC-hS-21X"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags: tag1, tag2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2L-FX-TLv">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags: tag1, tag2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2L-FX-TLv">
                         <rect key="frame" x="23" y="46" width="94.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="d36-Ak-9fg"/>
@@ -56,7 +56,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dist - time - cost" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYr-JY-bjz">
-                        <rect key="frame" x="23" y="60" width="101.5" height="20"/>
+                        <rect key="frame" x="23" y="60" width="102" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="dP9-aY-WqZ"/>
                         </constraints>
@@ -75,10 +75,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biU-hp-6C0">
-                        <rect key="frame" x="0.0" y="0.0" width="365" height="90.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="91"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap again for details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHf-nd-Tnu">
-                                <rect key="frame" x="118" y="72" width="130" height="13.5"/>
+                                <rect key="frame" x="118" y="72" width="130" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="1Hl-Tl-Rka"/>
                                     <constraint firstAttribute="height" constant="13.5" id="xJg-8I-0Nw"/>
@@ -103,6 +103,7 @@
                     <constraint firstItem="MEb-U6-7lc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="VSk-B9-Hnt"/>
                     <constraint firstAttribute="bottom" secondItem="biU-hp-6C0" secondAttribute="bottom" id="czp-81-SYE"/>
                     <constraint firstItem="3MW-Ea-wZh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="d5S-CQ-TT0"/>
+                    <constraint firstItem="Z2L-FX-TLv" firstAttribute="width" relation="lessThanOrEqual" secondItem="3MW-Ea-wZh" secondAttribute="width" id="doI-sP-9w6"/>
                     <constraint firstItem="biU-hp-6C0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="epw-sQ-3ss"/>
                     <constraint firstAttribute="trailingMargin" secondItem="MEb-U6-7lc" secondAttribute="trailing" constant="8" id="gCy-d6-HB9"/>
                     <constraint firstAttribute="trailing" secondItem="biU-hp-6C0" secondAttribute="trailing" id="gJe-gl-Deu"/>

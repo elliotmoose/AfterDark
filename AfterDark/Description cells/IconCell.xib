@@ -24,8 +24,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="351" height="83"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95k-w1-88Q">
-                        <rect key="frame" x="49" y="31" width="294" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95k-w1-88Q">
+                        <rect key="frame" x="88" y="32" width="215" height="19"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -40,8 +40,8 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="95k-w1-88Q" firstAttribute="leading" secondItem="Xeq-58-zLm" secondAttribute="trailing" constant="8" id="Ucu-It-Dhe"/>
-                    <constraint firstItem="95k-w1-88Q" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="knh-Sb-Rih"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="95k-w1-88Q" secondAttribute="trailing" constant="40" id="RZf-mb-Pqi"/>
+                    <constraint firstItem="95k-w1-88Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="80" id="Wbu-8T-qVR"/>
                     <constraint firstItem="Xeq-58-zLm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sBl-zX-I0o"/>
                     <constraint firstItem="Xeq-58-zLm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="u5f-xu-ATl"/>
                     <constraint firstItem="95k-w1-88Q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="wPx-nU-aEG"/>
@@ -50,8 +50,11 @@
             <connections>
                 <outlet property="Detail" destination="95k-w1-88Q" id="u2D-vy-om6"/>
                 <outlet property="Icon" destination="Xeq-58-zLm" id="GBV-fV-ha5"/>
+                <outlet property="detailLabelLeftConstraint" destination="Wbu-8T-qVR" id="uBk-si-VHO"/>
+                <outlet property="detailLabelRightConstraint" destination="RZf-mb-Pqi" id="W0e-uo-78I"/>
+                <outlet property="iconLeftConstraint" destination="u5f-xu-ATl" id="FSn-mq-Bob"/>
             </connections>
-            <point key="canvasLocation" x="501.5" y="334"/>
+            <point key="canvasLocation" x="433" y="82"/>
         </tableViewCell>
     </objects>
     <resources>

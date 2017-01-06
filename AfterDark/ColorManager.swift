@@ -37,7 +37,7 @@ class ColorManager
     static let descriptionBGColor = UIColor.black
     static let descriptionTitleColor = UIColor.white
     static let descriptionTitleBGColor = ColorManager.darkGray
-    static let descriptionIconsTintColor = ColorManager.themeBright
+    static let descriptionIconsTintColor = UIColor.white
     static let descriptionCellBGColor = UIColor.black
     static let descriptionCellTextColor = UIColor.white
     static let reservationCellColor = ColorManager.themeBright
@@ -74,6 +74,10 @@ class ColorManager
     
     //account creation view
     static let accountCreationHighlightErrorColor = UIColor.red
+    
+    
+    //settings
+    static let SettingsImportantCellColor = UIColor(hue: 213/360, saturation: 0.63, brightness: 0.60, alpha: 1)
 	init()
 	{
         

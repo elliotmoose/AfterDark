@@ -53,6 +53,8 @@
 		A439FF621DF2A670005BFAC4 /* CategoryDetailCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF611DF2A670005BFAC4 /* CategoryDetailCollectionView.swift */; };
 		A4649AD31E1DF26B00A8B508 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */; };
 		A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */; };
+		A4649AD81E1F41E200A8B508 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD61E1F41E200A8B508 /* ReviewViewController.swift */; };
+		A4649AD91E1F41E200A8B508 /* ReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4649AD71E1F41E200A8B508 /* ReviewViewController.xib */; };
 		A473F96C1E16C02600F640F9 /* Champagne & Limousines.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A473F96B1E16C02600F640F9 /* Champagne & Limousines.ttf */; };
 		A473F96E1E16C04100F640F9 /* Mohave-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A473F96D1E16C04100F640F9 /* Mohave-Bold.otf */; };
 		A473F9741E16C06900F640F9 /* Mohave Italics.otf in Resources */ = {isa = PBXBuildFile; fileRef = A473F96F1E16C06900F640F9 /* Mohave Italics.otf */; };
@@ -71,8 +73,8 @@
 		A473F9AD1E1CBDBF00F640F9 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9AB1E1CBDBF00F640F9 /* InitialViewController.swift */; };
 		A473F9AE1E1CBDBF00F640F9 /* InitialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9AC1E1CBDBF00F640F9 /* InitialViewController.xib */; };
 		A473F9B01E1CC0AF00F640F9 /* BarListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9AF1E1CC0AF00F640F9 /* BarListViewController.swift */; };
-		A473F9B41E1DD78500F640F9 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9B21E1DD78500F640F9 /* ReviewViewController.swift */; };
-		A473F9B51E1DD78500F640F9 /* ReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9B31E1DD78500F640F9 /* ReviewViewController.xib */; };
+		A473F9B41E1DD78500F640F9 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9B21E1DD78500F640F9 /* AddReviewViewController.swift */; };
+		A473F9B51E1DD78500F640F9 /* AddReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9B31E1DD78500F640F9 /* AddReviewViewController.xib */; };
 		A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47A542E1DC8988800C465F5 /* DiscountManager.swift */; };
 		A481322C1DCC4CB700178251 /* OpeningHoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481322A1DCC4CB700178251 /* OpeningHoursCell.swift */; };
 		A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A481322B1DCC4CB700178251 /* OpeningHoursCell.xib */; };
@@ -181,6 +183,8 @@
 		A439FF611DF2A670005BFAC4 /* CategoryDetailCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailCollectionView.swift; sourceTree = "<group>"; };
 		A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionViewController.xib; sourceTree = "<group>"; };
+		A4649AD61E1F41E200A8B508 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		A4649AD71E1F41E200A8B508 /* ReviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewViewController.xib; sourceTree = "<group>"; };
 		A473F96B1E16C02600F640F9 /* Champagne & Limousines.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Champagne & Limousines.ttf"; path = "Fonts/champagne_limousines/Champagne & Limousines.ttf"; sourceTree = "<group>"; };
 		A473F96D1E16C04100F640F9 /* Mohave-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mohave-Bold.otf"; path = "Fonts/Mohave/Mohave-Bold.otf"; sourceTree = "<group>"; };
 		A473F96F1E16C06900F640F9 /* Mohave Italics.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mohave Italics.otf"; path = "Fonts/Mohave/Mohave Italics.otf"; sourceTree = "<group>"; };
@@ -199,8 +203,8 @@
 		A473F9AB1E1CBDBF00F640F9 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		A473F9AC1E1CBDBF00F640F9 /* InitialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewController.xib; sourceTree = "<group>"; };
 		A473F9AF1E1CC0AF00F640F9 /* BarListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarListViewController.swift; sourceTree = "<group>"; };
-		A473F9B21E1DD78500F640F9 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
-		A473F9B31E1DD78500F640F9 /* ReviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewViewController.xib; sourceTree = "<group>"; };
+		A473F9B21E1DD78500F640F9 /* AddReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
+		A473F9B31E1DD78500F640F9 /* AddReviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddReviewViewController.xib; sourceTree = "<group>"; };
 		A47A542E1DC8988800C465F5 /* DiscountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountManager.swift; sourceTree = "<group>"; };
 		A481322A1DCC4CB700178251 /* OpeningHoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpeningHoursCell.swift; path = ../OpeningHoursCell.swift; sourceTree = "<group>"; };
 		A481322B1DCC4CB700178251 /* OpeningHoursCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OpeningHoursCell.xib; path = ../OpeningHoursCell.xib; sourceTree = "<group>"; };
@@ -437,8 +441,10 @@
 		A473F9B61E1DD78A00F640F9 /* New Review Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A473F9B21E1DD78500F640F9 /* ReviewViewController.swift */,
-				A473F9B31E1DD78500F640F9 /* ReviewViewController.xib */,
+				A4649AD61E1F41E200A8B508 /* ReviewViewController.swift */,
+				A4649AD71E1F41E200A8B508 /* ReviewViewController.xib */,
+				A473F9B21E1DD78500F640F9 /* AddReviewViewController.swift */,
+				A473F9B31E1DD78500F640F9 /* AddReviewViewController.xib */,
 			);
 			name = "New Review Controller";
 			sourceTree = "<group>";
@@ -681,7 +687,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A473F9781E16C06900F640F9 /* Mohave.otf in Resources */,
-				A473F9B51E1DD78500F640F9 /* ReviewViewController.xib in Resources */,
+				A473F9B51E1DD78500F640F9 /* AddReviewViewController.xib in Resources */,
 				A473F9AE1E1CBDBF00F640F9 /* InitialViewController.xib in Resources */,
 				98FCB19A1DBFB5C9008C9307 /* ReviewCell.xib in Resources */,
 				A473F97A1E16C07C00F640F9 /* BEBAS___.TTF in Resources */,
@@ -703,6 +709,7 @@
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
 				A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */,
 				A439FF601DF172FB005BFAC4 /* BarListCollectionViewCell.xib in Resources */,
+				A4649AD91E1F41E200A8B508 /* ReviewViewController.xib in Resources */,
 				A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
 				A473F96E1E16C04100F640F9 /* Mohave-Bold.otf in Resources */,
@@ -903,9 +910,10 @@
 				986E18381DC3D4C20098637D /* Category.swift in Sources */,
 				A494505F1DCE0F890081AF72 /* SettingsTableViewController.swift in Sources */,
 				DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */,
+				A4649AD81E1F41E200A8B508 /* ReviewViewController.swift in Sources */,
 				A473F9B01E1CC0AF00F640F9 /* BarListViewController.swift in Sources */,
 				988D7A2B1DB6630E002E3769 /* BarDetailViewMainCell.swift in Sources */,
-				A473F9B41E1DD78500F640F9 /* ReviewViewController.swift in Sources */,
+				A473F9B41E1DD78500F640F9 /* AddReviewViewController.swift in Sources */,
 				TB4I34LS3SZ054G6QFADRMAX /* BarManager.swift in Sources */,
 				A4649AD31E1DF26B00A8B508 /* DescriptionViewController.swift in Sources */,
 				98FD6FF71DB8716300688514 /* TransparentView.swift in Sources */,

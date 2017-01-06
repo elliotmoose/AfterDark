@@ -22,15 +22,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiscountCell" rowHeight="40" id="KGk-i7-Jjw" customClass="DiscountCell" customModule="AfterDark" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="340" height="64"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiscountCell" rowHeight="26" id="KGk-i7-Jjw" customClass="DiscountCell" customModule="AfterDark" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="340" height="63"/>
+                <rect key="frame" x="0.0" y="0.0" width="340" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42W-AR-Wfv">
-                        <rect key="frame" x="8" y="0.0" width="70" height="63.5"/>
+                        <rect key="frame" x="8" y="0.0" width="70" height="49.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="8xx-p5-bzC"/>
                         </constraints>
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iT-Pr-ZDj">
-                        <rect key="frame" x="86" y="5" width="254" height="35"/>
+                        <rect key="frame" x="86" y="8" width="254" height="35"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="eYV-N3-Xn6"/>
                         </constraints>
@@ -48,7 +48,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ww3-W7-AdW">
-                        <rect key="frame" x="86" y="35" width="254" height="20"/>
+                        <rect key="frame" x="86" y="19.5" width="254" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="rUa-Bx-Xfj"/>
                         </constraints>
@@ -64,9 +64,9 @@
                     <constraint firstItem="42W-AR-Wfv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="d0i-39-5LP"/>
                     <constraint firstAttribute="bottom" secondItem="42W-AR-Wfv" secondAttribute="bottom" id="h73-Za-Dqj"/>
                     <constraint firstAttribute="trailing" secondItem="ww3-W7-AdW" secondAttribute="trailing" id="igr-1I-jeh"/>
-                    <constraint firstAttribute="bottom" secondItem="ww3-W7-AdW" secondAttribute="bottom" constant="8.5" id="kig-2C-vb3"/>
+                    <constraint firstAttribute="bottom" secondItem="ww3-W7-AdW" secondAttribute="bottom" constant="10" id="kig-2C-vb3"/>
                     <constraint firstAttribute="trailing" secondItem="1iT-Pr-ZDj" secondAttribute="trailing" id="rho-zf-W0J"/>
-                    <constraint firstItem="1iT-Pr-ZDj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="thi-q8-kTD"/>
+                    <constraint firstItem="1iT-Pr-ZDj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="thi-q8-kTD"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,7 +75,7 @@
                 <outlet property="titleLabel" destination="1iT-Pr-ZDj" id="Ofx-Gm-TDR"/>
                 <outlet property="valueLabel" destination="42W-AR-Wfv" id="jqw-nR-nMX"/>
             </connections>
-            <point key="canvasLocation" x="-12" y="33"/>
+            <point key="canvasLocation" x="-6" y="37"/>
         </tableViewCell>
     </objects>
 </document>

@@ -17,10 +17,14 @@ class DescriptionViewController: UIViewController {
     {
         super.init(nibName: "DescriptionViewController", bundle: Bundle.main)
         Bundle.main.loadNibNamed("DescriptionViewController", owner: self, options: nil)
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         Bundle.main.loadNibNamed("DescriptionViewController", owner: self, options: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +34,7 @@ class DescriptionViewController: UIViewController {
     func ReloadData()
     {
         guard let bar = BarManager.singleton.displayedDetailBar else {return}
+        textView.isSelectable = true //bug is present so need to set this
         textView.text = bar.description
     }
     

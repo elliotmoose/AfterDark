@@ -216,8 +216,8 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     
     func OpenGoogleMaps()
     {
-        var barLocLat : Float = 0
-        var barLocLong : Float = 0
+        var barLocLat : Double = 0
+        var barLocLong : Double = 0
         if highlightedBar != nil
         {
             barLocLat = highlightedBar!.loc_lat
