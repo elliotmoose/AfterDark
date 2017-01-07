@@ -12,11 +12,17 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
 
     static let singleton = NewAccountFormViewController(nibName: "NewAccountFormViewController", bundle: Bundle.main)
     
+    let checkedImage = #imageLiteral(resourceName: "Checked").withRenderingMode(.alwaysTemplate)
+    let uncheckedImage = #imageLiteral(resourceName: "Unchecked").withRenderingMode(.alwaysTemplate)
     
     @IBAction func backButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
@@ -24,6 +30,8 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var confirmEmailTextField: UITextField!
     @IBOutlet weak var dobTextField: UITextField!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmPasswordLabel: UILabel!
@@ -33,6 +41,26 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var maleButton: UIButton!
+    
+    @IBOutlet weak var femaleButton: UIButton!
+    
+    @IBOutlet weak var maleCheckBox: UIImageView!
+    
+    @IBOutlet weak var femaleCheckBox: UIImageView!
+    
+    var genderSelected = "Male"
+    @IBAction func maleButtonPressed(_ sender: Any) {
+        genderSelected = "Male"
+        maleCheckBox.image = checkedImage
+        femaleCheckBox.image = uncheckedImage
+    }
+    
+    @IBAction func femaleButtonPressed(_ sender: Any) {
+        genderSelected = "Female"
+        maleCheckBox.image = uncheckedImage
+        femaleCheckBox.image = checkedImage
+    }
     
     let datePicker = UIDatePicker(frame: CGRect.zero)
 
@@ -41,20 +69,27 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     var activeField : UITextField?
     
     @IBAction func CreateButtonPressed(_ sender: Any) {
+        
+        let firstName = firstNameTextField.text
+        let lastName = lastNameTextField.text
         let username = usernameTextField.text
+        let phoneNumber = phoneTextField.text
+        let dob = dobTextField.text
         let password = passwordTextField.text
         let confirmPassword = confirmPasswordTextField.text
         let email = emailTextField.text
         let confirmEmail = confirmEmailTextField.text
-        let dob = dobTextField.text
         
         //reset label colors
-        usernameLabel.textColor = UIColor.black
-        passwordLabel.textColor = UIColor.black
-        confirmPasswordLabel.textColor = UIColor.black
-        emailLabel.textColor = UIColor.black
-        confirmEmailLabel.textColor = UIColor.black
-        dobLabel.textColor = UIColor.black
+        nameLabel.textColor = ColorManager.themeBright
+        usernameLabel.textColor = ColorManager.themeBright
+        dobLabel.textColor = ColorManager.themeBright
+        phoneLabel.textColor = ColorManager.themeBright
+        passwordLabel.textColor = ColorManager.themeBright
+        confirmPasswordLabel.textColor = ColorManager.themeBright
+        emailLabel.textColor = ColorManager.themeBright
+        confirmEmailLabel.textColor = ColorManager.themeBright
+        
         
 
         
@@ -73,6 +108,21 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
             confirmEmailLabel.textColor = ColorManager.accountCreationHighlightErrorColor
         }
         
+        if firstName == "" || lastName == ""
+        {
+            issues.append("- fill in Name")
+            nameLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+        }
+        if dob == ""
+        {
+            issues.append("- fill in date of birth")
+            dobLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+        }
+        if phoneNumber == ""
+        {
+            issues.append("- fill in phone number")
+            phoneLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+        }
         if username == ""
         {
             issues.append("- fill in username")
@@ -98,12 +148,7 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
             issues.append("- fill in email confirmation")
             confirmEmailLabel.textColor = ColorManager.accountCreationHighlightErrorColor
         }
-        
-        if dob == ""
-        {
-            issues.append("- fill in date of birth")
-            dobLabel.textColor = ColorManager.accountCreationHighlightErrorColor
-        }
+ 
         
         //check username and password for length
         let (allowedUsernameLength,usernameMessage) = CheckForDisallowedLength(input: username!, maxLength: 20, minLength: 4)
@@ -287,14 +332,8 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     override func viewWillAppear(_ animated: Bool) {
         
         registerForKeyboardNotifications()
-        //reset label colors
-        usernameLabel.textColor = UIColor.black
-        passwordLabel.textColor = UIColor.black
-        confirmPasswordLabel.textColor = UIColor.black
-        emailLabel.textColor = UIColor.black
-        confirmEmailLabel.textColor = UIColor.black
-        dobLabel.textColor = UIColor.black
-    
+        
+        ResetLabelColors()
     
     }
     
@@ -314,16 +353,39 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         addKeyboardToolBar()
         
         //delegates
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        phoneTextField.delegate = self
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self
         emailTextField.delegate = self
         confirmEmailTextField.delegate = self
         dobTextField.delegate = self
+        
+        ResetLabelColors()
+        
+        maleCheckBox.image = checkedImage
+        maleCheckBox.tintColor = ColorManager.themeBright
+        femaleCheckBox.image = uncheckedImage
+        femaleCheckBox.tintColor = ColorManager.themeBright
+
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    func ResetLabelColors()
+    {
+        //reset label colors
+        nameLabel.textColor = ColorManager.themeBright
+        usernameLabel.textColor = ColorManager.themeBright
+        dobLabel.textColor = ColorManager.themeBright
+        phoneLabel.textColor = ColorManager.themeBright
+        passwordLabel.textColor = ColorManager.themeBright
+        confirmPasswordLabel.textColor = ColorManager.themeBright
+        emailLabel.textColor = ColorManager.themeBright
+        confirmEmailLabel.textColor = ColorManager.themeBright
     }
     
     override var prefersStatusBarHidden: Bool
@@ -345,6 +407,10 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneWithNumberPad))]
         numberToolbar.sizeToFit()
+        
+        firstNameTextField.inputAccessoryView = numberToolbar
+        lastNameTextField.inputAccessoryView = numberToolbar
+        phoneTextField.inputAccessoryView = numberToolbar
         dobTextField.inputAccessoryView = numberToolbar
         emailTextField.inputAccessoryView = numberToolbar
         passwordTextField.inputAccessoryView = numberToolbar
@@ -356,16 +422,24 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     func cancelNumberPad()
     {
         let txtfield = FirstResponder()
-        txtfield.endEditing(true)
+        txtfield?.endEditing(true)
         
     }
     
     func doneWithNumberPad()
     {
-        let txtfield = FirstResponder()
+        let textfield = FirstResponder()
 
-        if txtfield == dobTextField
-        {
+        guard let txtfield = textfield else {return}
+        
+        switch txtfield {
+        case firstNameTextField:
+            lastNameTextField.becomeFirstResponder()
+            
+        case lastNameTextField:
+            dobTextField.becomeFirstResponder()
+            
+        case dobTextField:
             
             //fill text field with current date string
             let date = datePicker.date
@@ -374,67 +448,82 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
             format.dateFormat = "dd/MM/yyyy"
             
             dobTextField.text = format.string(from: date)
-        }
-        else if(txtfield == usernameTextField)
-        {
-            passwordTextField.becomeFirstResponder()
-        }
-        else if(txtfield == passwordTextField)
-        {
-            confirmPasswordTextField.becomeFirstResponder()
-        }
-        else if(txtfield == confirmPasswordTextField)
-        {
-            emailTextField.becomeFirstResponder()
-        }
-        else if(txtfield == emailTextField)
-        {
-            confirmEmailTextField.becomeFirstResponder()
-        }
-        else if(txtfield == confirmEmailTextField)
-        {
             
+            phoneTextField.becomeFirstResponder()
+            
+        case phoneTextField:
+            usernameTextField.becomeFirstResponder()
+            
+        case usernameTextField:
+            passwordTextField.becomeFirstResponder()
+            
+        case passwordTextField:
+            confirmPasswordTextField.becomeFirstResponder()
+            
+        case confirmPasswordTextField:
+            emailTextField.becomeFirstResponder()
+            
+        case emailTextField:
+            confirmEmailTextField.becomeFirstResponder()
+        
+        case emailTextField:
+            break
+
+            
+        default:
+            break
         }
-
         
-        
-
         txtfield.endEditing(true)
+        
+        
+//        if txtfield == dobTextField
+//        {
+//            
+//            //fill text field with current date string
+//            let date = datePicker.date
+//            
+//            let format = DateFormatter()
+//            format.dateFormat = "dd/MM/yyyy"
+//            
+//            dobTextField.text = format.string(from: date)
+//        }
+//        else if(txtfield == usernameTextField)
+//        {
+//            passwordTextField.becomeFirstResponder()
+//        }
+//        else if(txtfield == passwordTextField)
+//        {
+//            confirmPasswordTextField.becomeFirstResponder()
+//        }
+//        else if(txtfield == confirmPasswordTextField)
+//        {
+//            emailTextField.becomeFirstResponder()
+//        }
+//        else if(txtfield == emailTextField)
+//        {
+//            confirmEmailTextField.becomeFirstResponder()
+//        }
+//        else if(txtfield == confirmEmailTextField)
+//        {
+//            
+//        }
+
+        
+        
     }
     
-    func FirstResponder() -> UITextField
+    func FirstResponder() -> UIView?
     {
-        if usernameTextField.isFirstResponder
+        for view in contentView.subviews
         {
-            return usernameTextField
+            if view.isFirstResponder
+            {
+                return view
+            }
         }
         
-        if passwordTextField.isFirstResponder
-        {
-            return passwordTextField
-        }
-        
-        if confirmPasswordTextField.isFirstResponder
-        {
-            return confirmPasswordTextField
-        }
-        
-        if emailTextField.isFirstResponder
-        {
-            return emailTextField
-        }
-        
-        if confirmEmailTextField.isFirstResponder
-        {
-            return confirmEmailTextField
-        }
-        
-        if dobTextField.isFirstResponder
-        {
-            return dobTextField
-        }
-        
-        return usernameTextField
+        return nil
     }
     
     //notifictioncenter
@@ -461,7 +550,6 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     
     func keyboardWasShown(notification: NSNotification){
         //Need to calculate keyboard exact size due to Apple suggestions
-        self.scrollView.isScrollEnabled = true
         var info = notification.userInfo!
         let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
         let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
@@ -479,13 +567,10 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     }
     
     func keyboardWillBeHidden(notification: NSNotification){
-        //Once keyboard disappears, restore original positions
-        var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
         self.view.endEditing(true)
-        self.scrollView.isScrollEnabled = false
     }
 }
