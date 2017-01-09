@@ -198,7 +198,7 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
                 CategoriesManager.singleton.LoadAllCategories()
                 
                 //load reviews
-                ReviewManager.singleton.LoadAllReviews()
+                //ReviewManager.singleton.LoadAllReviews()
                 
                 //load discounts
                 DiscountManager.singleton.LoadAllDiscounts()
@@ -372,7 +372,6 @@ class BarListCollectionViewController: UIViewController,UICollectionViewDelegate
                 
             })
             
-            ReviewManager.singleton.ReloadAllReviews()
             
             DiscountManager.singleton.LoadAllDiscounts()
             

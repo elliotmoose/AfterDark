@@ -14,135 +14,70 @@ class ReviewManager
         
     }
 
-    func LoadAllReviews()
+    func GetCanGiveReview(forBarID : String, handler : @escaping (Bool) -> Void)
     {
-        for bar in BarManager.singleton.mainBarList
-        {
-            //load first 5 reviews
-            ReviewManager.singleton.LoadReviews(bar,lowerBound: 0,count: 5,handler:
-                {
-                    (success) -> Void in
-                    
-                    if BarManager.singleton.displayedDetailBar != nil && bar.name == BarManager.singleton.displayedDetailBar?.name
-                    {
-                        self.delegate?.UpdateReviewTab()
-                        
-                    }
-                    
-                    
-            })
-        }
-    }
-    
-    func LoadReviews(_ bar: Bar,lowerBound : Int,count: Int, handler:@escaping (_ success: Bool)-> Void)
-    {
-        var indexOfFirstReview = lowerBound
-        var offset = 0
-        //sort out which has been loaded and which to load
-        //while index of first review to load is less than the number of reviews (e.g asking to load review 0 but reviews 0 to 3 have already been loaded. so increase index until 4 so that it doesnt reload 0-3)
-        while indexOfFirstReview < bar.reviews.count
-        {
-            indexOfFirstReview += 1
-            offset += 1
-            if offset >= count
+        let url = Network.domain + "CanGiveReview.php"
+        guard let userID = Account.singleton.user_ID else {handler(false);return}
+        let postParam = "User_ID=\(userID)&Bar_ID=\(forBarID)"
+        
+        Network.singleton.DataFromUrlWithPost(url, postParam: postParam) {
+            (success, output) in
+            
+            var canGiveReview = true // default
+            if let output = output
             {
-                //if loading smth that has already been loaded
-                return
-            }
-        }
-        
-        guard let userID = Account.singleton.user_ID else {return}
-        
-        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(indexOfFirstReview)&Count=\(count)&User_ID=\(userID)"
-        Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
-        if success
-        {
-            if output.count != 0
-            {
-                var allReviewsForBar = [Review]()
-                for dict in output
+                if success
                 {
-                    if let count = dict["COUNT(*)"] as? Int
+                    do
                     {
-                        bar.totalReviewCount = count
-                    }
-                    else
-                    {
-                        var newReview = Review()
-                        newReview.initWithDict(dict)
-                        allReviewsForBar.append(newReview)
-                    }
-                }
-                
-                bar.reviews = allReviewsForBar
-                
-                
-                handler(true)
-            }
-        }
-        })
-    }
-    
-
-    
-    func ReloadReviews(_ bar: Bar,lowerBound : Int,count: Int, handler:@escaping (_ success: Bool)-> Void)
-    {
-        
-        bar.reviews.removeAll()
-        
-        let urlGetReviewsForBar = Network.domain + "GetReviewsForBar.php?Bar_ID=\(bar.ID)&LowerRangeLimit=\(lowerBound)&Count=\(count)&User_ID=\(Account.singleton.user_ID!)"
-        Network.singleton.DictArrayFromUrl(urlGetReviewsForBar,handler: {(success,output)->Void in
-            if success
-            {
-                if output.count != 0
-                {
-                    var allReviewsForBar = bar.reviews
-                    for dict in output
-                    {
-                        if let count = dict["COUNT(*)"] as? Int
+                        if let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? NSDictionary
                         {
-                            bar.totalReviewCount = count
+                            if let succ = dict["success"] as? String
+                            {
+                                if succ == "true"
+                                {
+                                    canGiveReview = true
+                                }
+                                else
+                                {
+                                    canGiveReview = false
+                                }
+                            }
+                            else
+                            {
+                                canGiveReview = false
+                                NSLog("invalid server response in GetCanGiveReview()")
+                            }
                         }
                         else
                         {
-                            var newReview = Review()
-                            newReview.initWithDict(dict)
-                            allReviewsForBar.append(newReview)
+                            NSLog("invalid server response in GetCanGiveReview()")
                         }
-                        
-                        
-                        
                     }
-                    bar.reviews = allReviewsForBar
-                    
-                    handler(true)
-                }
-            }
-        })
-    }
-    
-    func ReloadAllReviews()
-    {
-        for bar in BarManager.singleton.mainBarList
-        {
-            //load first 5 reviews
-            ReviewManager.singleton.ReloadReviews(bar,lowerBound: 0,count: 5,handler:
-                {
-                    (success) -> Void in
-                    
-                    if BarManager.singleton.displayedDetailBar != nil && bar.name == BarManager.singleton.displayedDetailBar?.name
+                    catch let error as NSError
                     {
-                        self.delegate?.UpdateReviewTab()
+
                     }
-                    
-                    
-            })
+                }
+                else
+                {
+                    NSLog("check connection")
+                }
+                
+            }
+            else
+            {
+                NSLog("check connection; no server response")
+            }
+            
+            handler(canGiveReview)
         }
     }
+    
     func AddReview(title : String,body : String, rating : Rating,bar : Bar,userID : String,handler: @escaping (_ success : Bool,_ error : String) -> ())
     {
         
-        let url = Network.domain + "/AddReview.php"
+        let url = Network.domain + "AddReview.php"
         let postParam = "title=\(title)&body=\(body)&avg=\(rating.avg)&price=\(rating.price)&food=\(rating.food)&service=\(rating.service)&ambience=\(rating.ambience)&Bar_ID=\(bar.ID)&User_ID=\(userID)"
         
         Network.singleton.DataFromUrlWithPost(url,postParam: postParam,handler: {(success,output) -> Void in

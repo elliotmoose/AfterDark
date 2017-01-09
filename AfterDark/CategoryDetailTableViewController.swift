@@ -42,6 +42,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         //non ui init
         BarManager.singleton.catListDelegate = self
         
+
         
         //init location view
         locationCont.view.backgroundColor = UIColor.blue
@@ -65,7 +66,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             newTab.setTitleColor(ColorManager.themeBright, for: .selected)
             
             //control
-            newTab.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
+            newTab.addTarget(self, action: #selector(self.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
 
             //add to subview
             tabs.append(newTab)

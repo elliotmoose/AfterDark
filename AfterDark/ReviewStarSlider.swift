@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol AddReviewDelegate : class
+{
+    func ratingUpdated(slider: ReviewStarSlider)
+}
+
 class ReviewStarSlider: UISlider {
 
     var ratingStarView : RatingStarView?

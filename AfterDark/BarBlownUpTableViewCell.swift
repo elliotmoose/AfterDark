@@ -34,10 +34,24 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate ,DiscountToMainCellDe
 
     func CellWillAppear()
     {
+        guard let bar = BarManager.singleton.displayedDetailBar else {NSLog("No Bar to present CellWillAppear()");return}
+        
         galleryCont.ToPresentNewDetailBar()
         self.galleryCont.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight)
         
-        
+        //begin load can give review
+        ReviewManager.singleton.GetCanGiveReview(forBarID: bar.ID) {
+            (success) in
+            
+            if success
+            {
+                
+            }
+            else
+            {
+                
+            }
+        }
         
         guard tabs.count > 0 else {return}
         ChangeTab(tabs[0])
@@ -76,7 +90,7 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate ,DiscountToMainCellDe
             newTab.backgroundColor = UIColor.black
             newTab.setTitleColor(UIColor.white, for: .normal)
             newTab.backgroundColor = ColorManager.themeDull
-            newTab.addTarget(self, action: #selector(BarDetailViewMainCell.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
+            newTab.addTarget(self, action: #selector(self.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
             newTab.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 13)
             
             

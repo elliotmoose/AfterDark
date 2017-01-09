@@ -79,6 +79,8 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         let confirmPassword = confirmPasswordTextField.text
         let email = emailTextField.text
         let confirmEmail = confirmEmailTextField.text
+        let gender = genderSelected
+        
         
         //reset label colors
         nameLabel.textColor = ColorManager.themeBright
@@ -214,7 +216,7 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
                 return
             }
             
-            Account.singleton.CreateNewAccount(username!, password!, email!, dob!, handler:
+            Account.singleton.CreateNewAccount(firstName!, lastName!, gender, phoneNumber!, username!, password!, email!, dob!, handler:
                 {(success,result,dict) -> Void in
                     
                     if success

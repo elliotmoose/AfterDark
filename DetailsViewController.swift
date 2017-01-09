@@ -52,11 +52,11 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar!.bookingAvailable == "1"
-        {
-            return 4
-        }
-        
+//        if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar!.bookingAvailable == "1"
+//        {
+//            return 4
+//        }
+//        
         return 3
     }
 
@@ -159,17 +159,17 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
 
             return cell!
 
-        case IndexPath(row: 4, section: 0):
-            
-            cell = tableView.dequeueReusableCell(withIdentifier: "ReservationCell")
-            if cell == nil{
-                cell = UITableViewCell()
-                cell?.textLabel?.text = "Make Reservation"
-                cell?.textLabel?.font = UIFont(name: "Montserrat-Bold", size: 17)
-                cell?.backgroundColor = ColorManager.reservationCellColor
-                cell?.accessoryType = .disclosureIndicator
-            }
-            
+//        case IndexPath(row: 4, section: 0):
+//            
+//            cell = tableView.dequeueReusableCell(withIdentifier: "ReservationCell")
+//            if cell == nil{
+//                cell = UITableViewCell()
+//                cell?.textLabel?.text = "Make Reservation"
+//                cell?.textLabel?.font = UIFont(name: "Montserrat-Bold", size: 17)
+//                cell?.backgroundColor = ColorManager.reservationCellColor
+//                cell?.accessoryType = .disclosureIndicator
+//            }
+//            
             
             
             return cell!
@@ -290,11 +290,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
-        //make reservation cell
-        if indexPath.row == 4
-        {
-            BarDetailTableViewController.singleton.navigationController?.pushViewController(ReservationViewController.singleton, animated: true)
-        }
         
         
 

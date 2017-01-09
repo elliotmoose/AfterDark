@@ -115,13 +115,19 @@ class Account {
         })
     }
 
-    func CreateNewAccount(_ username: String, _ password: String, _ email: String, _ dateOfBirth : String, handler: @escaping (_ success : Bool, _ response: String, _ dictOut : NSDictionary?)-> Void)
+    func CreateNewAccount(_ firstname: String, _ lastname : String, _ gender : String, _ phone : String, _ username: String, _ password: String, _ email: String, _ dateOfBirth : String, handler: @escaping (_ success : Bool, _ response: String, _ dictOut : NSDictionary?)-> Void)
     {
-
+        let paramFirstname = firstname.AddPercentEncodingForURL(plusForSpace: true)!
+        let paramLastname = lastname.AddPercentEncodingForURL(plusForSpace: true)!
+        let paramGender = gender.AddPercentEncodingForURL(plusForSpace: true)!
+        let paramPhone = phone.AddPercentEncodingForURL(plusForSpace: true)!
+        let paramUsername = username.AddPercentEncodingForURL(plusForSpace: true)!
+        let paramPassword = password.AddPercentEncodingForURL(plusForSpace: true)!
+        let paramEmail = email.AddPercentEncodingForURL(plusForSpace: true)!
+        let paramDOB = dateOfBirth.AddPercentEncodingForURL(plusForSpace: true)!
         
         
-        
-        let postParam = "username=\(username.AddPercentEncodingForURL(plusForSpace: true)!)&password=\(password.AddPercentEncodingForURL(plusForSpace: true)!)&email=\(email.AddPercentEncodingForURL(plusForSpace: true)!)&DOB=\(dateOfBirth.AddPercentEncodingForURL(plusForSpace: true)!)"
+        let postParam = "firstname=\(paramFirstname)&lastname=\(paramLastname)&gender=\(paramGender)&phone=\(paramPhone)&username=\(paramUsername)&password=\(paramPassword)&email=\(paramEmail)&DOB=\(paramDOB)"
         let urlCreateAccount = Network.domain + "AddNewAccount.php"
         
         Network.singleton.DataFromUrlWithPost(urlCreateAccount,postParam: postParam,handler: {(success,output) -> Void in

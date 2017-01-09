@@ -36,6 +36,9 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
         barListTableViewController.didMove(toParentViewController: self)
         view.addSubview(barListTableViewController.view)
         
+        self.view.backgroundColor = UIColor.red
+
+        
 
         
     }

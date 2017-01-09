@@ -3,7 +3,6 @@ class Bar{
     var name : String
     var ID : String
     var rating = Rating()
-    var reviews = [Review]()
     var totalReviewCount = 0
     
     var priceDeterminant = 0
@@ -56,12 +55,11 @@ class Bar{
         
     }
     
-    func populate(name : String, ID:String,rating:Rating,reviews:[Review],discounts : [Discount],icon : UIImage,images : [UIImage], maximagecount : Int, description : String, contact : String, website : String, loc_long : Double, loc_lat : Double, address : String, tags : String, priceDeterminant : Int)
+    func populate(name : String, ID:String,rating:Rating,discounts : [Discount],icon : UIImage,images : [UIImage], maximagecount : Int, description : String, contact : String, website : String, loc_long : Double, loc_lat : Double, address : String, tags : String, priceDeterminant : Int)
     {
         self.name = name
         self.ID = ID
         self.rating = rating
-        self.reviews = reviews
         self.discounts = discounts
         self.Images = images
         self.maxImageCount = maximagecount
