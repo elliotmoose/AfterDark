@@ -1,5 +1,5 @@
 import UIKit
-class Bar{
+class Bar : NSObject{
     var name : String
     var ID : String
     var rating = Rating()
@@ -12,7 +12,7 @@ class Bar{
     var Images: [UIImage] = []
     var maxImageCount = -1
     
-    var description : String = ""
+    var bar_description : String = ""
     var tags : String = ""
     //contact
     var contact : String = ""
@@ -32,14 +32,15 @@ class Bar{
     //opening hours
     var openClosingHours = [String]()
     
-    
     var bookingAvailable: String
     
+    //updating
+    var lastUpdate : String = "Not Updated"
     
     
     //rating
     
-    init()
+    override init()
     {
         name = "Untitled"
         contact = ""
@@ -63,7 +64,7 @@ class Bar{
         self.discounts = discounts
         self.Images = images
         self.maxImageCount = maximagecount
-        self.description = description
+        self.bar_description = description
         self.contact = contact
         self.website = website
         self.loc_long = loc_long
@@ -73,5 +74,24 @@ class Bar{
         self.priceDeterminant = priceDeterminant
     }
     
-    
+//    //incomplete
+//    
+//    
+//    func encodeWithCoder(aCoder : NSCoder)
+//    {
+//        aCoder.encode(self.name, forKey: "name")
+//        aCoder.encode(self.ID, forKey: "ID")
+//    }
+//    
+//    func decodeWithCoder(aDecoder : NSCoder)
+//    {
+//        if let name = aDecoder.decodeObject(forKey: "name") as? String
+//        {
+//            self.name = name
+//        }
+//        if let ID = aDecoder.decodeObject(forKey: "ID") as? String
+//        {
+//            self.ID = ID
+//        }
+//    }
 }

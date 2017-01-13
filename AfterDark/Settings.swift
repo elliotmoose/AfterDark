@@ -5,10 +5,14 @@ class Settings
     static let ignoreUserDefaults = false
     static let bypassLoginPage = false
     static let dummyAppOn = false
+    static let cacheModeOff = false
     static let singleton = Settings()
     
     static let googleServicesKey = "AIzaSyANTsheZ7ClHH98Js5p1QA-7QIqw_KPrLQ"
     static let googleServicesServerKey = "AIzaSyDr8co9-LGxlimQACfckiMKrJt7gpx0eds"
+    
+    static var travelMode : TravelMode = .Transit
+    
     init()
     {
         //self.LoadSettings()

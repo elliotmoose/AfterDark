@@ -8,18 +8,22 @@
 
 import UIKit
 
-class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,MainCellDelegate,BarManagerToListTableDelegate {
+class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,MainCellDelegate {
     
     //constants
     let tabHeight : CGFloat = Sizing.catTabHeight
     let highlighterHeight : CGFloat = 10
     let locationViewHeight = Sizing.ScreenHeight()/4
 
+    var awaitUpdate = false
+    var awaitingArrangement : Arrangement = .nearby
     
+    var currentArrangement : Arrangement = .nearby
     //objects
     var tableView : UITableView?
     
     var displayedBarIDs = [String]()
+    var awaitingBarIDs = [String]()
     
     let locationCont = LocationViewController()
     
@@ -33,14 +37,13 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     
     var recentSelectedCell : CategoryTableCell?
     
+    
     //runtime object variables
     //var barBlownUp : Bar?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //non ui init
-        BarManager.singleton.catListDelegate = self
         
 
         
@@ -111,7 +114,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         tabs[0].isSelected = true
         
         //init tableView
-        tableView = UITableView(frame: CGRect(x: 0, y: locationViewHeight + tabHeight, width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight()))
+        let tableViewHeight = Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - self.tabHeight - Sizing.navBarHeight - self.locationViewHeight
+        
+        tableView = UITableView(frame: CGRect(x: 0, y: self.locationViewHeight + self.tabHeight, width: Sizing.ScreenWidth(), height: tableViewHeight))
         tableView?.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.1, alpha: 1)
         tableView?.separatorColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1)
         tableView?.tableFooterView = UIView() //remove seperator lines
@@ -150,7 +155,8 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
 
         if let _ = BarManager.singleton.displayedDetailBar
         {
-            UnblowBarWithHandler {
+            UnblowBarWithHandler
+            {
                 switch sender.tag {
                 case 0:
                     self.SetArrangement(arrangement: .nearby)
@@ -161,7 +167,17 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                     
                 default:
                     self.SetArrangement(arrangement: .avgRating)
+            
                 }
+                
+                if self.awaitUpdate
+                {
+                    self.SetArrangementWithBarIDs(arrangement: self.currentArrangement, barIDs: self.awaitingBarIDs)
+                    self.awaitUpdate = false
+                }
+                
+                //update UI
+                self.UpdateUI()
             }
         }
         else
@@ -177,14 +193,23 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             default:
                 self.SetArrangement(arrangement: .avgRating)
             }
+            
+            if self.awaitUpdate
+            {
+                self.SetArrangementWithBarIDs(arrangement: self.currentArrangement, barIDs: self.awaitingBarIDs)
+                self.awaitUpdate = false
+            }
+            
+            //update UI
+            UpdateUI()
 
         }
         
         recentSelectedCell?.SetDeselected()
         recentSelectedCell = nil
         
-       
-        
+    
+
         
         
         
@@ -208,8 +233,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         //since view will appear is called before will disappear, 2 instances of this class will clash as it will load another before it unloads the previous displayed bar
         BarManager.singleton.displayedDetailBar = nil
-        self.tableView?.reloadData()
         
+        
+        UpdateUI()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -335,7 +361,18 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             {
                 //close immediately
                 SetViewState(state: 1)
-                UnblowBar()
+                UnblowBarWithHandler
+                {
+                    if self.awaitUpdate
+                    {
+                        self.SetArrangementWithBarIDs(arrangement: self.currentArrangement, barIDs: self.awaitingBarIDs)
+                        self.UpdateUI()                        
+                        self.awaitUpdate = false
+                    }
+                }
+                
+                
+
             }
             else //THIS IS WHEN ITS NOT BLOWN UP -> SELECTION AND MOVEMENT TO BLOW UP
             {
@@ -481,13 +518,19 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     
     func SetViewState(state : Int)
     {
-        if state == 0
+        if state == 0 // shift up
         {
             viewState = 0
+            self.tableView?.isScrollEnabled = false
+            
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 8, options: .curveEaseInOut, animations: {
                 
+                //update tab origin
                 self.tabHighlighter!.frame.origin = CGPoint(x: self.tabHighlighter!.frame.origin.x, y: self.tabHeight - self.highlighterHeight)
-                self.tableView?.frame.origin = CGPoint(x: 0, y: self.tabHeight)
+                
+                //update table view content size and frame
+                let tableViewHeight = Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - self.tabHeight - Sizing.navBarHeight
+                self.tableView?.frame = CGRect(x: 0, y: self.tabHeight, width: Sizing.ScreenWidth(), height: tableViewHeight)
                 
                 for tab in self.tabs
                 {
@@ -496,13 +539,18 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                 
             }, completion: nil)
         }
-        else if state == 1
+        else if state == 1 // shift down
         {
             viewState = 1
+            self.tableView?.isScrollEnabled = true
+            
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 5, initialSpringVelocity: 8, options: .curveEaseInOut, animations: {
                 
                 self.tabHighlighter!.frame.origin = CGPoint(x: self.tabHighlighter!.frame.origin.x, y: self.locationViewHeight + self.tabHeight - self.highlighterHeight)
-                self.tableView?.frame.origin = CGPoint(x: 0, y: self.locationViewHeight + self.tabHeight)
+                
+                //update table view content size and frame
+                let tableViewHeight = Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - Sizing.tabHeight - Sizing.navBarHeight - self.locationViewHeight
+                self.tableView?.frame = CGRect(x: 0, y: self.locationViewHeight + self.tabHeight, width: Sizing.ScreenWidth(), height: tableViewHeight)
                 
                 for tab in self.tabs
                 {
@@ -565,8 +613,61 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     //============================================================================
     //                                 Arrangement and displaying of bars
     //============================================================================
+    func SetBarIDsFromList(barListInput : [Bar])
+    {
+        
+        //if a bar is currently on display
+        if BarManager.singleton.displayedDetailBar != nil
+        {
+            //change information within current display
+            self.UpdateTabs()
+            
+            //convert bar list to bar IDs
+            var barIDs = [String]()
+            for bar in barListInput
+            {
+                barIDs.append(bar.ID)
+            }
+            awaitingBarIDs = barIDs
+            self.awaitUpdate = true
+            
+        }
+        else
+        {
+            SetArrangementWithBarList(arrangement: currentArrangement, barListInput: barListInput)
+            
+            //can update cuz none showing
+            UpdateUI()
+        }
+    }
+    
+    func SetBarIDs(barIDs : [String])
+    {
+        
+        //if a bar is currently on display
+        if BarManager.singleton.displayedDetailBar != nil
+        {
+            //change information within current display
+            self.UpdateTabs()
+            
+            //set list
+            awaitingBarIDs = barIDs
+            self.awaitUpdate = true
+            
+        }
+        else
+        {
+            SetArrangementWithBarIDs(arrangement: currentArrangement, barIDs: barIDs)
+            
+            //can update cuz none showing
+            UpdateUI()
+        }
+    }
+    
     func SetArrangementWithBarList(arrangement : Arrangement, barListInput : [Bar])
     {
+        currentArrangement = arrangement
+        
         var barList = barListInput
         //step 2: arrange based on attribute
         switch arrangement {
@@ -589,14 +690,12 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             displayedBarIDs.append(bar.ID)
         }
         
-        //step 4: update ui
-        DispatchQueue.main.async {
-            self.tableView?.reloadData()
-        }
     }
     
     func SetArrangement(arrangement : Arrangement)
     {
+        currentArrangement = arrangement
+        
         //step 1: convert bar list IDs into a bar list
         var barList = [Bar]()
         for ID in displayedBarIDs
@@ -630,15 +729,13 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         {
             displayedBarIDs.append(bar.ID)
         }
-        
-        //step 4: update ui
-        DispatchQueue.main.async {
-            self.tableView?.reloadData()
-        }
+
     }
     
     func SetArrangementWithBarIDs(arrangement : Arrangement, barIDs : [String])
     {
+        currentArrangement = arrangement
+        
         //step 1: convert bar list IDs into a bar list
         var barList = [Bar]()
         for ID in barIDs
@@ -672,12 +769,17 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         {
             displayedBarIDs.append(bar.ID)
         }
-        
-        //step 4: update ui
+    }
+    
+    func UpdateUI()
+    {
         DispatchQueue.main.async {
             self.tableView?.reloadData()
         }
+        
     }
+    
+    
     
     //DELEGATE FUNCTIONS
     func UpdateCellForBar(_ bar: Bar) {
@@ -690,11 +792,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         }
     }
     
-    func UpdateBarListTableDisplay() {
-        //refresh display IDs for this cat!!
-        
-        //then arrangement with ids
-    }
     
     
     

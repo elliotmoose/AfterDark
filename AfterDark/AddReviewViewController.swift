@@ -8,9 +8,10 @@
 
 import UIKit
 
-protocol DismissDelegate : class
+protocol AddReviewToReviewContDelegate : class
 {
     func Dismiss()
+    func LoadCanGiveReview()
 }
 
 class AddReviewViewController: UIViewController,AddReviewDelegate {
@@ -44,7 +45,7 @@ class AddReviewViewController: UIViewController,AddReviewDelegate {
     
     @IBOutlet weak var overlayBG: UIView!
     
-    weak var delegate : DismissDelegate?
+    weak var delegate : AddReviewToReviewContDelegate?
     @IBAction func Dismiss(_ sender: Any) {
         self.delegate?.Dismiss()
     }
@@ -130,6 +131,9 @@ class AddReviewViewController: UIViewController,AddReviewDelegate {
             {
                 PopupManager.singleton.Popup(title: "Done!", body: "Your review has been added! Thank you", presentationViewCont: self,handler: {
                     
+                    //update ability to give review
+                    self.delegate?.LoadCanGiveReview()
+                    self.delegate?.Dismiss()
                     
                 })
             }

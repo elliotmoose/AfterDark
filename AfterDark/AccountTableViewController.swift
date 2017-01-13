@@ -136,10 +136,6 @@ class AccountTableViewController: UITableViewController {
                 Account.singleton.LogOut()
                 self.tableView.reloadData()
                 
-                //reset app to login page
-//                self.tabBarController?.selectedIndex = 1;
-//                self.tabBarController?.viewControllers?[1].present(LoginViewController.singleton, animated: true, completion: nil)
-                
                 let window = UIApplication.shared.delegate?.window!!
                 window?.rootViewController = LoginViewController.singleton
 

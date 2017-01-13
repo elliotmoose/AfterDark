@@ -82,7 +82,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier")
         
-        guard BarManager.singleton.displayedDetailBar != nil else {return tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath)}
+        guard let bar = BarManager.singleton.displayedDetailBar else {return tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath)}
         
         switch indexPath
         {
@@ -90,7 +90,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
 //        
 //            let descriptionCell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: IndexPath(row: 0, section: 0)) as! DescriptionCell
 //            
-//            descriptionCell.textLabel?.text = BarManager.singleton.displayedDetailBar?.description
+//            descriptionCell.textLabel?.text = BarManager.singleton.displayedDetailBar?.bar_description
 //            descriptionCell.textLabel?.numberOfLines = 0
 //            descriptionCell.selectionStyle = .none
 //            
@@ -110,9 +110,9 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
             }
 
             cell?.Icon?.image = UIImage(named: "Marker-48")?.withRenderingMode(.alwaysTemplate)
-            if BarManager.singleton.displayedDetailBar != nil && BarManager.singleton.displayedDetailBar!.address != ""
+            if BarManager.singleton.displayedDetailBar != nil && bar.address != ""
             {
-                cell?.Detail.text = BarManager.singleton.displayedDetailBar!.address
+                cell?.Detail.text = bar.address
             }
             else
             {
@@ -127,7 +127,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
                 cell = OpeningHoursCell()
             }
             
-            cell?.LoadOpeningHours(openingHours: BarManager.singleton.displayedDetailBar!.openClosingHours)
+            cell?.LoadOpeningHours(openingHours: bar.openClosingHours)
             openingHoursCell = cell!
             
             return cell!
@@ -242,7 +242,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let _ = BarManager.singleton.displayedDetailBar else {return}
+        guard let bar = BarManager.singleton.displayedDetailBar else {return}
         
         if indexPath.row == 1 && openingHoursCell != nil
         {
@@ -280,7 +280,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
         
         if indexPath.row == 3
         {
-            if let url = URL(string: BarManager.singleton.displayedDetailBar!.website)
+            if let url = URL(string: bar.website)
             {
                 if UIApplication.shared.canOpenURL(url)
                 {

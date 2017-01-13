@@ -29,193 +29,316 @@ class BarManager: NSObject
     weak var listDelegate :BarManagerToListTableDelegate?
     weak var catListDelegate :BarManagerToListTableDelegate?
 
-    
-//    func DisplayBarDetails(_ bar : Bar)
-//    {
-//        displayedDetailBar = bar
-//    }
-    
-    //====================================================================================
-    //                                  BAR NAMES AND ICONS
-    //====================================================================================
-    func LoadGenericBarData(_ handler: @escaping ()-> Void)//consits of 2 key details: name, ratings , however, we do not wanna overwrite already loaded details (e.g. icon,description)
+
+    //note: this is called in inital: handler calls discounts load and distance matrix load
+    func InitialLoadAllBars(handler : @escaping () -> Void) //*** this must be done after cache has been loaded
     {
-        //Load All Bar Names
-        Network.singleton.DataFromUrl(urlAllBarNames,handler: {(success,output) -> Void in
-            if success == true
-            {
-                if let output = output
-                {
-                    let tempMainBarList = self.BarListGenericDataToArray(output)
-                    
-                    //If list has never been loaded
-                    if self.mainBarList.count == 0
-                    {
-                        self.mainBarList = tempMainBarList
-                        
-
-                    }
-                    else
-                    {
-                        //stores the old list (for future comparison)
-                        let cache = self.mainBarList
-                        var allOldBarNames = [String]()
-                        
-                        //gets all the names of the old bar list
-                        for oldBar in cache
-                        {
-                            allOldBarNames.append(oldBar.name)
-                        }
-                        
-                        //get the new bar list
-                        self.mainBarList = tempMainBarList
-                        
-                        //start comparions
-                        for newBar in self.mainBarList//for each bar in new list
-                        {
-                            //if the old bar list contains this new bar
-                            if allOldBarNames.contains(newBar.name)
-                            {
-                                let indexInCache = allOldBarNames.index(of: newBar.name)
-                                let oldBar = cache[indexInCache!]
-                                if oldBar.Images.count != 0
-                                {
-                                    newBar.Images = oldBar.Images
-                                }
-                            }
-
-                        }
-                        
-                        
-                    }
-                }
-                
-
-                
-                //callback to update UI before continue loading images
-                self.listDelegate?.UpdateBarListTableDisplay()
-                self.catListDelegate?.UpdateBarListTableDisplay()
-
-            }
-            
-
-            handler()
-        });
-        
-
-
-
-    }
-    
-    //====================================================================================
-    //                                  LOAD BAR DETAILS
-    //====================================================================================
-    func LoadAllNonImageDetailBarData(_ handler: @escaping () -> Void)
-    {
-        for bar in mainBarList
+        //step 1: check cache
+        if CacheManager.singleton.HasBarCache() //step 1a, hasBarCache == true
         {
-            let thisBarFormattedName = bar.name.replacingOccurrences(of: " ", with: "+")
-            let urlNonImageBarInfo = Network.domain + "GetBarNonImageInfo.php?Bar_Name=\(thisBarFormattedName)"
-            Network.singleton.DictArrayFromUrl(urlNonImageBarInfo, handler: {(success,output) -> Void in
+            //step 2: load cache and push to ui
+            self.mainBarList = CacheManager.singleton.cachedBarList!
+            
+            self.UpdateUI()
+            
+            //step 3: check for updates
+            
+            //step 3i: load new bar list
+            self.GetNewBarList(handler:
+            { (success, output) in
+                
                 if success
                 {
-                    if output.count != 0
+                    //step 3ii: check if any new bars
+                    var newBars = [Bar]()
+                    var oldBars = [Bar]()
+                    
+                    for bar in output
                     {
-                        let dict = output[0]
-                        
-               
-                        let barDetails = self.NewBarFromDict(dict)
-                        bar.bookingAvailable = barDetails.bookingAvailable
-                        bar.description = barDetails.description
-                        bar.openClosingHours = barDetails.openClosingHours
-                        bar.loc_lat = barDetails.loc_lat
-                        bar.loc_long = barDetails.loc_long
-                        bar.address = barDetails.address
-                        bar.contact = barDetails.contact
-                        bar.website = barDetails.website
-
-                        
-                        if self.displayedDetailBar != nil && self.displayedDetailBar?.name == bar.name
+                        if self.mainBarList.contains(where: {$0.ID == bar.ID})
                         {
-                            DispatchQueue.main.async {
-                                self.detailDelegate?.UpdateDescriptionTab()
-                            }
+                            oldBars.append(bar)
                         }
-                        
-                        handler()
-                        
+                        else
+                        {
+                            newBars.append(bar)
+                        }
+                    }
+                    
+                    //step 3iiia: old bars IDs: compare lastUpDates with current
+                    for bar in oldBars
+                    {
+                        //if different, force update this bar
+                        if self.BarFromBarID(bar.ID)?.lastUpdate != bar.lastUpdate
+                        {
+                            //soft load bar with update check
+                        }
+                        else
+                        {
+                            //do nothing
+                        }
+                    }
+                    
+                    //step 3iiib: new bars IDs: soft load bar
+                    for bar in newBars
+                    {
+                        //soft load bar (discounts already loaded just need to push)
                         
                     }
+                    
+                    handler()
+                    
+                }
+                else
+                {
+                    //do nothing
                 }
             })
+
             
-
+        
+            
         }
-
-    }
-    
-    func LoadGalleryImageData(_ handler: () -> Void)
-    {
+        else //step 1b, hasBarCache == false
+        {
+            //soft load
+            self.HardLoadAllBars {
+                self.UpdateUI()
+                handler()
+            }
+        }
         
     }
     
-    
-    //====================================================================================
-    //                                  RELOAD BAR
-    //====================================================================================
-    func ReloadBar(ID : String, handler: @escaping (_ success : Bool,_ error :String, _ bar : Bar) -> Void)
+    func HardLoadBar(barID : String,_ handler : @escaping () -> Void) //does not include images and discounts
     {
-        let url = Network.domain + "ReloadBarData.php?Bar_ID=\(ID)"
-        //generic data -> reviews discounts -> gallery
-        
-        Network.singleton.DataFromUrl(url, handler: {
-            (success,output) -> Void in
+        let url = Network.domain + "LoadBarWithID.php?\(barID)"
+        Network.singleton.DataFromUrl(url) { (success, output) in
             if success
             {
                 if let output = output
                 {
                     do
                     {
-                        let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as! NSDictionary
-                        
-                        
-                        guard let success = dict["success"] as? String else {return}
-                        
-                        if success == "true"
+                        if let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? NSDictionary
                         {
-                            //then detail is another dict
-                            if let detailDict = dict["detail"] as? NSDictionary
+                            if let succ = dict["success"] as? String
                             {
-                                handler(true,"",self.NewBarFromDict(detailDict))
+                                if succ == "true"
+                                {
+                                    if let barDict = dict["detail"] as? NSDictionary
+                                    {
+                                        let newBar = self.NewBarFromDict(barDict)
+                                        
+                                        //if there is an old version of the bar present -> update
+                                        if self.mainBarList.contains(where: {$0.ID == newBar.ID})
+                                        {
+                                            //update and save
+                                            if !self.UpdateBarWithBarID(newBar.ID, bar: newBar)
+                                            {
+                                                self.mainBarList.append(newBar)
+                                                
+                                                //save
+                                                CacheManager.singleton.Save()
+                                            }
+                                            
+                                            
+                                        }
+                                        else //else add and save
+                                        {
+                                            self.mainBarList.append(newBar)
+                                            
+                                            //save
+                                            CacheManager.singleton.Save()
+                                        }
+                                        
+                                        
+                                        
+                                        //update ui
+                                        self.UpdateUI()
+                                        
+                                        
+                                        
+                                        
+                                        handler()
+                                        return
+                                    }
+                                }
+                                else
+                                {
+                                    NSLog(dict["detail"] as! String)
+                                }
+                                
                             }
                             else
                             {
-                                handler(false,"unknown server response",Bar())
-                                let errorString = String(data: output, encoding: .utf8)
-                                print("ERROR: \(errorString)")
+                                NSLog("invalid server response")
                             }
-                            
                         }
                         else
                         {
-                            let detailString = dict["detail"] as? String
-                            
-                            guard detailString != nil else {return}
-                            handler(false,detailString!,Bar())
-                            
+                            NSLog("invalid server response")
                         }
                     }
-                    catch let error as NSError
+                    catch
                     {
-                        NSLog(error.description)
+                        NSLog("invalid server response")
+                    }
+                }
+                else
+                {
+                    NSLog("server fault: no server response")
+                }
+            }
+            else
+            {
+                NSLog("Please check connection")
+            }
+        }
+        
+        handler()
+        
+    }
+    
+    func UpdateBarWithBarID(_ barID : String, bar : Bar) -> Bool
+    {
+        var hasBarWithID = false
+        var indexOfBar = -1
+        
+        guard mainBarList.count > 0 else {return false}
+        
+        for i in 0...mainBarList.count-1
+        {
+            let thisBar = mainBarList[i]
+            if thisBar.ID == bar.ID
+            {
+                indexOfBar = i
+                hasBarWithID = true
+            }
+        }
+        
+        guard indexOfBar != -1 else {return false}
+        
+        mainBarList[indexOfBar] = bar
+        
+        //save
+        CacheManager.singleton.Save()
+        
+        return hasBarWithID
+    }
+    func HardLoadAllBars(_ handler : @escaping () -> Void) //does not include images and discounts
+    {
+        let url = Network.domain + "HardLoadAllBars.php"
+        Network.singleton.DataFromUrl(url) {
+            (success, output) in
+            
+            var barListOutput = [Bar]()
+            if success
+            {
+                if let output = output
+                {
+                    do
+                    {
+                        if let barArr = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? [NSDictionary]
+                        {
+                            for barDict in barArr
+                            {
+                                let bar = BarManager.singleton.NewBarFromDict(barDict)
+                                barListOutput.append(bar)
+                            }
+
+                        }
+                        else
+                        {
+                            NSLog("ERROR: server response for SoftLoadAllBars() invalid")
+                        }
+                        
+                    }
+                    catch let _ as NSError
+                    {
+                        
                     }
                 }
             }
-        
-        })
-        
-  
+            else
+            {
+                NSLog("Could not connect,check connection")
+            }
+
+            
+            //set main list
+            BarManager.singleton.mainBarList = barListOutput
+            
+            //set cache list
+            CacheManager.singleton.cachedBarList = barListOutput
+            
+            //save cache
+            CacheManager.singleton.Save()
+            
+            //updates displayed bar 
+            if let bar = self.displayedDetailBar
+            {
+                //takes the ID of the current displayed bar(not updated version) to get an updated version from the new list
+                self.displayedDetailBar = self.BarFromBarID(bar.ID)
+            }
+            
+            //update ui
+            self.UpdateUI()
+            
+            //handler
+            handler()
+        }
     }
+    
+    
+    func GetNewBarList(handler : @escaping (Bool,[Bar]) -> Void)
+    {
+        let url = Network.domain + "GetBarUpdates.php"
+        
+        Network.singleton.DataFromUrl(url) { (success, output) in
+            if success
+            {
+                if let output = output
+                {
+                    do
+                    {
+                        if let dictArr = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? [NSDictionary]
+                        {
+                            var output = [Bar]()
+                            
+                            for dict in dictArr
+                            {
+                                output.append(self.NewBarFromDict(dict))
+                            }
+                            
+                            handler(true,output)
+                            return
+                        }
+                        else
+                        {
+                            NSLog("invalid server response")
+                        }
+                    }
+                    catch let _ as NSError
+                    {
+                        NSLog("invalid server response")
+                    }
+                }
+                else
+                {
+                    NSLog("server fault: no response")
+                }
+            }
+            else
+            {
+                NSLog("Please check connection")
+            }
+        }
+        
+        handler(false,[])
+    }
+    
+    
     
     //====================================================================================
     //                                  LOAD DISTANCE TIME FOR BAR
@@ -231,24 +354,44 @@ class BarManager: NSObject
             myLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
         //test 
-        var myLat = myLocation!.latitude
-        var myLong = myLocation!.longitude
+        let myLat = myLocation!.latitude
+        let myLong = myLocation!.longitude
         
+        var mode = "transit"
+        switch Settings.travelMode {
+        case .Walk:
+            mode = "walking"
+        case .Transit:
+            mode = "transit"
+        case .Drive:
+            mode = "driving"
+        }
         
+        //uses as a proxy
+        let url = Network.domain + "QueryDistanceMatrix.php"
         
-        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=\(myLat),\(myLong)&destinations=\(bar.loc_lat),\(bar.loc_long)"
-        Network.singleton.DataFromUrl(url, handler:
+        let param = "units=metric&origins=\(myLat),\(myLong)&destinations=\(bar.loc_lat),\(bar.loc_long)&key=\(Settings.googleServicesServerKey)&mode=\(mode)"
+        
+        Network.singleton.DataFromUrlWithPost(url, postParam: "parameters=\(param.AddPercentEncodingForURL(plusForSpace: true)!)", handler:
             {
                 (success,output) -> Void in
                 if success
                 {
+                    
                     do
                     {
                         if let dict = try JSONSerialization.jsonObject(with: output!, options: .allowFragments) as? NSDictionary
                         {
                             
+                            if let error = dict["error_message"] as? String
+                            {
+                                NSLog(error)
+                            }
+                            
                             if let rowsArr = dict["rows"] as? NSArray
                             {
+                                
+                                guard rowsArr.count > 0 else {return}
                                 if let row = rowsArr[0] as? NSDictionary
                                 {
                                     if let elementsArr = row["elements"] as? NSArray
@@ -344,24 +487,6 @@ class BarManager: NSObject
     //                                  DATA HANDLERS
     //====================================================================================
     
-    func BarListGenericDataToArray(_ data:Data) -> [Bar]
-    {
-        
-        
-        let retrievedArray = self.JSONToArray((data as NSData).mutableCopy() as! NSMutableData)
-        var tempBarList = [Bar]()
-        
-        if retrievedArray.count == 0
-        {return tempBarList}
-        for index in 0...(retrievedArray.count - 1)
-        {
-            let dict = retrievedArray[index] as! NSDictionary
-            tempBarList.append(self.NewBarFromDict(dict))
-        }
-        
-        return tempBarList
-    }
-    
     func BarFromBarID(_ barID : String) -> Bar?
     {
         for bar in self.mainBarList
@@ -410,7 +535,7 @@ class BarManager: NSObject
         
         if let description = dict["Bar_Description"] as? String
         {
-            newBar.description = description
+            newBar.bar_description = description
         }
         
         if let contact = dict["Bar_Contact"] as? String
@@ -435,6 +560,14 @@ class BarManager: NSObject
             }
         }
         
+        if let lastUpdate = dict["lastUpdate"] as? String
+        {
+            newBar.lastUpdate = lastUpdate
+        }
+        else if let lastUpdate = dict["lastUpdate"] as? Int
+        {
+            newBar.lastUpdate = "\(lastUpdate)"
+        }
         
         //get opening hours
         if let monday = dict["OH_Monday"] as? String
@@ -476,10 +609,18 @@ class BarManager: NSObject
         {
             newBar.loc_lat = Double(loc_lat)!
         }
+        else if let loc_lat = dict["Bar_Location_Latitude"] as? Double
+        {
+            newBar.loc_lat = loc_lat
+        }
         
         if let loc_long = dict["Bar_Location_Longitude"] as? String
         {
             newBar.loc_long = Double(loc_long)!
+        }
+        else if let loc_long = dict["Bar_Location_Longitude"] as? Double
+        {
+            newBar.loc_long = loc_long
         }
         
         if let address = dict["Bar_Address"] as? String
@@ -515,133 +656,12 @@ class BarManager: NSObject
         return newBar
     }
     
-//    func ArrangeBarList(_ mode: DisplayBarListMode)
-//    {
-//        
-//        //reset output
-//        displayBarList.removeAll()
-//        
-//        switch mode
-//        {
-//        case .alphabetical:
-//            
-//            
-//            //create array of all letters
-//            var allFirstLetters = [Character]()
-//            for bar in mainBarList
-//            {
-//                let firstLetter = bar.name.characters.first
-//                //if does not contain first letter add it
-//                if let firstLetter = firstLetter
-//                {
-//                    if !allFirstLetters.contains(firstLetter)
-//                    {
-//                        allFirstLetters.append(firstLetter)
-//                    }
-//                }
-//                
-//            }
-//            
-//            //for each letter
-//            for firstLetter in allFirstLetters
-//            {
-//                //create array
-//                var arrayOfBarsForLetter = [Bar]()
-//                
-//                //for each bar
-//                for bar in mainBarList
-//                {
-//                    //if has this first letter, add to array
-//                    if bar.name.characters.first == firstLetter
-//                    {
-//                        arrayOfBarsForLetter.append(bar)
-//                    }
-//                }
-//                
-//                
-//                //arrange alphabetically within array
-//                arrayOfBarsForLetter.sort(by: {$0.name < $1.name})
-//                
-//                
-//                //add array to collection of arrays of letter-arranged bars
-//                
-//                displayBarList.append(arrayOfBarsForLetter)
-//            }
-//            
-//            
-//            break
-//            
-//        case .avgRating:
-//            
-//            var singleArray = mainBarList
-//            singleArray.sort(by: {$0.rating.avg > $1.rating.avg})
-//            displayBarList.append(singleArray)
-//            break;
-//        case .priceRating:
-//            var singleArray = mainBarList
-//            singleArray.sort(by: {$0.rating.price > $1.rating.price})
-//            displayBarList.append(singleArray)
-//            break;
-//        case .foodRating:
-//            var singleArray = mainBarList
-//            singleArray.sort(by: {$0.rating.food > $1.rating.food})
-//            displayBarList.append(singleArray)
-//            break;
-//        case .ambienceRating:
-//            var singleArray = mainBarList
-//            singleArray.sort(by: {$0.rating.ambience > $1.rating.ambience})
-//            displayBarList.append(singleArray)
-//            break;
-//        case .serviceRating:
-//            var singleArray = mainBarList
-//            singleArray.sort(by: {$0.rating.service > $1.rating.service})
-//            displayBarList.append(singleArray)
-//            break;
-//            
-//        }
-//        
-//    }
-    
-    func JSONToArray(_ data : NSMutableData) -> NSMutableArray{
-        
-        var output: NSMutableArray = NSMutableArray()
-        
-        do{
-            
-            let array = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
-            output = NSMutableArray(array: array)
-            
-            
-        } catch let error as NSError {
-            print(error)
-            
-        }
-        
-        return output
-        
-    }
-    
-    func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
+    func UpdateUI()
     {
-        var output = [NSDictionary]()
-        var tempArr: NSMutableArray = NSMutableArray()
-        
-        do{
-            
-            let array = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
-            tempArr = NSMutableArray(array: array)
-            for index in 0...(tempArr.count - 1)
-            {
-                let dict = tempArr[index] as! NSDictionary
-                output.append(dict)
-            }
-            
-        } catch let error as NSError {
-            print(error)
-            
-        }
-        
-        return output
+        self.listDelegate?.UpdateBarListTableDisplay()
+        self.catListDelegate?.UpdateBarListTableDisplay()
     }
+    
+    
     
 }

@@ -8,6 +8,15 @@
 
 import Foundation
 import UIKit
+
+enum TravelMode
+{
+    case Transit
+    case Drive
+    case Walk
+}
+
+
 extension String{
     public func AddPercentEncodingForURL(plusForSpace : Bool = false) -> String?
     {

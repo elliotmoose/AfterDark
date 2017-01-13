@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -29,6 +29,7 @@
                 <outlet property="avgSlider" destination="FdB-ih-74B" id="DEl-Ix-l0F"/>
                 <outlet property="foodLabel" destination="ebV-fH-8vy" id="bht-zI-DOB"/>
                 <outlet property="foodSlider" destination="Nfq-yQ-PVx" id="q2i-R8-rfq"/>
+                <outlet property="giveARatingButton" destination="FrY-Yx-XXa" id="2ke-Yh-PUT"/>
                 <outlet property="pricingLabel" destination="6gf-Mc-624" id="G2j-Gf-rgk"/>
                 <outlet property="pricingSlider" destination="C1i-he-6T7" id="2gb-Hn-d2H"/>
                 <outlet property="serviceLabel" destination="7Wd-jh-oK4" id="vgB-In-gAh"/>

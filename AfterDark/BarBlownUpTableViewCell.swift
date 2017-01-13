@@ -32,30 +32,20 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate ,DiscountToMainCellDe
     
     }
 
+    
     func CellWillAppear()
     {
-        guard let bar = BarManager.singleton.displayedDetailBar else {NSLog("No Bar to present CellWillAppear()");return}
         
         galleryCont.ToPresentNewDetailBar()
         self.galleryCont.view.frame = CGRect(x: 0, y: 0, width: Sizing.ScreenWidth(), height: Sizing.galleryHeight)
         
-        //begin load can give review
-        ReviewManager.singleton.GetCanGiveReview(forBarID: bar.ID) {
-            (success) in
-            
-            if success
-            {
-                
-            }
-            else
-            {
-                
-            }
-        }
+        reviewCont.LoadCanGiveReview()
         
+        //ensure there are tabs
         guard tabs.count > 0 else {return}
         ChangeTab(tabs[0])
     }
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

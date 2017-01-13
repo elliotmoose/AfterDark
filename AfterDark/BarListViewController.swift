@@ -14,6 +14,9 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
 
     let barListTableViewController = CategoryDetailTableViewController()
     
+    var refreshButton = UIBarButtonItem()
+    var activityIndicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,8 +40,14 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
         view.addSubview(barListTableViewController.view)
         
         self.view.backgroundColor = UIColor.red
-
         
+        refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(Refresh))
+        refreshButton.tintColor = ColorManager.themeBright
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0,width: 20,height: 20))
+        activityIndicator.startAnimating()
+        
+        self.navigationItem.rightBarButtonItem = refreshButton
 
         
     }
@@ -48,13 +57,9 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
 
     func UpdateBarListTableDisplay() //this is called when data has been loaded
     {
-        //step 1: load all bar IDs into display
-        //step 2: call the arrangement function
-        //step 3: reload table view
-        //{function does step 1,2 and 3 simultaneously}
-        
-        barListTableViewController.SetArrangementWithBarList(arrangement: .nearby, barListInput: BarManager.singleton.mainBarList)
-        
+
+        barListTableViewController.SetBarIDsFromList(barListInput: BarManager.singleton.mainBarList)
+         
     }
     
     
@@ -62,6 +67,23 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
     {
         barListTableViewController.UpdateCellForBar(bar)
     }
+    
+
+    func Refresh()
+    {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+
+        
+        BarManager.singleton.HardLoadAllBars {
+            
+            DiscountManager.singleton.LoadAllDiscounts()
+            
+            BarManager.singleton.ReloadAllDistanceMatrix()
+            
+            self.navigationItem.rightBarButtonItem = self.refreshButton
+        }
+    }
+    
     
     
 }

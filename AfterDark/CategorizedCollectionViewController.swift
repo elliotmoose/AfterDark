@@ -10,11 +10,19 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class CategorizedCollectionViewController: UICollectionViewController,CategoryManagerDelegate {
+class CategorizedCollectionViewController: UICollectionViewController,CategoryManagerDelegate,BarManagerToListTableDelegate {
+    
+    internal func UpdateCellForBar(_ bar: Bar) {
+        
+    }
+
 
     //let categoryCollectionViewCont = CategoryDetailCollectionView()
     let barListTableViewController = CategoryDetailTableViewController()
     
+    
+    var refreshButton = UIBarButtonItem()
+    var activityIndicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +31,8 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         
         
         CategoriesManager.singleton.delegate = self
-        
+        BarManager.singleton.catListDelegate = self
+
         self.title = "HOME"
         
         //navigation controller
@@ -41,6 +50,15 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         self.tabBarController?.tabBar.clipsToBounds = false
         collectionView?.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
+        
+        refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(Refresh))
+        refreshButton.tintColor = ColorManager.themeBright
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0,width: 20,height: 20))
+        activityIndicator.startAnimating()
+        
+        self.navigationItem.rightBarButtonItem = refreshButton
+
     }
     
  
@@ -54,12 +72,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
     }
 
 
-    func ReloadCategoriesView()
-    {
-        DispatchQueue.main.async(execute: {
-            self.collectionView?.reloadData()
-        })
-    }
+
 
     // MARK: UICollectionViewDataSource
 
@@ -69,12 +82,12 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return CategoriesManager.singleton.allCategories.count
+        return CategoriesManager.singleton.displayedCategories.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell",for: indexPath) as? CategoryCell
-        cell!.SetContent(CategoriesManager.singleton.allCategories[indexPath.row])
+        cell!.SetContent(CategoriesManager.singleton.displayedCategories[indexPath.row])
                 
         return cell!
     }
@@ -105,10 +118,10 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 //        self.navigationController?.pushViewController(categoryCollectionViewCont, animated: true)
         
         //update bars to display
-        barListTableViewController.displayedBarIDs = CategoriesManager.singleton.allCategories[indexPath.row].barIDs
+        barListTableViewController.displayedBarIDs = CategoriesManager.singleton.displayedCategories[indexPath.row].barIDs
         
         //update selected category (for navigation title)
-        CategoriesManager.singleton.displayedCategory = CategoriesManager.singleton.allCategories[indexPath.row]
+        CategoriesManager.singleton.displayedCategory = CategoriesManager.singleton.displayedCategories[indexPath.row]
         
         //push view controller
         self.navigationController?.pushViewController(barListTableViewController, animated: true)
@@ -125,6 +138,13 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         return CGSize(width: Sizing.ScreenWidth(), height: Sizing.ScreenHeight()/4)
     }
     
+    func ReloadCategoriesView()
+    {
+        DispatchQueue.main.async(execute: {
+            self.collectionView?.reloadData()
+        })
+    }
+    
     func ReloadCell(index: Int)
     {
         if (collectionView?.numberOfItems(inSection: 0))! < index+1
@@ -136,5 +156,21 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         
     }
     
+    func Refresh()
+    {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        
+        CategoriesManager.singleton.SoftLoadAllCategories()
+        {
+            self.navigationItem.rightBarButtonItem = self.refreshButton
+        }
+    }
+    
+    
+    func UpdateBarListTableDisplay() {
+        
+        barListTableViewController.SetBarIDs(barIDs: barListTableViewController.displayedBarIDs)
+        
+    }
 
 }

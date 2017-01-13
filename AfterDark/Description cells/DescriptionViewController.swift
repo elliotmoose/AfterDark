@@ -35,7 +35,7 @@ class DescriptionViewController: UIViewController {
     {
         guard let bar = BarManager.singleton.displayedDetailBar else {return}
         textView.isSelectable = true //bug is present so need to set this
-        textView.text = bar.description
+        textView.text = bar.bar_description
     }
     
     override func viewDidLayoutSubviews() {

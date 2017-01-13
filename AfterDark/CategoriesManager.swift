@@ -19,6 +19,7 @@ class CategoriesManager
     weak var delegate : CategoryManagerDelegate?
     static let singleton = CategoriesManager()
     var allCategories = [Category]()
+    var displayedCategories = [Category]()
     
     var displayedCategory : Category?
     
@@ -40,84 +41,88 @@ class CategoriesManager
                     {
                         //data into dict
 
-                        let dict = try JSONSerialization.jsonObject(with: output!, options: .allowFragments) as? NSDictionary
-                        
-                        if let _ = dict
+                        if let dict = try JSONSerialization.jsonObject(with: output!, options: .allowFragments) as? NSDictionary
                         {
-                            if dict!["success"] as? String == "true"
+                            if let succ = dict["success"] as? String
                             {
-                                //dict["detail"] = [dict] == [categoryDict]
-                                
-                                let categoryDictArray = dict!["detail"] as? [NSDictionary]
-                                
-                                guard categoryDictArray != nil else {return}
-                                
-                                
-                                self.allCategories.removeAll()
-                                
-                                //FOR EACH NEW CAT
-                                for catDict in categoryDictArray!
+                                if succ == "true"
                                 {
-                                    let newCat = Category(dict: catDict)
+                                    //dict["detail"] = [dict] == [categoryDict]
                                     
-                                    let name = newCat.name
-                                    //load cat image
-                                    //check if image exists in cache**************************************
-                                    let image = CacheManager.singleton.categoryImages?[name] as? UIImage
+                                    let categoryDictArray = dict["detail"] as? [NSDictionary]
                                     
-                                    //if exists
-                                    if let _ = image
+                                    guard categoryDictArray != nil else {return}
+                                    
+                                    
+                                    self.allCategories.removeAll()
+                                    
+                                    //FOR EACH NEW CAT
+                                    for catDict in categoryDictArray!
                                     {
-                                        //set image in imageView
-                                        newCat.imageView?.image = image!
-                                    }
-                                    else
-                                    {
-                                        //if not -> begin image load****************************************
-                                        let url = Network.domain + "Category_Images/\(name.AddPercentEncodingForURL(plusForSpace: true)!).jpg"
-                                        Network.singleton.DataFromUrl(url, handler: {
-                                            (success,output) -> Void in
-                                            if success && output != nil
-                                            {
-                                                //output is image data
-                                                let loadedImage = UIImage(data: output!)
-                                                
-                                                guard let _ = loadedImage else
+                                        let newCat = Category(dict: catDict)
+                                        
+                                        let name = newCat.name
+                                        //load cat image
+                                        //check if image exists in cache**************************************
+                                        let image = CacheManager.singleton.categoryImages?[name] as? UIImage
+                                        
+                                        //if exists
+                                        if let _ = image
+                                        {
+                                            //set image in imageView
+                                            newCat.imageView?.image = image!
+                                        }
+                                        else
+                                        {
+                                            //if not -> begin image load****************************************
+                                            let url = Network.domain + "Category_Images/\(name.AddPercentEncodingForURL(plusForSpace: true)!).jpg"
+                                            Network.singleton.DataFromUrl(url, handler: {
+                                                (success,output) -> Void in
+                                                if success && output != nil
                                                 {
-                                                    print("loaded image could not decode")
-                                                    return
-                                                }
-
-                                                newCat.imageView?.image = loadedImage
-                                                //when done -> save image in cache ***
-                                                CacheManager.singleton.categoryImages?.setValue(loadedImage, forKey: name)
-                                                
-                                                //update UI (get index -> delegat to collecionView and reload index)
-                                                for i in 0...self.allCategories.count-1
-                                                {
-                                                    if self.allCategories[i].name == newCat.name
+                                                    //output is image data
+                                                    let loadedImage = UIImage(data: output!)
+                                                    
+                                                    guard let _ = loadedImage else
                                                     {
-                                                        DispatchQueue.main.async {
-                                                            self.delegate?.ReloadCell(index: i)
+                                                        print("loaded image could not decode")
+                                                        return
+                                                    }
+                                                    
+                                                    newCat.imageView?.image = loadedImage
+                                                    //when done -> save image in cache ***
+                                                    CacheManager.singleton.categoryImages?.setValue(loadedImage, forKey: name)
+                                                    
+                                                    //update UI (get index -> delegat to collecionView and reload index)
+                                                    for i in 0...self.allCategories.count-1
+                                                    {
+                                                        if self.allCategories[i].name == newCat.name
+                                                        {
+                                                            DispatchQueue.main.async {
+                                                                self.delegate?.ReloadCell(index: i)
+                                                            }
                                                         }
                                                     }
+                                                    
+                                                }
+                                                else
+                                                {
+                                                    print("image load failed for category")
                                                 }
                                                 
-                                            }
-                                            else
-                                            {
-                                                print("image load failed for category")
-                                            }
-                                            
-                                        })
+                                            })
+                                        }
+                                        
+                                        self.allCategories.append(newCat)
                                     }
                                     
-                                    self.allCategories.append(newCat)
+                                    CacheManager.singleton.Save()
                                 }
-                                
-                                CacheManager.singleton.Save()
-
-                                
+                                else
+                                {
+                                    NSLog("invalid server response to load categories")
+                                }
+  
                             }
                         }
                     }
@@ -126,10 +131,7 @@ class CategoriesManager
                         print(error)
                     }
                     
-                    DispatchQueue.main.async {
-                        //reload displpay after load
-                        self.delegate?.ReloadCategoriesView()
-                    }
+                    self.UpdateCategoriesUI()
                     
                 }
                 
@@ -145,5 +147,185 @@ class CategoriesManager
         
     }
     
+    //loading of categories
+    //step 1: soft load -> cat names, bar IDs, lastUpDate (this is for images), barIDs are cached but always updated
+    func SoftLoadAllCategories(_ handler : @escaping () -> Void)
+    {
+        let url = Network.domain + "SoftLoadAllCategories.php"
+        
+        Network.singleton.DataFromUrl(url) {
+            (success, output) in
+            if success
+            {
+                if let output = output
+                {
+                    do
+                    {
+                        if let dictArr = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? [NSDictionary]
+                        {
+                            self.allCategories.removeAll()
+                            
+                            for dict in dictArr //each dict is a category
+                            {
+                                let newCat = Category(dict: dict)
+                                self.allCategories.append(newCat)
+                            }
+                            
+                            self.UpdateCategoriesUI()
+                            
+                            self.LoadCategoryImages()
+                        }
+                        else
+                        {
+                            NSLog("invalid server response")
+                        }
+                    }
+                    catch
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    NSLog("Server fault: no server response")
+                }
+            }
+            else
+            {
+                NSLog("please check connection")
+            }
+            
+            handler()
+        }
+        
+    }
     
+    func LoadCategoryImages() //includes cache check,cache excess removal, updates, check, and force loading
+    {
+        DispatchQueue.global(qos: .default).async {
+            
+            for category in self.allCategories
+            {
+                //step 1: check cache for image
+                if let image = CacheManager.singleton.categoryImages?[category.ID] as? UIImage
+                {
+                    //step 1.5: check if image is outdated 
+                    if let catOldUpdate = CacheManager.singleton.catUpDates?[category.ID] as? String
+                    {
+                        if catOldUpdate == category.lastUpdate // if is updated
+                        {
+                            //step 2a: load image from cache
+                            category.imageView?.image = image
+                            
+                            //step 3: update ui
+                            self.UpdateCategoryUI(category: category)
+                        }
+                        else //if is outdated
+                        {
+                            //step 2b & 3: update ui is included in function
+                            self.LoadImageForCategory(category: category)
+                        }
+                    }
+                    else //if cant find last update
+                    {
+                        //step 2b & 3: update ui is included in function
+                        self.LoadImageForCategory(category: category)
+                    }
+
+                }
+                else //step 2b: if no image -> load image from server
+                {
+                    //step 2b & 3: update ui is included in function
+                    self.LoadImageForCategory(category: category)
+                }
+                
+            }
+            
+            
+        }
+    }
+    
+    func LoadImageForCategory(category : Category)
+    {
+        //if not -> begin image load****************************************
+        let url = Network.domain + "Category_Images/\(category.name.AddPercentEncodingForURL(plusForSpace: true)!).jpg"
+        Network.singleton.DataFromUrl(url, handler: {
+            (success,output) -> Void in
+            
+            if success
+            {
+                if let output = output
+                {
+                    if let loadedImage = UIImage(data: output)
+                    {
+                        //set image
+                        category.imageView?.image = loadedImage
+                        
+                        //save image
+                        CacheManager.singleton.categoryImages?.setValue(loadedImage, forKey: category.ID)
+                        CacheManager.singleton.catUpDates?.setValue(category.lastUpdate, forKey: category.ID)
+                        CacheManager.singleton.Save()
+
+                        //update ui
+                        self.UpdateCategoryUI(category: category)
+                    }
+                    else
+                    {
+                        NSLog("server fault: invalid image format")
+                    }
+                }
+                else
+                {
+                    NSLog("server fault: no server response")
+                }
+            }
+            else
+            {
+                NSLog("please check connection")
+            }
+            
+        })
+
+    }
+    
+    func UpdateCategoryUI(category : Category)
+    {
+        DispatchQueue.global(qos: .default).async {
+            
+            
+            guard self.displayedCategories.count != 0 else {return}
+
+            //update UI (get index -> delegat to collecionView and reload index)
+            for i in 0...self.displayedCategories.count-1
+            {
+                if self.displayedCategories[i].name == category.name
+                {
+                    DispatchQueue.main.async {
+                        self.delegate?.ReloadCell(index: i)
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func UpdateCategoriesToDisplay() //removes categories that have no bars
+    {
+        displayedCategories.removeAll()
+        for category in allCategories
+        {
+            if category.barIDs.count > 0
+            {
+                displayedCategories.append(category)
+            }
+        }
+    }
+    
+    func UpdateCategoriesUI()
+    {
+        UpdateCategoriesToDisplay()
+        
+        //reload display after load
+        self.delegate?.ReloadCategoriesView()
+    }
 }

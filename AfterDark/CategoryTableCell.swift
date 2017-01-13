@@ -22,6 +22,11 @@ class CategoryTableCell: UITableViewCell {
         
     @IBOutlet weak var outlineView: UIView!
     
+    @IBOutlet weak var transportModeIcon: UIImageView!
+    
+    let walk = #imageLiteral(resourceName: "Walk").withRenderingMode(.alwaysTemplate)
+    let transit = #imageLiteral(resourceName: "Transit").withRenderingMode(.alwaysTemplate)
+    let drive = #imageLiteral(resourceName: "Drive").withRenderingMode(.alwaysTemplate)
     
     let ratingStarView = RatingStarView(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
     
@@ -32,6 +37,11 @@ class CategoryTableCell: UITableViewCell {
         
         self.ratingStarContainerView.addSubview(ratingStarView)
         self.selectionStyle = .none
+
+        ratingStarView.SetSizeFromWidth(ratingStarContainerView.bounds.width)
+        
+        transportModeIcon.image = transit
+        transportModeIcon.tintColor = ColorManager.themeGray
 
     }
 
@@ -47,7 +57,6 @@ class CategoryTableCell: UITableViewCell {
         
         //set name, rating, number of ratings,tags,distance, time taken to travel, cost
         barNameLabel.text = bar.name
-        ratingStarView.SetSizeFromWidth(ratingStarContainerView.bounds.width)
         ratingStarView.SetRating(bar.rating.avg)
         ratingCountLabel.text = "(\(bar.totalReviewCount) Ratings)"
         
@@ -73,7 +82,7 @@ class CategoryTableCell: UITableViewCell {
         {
             if bar.distanceFromClientString != "" && bar.durationFromClientString != ""
             {
-                detailLabel.text = "\(bar.distanceFromClientString) - \(bar.durationFromClientString) - \(priceDeterminantString)"
+                detailLabel.text = "\(bar.durationFromClientString) - \(bar.distanceFromClientString) - \(priceDeterminantString)"
             }
             else
             {
@@ -84,6 +93,16 @@ class CategoryTableCell: UITableViewCell {
         else
         {
             detailLabel.text = " - - \(priceDeterminantString)"
+        }
+        
+        
+        switch Settings.travelMode {
+        case .Walk:
+            transportModeIcon.image = walk
+        case .Transit:
+            transportModeIcon.image = transit
+        case .Drive:
+            transportModeIcon.image = drive
         }
         
         

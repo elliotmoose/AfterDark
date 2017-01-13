@@ -289,6 +289,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
         //self.dismiss(animated: true, completion: nil)
         let window = UIApplication.shared.delegate?.window!!
         window?.rootViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
+        InitialViewController.singleton.hasLoggedIn()
 
     }
     

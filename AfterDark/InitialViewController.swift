@@ -9,9 +9,9 @@
 import UIKit
 
 class InitialViewController: UIViewController,LoggedInEventDelegate {
-
+    
     static let singleton = InitialViewController()
-
+    
     func hello(handler : @escaping () -> Void)
     {
         
@@ -21,7 +21,7 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         Account.singleton.delegate = self
         Account.singleton.Load()
         
@@ -29,6 +29,19 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
         //                  app start, main init throughout
         //*******************************************************************
         
+        
+        
+    }
+    
+    //step 1: check log in
+    //step 2: if logged in, start loading (else log in page)
+    //step 3: "start loading" = check for cache
+    //step 4: if has cache : check if needs updating
+    //step 4a: things to check : foreach barID : present? lastUpdateDate?
+    //step 4b: loadAllBarNames : check if any new bars -> load from scratch -> cache
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
         
         //step 1: check log in
         //login page
@@ -65,26 +78,15 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
             }
         }
 
-        
     }
-
-    //step 1: check log in
-    //step 2: if logged in, start loading (else log in page)
-    //step 3: "start loading" = check for cache
-    //step 4: if has cache : check if needs updating 
-        //step 4a: things to check : foreach barID : present? lastUpdateDate?
-        //step 4b: loadAllBarNames : check if any new bars -> load from scratch -> cache
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-
     
     func PresentLoginViewCont()
     {
-        let window = UIApplication.shared.delegate?.window!!
-        window?.rootViewController = LoginViewController.singleton
+        DispatchQueue.main.async {
+            let window = UIApplication.shared.delegate?.window!!
+            window?.rootViewController = LoginViewController.singleton
+        }
     }
     
     
@@ -94,60 +96,52 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
         //step 4: if has cache : check if needs updating (last upDate)
         //step 4a: things to check : foreach barID : isPresent? lastUpDate?
         //step 4b: loadAllBarIDs : check if any new bars -> load from scratch -> cache
-        RetrieveDataFromUrls()
-        LoadCachedData()
-        PresentMainRootViewCont()
+        
+        DispatchQueue.global(qos: .default).async{
+            
+            if !Settings.cacheModeOff
+            {
+                self.LoadCachedData()
+            }
+            self.RetrieveDataFromUrls()
+            self.PresentMainRootViewCont()
+        }
     }
     
 
     func RetrieveDataFromUrls()
     {
-        //loading of data from internet******************************************************
-        DispatchQueue.global(qos: .default).async{
-
+        
+        BarManager.singleton.HardLoadAllBars{
             
-            //init other views as this is the first view loaded
-            BarManager.singleton.LoadGenericBarData({()->Void in
-                
-                //load bar details
-                BarManager.singleton.LoadAllNonImageDetailBarData({()->Void in
-                    
-                })
-                
-                //load categories
-                CategoriesManager.singleton.LoadAllCategories()
-                
-                //load reviews
-                //ReviewManager.singleton.LoadAllReviews()
-                
-                //load discounts
-                DiscountManager.singleton.LoadAllDiscounts()
-                
-                //load distancing
-                BarManager.singleton.ReloadAllDistanceMatrix()
-                
-            })
+            //load discounts
+            DiscountManager.singleton.LoadAllDiscounts()
             
+            //load distance matrix
+            BarManager.singleton.ReloadAllDistanceMatrix()
         }
+        
+        //load categories
+        CategoriesManager.singleton.SoftLoadAllCategories(){}
+        
         
     }
     
     func LoadCachedData()
     {
-        CacheManager.singleton.ClearCache()
         DispatchQueue.global(qos: .default).async{
             
             CacheManager.singleton.Load()
-            
         }
     }
 
     
     func PresentMainRootViewCont()
     {
-        let window = UIApplication.shared.delegate?.window!!
-        window?.rootViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
-        
+        DispatchQueue.main.async {
+            let window = UIApplication.shared.delegate?.window!!
+            window?.rootViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
+        }
     }
 
 }

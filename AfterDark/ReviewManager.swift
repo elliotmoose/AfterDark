@@ -82,35 +82,63 @@ class ReviewManager
         
         Network.singleton.DataFromUrlWithPost(url,postParam: postParam,handler: {(success,output) -> Void in
             
+            var reviewHasAddedSuccessfully = false
+            var errorMessage = ""
+            
             if let output = output
             {
-                let jsonData = (output as NSData).mutableCopy() as! NSMutableData
-                
-                NSLog(String(data: output, encoding: .utf8)!)
-                let dict = Network.JsonDataToDict(jsonData)
-                
-                if let success = dict["success"] as? String
+                if success
                 {
-                    if success == "false"
+                    do
                     {
-                        let errorMessage = dict["detail"] as! String
-                        handler(false,errorMessage)
+                        if let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? NSDictionary
+                        {
+                            if let succ = dict["success"] as? String
+                            {
+                                if succ == "false"
+                                {
+                                    errorMessage = dict["detail"] as! String
+                                    reviewHasAddedSuccessfully = false
+                                }
+                                else if succ == "true"
+                                {
+                                    reviewHasAddedSuccessfully = true
+                                    errorMessage = "nil"
+                                }
+                                
+                            }
+                            else
+                            {
+                                reviewHasAddedSuccessfully = false
+                                errorMessage = "server failed to handle request"
+                            }
+                        }
+                        else
+                        {
+                            let outString = String(data: output, encoding: .utf8)!
+                            print("ERROR: " + outString)
+                        }
                     }
-                    
-                    if success == "true"
+                    catch let _ as NSError
                     {
-                        handler(true,"no error!")
+                        
                     }
-                    
+                }
+                else
+                {
+                    reviewHasAddedSuccessfully = false
+                    errorMessage = "no response from server; please check connection"
                 }
                 
-                handler(false,"server failed to handle request")
-                print(String(data: output, encoding: .utf8))
-                
-                
+            }
+            else
+            {
+                reviewHasAddedSuccessfully = false
+                errorMessage = "cant connect to server"
             }
             
-            handler(false,"cant connect to server")
+            handler(reviewHasAddedSuccessfully,errorMessage)
+
 
             
         })

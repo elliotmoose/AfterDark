@@ -30,55 +30,55 @@ class GalleryManager
 
     func LoadBarGallery(_ thisBarOrigin: Bar, handler: @escaping (_ success :Bool) -> Void)
     {
-                    //reset pages
-                    if thisBarOrigin.maxImageCount == 0
-                    {return}
-                    for index in 0...thisBarOrigin.maxImageCount
+        //reset pages
+        if thisBarOrigin.maxImageCount == 0
+        {return}
+        for index in 0...thisBarOrigin.maxImageCount
+        {
+            
+            let ID = thisBarOrigin.ID
+            let i = index;
+            let urlLoadImageAtIndex = Network.domain + "GetBarGalleryImage.php?Bar_ID=\(ID)&Image_Index=\(i)"
+            Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler:
+                {
+                    (success,output)->Void in
+                    if let output = output
                     {
-        
-                        let ID = thisBarOrigin.ID
-                        let i = index;
-                        let urlLoadImageAtIndex = Network.domain + "GetBarGalleryImage.php?Bar_ID=\(ID)&Image_Index=\(i)"
-                        Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler:
+                        
+                        guard output != "nil" else {return}
+                        
+                        if success == true
                         {
-                                (success,output)->Void in
-                                if let output = output
+                            let imageString = output
+                            let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
+                            let image = UIImage(data: dataDecoded)
+                            
+                            if let image = image
+                            {
+                                thisBarOrigin.Images.append(image)
+                                
+                                //update UI at page:
+                                //this is for discounts page
+                                if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
                                 {
-                                    
-                                    guard output != "nil" else {return}
-                                    
-                                    if success == true
+                                    if thisBarOrigin.Images.count == 1 && currentDisc.bar_ID == thisBarOrigin.ID
                                     {
-                                        let imageString = output
-                                        let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-                                        let image = UIImage(data: dataDecoded)
-                                        
-                                        if let image = image
-                                        {
-                                            thisBarOrigin.Images.append(image)
-                                            
-                                            //update UI at page:
-                                            //this is for discounts page
-                                            if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
-                                            {
-                                                if thisBarOrigin.Images.count == 1 && currentDisc.bar_ID == thisBarOrigin.ID
-                                                {
-                                                    DiscountDetailViewController.singleton.UpdateImage(image : image)
-                                                }
-                                            }
-                                            
-                                            
-                                            
-                                            
-                                            handler(true)
-                                        }
-                                        
-                                        
+                                        DiscountDetailViewController.singleton.UpdateImage(image : image)
                                     }
-                                    
                                 }
                                 
-                        })
+                                
+                                
+                                
+                                handler(true)
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    
+            })
         }
     }
    

@@ -2,6 +2,7 @@ import Foundation
 
 
 class Network {
+    static let errorsOn = false
     
     var session : URLSession
     static let singleton = Network()
@@ -28,7 +29,11 @@ class Network {
             
             if let error = error
             {
-                print(error)
+                
+                if Network.errorsOn
+                {
+                    print(error)
+                }
                 
                 DispatchQueue.main.async {
                     handler(false,nil)
@@ -63,7 +68,10 @@ class Network {
             
             if let error = error
             {
-                print(error)
+                if Network.errorsOn
+                {
+                    print(error)
+                }
                 DispatchQueue.main.async {
                     handler(false,nil)
                 }
@@ -103,7 +111,10 @@ class Network {
             
             if let error = error
             {
-                print(error)
+                if Network.errorsOn
+                {
+                    print(error)
+                }
                 
                 DispatchQueue.main.async {
                     handler(false,nil)
@@ -145,7 +156,10 @@ class Network {
             
             if let error = error
             {
-                print(error)
+                if Network.errorsOn
+                {
+                    print(error)
+                }
                 
                 DispatchQueue.main.async {
                     handler(false,nil)
@@ -173,77 +187,7 @@ class Network {
     }
     
     
-    func DictArrayFromUrl(_ inputUrl: String, handler: @escaping (_ success:Bool,_ output : [NSDictionary]) -> Void) {
-        
-        let url = URL(string: inputUrl)!
-        
-        let task = session.dataTask(with: url)
-        {
-            data, response, error in
-            
-            if let error = error
-            {
-                print(error)
-                handler(false,[])
-                
-            }
-            else if let data = data
-            {
-                let out = (data as NSData).mutableCopy() as! NSMutableData
-                
-                DispatchQueue.main.async {
-                    handler(true,Network.JsonDataToDictArray(out))
-                    
-                }
-            }
-            else
-            {
-                DispatchQueue.main.async {
-                    handler(false,[])
-                }
-            }
-            
-        }
-        
-        task.resume()
-        
-    }
     
-    
-    //json data management
-    static func JsonDataToDictArray(_ data: NSMutableData) -> [NSDictionary]
-    {
-        var output = [NSDictionary]()
-        var tempArr: NSMutableArray = NSMutableArray()
-        
-        do{
-            
-            
-            
-            let arr = try JSONSerialization.jsonObject(with: data as Data, options:JSONSerialization.ReadingOptions.allowFragments) as! Array<Any>
-            if arr.count == 0
-            {
-                print("invalid array, cant parse to JSON")
-                return []
-            }
-            tempArr = NSMutableArray(array: arr)
-            for index in 0...(tempArr.count - 1)
-            {
-                let intermediate = tempArr[index]
-                if intermediate is NSDictionary
-                {
-                    let dict = intermediate as! NSDictionary
-                    output.append(dict)
-                }
-            }
-            
-        } catch let error as NSError {
-            print(error)
-            
-        }
-        
-        return output
-    }
     
     static func JsonDataToDict(_ data : NSMutableData) -> NSDictionary
     {
@@ -256,7 +200,10 @@ class Network {
             
             
         } catch let error as NSError {
-            print(error)
+            if Network.errorsOn
+                {
+                    print(error)
+                }
             
         }
         

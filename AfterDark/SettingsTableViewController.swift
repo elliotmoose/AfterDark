@@ -25,7 +25,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +36,8 @@ class SettingsTableViewController: UITableViewController {
             return 1
         case 1:
             return 3
+        case 2:
+            return 1
             
         //last section
         case tableView.numberOfSections-1:
@@ -61,7 +63,7 @@ class SettingsTableViewController: UITableViewController {
         let row = indexPath.row
         if cell == nil
         {
-            cell = UITableViewCell()
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
             cell?.accessoryType = .disclosureIndicator
         }
 
@@ -81,6 +83,14 @@ class SettingsTableViewController: UITableViewController {
             else if row == 2
             {
                 cell?.textLabel?.text = "Open Source Libraries"
+            }
+        
+        case 2:
+            if row == 0
+            {
+                cell?.textLabel?.text = "Change Travel Mode: "
+                cell?.accessoryType = .none
+                cell?.detailTextLabel?.text = "\(Settings.travelMode)"
             }
         
         case tableView.numberOfSections-1:
@@ -105,10 +115,49 @@ class SettingsTableViewController: UITableViewController {
  
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath {
-        case IndexPath(row: 0, section: 0):
-            self.navigationController?.pushViewController(AccountTableViewController.singleton, animated: true)
-            break
+        
+        let row = indexPath.row
+
+        switch indexPath.section {
+            
+        case 0:
+            if row == 0
+            {
+                self.navigationController?.pushViewController(AccountTableViewController.singleton, animated: true)
+            }
+        
+        case 2:
+            if row == 0
+            {
+                switch Settings.travelMode {
+                case .Walk:
+                    Settings.travelMode = .Transit
+                case .Transit:
+                    Settings.travelMode = .Drive
+                case .Drive:
+                    Settings.travelMode = .Walk
+                }
+                
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
+        case tableView.numberOfSections-1:
+            if row == 0
+            {
+                //clear cache
+            }
+            else if row == 1
+            {
+                PopupManager.singleton.PopupWithCancel(title: "Log Out", body: "Are you sure you want to log out?", presentationViewCont: self, handler: {
+                    
+                    //logout and reload account view
+                    Account.singleton.LogOut()
+                    
+                    let window = UIApplication.shared.delegate?.window!!
+                    window?.rootViewController = LoginViewController.singleton
+                    
+                })
+            }
+            
         default:
             break
         }

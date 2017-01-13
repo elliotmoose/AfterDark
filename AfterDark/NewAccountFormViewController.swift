@@ -161,7 +161,6 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
             usernameLabel.textColor = ColorManager.accountCreationHighlightErrorColor
         }
         
-        
         let (allowedPasswordLength,passwordMessage) = CheckForDisallowedLength(input: password!, maxLength: 20, minLength: 4)
         
         if !allowedPasswordLength
@@ -175,6 +174,11 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         if !CheckForDisallowedCharacters(string: username!,disallowedCharacters: disallowed) || !CheckForDisallowedCharacters(string: password!,disallowedCharacters: disallowed)
         {
             issues.append("- punctuation is not allowed in usernames and passwords")
+        }
+        
+        if !CheckForDisallowedCharacters(string: firstName!, disallowedCharacters: disallowed) || !CheckForDisallowedCharacters(string: lastName!, disallowedCharacters: disallowed)
+        {
+            issues.append("- punctuation is not allowed in first and last name")
         }
         
         //check for valid email
@@ -203,10 +207,12 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
                 PopupManager.singleton.Popup(title: "Account created!", body: "Your account is ready!", presentationViewCont: self, handler: {
                     
                     //dismiiss new account view
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: {
+                        success in
+                        //dismiss login view
+                        self.delegate?.Dismiss()
+                    })
                     
-                    //dismiss login view
-                    self.delegate?.Dismiss()
 
                     Account.singleton.user_name = username
                     Account.singleton.user_ID = "0"
@@ -224,19 +230,35 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
                         PopupManager.singleton.Popup(title: "Account created!", body: result, presentationViewCont: self, handler: {
                             
                             //dismiiss new account view
-                            self.dismiss(animated: true, completion: nil)
+                            self.dismiss(animated: true, completion: {
+                                success in
+                                
+                                //dismiss login view
+                                self.delegate?.Dismiss()
+                            })
                             
-                            //dismiss login view
-                            self.delegate?.Dismiss()
+                            guard let dict = dict else {return}
  
                             //update login details
-                            let username = dict!["User_Name"] as? String
-                            let ID = String(describing: (dict!["User_ID"] as? Int)!)
-                            let email = dict!["User_Email"] as? String
+                            if let username = dict["User_Name"] as? String
+                            {
+                                Account.singleton.user_name = username
+                            }
                             
-                            Account.singleton.user_name = username
-                            Account.singleton.user_ID = ID
-                            Account.singleton.user_Email = email
+                            if let ID = dict["User_ID"] as? Int
+                            {
+                                Account.singleton.user_ID = "\(ID)"
+                            }
+                            else if let ID = dict["User_ID"] as? String
+                            {
+                                Account.singleton.user_ID = ID
+                            }
+                            
+                            if let email = dict["User_Email"] as? String
+                            {
+                                Account.singleton.user_Email = email
+                            }
+                            
                             Account.singleton.Save()
                         
                         })
@@ -276,7 +298,6 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         }
         
         return true
-        
     }
     
     func CheckForValidEmail(email : String) -> Bool
@@ -574,5 +595,28 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
         self.view.endEditing(true)
+    }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == usernameTextField || textField == firstNameTextField || textField == lastNameTextField || textField == phoneTextField
+        {
+            var maxLimit = 20
+            
+            if textField == phoneTextField
+            {
+                maxLimit = 12
+            }
+            
+            let currentCharacterCount = textField.text?.characters.count ?? 0
+            if (range.length + range.location > currentCharacterCount){
+                return false
+            }
+            let newLength = currentCharacterCount + string.characters.count - range.length
+            return newLength <= maxLimit
+        }
+        
+        
+        return true
     }
 }

@@ -13,7 +13,9 @@ struct Category{
     var barIDs = [String]()
     var imageView : UIImageView?
     var description : String = ""
+    var lastUpdate : String = "Not Updated"
     
+    var ID : String = ""
     init(dict : NSDictionary)
     {
         if let catName = dict["Category_Name"] as? String
@@ -32,13 +34,25 @@ struct Category{
                 description = catDescription
         }
         
-        let jsonBarIDs = dict["Bar_IDs"] as? String
+        if let lastUpdated = dict["lastUpdate"] as? String
+        {
+            lastUpdate = lastUpdated
+        }
         
-        if let _ = jsonBarIDs
+        if let catID = dict["Category_ID"] as? String
+        {
+            ID = catID
+        }
+        else if let catID = dict["Category_ID"] as? Int
+        {
+            ID = "\(catID)"
+        }
+        
+        if let jsonBarIDs = dict["Bar_IDs"] as? String
         {
             do
             {
-                let bar_IDs = try JSONSerialization.jsonObject(with: (jsonBarIDs?.data(using: .utf8))!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) as? NSArray
+                let bar_IDs = try JSONSerialization.jsonObject(with: (jsonBarIDs.data(using: .utf8))!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) as? NSArray
                 
                 guard bar_IDs != nil else {return}
                 
@@ -50,12 +64,13 @@ struct Category{
                 }
                 
             }
-            catch let _ as NSError
+            catch
             {
-                print("no bars in category")
+                //print("no bars in category")
             }
             
         }
+        
         
         
         imageView = UIImageView()

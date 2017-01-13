@@ -169,7 +169,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         {
             if let location = mapView.myLocation
             {
-                mapView.animate(toZoom: 17)
+                mapView.animate(toZoom: 14)
                 mapView.animate(toLocation: location.coordinate)
             }
             else
@@ -189,7 +189,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         
         if let mapView = mapView
         {
-            mapView.animate(toZoom: 14)
+            mapView.animate(toZoom: 15)
             mapView.animate(toLocation: barLocation)
         }
     }
@@ -266,7 +266,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         
         //change view angle
         mapView?.animate(toViewingAngle: 0)
-        mapView?.animate(toZoom: 17)
+        mapView?.animate(toZoom: 15)
 
     }
     
@@ -282,7 +282,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         
         //change view angle
         mapView?.animate(toViewingAngle: 45)
-        mapView?.animate(toZoom: 18)
+        mapView?.animate(toZoom: 15)
     }
     
 

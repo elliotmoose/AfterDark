@@ -37,12 +37,7 @@
 		A405E0681DDAC3EF00B9672D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */; };
 		A405E0691DDAC3EF00B9672D /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */; };
 		A40E9CF61E14DC3A0079995D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A40E9CF51E14DC3A0079995D /* Assets.xcassets */; };
-		A439FF551DEEDECE005BFAC4 /* ChangeListSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */; };
-		A439FF561DEEDECE005BFAC4 /* ChangeListSortViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A439FF541DEEDECE005BFAC4 /* ChangeListSortViewController.xib */; };
 		A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF571DEFCC52005BFAC4 /* DummyMode.swift */; };
-		A439FF5C1DF172E4005BFAC4 /* BarListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF5B1DF172E4005BFAC4 /* BarListCollectionViewController.swift */; };
-		A439FF5F1DF172FB005BFAC4 /* BarListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF5D1DF172FB005BFAC4 /* BarListCollectionViewCell.swift */; };
-		A439FF601DF172FB005BFAC4 /* BarListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A439FF5E1DF172FB005BFAC4 /* BarListCollectionViewCell.xib */; };
 		A43AF21C1E236D24007BC641 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43AF21B1E236D24007BC641 /* Protocols.swift */; };
 		A4649AD31E1DF26B00A8B508 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */; };
 		A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */; };
@@ -158,12 +153,7 @@
 		A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		A40E9CF51E14DC3A0079995D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListSortViewController.swift; sourceTree = "<group>"; };
-		A439FF541DEEDECE005BFAC4 /* ChangeListSortViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeListSortViewController.xib; sourceTree = "<group>"; };
 		A439FF571DEFCC52005BFAC4 /* DummyMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyMode.swift; sourceTree = "<group>"; };
-		A439FF5B1DF172E4005BFAC4 /* BarListCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarListCollectionViewController.swift; sourceTree = "<group>"; };
-		A439FF5D1DF172FB005BFAC4 /* BarListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarListCollectionViewCell.swift; sourceTree = "<group>"; };
-		A439FF5E1DF172FB005BFAC4 /* BarListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarListCollectionViewCell.xib; sourceTree = "<group>"; };
 		A43AF21B1E236D24007BC641 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionViewController.xib; sourceTree = "<group>"; };
@@ -330,7 +320,6 @@
 				A473F9AB1E1CBDBF00F640F9 /* InitialViewController.swift */,
 				A473F9AC1E1CBDBF00F640F9 /* InitialViewController.xib */,
 				A473F9B11E1CDFF100F640F9 /* New Bar List View */,
-				98FD6FF11DB7C93900688514 /* Bar List View */,
 				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
 				986E18361DC3D45A0098637D /* Categorized View */,
@@ -360,18 +349,6 @@
 				98F3E4B21DB0009B000EAF08 /* Info.plist */,
 			);
 			path = AfterDarkUITests;
-			sourceTree = "<group>";
-		};
-		98FD6FF11DB7C93900688514 /* Bar List View */ = {
-			isa = PBXGroup;
-			children = (
-				A439FF531DEEDECE005BFAC4 /* ChangeListSortViewController.swift */,
-				A439FF541DEEDECE005BFAC4 /* ChangeListSortViewController.xib */,
-				A439FF5B1DF172E4005BFAC4 /* BarListCollectionViewController.swift */,
-				A439FF5D1DF172FB005BFAC4 /* BarListCollectionViewCell.swift */,
-				A439FF5E1DF172FB005BFAC4 /* BarListCollectionViewCell.xib */,
-			);
-			name = "Bar List View";
 			sourceTree = "<group>";
 		};
 		98FD6FF21DB7C95000688514 /* Bar Detail View */ = {
@@ -467,18 +444,18 @@
 			children = (
 				A439FF571DEFCC52005BFAC4 /* DummyMode.swift */,
 				A401DB9D1E092444003C5F95 /* ExtensionsAndStructs.swift */,
+				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
+				986E18391DC3D50C0098637D /* CategoriesManager.swift */,
+				A401DB9B1E089366003C5F95 /* CacheManager.swift */,
+				Y7QMRMW8N0HNTJBHDMWKAM1F /* Settings.swift */,
+				ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */,
 				A43AF21B1E236D24007BC641 /* Protocols.swift */,
 				A47A542E1DC8988800C465F5 /* DiscountManager.swift */,
 				90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */,
-				986E18391DC3D50C0098637D /* CategoriesManager.swift */,
-				A401DB9B1E089366003C5F95 /* CacheManager.swift */,
 				A400F8731DCB0F44009F8994 /* PopupManager.swift */,
 				GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */,
 				QFTSZAZA620UQ50HVYGSV2BC /* Network.swift */,
-				Y7QMRMW8N0HNTJBHDMWKAM1F /* Settings.swift */,
-				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
 				A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */,
-				ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */,
 				A49450541DCDED840081AF72 /* ReservationManager.swift */,
 			);
 			name = Managers;
@@ -678,7 +655,6 @@
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
 				A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */,
-				A439FF601DF172FB005BFAC4 /* BarListCollectionViewCell.xib in Resources */,
 				A4649AD91E1F41E200A8B508 /* ReviewViewController.xib in Resources */,
 				A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
@@ -691,7 +667,6 @@
 				A49450651DCE11B50081AF72 /* AccountTableViewController.xib in Resources */,
 				A4D375631DCB5F1400274935 /* LoginViewController.xib in Resources */,
 				98FD70011DB89E3F00688514 /* LocationViewController.xib in Resources */,
-				A439FF561DEEDECE005BFAC4 /* ChangeListSortViewController.xib in Resources */,
 				A473F9761E16C06900F640F9 /* Mohave-SemiBold Italics.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -856,7 +831,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A401DB9C1E089366003C5F95 /* CacheManager.swift in Sources */,
-				A439FF5C1DF172E4005BFAC4 /* BarListCollectionViewController.swift in Sources */,
 				A43AF21C1E236D24007BC641 /* Protocols.swift in Sources */,
 				986E183A1DC3D50C0098637D /* CategoriesManager.swift in Sources */,
 				986469251DBE278700781BC0 /* IconCell.swift in Sources */,
@@ -868,7 +842,6 @@
 				98CEE0BE1DC270CC00FDB6AD /* CategorizedCollectionViewController.swift in Sources */,
 				A4F9B81C1DCAF3B300B9D124 /* ClaimFormViewController.swift in Sources */,
 				A473F9AD1E1CBDBF00F640F9 /* InitialViewController.swift in Sources */,
-				A439FF5F1DF172FB005BFAC4 /* BarListCollectionViewCell.swift in Sources */,
 				98FD70001DB89E3F00688514 /* LocationViewController.swift in Sources */,
 				A49450591DCDEE000081AF72 /* ReservationViewController.swift in Sources */,
 				986E183F1DC49E4A0098637D /* CategoryCell.swift in Sources */,
@@ -887,7 +860,6 @@
 				A4FEA3AD1DD0415400F00783 /* NewAccountFormViewController.swift in Sources */,
 				A401DB9E1E092444003C5F95 /* ExtensionsAndStructs.swift in Sources */,
 				A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */,
-				A439FF551DEEDECE005BFAC4 /* ChangeListSortViewController.swift in Sources */,
 				A473F9A91E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift in Sources */,
 				A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */,
 				A473F99F1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift in Sources */,

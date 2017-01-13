@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewViewController: UIViewController,DismissDelegate {
+class ReviewViewController: UIViewController,AddReviewToReviewContDelegate {
 
     @IBOutlet weak var avgSlider: ReviewStarSlider!
     
@@ -35,6 +35,8 @@ class ReviewViewController: UIViewController,DismissDelegate {
 
         
     }
+    
+    @IBOutlet weak var giveARatingButton: UIButton!
     
     @IBAction func PresentAddReviewController(_ sender: Any) {
         let window = UIApplication.shared.delegate?.window!!
@@ -68,11 +70,12 @@ class ReviewViewController: UIViewController,DismissDelegate {
     
     func LoadRating(rating : Rating)
     {
-        avgLabel.text = "\(rating.avg)"
-        pricingLabel.text = "\(rating.price)"
-        foodLabel.text = "\(rating.food)"
-        ambienceLabel.text = "\(rating.ambience)"
-        serviceLabel.text = "\(rating.service)"
+        
+        avgLabel.text = String(format: "%.1f", rating.avg)
+        pricingLabel.text = String(format: "%.1f", rating.price)
+        foodLabel.text = String(format: "%.1f", rating.food)
+        ambienceLabel.text = String(format: "%.1f", rating.ambience)
+        serviceLabel.text = String(format: "%.1f", rating.service)
         
         avgSlider.SetRating(rating: rating.avg)
         pricingSlider.SetRating(rating: rating.price)
@@ -99,4 +102,34 @@ class ReviewViewController: UIViewController,DismissDelegate {
         
         
     }
+    
+    func DisableGiveARatingButton()
+    {
+        giveARatingButton.alpha  = 0
+    }
+    
+    func EnableGiveARatingButton()
+    {
+        giveARatingButton.alpha  = 1
+    }
+    
+    func LoadCanGiveReview()
+    {
+        guard let bar = BarManager.singleton.displayedDetailBar else {NSLog("No Bar is displayed, cant load canGiveReview");return}
+        
+        //Request to see if can give review
+        ReviewManager.singleton.GetCanGiveReview(forBarID: bar.ID) {
+            (success) in
+            
+            if success
+            {
+                self.EnableGiveARatingButton()
+            }
+            else
+            {
+                self.DisableGiveARatingButton()
+            }
+        }
+    }
+    
 }
