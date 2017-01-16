@@ -17,9 +17,6 @@ class BarManager: NSObject
 {
     static let singleton = BarManager()
     //constants
-    let urlAllBarNames = Network.domain + "GetAllBarNames.php"
-    let urlBarIconImage = Network.domain + "GetBarIconImage.php"
-    
     
     //variables
     var mainBarList: [Bar] = []
@@ -638,6 +635,18 @@ class BarManager: NSObject
             newBar.website = website
         }
         
+        if let ratingCount = dict["Bar_Rating_Count"] as? String
+        {
+            if let count = Int(ratingCount)
+            {
+                newBar.totalReviewCount = count
+            }
+        }
+        else if let ratingCount = dict["Bar_Rating_Count"] as? Int
+        {
+            newBar.totalReviewCount = ratingCount
+        }
+        
         if ratingAvg != nil && ratingPrice != nil && ratingAmbience != nil && ratingFood != nil && ratingService != nil
         {
             newBar.rating.InjectValues(ratingAvg!, pricex: ratingPrice!, ambiencex:ratingAmbience!,foodx: ratingFood!, servicex: ratingService!)
@@ -651,6 +660,7 @@ class BarManager: NSObject
         {
             NSLog(errors.joined(separator: "\n"))
         }
+        
         
         
         return newBar

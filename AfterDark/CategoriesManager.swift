@@ -298,6 +298,8 @@ class CategoriesManager
             //update UI (get index -> delegat to collecionView and reload index)
             for i in 0...self.displayedCategories.count-1
             {
+                
+                guard i < self.displayedCategories.count else {return}
                 if self.displayedCategories[i].name == category.name
                 {
                     DispatchQueue.main.async {
