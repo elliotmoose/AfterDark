@@ -45,6 +45,7 @@ class DiscountDetailViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
         Bundle.main.loadNibNamed(nibNameOrNil!, owner: self, options: nil)
         
         barIconImageView?.layer.cornerRadius = (barIconImageView?.frame.size.height)!/2

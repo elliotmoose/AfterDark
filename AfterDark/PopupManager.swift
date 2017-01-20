@@ -15,19 +15,12 @@ class PopupManager{
     {
         let alert = UIAlertController(title: title, message: body, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-            switch action.style{
-            case .default:
-                print("default")
-                
-            case .cancel:
-                print("cancel")
-                
-            case .destructive:
-                print("destructive")
-            }
+
         }))
         
-        presentationViewCont.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            presentationViewCont.present(alert, animated: true, completion: nil)
+        }
     }
     
     func Popup(title : String , body : String, presentationViewCont : UIViewController, handler: @escaping ()->Void)
@@ -40,8 +33,9 @@ class PopupManager{
             
         }))
         
-        presentationViewCont.present(alert, animated: true, completion: nil)
-    }
+        DispatchQueue.main.async {
+            presentationViewCont.present(alert, animated: true, completion: nil)
+        }    }
     
     func PopupWithCancel(title : String , body : String, presentationViewCont : UIViewController, handler: @escaping ()->Void)
     {
@@ -58,8 +52,9 @@ class PopupManager{
         }))
         
         
-        presentationViewCont.present(alert, animated: true, completion: nil)
-    }
+        DispatchQueue.main.async {
+            presentationViewCont.present(alert, animated: true, completion: nil)
+        }    }
     
     func PopupWithTextInput(title : String , body : String, presentationViewCont : UIViewController, handler: @escaping (_ textBody : String)->Void)
     {
@@ -87,6 +82,8 @@ class PopupManager{
         }))
         
 
-        presentationViewCont.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            presentationViewCont.present(alert, animated: true, completion: nil)
+        }
     }
 }

@@ -6,12 +6,12 @@ class Network {
     
     var session : URLSession
     static let singleton = Network()
-
+    
     
     //Urls
     //static let domain = "http://mooselliot.net23.net/"
-    static let domain = "http://localhost/AfterDarkServer/"
-//    static let domain = "http://mooselliot.com/AfterDarkServer/"
+        static let domain = "http://localhost/AfterDarkServer/"
+    //static let domain = "http://mooselliot.com/AfterDarkServer/"
     
     init()
     {
@@ -35,20 +35,23 @@ class Network {
                     print(error)
                 }
                 
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
             }
             else if let data = data
             {
-                DispatchQueue.main.async {
-                    handler(true,data)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(true,data)
                 }
             }
             else
             {
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
             }
             
@@ -72,21 +75,24 @@ class Network {
                 {
                     print(error)
                 }
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
             }
             else if let data = data
             {
                 let outString = String(data: data, encoding: String.Encoding.utf8)
-                DispatchQueue.main.async {
-                    handler(true,outString)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(true,outString)
                 }
             }
             else
             {
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
             }
             
@@ -116,8 +122,9 @@ class Network {
                     print(error)
                 }
                 
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
                 
                 
@@ -125,14 +132,16 @@ class Network {
             else if let data = data
             {
                 let outString = String(data: data, encoding: String.Encoding.utf8)
-                DispatchQueue.main.async {
-                    handler(true,outString)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(true,outString)
                 }
             }
             else
             {
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
             }
             
@@ -161,22 +170,25 @@ class Network {
                     print(error)
                 }
                 
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
                 
                 
             }
             else if let data = data
             {
-                DispatchQueue.main.async {
-                    handler(true,data)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(true,data)
                 }
             }
             else
             {
-                DispatchQueue.main.async {
-                    handler(false,nil)
+                DispatchQueue.global(qos: .default).async
+                    {
+                        handler(false,nil)
                 }
             }
             
@@ -201,9 +213,9 @@ class Network {
             
         } catch let error as NSError {
             if Network.errorsOn
-                {
-                    print(error)
-                }
+            {
+                print(error)
+            }
             
         }
         

@@ -27,6 +27,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         self.collectionView!.register(UINib(nibName: "CategoryCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CategoryCell")
         
         
@@ -162,7 +163,9 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         
         CategoriesManager.singleton.SoftLoadAllCategories()
         {
-            self.navigationItem.rightBarButtonItem = self.refreshButton
+            DispatchQueue.main.async {
+                self.navigationItem.rightBarButtonItem = self.refreshButton
+            }
         }
     }
     

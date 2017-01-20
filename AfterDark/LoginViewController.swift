@@ -295,7 +295,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,LoginDelegate {
     
     func ForgotPasswordButtonPressed()
     {
-        
+        self.present(RetrievePasswordViewController.singleton, animated: true,completion: nil)
     }
     
     func CreateAccountButtonPressed()

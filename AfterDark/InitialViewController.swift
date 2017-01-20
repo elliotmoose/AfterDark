@@ -12,13 +12,6 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
     
     static let singleton = InitialViewController()
     
-    func hello(handler : @escaping () -> Void)
-    {
-        
-    }
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,7 +49,7 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
             loggedIn = true
         }
         
-        
+
         
         //dummy app
         guard Settings.dummyAppOn == false else {
@@ -92,39 +85,32 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
     
     func hasLoggedIn() {
         
-        //step 3: "start loading" = check for cache ////// things not cached: discounts?, categories + images (bars in categories are loaded, however)
-        //step 4: if has cache : check if needs updating (last upDate)
-        //step 4a: things to check : foreach barID : isPresent? lastUpDate?
-        //step 4b: loadAllBarIDs : check if any new bars -> load from scratch -> cache
-        
-        DispatchQueue.global(qos: .default).async{
-            
-            if !Settings.cacheModeOff
-            {
-                self.LoadCachedData()
-            }
-            self.RetrieveDataFromUrls()
-            self.PresentMainRootViewCont()
+        if !Settings.cacheModeOff
+        {
+            self.LoadCachedData()
         }
+        
+        self.RetrieveDataFromUrls()
+        self.PresentMainRootViewCont()
     }
     
 
     func RetrieveDataFromUrls()
     {
-        
-        BarManager.singleton.HardLoadAllBars{
+        DispatchQueue.global(qos: .default).async{
+            BarManager.singleton.HardLoadAllBars{
+                
+                //load discounts
+                DiscountManager.singleton.LoadAllDiscounts()
+                
+                //load distance matrix
+                BarManager.singleton.ReloadAllDistanceMatrix()
+            }
             
-            //load discounts
-            DiscountManager.singleton.LoadAllDiscounts()
+            //load categories
+            CategoriesManager.singleton.SoftLoadAllCategories(){}
             
-            //load distance matrix
-            BarManager.singleton.ReloadAllDistanceMatrix()
         }
-        
-        //load categories
-        CategoriesManager.singleton.SoftLoadAllCategories(){}
-        
-        
     }
     
     func LoadCachedData()

@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMapViewDelegate{
 
+    static var providedKey = false
     //static let singleton = LocationViewController()
     var mapView : GMSMapView?
     let marker = GMSMarker()
@@ -33,8 +34,16 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //map init
-        GMSServices.provideAPIKey(Settings.googleServicesKey)
+        
+            //map init
+        
+        if LocationViewController.providedKey == false
+        {
+            GMSServices.provideAPIKey(Settings.googleServicesKey)
+            LocationViewController.providedKey = true
+        }
+        
+
         
         var loc_lat : Double = 0
         var loc_long : Double = 0
@@ -88,45 +97,13 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         openGoogleMapsButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
         openGoogleMapsButton?.layer.shadowRadius = 10
         
-//        //zoomOutButton
-//        zoomOutButton = UIButton(frame: CGRect(x: 20, y: 40 + targetWidth, width: targetWidth, height: targetWidth))
-//        zoomOutButton?.imageView?.contentMode = .scaleAspectFit
-//        zoomOutButton?.setImage(pointObjectImage.withRenderingMode(.alwaysTemplate), for: .normal)
-//        zoomOutButton?.tintColor = ColorManager.selectedIconColor
-//        zoomOutButton?.backgroundColor = UIColor.white
-//        zoomOutButton?.layer.cornerRadius = targetWidth/2
-//        zoomOutButton?.addTarget(self, action: #selector(ZoomToIncludeStartAndEndLocation), for: .touchDown)
-//        view.addSubview(zoomOutButton!)
-//        
-//        //shadow
-//        zoomOutButton?.clipsToBounds = false
-//        zoomOutButton?.layer.shadowOpacity = 0.3
-//        zoomOutButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        zoomOutButton?.layer.shadowRadius = 10
         
         //location manager
-        locationManager = CLLocationManager()
+        locationManager = LocationManager.singleton
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager?.distanceFilter = 10
         locationManager?.headingFilter = 5
-        
-//        //focusbarbutton
-//        focusBarButton = UIButton(frame: CGRect(x: 20, y: 20, width: targetWidth, height: targetWidth))
-//        
-//        //set up button image
-//        focusBarButton?.imageView?.contentMode = .scaleAspectFit
-//        focusBarButton?.setImage(#imageLiteral(resourceName: "Marker-48").newImageWithSize(CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate), for: .normal)
-//        focusBarButton?.tintColor = ColorManager.selectedIconColor
-//        focusBarButton?.backgroundColor = UIColor.white
-//        focusBarButton?.layer.cornerRadius = targetWidth/2
-//        focusBarButton?.addTarget(self, action: #selector(FocusBarLocation), for: .touchDown)
-//        view.addSubview(focusBarButton!)
-//        //shadow
-//        focusBarButton?.clipsToBounds = false
-//        focusBarButton?.layer.shadowOpacity = 0.3
-//        focusBarButton?.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        focusBarButton?.layer.shadowRadius = 10
         
     }
 
@@ -227,7 +204,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         
         guard barLocLat != 0 && barLocLong != 0 else {
             
-            PopupManager.singleton.Popup(title: "Oops!", body: "This bar does not have a registered google maps location", presentationViewCont: self)
+            PopupManager.singleton.Popup(title: "Oops!", body: "No Location to view in Google Maps", presentationViewCont: self)
             return
         }
         //1.329486,103.88217
@@ -238,21 +215,22 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
         
         guard let url = newUrl else {return}
         
-        if UIApplication.shared.canOpenURL(url)
-        {
-            UIApplication.shared.openURL(url)
-        }
-        else
-        {
-            //means user doesnt have application
+        
+        DispatchQueue.main.async {
             if UIApplication.shared.canOpenURL(url)
             {
                 UIApplication.shared.openURL(url)
             }
+            else
+            {
+                //means user doesnt have application
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+
         }
-        
-        
-        
     }
 
     func StartFollowLocation()

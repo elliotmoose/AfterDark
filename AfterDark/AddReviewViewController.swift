@@ -124,28 +124,30 @@ class AddReviewViewController: UIViewController,AddReviewDelegate {
         ReviewManager.singleton.AddReview(title: title, body: body, rating: rating, bar: bar, userID: userID,handler: {
             (success,error) -> Void in
             
-            self.DismissLoadingScreen()
-            self.HideActivity()
-            
-            if success
-            {
-                PopupManager.singleton.Popup(title: "Done!", body: "Your review has been added! Thank you", presentationViewCont: self,handler: {
-                    
-                    //update ability to give review
-                    self.delegate?.LoadCanGiveReview()
-                    self.delegate?.Dismiss()
-                    
-                })
-            }
-            else
-            {
+            DispatchQueue.main.async {
+                self.DismissLoadingScreen()
+                self.HideActivity()
                 
-                PopupManager.singleton.Popup(title: "Oops!", body: "There seems to be an error: \(error)", presentationViewCont: self, handler:
+                if success
                 {
-                    self.delegate?.Dismiss()
-                })
+                    PopupManager.singleton.Popup(title: "Done!", body: "Your review has been added! Thank you", presentationViewCont: self,handler: {
+                        
+                        //update ability to give review
+                        self.delegate?.LoadCanGiveReview()
+                        self.delegate?.Dismiss()
+                        
+                    })
+                }
+                else
+                {
+                    
+                    PopupManager.singleton.Popup(title: "Oops!", body: "There seems to be an error: \(error)", presentationViewCont: self, handler:
+                        {
+                            self.delegate?.Dismiss()
+                    })
+                }
             }
-            
+
         })
     }
     

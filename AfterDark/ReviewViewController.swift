@@ -121,14 +121,17 @@ class ReviewViewController: UIViewController,AddReviewToReviewContDelegate {
         ReviewManager.singleton.GetCanGiveReview(forBarID: bar.ID) {
             (success) in
             
-            if success
-            {
-                self.EnableGiveARatingButton()
+            DispatchQueue.main.async {
+                if success
+                {
+                    self.EnableGiveARatingButton()
+                }
+                else
+                {
+                    self.DisableGiveARatingButton()
+                }
             }
-            else
-            {
-                self.DisableGiveARatingButton()
-            }
+
         }
     }
     

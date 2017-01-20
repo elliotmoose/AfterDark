@@ -20,71 +20,75 @@ class DiscountManager
     weak var delegate : DiscountManagerToDetailTableDelegate?
     
     var allDiscounts = [Discount]()
-//    func LoadDiscount(_ bar : Bar,handler:@escaping (_ success: Bool)-> Void)
-//    {
-//        let urlGetDiscountsForBar = "http://mooselliot.net23.net/GetBarDiscounts.php?Bar_ID=\(bar.ID)"
-//        Network.singleton.DictArrayFromUrl(urlGetDiscountsForBar, handler: {
-//        success,output -> Void in
-//            if success{
-//                
-//                //add discount to bar
-//                
-//                
-//                handler(true)
-//            }
-//        })
-//    }
+    //    func LoadDiscount(_ bar : Bar,handler:@escaping (_ success: Bool)-> Void)
+    //    {
+    //        let urlGetDiscountsForBar = "http://mooselliot.net23.net/GetBarDiscounts.php?Bar_ID=\(bar.ID)"
+    //        Network.singleton.DictArrayFromUrl(urlGetDiscountsForBar, handler: {
+    //        success,output -> Void in
+    //            if success{
+    //
+    //                //add discount to bar
+    //
+    //
+    //                handler(true)
+    //            }
+    //        })
+    //    }
     
     func LoadAllDiscounts()
     {
-        DispatchQueue.global(qos: .default).async
-        {
-            let urlGetAllDiscounts = Network.domain + "GetAllDiscounts.php"
-            Network.singleton.DataFromUrl(urlGetAllDiscounts) { (success, output) in
-                if success
+        
+        let urlGetAllDiscounts = Network.domain + "GetAllDiscounts.php"
+        Network.singleton.DataFromUrl(urlGetAllDiscounts) { (success, output) in
+            
+            
+            if success
+            {
+                if let output = output
                 {
-                    if let output = output
+                    do
                     {
-                        do
+                        
+                        if let dictArr = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? [NSDictionary]
                         {
+                            self.allDiscounts.removeAll()
                             
-                            if let dictArr = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? [NSDictionary]
+                            for dict in dictArr
                             {
-                                self.allDiscounts.removeAll()
+                                let newDiscount = Discount(dict: dict)
                                 
-                                for dict in dictArr
-                                {
-                                    let newDiscount = Discount(dict: dict)
-                                    
-                                    self.allDiscounts.append(newDiscount)
-                                }
-                                
-                                //push discounts into bars
-                                self.PushDiscountsIntoBars()
-                                
+                                self.allDiscounts.append(newDiscount)
+                            }
+                            
+                            //push discounts into bars
+                            self.PushDiscountsIntoBars()
+                            
+                            
+                            DispatchQueue.main.async {
                                 //update discount display
                                 self.delegate?.UpdateDiscountTab()
                             }
                         }
-                        catch let _ as NSError
-                        {
-                            NSLog("invalid server response")
-                        }
-                        
                     }
-                    else
+                    catch
                     {
-                        NSLog("server fault: no response")
+                        NSLog("invalid server response")
                     }
+                    
                 }
                 else
                 {
-                    NSLog("Error: check connection")
+                    NSLog("server fault: no response")
                 }
-                
             }
-
+            else
+            {
+                NSLog("Error: check connection")
+            }
+            
         }
+        
+        
     }
     
     func PushDiscountsIntoBars()
@@ -101,7 +105,7 @@ class DiscountManager
             {
                 oldArr.append(discount)
                 outputDict.setValue(oldArr, forKey: barID)
-
+                
             }
             else //if no key set key
             {

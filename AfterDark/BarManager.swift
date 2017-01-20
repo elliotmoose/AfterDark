@@ -26,7 +26,7 @@ class BarManager: NSObject
     weak var listDelegate :BarManagerToListTableDelegate?
     weak var catListDelegate :BarManagerToListTableDelegate?
 
-
+    
     //note: this is called in inital: handler calls discounts load and distance matrix load
     func InitialLoadAllBars(handler : @escaping () -> Void) //*** this must be done after cache has been loaded
     {
@@ -226,7 +226,8 @@ class BarManager: NSObject
     func HardLoadAllBars(_ handler : @escaping () -> Void) //does not include images and discounts
     {
         let url = Network.domain + "HardLoadAllBars.php"
-        Network.singleton.DataFromUrl(url) {
+        Network.singleton.DataFromUrl(url)
+        {
             (success, output) in
             
             var barListOutput = [Bar]()
@@ -243,48 +244,58 @@ class BarManager: NSObject
                                 let bar = BarManager.singleton.NewBarFromDict(barDict)
                                 barListOutput.append(bar)
                             }
-
+                            
                         }
                         else
                         {
                             NSLog("ERROR: server response for SoftLoadAllBars() invalid")
+                            return
                         }
                         
                     }
-                    catch let _ as NSError
+                    catch let error as NSError
                     {
-                        
+                        NSLog("\(error)")
                     }
                 }
             }
             else
             {
                 NSLog("Could not connect,check connection")
+                return
             }
-
+            
+            //make sure its not empty
+            guard barListOutput.count != 0 else {return}
             
             //set main list
             BarManager.singleton.mainBarList = barListOutput
             
-            //set cache list
-            CacheManager.singleton.cachedBarList = barListOutput
+//            //set cache list
+//            CacheManager.singleton.cachedBarList = barListOutput
+//            
+//            //save cache
+//            CacheManager.singleton.Save()
             
-            //save cache
-            CacheManager.singleton.Save()
-            
-            //updates displayed bar 
+            //updates displayed bar
             if let bar = self.displayedDetailBar
             {
                 //takes the ID of the current displayed bar(not updated version) to get an updated version from the new list
                 self.displayedDetailBar = self.BarFromBarID(bar.ID)
             }
             
-            //update ui
-            self.UpdateUI()
+            DispatchQueue.main.async {
+                
+                //update ui
+                self.UpdateUI()
+                
+                //handler
+                handler()
+            }
             
-            //handler
-            handler()
+            
         }
+        
     }
     
     
@@ -342,120 +353,133 @@ class BarManager: NSObject
     //====================================================================================
     private func LoadDistanceMatrixForBar(_ bar: Bar, handler : @escaping (Bool,NSDictionary?) -> Void)
     {
-        //get time and distance from current location
-        let locationManager = CLLocationManager()
-        var myLocation = locationManager.location?.coordinate
         
-        if myLocation == nil
-        {
-            myLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-        }
-        //test 
-        let myLat = myLocation!.latitude
-        let myLong = myLocation!.longitude
-        
-        var mode = "transit"
-        switch Settings.travelMode {
-        case .Walk:
-            mode = "walking"
-        case .Transit:
-            mode = "transit"
-        case .Drive:
-            mode = "driving"
-        }
-        
-        //uses as a proxy
-        let url = Network.domain + "QueryDistanceMatrix.php"
-        
-        let param = "units=metric&origins=\(myLat),\(myLong)&destinations=\(bar.loc_lat),\(bar.loc_long)&key=\(Settings.googleServicesServerKey)&mode=\(mode)"
-        
-        Network.singleton.DataFromUrlWithPost(url, postParam: "parameters=\(param.AddPercentEncodingForURL(plusForSpace: true)!)", handler:
+        DispatchQueue.global(qos: .default).async {
+            
+            //get time and distance from current location
+            let locationManager = LocationManager.singleton
+            
+            var myLocation = locationManager.location?.coordinate
+            
+            if myLocation == nil
             {
-                (success,output) -> Void in
-                if success
-                {
-                    
-                    do
+                myLocation = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+            }
+            
+            //test
+            let myLat = myLocation!.latitude
+            let myLong = myLocation!.longitude
+            
+            var mode = "transit"
+            switch Settings.travelMode {
+            case .Walk:
+                mode = "walking"
+            case .Transit:
+                mode = "transit"
+            case .Drive:
+                mode = "driving"
+            }
+            
+            //uses as a proxy
+            let url = Network.domain + "QueryDistanceMatrix.php"
+            
+            let param = "units=metric&origins=\(myLat),\(myLong)&destinations=\(bar.loc_lat),\(bar.loc_long)&key=\(Settings.googleServicesServerKey)&mode=\(mode)"
+            
+            DispatchQueue.main.async {
+                Network.singleton.DataFromUrlWithPost(url, postParam: "parameters=\(param.AddPercentEncodingForURL(plusForSpace: true)!)", handler:
                     {
-                        if let dict = try JSONSerialization.jsonObject(with: output!, options: .allowFragments) as? NSDictionary
+                        (success,output) -> Void in
+                        
+                        
+                        if success
                         {
                             
-                            if let error = dict["error_message"] as? String
+                            do
                             {
-                                NSLog(error)
-                            }
-                            
-                            if let rowsArr = dict["rows"] as? NSArray
-                            {
-                                
-                                guard rowsArr.count > 0 else {return}
-                                if let row = rowsArr[0] as? NSDictionary
+                                if let dict = try JSONSerialization.jsonObject(with: output!, options: .allowFragments) as? NSDictionary
                                 {
-                                    if let elementsArr = row["elements"] as? NSArray
+                                    
+                                    if let error = dict["error_message"] as? String
                                     {
-                                        if let element = elementsArr[0] as? NSDictionary
+                                        NSLog(error)
+                                    }
+                                    
+                                    if let rowsArr = dict["rows"] as? NSArray
+                                    {
+                                        
+                                        guard rowsArr.count > 0 else {return}
+                                        if let row = rowsArr[0] as? NSDictionary
                                         {
-                                            //UPDATE DATA
-                                            if let distance = element["distance"] as? NSDictionary
+                                            if let elementsArr = row["elements"] as? NSArray
                                             {
-                                                if let text = distance["text"] as? String
+                                                if let element = elementsArr[0] as? NSDictionary
                                                 {
-                                                    bar.distanceFromClientString = text
-                                                }
-                                                
-                                                if let value = distance["value"] as? Float
-                                                {
-                                                    bar.distanceFromClient = value
+                                                    //UPDATE DATA
+                                                    if let distance = element["distance"] as? NSDictionary
+                                                    {
+                                                        if let text = distance["text"] as? String
+                                                        {
+                                                            bar.distanceFromClientString = text
+                                                        }
+                                                        
+                                                        if let value = distance["value"] as? Float
+                                                        {
+                                                            bar.distanceFromClient = value
+                                                        }
+                                                    }
+                                                    
+                                                    if let duration = element["duration"] as? NSDictionary
+                                                    {
+                                                        if let text = duration["text"] as? String
+                                                        {
+                                                            bar.durationFromClientString = text
+                                                        }
+                                                        
+                                                        if let value = duration["value"] as? Float
+                                                        {
+                                                            bar.durationFromClient = value
+                                                        }
+                                                    }
+                                                    
+                                                    bar.distanceMatrixEnabled = true
+                                                    
+                                                    DispatchQueue.main.async {
+                                                        //UPDATING OF UI
+                                                        self.catListDelegate?.UpdateCellForBar(bar)
+                                                        self.listDelegate?.UpdateCellForBar(bar)
+                                                    }
+                                                    
+                                                    
+                                                    handler(true, element)
+                                                    return
                                                 }
                                             }
-                                            
-                                            if let duration = element["duration"] as? NSDictionary
-                                            {
-                                                if let text = duration["text"] as? String
-                                                {
-                                                    bar.durationFromClientString = text
-                                                }
-                                                
-                                                if let value = duration["value"] as? Float
-                                                {
-                                                    bar.durationFromClient = value
-                                                }
-                                            }
-                                            
-                                            bar.distanceMatrixEnabled = true
-                                            
-                                            //UPDATING OF UI
-                                            self.catListDelegate?.UpdateCellForBar(bar)
-                                            self.listDelegate?.UpdateCellForBar(bar)
-                                            
-                                            handler(true, element)
-                                            return
                                         }
                                     }
                                 }
+                                
+                                let outString = String(data: output!, encoding: .utf8)!
+                                print(outString)
+                                
                             }
+                            catch let error as NSError
+                            {
+                                
+                            }
+                            
                         }
                         
-                        let outString = String(data: output!, encoding: .utf8)!
-                        print(outString)
+                        //if it reaches here means failed
+                        handler(false,nil)
+                        bar.durationFromClientString = ""
+                        bar.distanceFromClientString = ""
+                        bar.distanceMatrixEnabled = false
                         
-                    }
-                    catch let error as NSError
-                    {
                         
-                    }
-                    
-                }
-                
-                //if it reaches here means failed
-                handler(false,nil)
-                bar.durationFromClientString = ""
-                bar.distanceFromClientString = ""
-                bar.distanceMatrixEnabled = false
+                })
 
-
-        })
-
+            }
+        }
     }
     
     func ReloadAllDistanceMatrix()
@@ -668,8 +692,11 @@ class BarManager: NSObject
     
     func UpdateUI()
     {
-        self.listDelegate?.UpdateBarListTableDisplay()
-        self.catListDelegate?.UpdateBarListTableDisplay()
+        DispatchQueue.main.async {
+            self.listDelegate?.UpdateBarListTableDisplay()
+            self.catListDelegate?.UpdateBarListTableDisplay()
+        }
+
     }
     
     

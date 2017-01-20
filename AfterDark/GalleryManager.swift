@@ -28,6 +28,64 @@ class GalleryManager
         })
     }
 
+//    func LoadBarGallery(_ thisBarOrigin: Bar, handler: @escaping (_ success :Bool) -> Void)
+//    {
+//        //reset pages
+//        if thisBarOrigin.maxImageCount == 0
+//        {return}
+//        for index in 0...thisBarOrigin.maxImageCount
+//        {
+//            
+//            let ID = thisBarOrigin.ID
+//            let i = index;
+//            let urlLoadImageAtIndex = Network.domain + "GetBarGalleryImage.php?Bar_ID=\(ID)&Image_Index=\(i)"
+//            Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler:
+//                {
+//                    (success,output)->Void in
+//                    if let output = output
+//                    {
+//                        
+//                        guard output != "nil" else {return}
+//                        
+//                        if success == true
+//                        {
+//                            let imageString = output
+//                            let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
+//                            let image = UIImage(data: dataDecoded)
+//                            
+//                            if let image = image
+//                            {
+//                                thisBarOrigin.Images.append(image)
+//                                
+//                                //update UI at page:
+//                                DispatchQueue.main.async
+//                                {
+//                                    //this is for discounts page
+//                                    if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
+//                                    {
+//                                        if thisBarOrigin.Images.count == 1 && currentDisc.bar_ID == thisBarOrigin.ID
+//                                        {
+//                                            DiscountDetailViewController.singleton.UpdateImage(image : image)
+//                                        }
+//                                    }
+//                                    
+//                                    
+//                                    
+//                                    
+//                                    handler(true)
+//                                }
+//
+//                            }
+//                            
+//                            
+//                        }
+//                        
+//                    }
+//                    
+//            })
+//        }
+//    }
+   
     func LoadBarGallery(_ thisBarOrigin: Bar, handler: @escaping (_ success :Bool) -> Void)
     {
         //reset pages
@@ -39,49 +97,57 @@ class GalleryManager
             let ID = thisBarOrigin.ID
             let i = index;
             let urlLoadImageAtIndex = Network.domain + "GetBarGalleryImage.php?Bar_ID=\(ID)&Image_Index=\(i)"
-            Network.singleton.StringFromUrl(urlLoadImageAtIndex, handler:
+            //let urlLoadImageAtIndex = "http://localhost/AfterDarkServer/Bar_Images/0/Category_Classy.jpg"
+            //let urlLoadImageAtIndex = Network.domain + "Bar_Images/\(ID)/\(index).jpg"
+            Network.singleton.DataFromUrl(urlLoadImageAtIndex, handler:
                 {
                     (success,output)->Void in
-                    if let output = output
+                    
+                    if success == true
                     {
-                        
-                        guard output != "nil" else {return}
-                        
-                        if success == true
+                        if let output = output
                         {
-                            let imageString = output
-                            let dataDecoded:Data = Data(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-                            let image = UIImage(data: dataDecoded)
                             
-                            if let image = image
+                            if let image = UIImage(data: output)
                             {
                                 thisBarOrigin.Images.append(image)
                                 
                                 //update UI at page:
-                                //this is for discounts page
-                                if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
-                                {
-                                    if thisBarOrigin.Images.count == 1 && currentDisc.bar_ID == thisBarOrigin.ID
+                                DispatchQueue.main.async
                                     {
-                                        DiscountDetailViewController.singleton.UpdateImage(image : image)
-                                    }
+                                        //this is for discounts page
+                                        if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
+                                        {
+                                            if thisBarOrigin.Images.count == 1 && currentDisc.bar_ID == thisBarOrigin.ID
+                                            {
+                                                DiscountDetailViewController.singleton.UpdateImage(image : image)
+                                            }
+                                        }
+                                        
+                                        handler(true)
                                 }
                                 
-                                
-                                
-                                
-                                handler(true)
+                            }
+                            else
+                            {
+                                NSLog("invalid image format")
                             }
                             
                             
                         }
-                        
+                        else
+                        {
+                            NSLog("no image found")
+                        }
                     }
-                    
+                    else
+                    {
+                        NSLog("Cant connect, check connection")
+                    }
             })
         }
     }
-   
+
 
 
     }

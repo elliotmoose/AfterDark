@@ -72,10 +72,13 @@
 		A494505F1DCE0F890081AF72 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A494505D1DCE0F890081AF72 /* SettingsTableViewController.swift */; };
 		A49450641DCE11B50081AF72 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49450621DCE11B50081AF72 /* AccountTableViewController.swift */; };
 		A49450651DCE11B50081AF72 /* AccountTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49450631DCE11B50081AF72 /* AccountTableViewController.xib */; };
+		A4AEB3541E31A3EE00A1BED9 /* RetrievePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AEB3521E31A3EE00A1BED9 /* RetrievePasswordViewController.swift */; };
+		A4AEB3551E31A3EE00A1BED9 /* RetrievePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4AEB3531E31A3EE00A1BED9 /* RetrievePasswordViewController.xib */; };
 		A4D375621DCB5F1400274935 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375601DCB5F1400274935 /* LoginViewController.swift */; };
 		A4D375631DCB5F1400274935 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4D375611DCB5F1400274935 /* LoginViewController.xib */; };
 		A4D375A41DCB68E000274935 /* DiscountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */; };
 		A4D375A51DCB68E000274935 /* DiscountDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4D375A31DCB68E000274935 /* DiscountDetailViewController.xib */; };
+		A4D7A8F11E2C8CD4001FAB12 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D7A8F01E2C8CD4001FAB12 /* LocationManager.swift */; };
 		A4F9AD981DD333580077241F /* ReviewStarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9AD971DD333580077241F /* ReviewStarSlider.swift */; };
 		A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80D1DC8C90C00B9D124 /* Discount.swift */; };
 		A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */; };
@@ -188,10 +191,14 @@
 		A494505D1DCE0F890081AF72 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A49450621DCE11B50081AF72 /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		A49450631DCE11B50081AF72 /* AccountTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTableViewController.xib; sourceTree = "<group>"; };
+		A4AEB3471E2F2EAA00A1BED9 /* AfterDark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AfterDark.entitlements; sourceTree = "<group>"; };
+		A4AEB3521E31A3EE00A1BED9 /* RetrievePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePasswordViewController.swift; sourceTree = "<group>"; };
+		A4AEB3531E31A3EE00A1BED9 /* RetrievePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RetrievePasswordViewController.xib; sourceTree = "<group>"; };
 		A4D375601DCB5F1400274935 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A4D375611DCB5F1400274935 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		A4D375A21DCB68E000274935 /* DiscountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailViewController.swift; sourceTree = "<group>"; };
 		A4D375A31DCB68E000274935 /* DiscountDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountDetailViewController.xib; sourceTree = "<group>"; };
+		A4D7A8F01E2C8CD4001FAB12 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationManager.swift; path = ../LocationManager.swift; sourceTree = "<group>"; };
 		A4F9AD971DD333580077241F /* ReviewStarSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewStarSlider.swift; sourceTree = "<group>"; };
 		A4F9B80D1DC8C90C00B9D124 /* Discount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discount.swift; sourceTree = "<group>"; };
 		A4F9B80F1DC9BFA800B9D124 /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
@@ -316,6 +323,7 @@
 		98F3E48D1DB0009B000EAF08 /* AfterDark */ = {
 			isa = PBXGroup;
 			children = (
+				A4AEB3471E2F2EAA00A1BED9 /* AfterDark.entitlements */,
 				98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */,
 				A473F9AB1E1CBDBF00F640F9 /* InitialViewController.swift */,
 				A473F9AC1E1CBDBF00F640F9 /* InitialViewController.xib */,
@@ -457,6 +465,7 @@
 				QFTSZAZA620UQ50HVYGSV2BC /* Network.swift */,
 				A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */,
 				A49450541DCDED840081AF72 /* ReservationManager.swift */,
+				A4D7A8F01E2C8CD4001FAB12 /* LocationManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -478,6 +487,8 @@
 			children = (
 				A4D375601DCB5F1400274935 /* LoginViewController.swift */,
 				A4D375611DCB5F1400274935 /* LoginViewController.xib */,
+				A4AEB3521E31A3EE00A1BED9 /* RetrievePasswordViewController.swift */,
+				A4AEB3531E31A3EE00A1BED9 /* RetrievePasswordViewController.xib */,
 				A4FEA3AB1DD0415400F00783 /* NewAccountFormViewController.swift */,
 				A4FEA3AC1DD0415400F00783 /* NewAccountFormViewController.xib */,
 			);
@@ -598,6 +609,11 @@
 						DevelopmentTeam = D6W5DP48V9;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					98F3E4A01DB0009B000EAF08 = {
 						CreatedOnToolsVersion = 7.2;
@@ -636,6 +652,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4AEB3551E31A3EE00A1BED9 /* RetrievePasswordViewController.xib in Resources */,
 				A473F9781E16C06900F640F9 /* Mohave.otf in Resources */,
 				A473F9B51E1DD78500F640F9 /* AddReviewViewController.xib in Resources */,
 				A473F9AE1E1CBDBF00F640F9 /* InitialViewController.xib in Resources */,
@@ -865,6 +882,7 @@
 				A473F99F1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift in Sources */,
 				A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */,
 				98FD70041DB89EA900688514 /* DiscountViewController.swift in Sources */,
+				A4D7A8F11E2C8CD4001FAB12 /* LocationManager.swift in Sources */,
 				A473F9A31E1B2AD100F640F9 /* CategoryTableCell.swift in Sources */,
 				K6IWCJC2V8NIJ9770XXEEKN7 /* Network.swift in Sources */,
 				A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */,
@@ -876,6 +894,7 @@
 				Q8YINUWFC5GQUAXVB2CAP29H /* GalleryManager.swift in Sources */,
 				98FCB19C1DC12B7D008C9307 /* RatingStarView.swift in Sources */,
 				A405E0681DDAC3EF00B9672D /* ChangePasswordViewController.swift in Sources */,
+				A4AEB3541E31A3EE00A1BED9 /* RetrievePasswordViewController.swift in Sources */,
 				A49450641DCE11B50081AF72 /* AccountTableViewController.swift in Sources */,
 				2B19QFW7UX4K2SGFI1SWKVM3 /* Review.swift in Sources */,
 				A4D375A41DCB68E000274935 /* DiscountDetailViewController.swift in Sources */,
@@ -1024,7 +1043,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA4EE49BDCF54C5313FE8315 /* Pods-AfterDark.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D6W5DP48V9;
@@ -1043,7 +1062,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5542075200E70004506FB9E4 /* Pods-AfterDark.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = D6W5DP48V9;

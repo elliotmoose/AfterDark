@@ -39,7 +39,7 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
         barListTableViewController.didMove(toParentViewController: self)
         view.addSubview(barListTableViewController.view)
         
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = UIColor.black
         
         refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(Refresh))
         refreshButton.tintColor = ColorManager.themeBright
@@ -57,9 +57,7 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
 
     func UpdateBarListTableDisplay() //this is called when data has been loaded
     {
-
-        barListTableViewController.SetBarIDsFromList(barListInput: BarManager.singleton.mainBarList)
-         
+        self.barListTableViewController.SetBarIDsFromList(barListInput: BarManager.singleton.mainBarList)        
     }
     
     
@@ -71,6 +69,7 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
 
     func Refresh()
     {
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
 
         

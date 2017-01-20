@@ -25,14 +25,14 @@
             <rect key="frame" x="0.0" y="0.0" width="365" height="91"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="365" height="90"/>
+                <rect key="frame" x="0.0" y="0.0" width="365" height="90.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biU-hp-6C0">
                         <rect key="frame" x="0.0" y="0.0" width="365" height="91"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tap again for details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHf-nd-Tnu">
-                                <rect key="frame" x="118" y="72" width="130" height="14"/>
+                                <rect key="frame" x="118" y="5" width="130" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="1Hl-Tl-Rka"/>
                                     <constraint firstAttribute="height" constant="13.5" id="xJg-8I-0Nw"/>
@@ -59,10 +59,10 @@
                             </imageView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="sHf-nd-Tnu" firstAttribute="top" secondItem="biU-hp-6C0" secondAttribute="top" constant="5" id="6Bk-SR-upn"/>
                             <constraint firstItem="iYr-JY-bjz" firstAttribute="centerY" secondItem="L0d-Jb-Isn" secondAttribute="centerY" id="N8D-qT-Klc"/>
                             <constraint firstItem="iYr-JY-bjz" firstAttribute="leading" secondItem="L0d-Jb-Isn" secondAttribute="trailing" constant="3" id="wQm-Dt-nIl"/>
                             <constraint firstItem="sHf-nd-Tnu" firstAttribute="centerX" secondItem="biU-hp-6C0" secondAttribute="centerX" id="wWC-wA-jup"/>
-                            <constraint firstAttribute="bottom" secondItem="sHf-nd-Tnu" secondAttribute="bottom" constant="5" id="xT8-FK-azZ"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bar name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3MW-Ea-wZh">
