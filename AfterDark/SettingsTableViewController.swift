@@ -13,7 +13,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = .black;
-        self.navigationController?.navigationBar.tintColor = UIColor.orange
+        self.navigationController?.navigationBar.tintColor = ColorManager.themeBright
         self.navigationController?.navigationBar.barTintColor = UIColor.black
 
         self.navigationController?.navigationBar.isTranslucent = false;
@@ -144,6 +144,8 @@ class SettingsTableViewController: UITableViewController {
             if row == 0
             {
                 //clear cache
+                CacheManager.singleton.ClearCache()
+                PopupManager.singleton.Popup(title: "Done!", body: "Cache has been cleared!", presentationViewCont: self)
             }
             else if row == 1
             {

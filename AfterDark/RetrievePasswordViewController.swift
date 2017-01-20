@@ -39,10 +39,13 @@ class RetrievePasswordViewController: UIViewController {
                                 if succ == "true"
                                 {
                                     guard let detail = dict["detail"] as? String else {return}
+                                    
+                                    self.usernameTextField.text = ""
+                                    self.emailTextField.text = ""
+                                    
                                     PopupManager.singleton.Popup(title: "Yay!", body: detail, presentationViewCont: self, handler: {
-                                        DispatchQueue.main.async {
-                                            self.dismiss(animated: true, completion: nil)
-                                        }
+                                        
+                                        self.Dismiss()
                                     })
                                 }
                                 else if succ == "false"
@@ -81,7 +84,7 @@ class RetrievePasswordViewController: UIViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.Dismiss()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -115,14 +118,11 @@ class RetrievePasswordViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func Dismiss()
+    {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
-    */
 
 }
