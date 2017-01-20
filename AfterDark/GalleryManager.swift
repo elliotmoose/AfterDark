@@ -131,6 +131,9 @@ class GalleryManager
                             else
                             {
                                 NSLog("invalid image format")
+                                
+                                let stringout = String(data: output, encoding: .utf8)!
+                                NSLog(stringout)
                             }
                             
                             
