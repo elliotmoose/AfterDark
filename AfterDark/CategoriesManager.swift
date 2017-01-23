@@ -23,6 +23,8 @@ class CategoriesManager
     
     var displayedCategory : Category?
     
+    var loadCount = 0
+    
     
     func LoadAllCategories()
     {
@@ -200,7 +202,9 @@ class CategoriesManager
     
     func LoadCategoryImages() //includes cache check,cache excess removal, updates, check, and force loading
     {
-        var needsSaving = false
+        
+        //reset
+        self.loadCount = 0
         
         for category in self.allCategories
         {
@@ -217,6 +221,9 @@ class CategoriesManager
                         
                         //step 3: update ui
                         self.UpdateCategoryUI(category: category)
+                        self.loadCount += 1
+                        self.SaveIfReady()
+
                     }
                     else //if is outdated
                     {
@@ -227,7 +234,8 @@ class CategoriesManager
                             
                             if toSave
                             {
-                                needsSaving = toSave
+                                self.loadCount += 1
+                                self.SaveIfReady()
                             }
                         }
                     }
@@ -241,7 +249,8 @@ class CategoriesManager
                         
                         if toSave
                         {
-                            needsSaving = toSave
+                            self.loadCount += 1
+                            self.SaveIfReady()
                         }
                     }
                 }
@@ -256,21 +265,27 @@ class CategoriesManager
                     
                     if toSave
                     {
-                        needsSaving = toSave
+                        self.loadCount += 1
+                        self.SaveIfReady()
                     }
                 }
             }
             
         }
         
-        if needsSaving
+
+    }
+    
+    func SaveIfReady()
+    {
+        if loadCount == allCategories.count
         {
             CacheManager.singleton.Save()
         }
     }
-    
     func LoadImageForCategory(category : Category, _ handler : @escaping (Bool) -> Void)
     {
+        print("loading from internet")
         //if not -> begin image load****************************************
         let url = Network.domain + "Category_Images/\(category.name.AddPercentEncodingForURL(plusForSpace: true)!).jpg"
         Network.singleton.DataFromUrl(url, handler: {

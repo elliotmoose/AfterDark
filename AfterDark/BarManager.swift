@@ -354,7 +354,7 @@ class BarManager: NSObject
     private func LoadDistanceMatrixForBar(_ bar: Bar, handler : @escaping (Bool,NSDictionary?) -> Void)
     {
         
-        DispatchQueue.global(qos: .default).async {
+        DispatchQueue.main.async {
             
             //get time and distance from current location
             let locationManager = LocationManager.singleton

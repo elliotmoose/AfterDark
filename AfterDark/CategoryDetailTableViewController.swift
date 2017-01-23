@@ -39,7 +39,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     var recentSelectedCell : CategoryTableCell?
     
     let searchController = UISearchController(searchResultsController: nil)
-    
+    var searchBarEnabled = false
     //runtime object variables
     //var barBlownUp : Bar?
     
@@ -116,7 +116,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         let tableViewHeight = Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - self.tabHeight - Sizing.navBarHeight - self.locationViewHeight
         
         tableView = UITableView(frame: CGRect(x: 0, y: self.locationViewHeight + self.tabHeight , width: Sizing.ScreenWidth(), height: tableViewHeight))
-        tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
+        
+        if searchBarEnabled
+        {
+            tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
+        }
         tableView?.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.1, alpha: 1)
         tableView?.separatorColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1)
         tableView?.tableFooterView = UIView() //remove seperator lines
@@ -133,14 +137,16 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         self.view.sendSubview(toBack: tableView!)
         self.view.sendSubview(toBack: locationCont.view)
         
-        
+        self.automaticallyAdjustsScrollViewInsets = false
         //search controller
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
-        tableView?.tableHeaderView = searchController.searchBar
-        
+
+        self.extendedLayoutIncludesOpaqueBars = false
+
+        self.edgesForExtendedLayout = []
 
     }
 
@@ -243,7 +249,10 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         //since view will appear is called before will disappear, 2 instances of this class will clash as it will load another before it unloads the previous displayed bar
         BarManager.singleton.displayedDetailBar = nil
         
-        tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
+        if searchBarEnabled
+        {
+            tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
+        }
 
         UpdateUI()
     }
@@ -388,7 +397,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                     }
                 }
                 
-                
+                if searchBarEnabled
+                {
+                    self.tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
+                }
+
 
             }
             else //THIS IS WHEN ITS NOT BLOWN UP -> SELECTION AND MOVEMENT TO BLOW UP
@@ -567,7 +580,17 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                 
                 //update table view content size and frame
                 let tableViewHeight = Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - self.tabHeight - Sizing.navBarHeight
-                self.tableView?.frame = CGRect(x: 0, y: self.tabHeight - self.searchController.searchBar.bounds.height, width: Sizing.ScreenWidth(), height: tableViewHeight)
+                
+                if self.searchBarEnabled
+                {
+                    self.tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
+                    
+                    self.tableView?.frame = CGRect(x: 0, y: self.tabHeight - self.searchController.searchBar.bounds.height, width: Sizing.ScreenWidth(), height: tableViewHeight + self.searchController.searchBar.bounds.height)
+                }
+                else
+                {
+                    self.tableView?.frame = CGRect(x: 0, y: self.tabHeight, width: Sizing.ScreenWidth(), height: tableViewHeight)
+                }
                 
                 for tab in self.tabs
                 {
@@ -594,7 +617,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                 //update table view content size and frame
                 self.tableView?.frame = CGRect(x: 0, y: self.locationViewHeight + self.tabHeight, width: Sizing.ScreenWidth(), height: tableViewHeight)
                 
-                self.tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
 
                 for tab in self.tabs
                 {
@@ -873,7 +895,8 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     
     func updateSearchResults(for searchController: UISearchController) {
         
-        if searchController.isActive == false
+
+        if let _ = BarManager.singleton.displayedDetailBar
         {
             return
         }
@@ -887,6 +910,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         filterBars(searchText: searchController.searchBar.text!)
     }
     
+    func EnableSearchBar()
+    {
+        searchBarEnabled = true
+        tableView?.tableHeaderView = searchController.searchBar
+    }
     
     //DELEGATE FUNCTIONS
     func UpdateCellForBar(_ bar: Bar) {

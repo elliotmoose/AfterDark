@@ -49,7 +49,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         self.tabBarController?.tabBar.layer.shadowOffset = CGSize(width: 0, height: -2)
         self.tabBarController?.tabBar.layer.shadowColor = UIColor.white.cgColor
         self.tabBarController?.tabBar.clipsToBounds = false
-        collectionView?.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        collectionView?.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         
         
         refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(Refresh))

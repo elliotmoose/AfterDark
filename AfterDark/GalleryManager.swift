@@ -91,7 +91,7 @@ class GalleryManager
         //reset pages
         if thisBarOrigin.maxImageCount == 0
         {return}
-        for index in 0...thisBarOrigin.maxImageCount
+        for index in 0...thisBarOrigin.maxImageCount-1
         {
             
             let ID = thisBarOrigin.ID
