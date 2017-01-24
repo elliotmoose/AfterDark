@@ -65,13 +65,10 @@ class CategoriesManager
                                     let name = newCat.name
                                     //load cat image
                                     //check if image exists in cache**************************************
-                                    let image = CacheManager.singleton.categoryImages?[name] as? UIImage
-                                    
-                                    //if exists
-                                    if let _ = image
+                                    if let image = CacheManager.singleton.categoryImages?[name] as? UIImage
                                     {
                                         //set image in imageView
-                                        newCat.imageView?.image = image!
+                                        newCat.image = image
                                     }
                                     else
                                     {
@@ -82,28 +79,31 @@ class CategoriesManager
                                             if success && output != nil
                                             {
                                                 //output is image data
-                                                let loadedImage = UIImage(data: output!)
-                                                
-                                                guard let _ = loadedImage else
+                                                if let loadedImage = UIImage(data: output!)
+                                                {
+                                                    newCat.image = loadedImage
+                                                    //when done -> save image in cache ***
+                                                    
+                                                    CacheManager.singleton.categoryImages?.setValue(loadedImage, forKey: name)
+                                                    
+                                                    //update UI (get index -> delegat to collecionView and reload index)
+                                                    for i in 0...self.allCategories.count-1
+                                                    {
+                                                        if self.allCategories[i].name == newCat.name
+                                                        {
+                                                            DispatchQueue.main.async {
+                                                                self.delegate?.ReloadCell(index: i)
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     print("loaded image could not decode")
                                                     return
                                                 }
                                                 
-                                                newCat.imageView?.image = loadedImage
-                                                //when done -> save image in cache ***
-                                                CacheManager.singleton.categoryImages?.setValue(loadedImage, forKey: name)
                                                 
-                                                //update UI (get index -> delegat to collecionView and reload index)
-                                                for i in 0...self.allCategories.count-1
-                                                {
-                                                    if self.allCategories[i].name == newCat.name
-                                                    {
-                                                        DispatchQueue.main.async {
-                                                            self.delegate?.ReloadCell(index: i)
-                                                        }
-                                                    }
-                                                }
                                                 
                                             }
                                             else
@@ -217,7 +217,7 @@ class CategoriesManager
                     if catOldUpdate == category.lastUpdate // if is updated
                     {
                         //step 2a: load image from cache
-                        category.imageView?.image = image
+                        category.image = image
                         
                         //step 3: update ui
                         self.UpdateCategoryUI(category: category)
@@ -299,7 +299,7 @@ class CategoriesManager
                     {
                         DispatchQueue.main.async {
                             //set image
-                            category.imageView?.image = loadedImage
+                            category.image = loadedImage
                             //save image
                             CacheManager.singleton.categoryImages?.setValue(loadedImage, forKey: category.ID)
                             CacheManager.singleton.catUpDates?.setValue(category.lastUpdate, forKey: category.ID)

@@ -127,10 +127,21 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
         else
         {
             //make qr code : format: userID,username,barID,discountID,amount,date
-            let userID = Account.singleton.user_ID
-            let username = Account.singleton.user_name
-            let index = spentAmountTextField.text?.index(after: (spentAmountTextField.text?.startIndex)!)
-            let amount :String = (spentAmountTextField.text?.substring(from: index!))!
+            guard let userID = Account.singleton.user_ID else {
+                NSLog("error: userID doesnt exist")
+                return
+            }
+            guard let username = Account.singleton.user_name else {
+                NSLog("error: username doesnt exist")
+                return
+            }
+            guard let index = spentAmountTextField.text?.index(after: (spentAmountTextField.text?.startIndex)!) else {                NSLog("error: index doesnt exist")
+                return
+            }
+            guard let amount = spentAmountTextField.text?.substring(from: index) else {
+                NSLog("error: amount doesnt exist")
+                return
+            }
             
             guard let currentDiscount = currentDiscount else
             {
@@ -138,17 +149,49 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
                 return
             }
             
-            let discountID = currentDiscount.discount_ID
+            guard let discountID = currentDiscount.discount_ID else {
+                NSLog("error: discountID doesnt exist")
+                return
+            }
+            guard let bar_ID = currentDiscount.bar_ID else {
+                NSLog("error: discount bar ID doesnt exist")
+                return
+            }
             
-            let barID = currentDiscount.bar_ID
+            let time = Date().timeIntervalSince1970
+
+            //things to include in QR CODE:
+            //NSDictionary -> json encode into string -> input string
+            // user ID
+            // user name
+            // bar id
+            // discount id
+            // amount spent 
+            // date and time in seconds from 1970
+            let qrDict = NSMutableDictionary(dictionary: ["uID":userID,
+                                                          "uName":username,"bID":bar_ID,"dID":discountID,"amt":amount,"t":time])
             
-            let inputString = "\(userID!),\(username!),\(barID!),\(discountID!),\(amount)"
+            //let inputString = "\(userID!),\(username!),\(barID!),\(discountID!),\(amount)"
+            
+            do
+            {
+                let inputData = try JSONSerialization.data(withJSONObject: qrDict, options: JSONSerialization.WritingOptions.init(rawValue: 0))
+                
+                let inputString = String(data: inputData, encoding: .utf8)!
+                
+                
+                //set ui image
+                GenerateQRCode(input: inputString)
+                
+                print(inputString)
+            }
+            catch
+            {
+                
+            }
             
             
-            
-            
-            //set ui image
-            GenerateQRCode(input: inputString)
+
             
         }
         //activity indicator

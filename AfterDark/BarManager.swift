@@ -28,84 +28,84 @@ class BarManager: NSObject
 
     
     //note: this is called in inital: handler calls discounts load and distance matrix load
-    func InitialLoadAllBars(handler : @escaping () -> Void) //*** this must be done after cache has been loaded
-    {
-        //step 1: check cache
-        if CacheManager.singleton.HasBarCache() //step 1a, hasBarCache == true
-        {
-            //step 2: load cache and push to ui
-            self.mainBarList = CacheManager.singleton.cachedBarList!
-            
-            self.UpdateUI()
-            
-            //step 3: check for updates
-            
-            //step 3i: load new bar list
-            self.GetNewBarList(handler:
-            { (success, output) in
-                
-                if success
-                {
-                    //step 3ii: check if any new bars
-                    var newBars = [Bar]()
-                    var oldBars = [Bar]()
-                    
-                    for bar in output
-                    {
-                        if self.mainBarList.contains(where: {$0.ID == bar.ID})
-                        {
-                            oldBars.append(bar)
-                        }
-                        else
-                        {
-                            newBars.append(bar)
-                        }
-                    }
-                    
-                    //step 3iiia: old bars IDs: compare lastUpDates with current
-                    for bar in oldBars
-                    {
-                        //if different, force update this bar
-                        if self.BarFromBarID(bar.ID)?.lastUpdate != bar.lastUpdate
-                        {
-                            //soft load bar with update check
-                        }
-                        else
-                        {
-                            //do nothing
-                        }
-                    }
-                    
-                    //step 3iiib: new bars IDs: soft load bar
-                    for bar in newBars
-                    {
-                        //soft load bar (discounts already loaded just need to push)
-                        
-                    }
-                    
-                    handler()
-                    
-                }
-                else
-                {
-                    //do nothing
-                }
-            })
-
-            
-        
-            
-        }
-        else //step 1b, hasBarCache == false
-        {
-            //soft load
-            self.HardLoadAllBars {
-                self.UpdateUI()
-                handler()
-            }
-        }
-        
-    }
+//    func InitialLoadAllBars(handler : @escaping () -> Void) //*** this must be done after cache has been loaded
+//    {
+//        //step 1: check cache
+//        if CacheManager.singleton.HasBarCache() //step 1a, hasBarCache == true
+//        {
+//            //step 2: load cache and push to ui
+//            self.mainBarList = CacheManager.singleton.cachedBarList!
+//            
+//            self.UpdateUI()
+//            
+//            //step 3: check for updates
+//            
+//            //step 3i: load new bar list
+//            self.GetNewBarList(handler:
+//            { (success, output) in
+//                
+//                if success
+//                {
+//                    //step 3ii: check if any new bars
+//                    var newBars = [Bar]()
+//                    var oldBars = [Bar]()
+//                    
+//                    for bar in output
+//                    {
+//                        if self.mainBarList.contains(where: {$0.ID == bar.ID})
+//                        {
+//                            oldBars.append(bar)
+//                        }
+//                        else
+//                        {
+//                            newBars.append(bar)
+//                        }
+//                    }
+//                    
+//                    //step 3iiia: old bars IDs: compare lastUpDates with current
+//                    for bar in oldBars
+//                    {
+//                        //if different, force update this bar
+//                        if self.BarFromBarID(bar.ID)?.lastUpdate != bar.lastUpdate
+//                        {
+//                            //soft load bar with update check
+//                        }
+//                        else
+//                        {
+//                            //do nothing
+//                        }
+//                    }
+//                    
+//                    //step 3iiib: new bars IDs: soft load bar
+//                    for bar in newBars
+//                    {
+//                        //soft load bar (discounts already loaded just need to push)
+//                        
+//                    }
+//                    
+//                    handler()
+//                    
+//                }
+//                else
+//                {
+//                    //do nothing
+//                }
+//            })
+//
+//            
+//        
+//            
+//        }
+//        else //step 1b, hasBarCache == false
+//        {
+//            //soft load
+//            self.HardLoadAllBars {
+//                self.UpdateUI()
+//                handler()
+//            }
+//        }
+//        
+//    }
     
     func HardLoadBar(barID : String,_ handler : @escaping () -> Void) //does not include images and discounts
     {
@@ -327,7 +327,7 @@ class BarManager: NSObject
                             NSLog("invalid server response")
                         }
                     }
-                    catch let _ as NSError
+                    catch _ as NSError
                     {
                         NSLog("invalid server response")
                     }

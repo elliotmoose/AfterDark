@@ -8,14 +8,16 @@
 
 import Foundation
 import UIKit
-struct Category{
+class Category{
     var name : String = ""
     var barIDs = [String]()
-    var imageView : UIImageView?
+    //var imageView : UIImageView?
+    var image : UIImage?
     var description : String = ""
     var lastUpdate : String = "Not Updated"
     
     var ID : String = ""
+    
     init(dict : NSDictionary)
     {
         if let catName = dict["Category_Name"] as? String
@@ -73,7 +75,6 @@ struct Category{
         
         
         
-        imageView = UIImageView()
         
     }
     

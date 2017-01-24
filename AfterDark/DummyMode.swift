@@ -42,38 +42,38 @@ class DummyMode
 
         
         //populate categories
-        var cheapCat = Category(name: "Craft Beers", barIDs: ["0","1"],description : "")
-        cheapCat.imageView = UIImageView(image: craftImage)
+        let cheapCat = Category(name: "Craft Beers", barIDs: ["0","1"],description : "")
+        cheapCat.image = craftImage
         cheapCat.description = "savor the flavor"
         CategoriesManager.singleton.allCategories.append(cheapCat)
         
-        var chillCat = Category(name: "Girls Night Out", barIDs: ["0"],description : "")
-        chillCat.imageView = UIImageView(image: girlsImage)
+        let chillCat = Category(name: "Girls Night Out", barIDs: ["0"],description : "")
+        chillCat.image = girlsImage
         chillCat.description = ""
         CategoriesManager.singleton.allCategories.append(chillCat)
         
-        var dinnerCat = Category(name: "Pre-Drinks", barIDs: ["1"],description : "")
-        dinnerCat.imageView = UIImageView(image: preDrinksImage)
+        let dinnerCat = Category(name: "Pre-Drinks", barIDs: ["1"],description : "")
+        dinnerCat.image = preDrinksImage
         dinnerCat.description = "starting the night right"
         CategoriesManager.singleton.allCategories.append(dinnerCat)
         
-        var ambienceCat = Category(name: "Classy", barIDs: ["0","1"],description : "")
-        ambienceCat.imageView = UIImageView(image: classyImage)
+        let ambienceCat = Category(name: "Classy", barIDs: ["0","1"],description : "")
+        ambienceCat.image = classyImage
         ambienceCat.description = "the perfect date night"
         CategoriesManager.singleton.allCategories.append(ambienceCat)
         
-        var musicCat = Category(name: "Cosy", barIDs: ["0","1"],description : "")
-        musicCat.imageView = UIImageView(image: cosyImage)
+        let musicCat = Category(name: "Cosy", barIDs: ["0","1"],description : "")
+        musicCat.image = cosyImage
         musicCat.description = "the best chill out spots"
         CategoriesManager.singleton.allCategories.append(musicCat)
         
-        var dateCat = Category(name: "Date", barIDs: ["0","1"],description : "")
-        dateCat.imageView = UIImageView(image: dateImage)
+        let dateCat = Category(name: "Date", barIDs: ["0","1"],description : "")
+        dateCat.image = dateImage
         CategoriesManager.singleton.allCategories.append(dateCat)
         
         
-        var sportsCat = Category(name: "Sports", barIDs: ["0","1"],description : "")
-        sportsCat.imageView = UIImageView(image: sportsImage)
+        let sportsCat = Category(name: "Sports", barIDs: ["0","1"],description : "")
+        sportsCat.image = sportsImage
         CategoriesManager.singleton.allCategories.append(sportsCat)
         //prep log in page
     }

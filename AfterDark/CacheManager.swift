@@ -12,10 +12,10 @@ class CacheManager
 {
     static let singleton = CacheManager()
     
-    var categoryImages : NSMutableDictionary?
-    var catUpDates : NSMutableDictionary?
-    var cachedBarList : [Bar]?
-    var cachedCategoryList : [Category]?
+    weak var categoryImages : NSMutableDictionary?
+    weak var catUpDates : NSMutableDictionary?
+    //var cachedBarList : [Bar]?
+    //var cachedCategoryList : [Category]?
     
     init()
     {
@@ -59,7 +59,7 @@ class CacheManager
         
         let archivedImages = UD.value(forKey: "Category_Images") as? Data
         let archivedUpdates = UD.value(forKey: "Category_Updates") as? Data
-        let archivedBarListData = UD.value(forKey: "CachedBarList") as? Data
+        //let archivedBarListData = UD.value(forKey: "CachedBarList") as? Data
         if let images = archivedImages
         {
             if let dict = NSKeyedUnarchiver.unarchiveObject(with: images) as? NSDictionary
@@ -129,37 +129,38 @@ class CacheManager
     
     func Save()
     {
-        
-        
-        let UD = UserDefaults.standard
-        if let catImages = categoryImages
-        {
-            let archivedData = NSKeyedArchiver.archivedData(withRootObject: catImages)
-            UD.set(archivedData, forKey: "Category_Images")
+        DispatchQueue.global(qos: .default).async {
+            
+            let UD = UserDefaults.standard
+            if let catImages = self.categoryImages
+            {
+                let archivedData = NSKeyedArchiver.archivedData(withRootObject: catImages)
+                UD.set(archivedData, forKey: "Category_Images")
+            }
+            else
+            {
+                self.categoryImages = NSMutableDictionary()
+            }
+            
+            if let catUpdates = self.catUpDates
+            {
+                let archivedData = NSKeyedArchiver.archivedData(withRootObject: catUpdates)
+                UD.set(archivedData, forKey: "Category_Updates")
+            }
+            else
+            {
+                self.catUpDates = NSMutableDictionary()
+            }
+            //
+            //        //*** SAVES BASED ON MAIN BAR LIST
+            //        if BarManager.singleton.mainBarList.count != 0
+            //        {
+            //            let archivedData = NSKeyedArchiver.archivedData(withRootObject: BarManager.singleton.mainBarList)
+            //            UD.set(archivedData, forKey: "CachedBarList")
+            //        }
+            
+            UD.synchronize()
         }
-        else
-        {
-            categoryImages = NSMutableDictionary()
-        }
-        
-        if let catUpdates = catUpDates
-        {
-            let archivedData = NSKeyedArchiver.archivedData(withRootObject: catUpdates)
-            UD.set(archivedData, forKey: "Category_Updates")
-        }
-        else
-        {
-            catUpDates = NSMutableDictionary()
-        }
-//        
-//        //*** SAVES BASED ON MAIN BAR LIST
-//        if BarManager.singleton.mainBarList.count != 0
-//        {
-//            let archivedData = NSKeyedArchiver.archivedData(withRootObject: BarManager.singleton.mainBarList)
-//            UD.set(archivedData, forKey: "CachedBarList")
-//        }
-        
-        UD.synchronize()
     }
     
     func ClearCache()
@@ -171,24 +172,24 @@ class CacheManager
     //==============================================================================================================
     //                                                 BAR CACHE RELATED
     //==============================================================================================================
-    func HasBarCache() -> Bool
-    {
-        guard let barList = cachedBarList else {
-            cachedBarList = [Bar]()
-            return false
-        }
-        
-        if barList.count > 0
-        {
-            return true
-        }
-        else
-        {
-            return false
-        }
-
-    }
-    
+//    func HasBarCache() -> Bool
+//    {
+//        guard let barList = cachedBarList else {
+//            cachedBarList = [Bar]()
+//            return false
+//        }
+//        
+//        if barList.count > 0
+//        {
+//            return true
+//        }
+//        else
+//        {
+//            return false
+//        }
+//
+//    }
+//    
     
     //==============================================================================================================
     //                                                 LOGIN RELATED

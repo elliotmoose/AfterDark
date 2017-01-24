@@ -39,7 +39,7 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
         barListTableViewController.didMove(toParentViewController: self)
         view.addSubview(barListTableViewController.view)
         
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = UIColor.black
         
         refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(Refresh))
         refreshButton.tintColor = ColorManager.themeBright
@@ -49,7 +49,7 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
         
         self.navigationItem.rightBarButtonItem = refreshButton
 
-        barListTableViewController.EnableSearchBar()
+        //barListTableViewController.EnableSearchBar()
         
     }
     override func viewWillAppear(_ animated: Bool) {

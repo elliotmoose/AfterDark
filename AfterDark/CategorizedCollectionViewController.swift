@@ -28,6 +28,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
         super.viewDidLoad()
 
         
+        self.collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: "CategoryCell")
         self.collectionView!.register(UINib(nibName: "CategoryCell", bundle: Bundle.main), forCellWithReuseIdentifier: "CategoryCell")
         
         
@@ -88,8 +89,9 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell",for: indexPath) as? CategoryCell
+        
         cell!.SetContent(CategoriesManager.singleton.displayedCategories[indexPath.row])
-                
+        
         return cell!
     }
 

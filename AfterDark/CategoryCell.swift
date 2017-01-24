@@ -33,7 +33,7 @@ class CategoryCell: UICollectionViewCell {
     {
         self.categoryTitleLabel.text = category.name
         self.descriptionLabel.text = "\(category.description)"
-        self.categoryImageView.image = category.imageView?.image
+        self.categoryImageView.image = category.image
     }
     
     
