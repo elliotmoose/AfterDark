@@ -35,13 +35,14 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 3
+            //return 3
+            return 1
         case 2:
             return 1
             
         //last section
         case tableView.numberOfSections-1:
-            return 2
+            return 3
         default:
             return 0
         }
@@ -74,16 +75,17 @@ class SettingsTableViewController: UITableViewController {
         case 1:
             if row == 0
             {
-                cell?.textLabel?.text = "Terms"
+                //cell?.textLabel?.text = "Terms"
+                cell?.textLabel?.text = "Contact Us"
             }
-            else if row == 1
-            {
-                cell?.textLabel?.text = "Privacy Policy"
-            }
-            else if row == 2
-            {
-                cell?.textLabel?.text = "Open Source Libraries"
-            }
+//            else if row == 1
+//            {
+//                cell?.textLabel?.text = "Privacy Policy"
+//            }
+//            else if row == 2
+//            {
+//                cell?.textLabel?.text = "Open Source Libraries"
+//            }
         
         case 2:
             if row == 0
@@ -96,14 +98,21 @@ class SettingsTableViewController: UITableViewController {
         case tableView.numberOfSections-1:
             if row == 0
             {
-                cell?.textLabel?.text = "Clear Cache"
+                cell?.textLabel?.text = "Share AfterDark"
                 cell?.textLabel?.textColor = ColorManager.SettingsImportantCellColor
+                cell?.accessoryType = .none
             }
             else if row == 1
             {
+                cell?.textLabel?.text = "Clear Cache"
+                cell?.textLabel?.textColor = ColorManager.SettingsImportantCellColor
+                cell?.accessoryType = .none
+            }
+            else if row == 2
+            {
                 cell?.textLabel?.text = "Log Out"
                 cell?.textLabel?.textColor = ColorManager.SettingsImportantCellColor
-
+                cell?.accessoryType = .none
             }
 
         default:
@@ -125,7 +134,26 @@ class SettingsTableViewController: UITableViewController {
             {
                 self.navigationController?.pushViewController(AccountTableViewController.singleton, animated: true)
             }
-        
+        case 1:
+            if row == 0
+            {
+                self.navigationController?.pushViewController(DisplayTextViewController.singleton, animated: true)
+                //DisplayTextViewController.singleton.SetText(title: "Terms Of Use", body: "test1")
+                DisplayTextViewController.singleton.SetText(title: "Contact Us:)", body: "Feel free to contact us afterdarkbars@gmail.com for any enquiries or to report any issues!")
+                DisplayTextViewController.singleton.SetTextAlignment(.center)
+            }
+            else if row == 1
+            {
+                self.navigationController?.pushViewController(DisplayTextViewController.singleton, animated: true)
+                DisplayTextViewController.singleton.SetText(title: "Privacy Policy", body: "test2")
+
+            }
+            else if row == 2
+            {
+                self.navigationController?.pushViewController(DisplayTextViewController.singleton, animated: true)
+                DisplayTextViewController.singleton.SetText(title: "Open Source Libraries", body: "test3")
+
+            }
         case 2:
             if row == 0
             {
@@ -143,11 +171,20 @@ class SettingsTableViewController: UITableViewController {
         case tableView.numberOfSections-1:
             if row == 0
             {
+                
+                //https://itunes.apple.com/app/id1181931586
+
+                //let url = URL(fileURLWithPath: "https://itunes.apple.com/sg/app/apple-store/id1181931586?mt=8")
+                let vc = UIActivityViewController(activityItems: ["https://itunes.apple.com/app/id1181931586 \n Check out this cool app that helps me get epic discounts at bars!"], applicationActivities: [])
+                    present(vc, animated: true)
+            }
+            else if row == 1
+            {
                 //clear cache
                 CacheManager.singleton.ClearCache()
                 PopupManager.singleton.Popup(title: "Done!", body: "Cache has been cleared!", presentationViewCont: self)
             }
-            else if row == 1
+            else if row == 2
             {
                 PopupManager.singleton.PopupWithCancel(title: "Log Out", body: "Are you sure you want to log out?", presentationViewCont: self, handler: {
                     

@@ -255,16 +255,32 @@ class ContentViewController: UIViewController
 {
     var pageIndex: Int = -1
     var imageView = UIImageView()
+    
+    var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.startAnimating()
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        activityIndicator.stopAnimating()
+    }
     init(frame: CGRect)
     {
         super.init(nibName: nil, bundle: nil)
         self.view = UIView(frame: frame)
+        
+        activityIndicator.tintColor = UIColor.white
+        activityIndicator.color = UIColor.white
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+        
+
         imageView = UIImageView(frame: frame)
         imageView.contentMode = .scaleAspectFill
         self.view.addSubview(imageView)

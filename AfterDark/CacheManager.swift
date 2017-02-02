@@ -12,14 +12,15 @@ class CacheManager
 {
     static let singleton = CacheManager()
     
-    weak var categoryImages : NSMutableDictionary?
-    weak var catUpDates : NSMutableDictionary?
+    var categoryImages : NSMutableDictionary?
+    var catUpDates : NSMutableDictionary?
     //var cachedBarList : [Bar]?
     //var cachedCategoryList : [Category]?
     
     init()
     {
         categoryImages = NSMutableDictionary()
+        catUpDates = NSMutableDictionary()
     }
     
     func Load()
@@ -68,22 +69,10 @@ class CacheManager
                 {
                     categoryImages = mutDict
                 }
-                else
-                {
-                    categoryImages = NSMutableDictionary()
-                }
-            }
-            else
-            {
-                categoryImages = NSMutableDictionary()
             }
 
         }
-        else
-        {
-            categoryImages = NSMutableDictionary()
-        }
-        
+
         //category last updates
         if let updates = archivedUpdates
         {
@@ -93,38 +82,51 @@ class CacheManager
                 {
                     catUpDates = mutDict
                 }
-                else
-                {
-                    catUpDates = NSMutableDictionary()
-                }
+            }
+        }
+
+        if self.categoryImages == nil
+        {
+            self.categoryImages = NSMutableDictionary()
+        }
+        
+        if self.catUpDates == nil
+        {
+            self.catUpDates = NSMutableDictionary()
+        }
+        
+        //ensures the information contained is in the right format 1.1
+        var toReset = false
+        for pair in self.categoryImages!
+        {
+            if let _ = pair.value as? UIImage
+            {
+                
             }
             else
             {
-                catUpDates = NSMutableDictionary()
+                toReset = true
             }
         }
-        else
+        
+        for pair in self.catUpDates!
         {
-            catUpDates = NSMutableDictionary()
+            if let _ = pair.value as? String
+            {
+                
+            }
+            else
+            {
+                toReset = true
+            }
         }
         
-//        if let cachedList = archivedBarListData
-//        {
-//            if let list = NSKeyedUnarchiver.unarchiveObject(with: cachedList) as? [Bar]
-//            {
-//                cachedBarList = list
-//            }
-//            else
-//            {
-//                cachedBarList = [Bar]()
-//            }
-//                        
-//        }
-//        else
-//        {
-//            cachedBarList = [Bar]()
-//        }
-//                
+        if toReset
+        {
+            self.categoryImages = NSMutableDictionary()
+            self.catUpDates = NSMutableDictionary()
+        }
+        
     }
     
     func Save()

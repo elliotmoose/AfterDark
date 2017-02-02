@@ -54,7 +54,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         //init tab buttons
 
-        let numberOfTabs = 3
+        let numberOfTabs = 4
         let tabWidth = Sizing.ScreenWidth()/CGFloat(numberOfTabs)
         for index in 0...numberOfTabs-1
         {
@@ -84,8 +84,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             case 1:
                 newTab.setTitle("Top Rated", for: .normal)
             case 2:
-                newTab.setTitle("Price(Low)", for: .normal)
-
+                newTab.setTitle("Cheap", for: .normal)
+            case 3:
+                newTab.setTitle("Discounts", for: .normal)
             default:
                 break
             }
@@ -179,7 +180,8 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                     self.SetArrangement(arrangement: .avgRating)
                 case 2:
                     self.SetArrangement(arrangement: .priceLow)
-                    
+                case 3:
+                    self.SetArrangement(arrangement: .bestDiscount)
                 default:
                     self.SetArrangement(arrangement: .avgRating)
             
@@ -204,7 +206,8 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                 self.SetArrangement(arrangement: .avgRating)
             case 2:
                 self.SetArrangement(arrangement: .priceLow)
-                
+            case 3:
+                self.SetArrangement(arrangement: .bestDiscount)
             default:
                 self.SetArrangement(arrangement: .avgRating)
             }
@@ -757,7 +760,12 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         case .priceLow:
             barList.sort(by: {$0.priceDeterminant < $1.priceDeterminant})
             
+        case .bestDiscount:
+            barList.sort(by: {$0.bestDiscount > $1.bestDiscount})
+
         }
+        
+        
         
         
         //step 3: convert bar list back into bar IDs
@@ -802,6 +810,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         case .priceLow:
             barList.sort(by: {$0.priceDeterminant < $1.priceDeterminant})
             
+        case .bestDiscount:
+            barList.sort(by: {$0.bestDiscount > $1.bestDiscount})
+
         }
         
         
@@ -848,6 +859,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         case .priceLow:
             barList.sort(by: {$0.priceDeterminant < $1.priceDeterminant})
             
+        case .bestDiscount:
+            barList.sort(by: {$0.bestDiscount > $1.bestDiscount})
+
         }
         
         

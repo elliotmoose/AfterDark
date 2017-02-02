@@ -118,10 +118,21 @@ class DiscountManager
         //for each of the bars in mainBarList -> check if there is [Discount] meant for that bar
         for bar in BarManager.singleton.mainBarList
         {
-            if let discountsArr = outputDict[bar.ID] as? [Discount]
+            if outputDict.contains(where: {$0.key as! String == bar.ID})
             {
-                bar.discounts = discountsArr
+                if let discountsArr = outputDict[bar.ID] as? [Discount]
+                {
+                    bar.discounts = discountsArr
+                }
             }
+            else
+            {
+                //NSLog( bar.name + " has no discounts")
+            }
+            
+            //update best discounts
+            bar.SetBestDiscount()
+
         }
     }
     func ClaimDiscount(handler : (_ succuess : Bool)->Void)

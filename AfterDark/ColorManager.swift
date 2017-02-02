@@ -15,7 +15,6 @@ class ColorManager
     static let barListCellIconColor = UIColor.black
     static let barListBGColor = UIColor.gray
     static let barListTitleColor = UIColor.white
-    static let barListSectionHeaderColor = UIColor.orange
     static let barListSortButtonColor = ColorManager.gold
     //Detail View Colors
     static let barIconDefaultColor = UIColor.black

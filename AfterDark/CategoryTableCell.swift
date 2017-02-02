@@ -78,6 +78,7 @@ class CategoryTableCell: UITableViewCell {
         
         
         
+        
         if bar.distanceMatrixEnabled
         {
             if bar.distanceFromClientString != "" && bar.durationFromClientString != ""
@@ -88,12 +89,17 @@ class CategoryTableCell: UITableViewCell {
             {
                 detailLabel.text = " - - \(priceDeterminantString)"
             }
+            
+            
+            
 
         }
         else
         {
             detailLabel.text = " - - \(priceDeterminantString)"
         }
+        
+        //detailLabel.text = "5 mins - 0.5 km - \(priceDeterminantString)"
         
         
         switch Settings.travelMode {

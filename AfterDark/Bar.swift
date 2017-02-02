@@ -28,7 +28,7 @@ class Bar : NSObject{
     var durationFromClientString : String = ""
     var distanceMatrixEnabled = false
 
-    
+    var bestDiscount : Float = 0
     //opening hours
     var openClosingHours = [String]()
     
@@ -74,8 +74,31 @@ class Bar : NSObject{
         self.priceDeterminant = priceDeterminant
     }
     
-//    //incomplete
-//    
+    func SetBestDiscount()
+    {
+        //reset
+        bestDiscount = 0
+        
+        for discount in discounts
+        {
+            if let discountAmount = discount.amount
+            {
+                if discountAmount.contains("%")
+                {
+                    if let flatAmount = Float(discountAmount.components(separatedBy: "%")[0])
+                    {
+                        if flatAmount > bestDiscount
+                        {
+                            bestDiscount = flatAmount
+                        }
+                    }
+                    
+                }
+            }
+        }
+        
+    }
+//
 //    
 //    func encodeWithCoder(aCoder : NSCoder)
 //    {

@@ -110,8 +110,7 @@ class LocationViewController: UIViewController ,CLLocationManagerDelegate,GMSMap
     
     
     override func viewDidAppear(_ animated: Bool) {
-        SetBarMarker()
-        FocusCurrentLocation()
+        StartFollowLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

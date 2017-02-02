@@ -40,8 +40,10 @@ class RetrievePasswordViewController: UIViewController {
                                 {
                                     guard let detail = dict["detail"] as? String else {return}
                                     
-                                    self.usernameTextField.text = ""
-                                    self.emailTextField.text = ""
+                                    DispatchQueue.main.async {
+                                        self.usernameTextField.text = ""
+                                        self.emailTextField.text = ""
+                                    }
                                     
                                     PopupManager.singleton.Popup(title: "Yay!", body: detail, presentationViewCont: self, handler: {
                                         

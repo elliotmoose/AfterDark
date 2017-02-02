@@ -192,7 +192,8 @@ class CategoriesManager
             }
             else
             {
-                NSLog("please check connection")
+                NSLog("Check connection")
+                PopupManager.singleton.GlobalPopup(title: "ERROR", body: "Check Connection")
             }
             
             handler()
@@ -202,9 +203,32 @@ class CategoriesManager
     
     func LoadCategoryImages() //includes cache check,cache excess removal, updates, check, and force loading
     {
-        
         //reset
         self.loadCount = 0
+        
+        //safety 1.1
+        if CacheManager.singleton.categoryImages == nil || CacheManager.singleton.catUpDates == nil || CacheManager.singleton.categoryImages!.count == 0 || CacheManager.singleton.catUpDates!.count == 0
+        {
+            //force load
+            for category in self.allCategories
+            {
+                //step 2b & 3: update ui is included in function
+                self.LoadImageForCategory(category: category)
+                {
+                    toSave in
+                    
+                    if toSave
+                    {
+                        self.loadCount += 1
+                        self.SaveIfReady()
+                    }
+                }
+            }
+            
+            return
+        }
+        
+
         
         for category in self.allCategories
         {
@@ -332,8 +356,7 @@ class CategoriesManager
     func UpdateCategoryUI(category : Category)
     {
         DispatchQueue.global(qos: .default).async {
-            
-            
+                        
             guard self.displayedCategories.count != 0 else {return}
             
             //update UI (get index -> delegat to collecionView and reload index)

@@ -261,7 +261,7 @@ class BarManager: NSObject
             }
             else
             {
-                NSLog("Could not connect,check connection")
+                PopupManager.singleton.GlobalPopup(title: "ERROR", body: "Check connection")
                 return
             }
             

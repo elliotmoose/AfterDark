@@ -30,7 +30,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="376" height="224"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Hh-qI-jvs">
-                        <rect key="frame" x="0.0" y="130.5" width="376" height="25"/>
+                        <rect key="frame" x="0.0" y="131" width="376" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="nnC-0j-7gM"/>
                         </constraints>
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATEGORY NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="106-pF-pMt">
-                        <rect key="frame" x="0.0" y="79.5" width="376" height="65"/>
+                        <rect key="frame" x="0.0" y="80" width="376" height="65"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="65" id="qr5-Z7-Y0Y"/>
                         </constraints>

@@ -37,6 +37,8 @@
 		A405E0681DDAC3EF00B9672D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */; };
 		A405E0691DDAC3EF00B9672D /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */; };
 		A40E9CF61E14DC3A0079995D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A40E9CF51E14DC3A0079995D /* Assets.xcassets */; };
+		A4149DD21E38896900BF3681 /* DisplayTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4149DD01E38896900BF3681 /* DisplayTextViewController.swift */; };
+		A4149DD31E38896900BF3681 /* DisplayTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4149DD11E38896900BF3681 /* DisplayTextViewController.xib */; };
 		A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF571DEFCC52005BFAC4 /* DummyMode.swift */; };
 		A43AF21C1E236D24007BC641 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43AF21B1E236D24007BC641 /* Protocols.swift */; };
 		A4649AD31E1DF26B00A8B508 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */; };
@@ -156,6 +158,8 @@
 		A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
 		A40E9CF51E14DC3A0079995D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A4149DD01E38896900BF3681 /* DisplayTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayTextViewController.swift; sourceTree = "<group>"; };
+		A4149DD11E38896900BF3681 /* DisplayTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayTextViewController.xib; sourceTree = "<group>"; };
 		A439FF571DEFCC52005BFAC4 /* DummyMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyMode.swift; sourceTree = "<group>"; };
 		A43AF21B1E236D24007BC641 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
@@ -478,6 +482,8 @@
 				A49450631DCE11B50081AF72 /* AccountTableViewController.xib */,
 				A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */,
 				A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */,
+				A4149DD01E38896900BF3681 /* DisplayTextViewController.swift */,
+				A4149DD11E38896900BF3681 /* DisplayTextViewController.xib */,
 			);
 			name = "Settings View";
 			sourceTree = "<group>";
@@ -674,6 +680,7 @@
 				A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */,
 				A4649AD91E1F41E200A8B508 /* ReviewViewController.xib in Resources */,
 				A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */,
+				A4149DD31E38896900BF3681 /* DisplayTextViewController.xib in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
 				A473F96E1E16C04100F640F9 /* Mohave-Bold.otf in Resources */,
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
@@ -849,6 +856,7 @@
 			files = (
 				A401DB9C1E089366003C5F95 /* CacheManager.swift in Sources */,
 				A43AF21C1E236D24007BC641 /* Protocols.swift in Sources */,
+				A4149DD21E38896900BF3681 /* DisplayTextViewController.swift in Sources */,
 				986E183A1DC3D50C0098637D /* CategoriesManager.swift in Sources */,
 				986469251DBE278700781BC0 /* IconCell.swift in Sources */,
 				A481322C1DCC4CB700178251 /* OpeningHoursCell.swift in Sources */,
@@ -1055,6 +1063,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1072,6 +1081,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kohbroco.afterdark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
