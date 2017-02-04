@@ -134,6 +134,10 @@ class DiscountManager
             bar.SetBestDiscount()
 
         }
+        
+        //update ui if showing by discount
+        
+        
     }
     func ClaimDiscount(handler : (_ succuess : Bool)->Void)
     {

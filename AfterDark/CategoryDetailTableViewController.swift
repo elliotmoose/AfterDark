@@ -38,7 +38,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     
     var recentSelectedCell : CategoryTableCell?
     
-    let searchController = UISearchController(searchResultsController: nil)
+    //let searchController = UISearchController(searchResultsController: nil)
     var searchBarEnabled = false
     //runtime object variables
     //var barBlownUp : Bar?
@@ -118,10 +118,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         tableView = UITableView(frame: CGRect(x: 0, y: self.locationViewHeight + self.tabHeight , width: Sizing.ScreenWidth(), height: tableViewHeight))
         
-        if searchBarEnabled
-        {
-            tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
-        }
         tableView?.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0.1, alpha: 1)
         tableView?.separatorColor = UIColor(hue: 0, saturation: 0, brightness: 0.4, alpha: 1)
         tableView?.tableFooterView = UIView() //remove seperator lines
@@ -139,10 +135,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         self.view.sendSubview(toBack: locationCont.view)
         
         self.automaticallyAdjustsScrollViewInsets = false
-        //search controller
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
+
         definesPresentationContext = true
 
         self.extendedLayoutIncludesOpaqueBars = false
@@ -252,10 +245,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         //since view will appear is called before will disappear, 2 instances of this class will clash as it will load another before it unloads the previous displayed bar
         BarManager.singleton.displayedDetailBar = nil
         
-        if searchBarEnabled
-        {
-            tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
-        }
 
         UpdateUI()
     }
@@ -272,10 +261,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
-        
+
         
         
         //if no bar is blown up
@@ -292,10 +278,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
-
         
         
         if let bar =  BarManager.singleton.displayedDetailBar
@@ -316,12 +298,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
-        
+
+
         if  BarManager.singleton.displayedDetailBar != nil //only if blown up is present
         {
             //blown up cell
@@ -365,10 +344,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
-        
+
         
         let row = indexPath.row
         
@@ -399,12 +375,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                         self.awaitUpdate = false
                     }
                 }
-                
-                if searchBarEnabled
-                {
-                    self.tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
-                }
-
 
             }
             else //THIS IS WHEN ITS NOT BLOWN UP -> SELECTION AND MOVEMENT TO BLOW UP
@@ -459,9 +429,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     func BlowBarUp(bar : Bar)
     {
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
         
          BarManager.singleton.displayedDetailBar = bar
         
@@ -498,10 +465,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     {
      
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
-        
+
         guard let ID =  BarManager.singleton.displayedDetailBar?.ID else {return}
         //scroll to row
         guard let index = displayedIDs.index(of: ID) else {return}
@@ -522,9 +486,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     func UnblowBarWithHandler(_ handler : @escaping () -> Void)
     {
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
         
         guard let ID =  BarManager.singleton.displayedDetailBar?.ID else {return}
         //scroll to row
@@ -571,7 +532,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
 
         if state == 0 // shift up
         {
-            searchController.searchBar.alpha = 0
 
             viewState = 0
             self.tableView?.isScrollEnabled = false
@@ -584,16 +544,8 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                 //update table view content size and frame
                 let tableViewHeight = Sizing.ScreenHeight() - Sizing.tabBarHeight - Sizing.statusBarHeight - self.tabHeight - Sizing.navBarHeight
                 
-                if self.searchBarEnabled
-                {
-                    self.tableView?.contentOffset = CGPoint(x: 0, y: self.searchController.searchBar.bounds.height)
-                    
-                    self.tableView?.frame = CGRect(x: 0, y: self.tabHeight - self.searchController.searchBar.bounds.height, width: Sizing.ScreenWidth(), height: tableViewHeight + self.searchController.searchBar.bounds.height)
-                }
-                else
-                {
-                    self.tableView?.frame = CGRect(x: 0, y: self.tabHeight, width: Sizing.ScreenWidth(), height: tableViewHeight)
-                }
+                self.tableView?.frame = CGRect(x: 0, y: self.tabHeight, width: Sizing.ScreenWidth(), height: tableViewHeight)
+                
                 
                 for tab in self.tabs
                 {
@@ -608,7 +560,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         }
         else if state == 1 // shift down
         {
-            searchController.searchBar.alpha = 1
 
             viewState = 1
             self.tableView?.isScrollEnabled = true
@@ -775,10 +726,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             self.displayedBarIDs.append(bar.ID)
         }
         
-        //step 4: if search is active, update search
-        if searchController.searchBar.text != "" {
-            self.updateSearchResults(for: searchController)
-        }
     }
     
     func SetArrangement(arrangement : Arrangement)
@@ -823,10 +770,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             self.displayedBarIDs.append(bar.ID)
         }
         
-        //step 4: if search is active, update search
-        if searchController.searchBar.text != "" {
-            self.updateSearchResults(for: searchController)
-        }
         
     }
     
@@ -871,11 +814,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         {
             self.displayedBarIDs.append(bar.ID)
         }
-        
-        //step 4: if search is active, update search
-        if searchController.searchBar.text != "" {
-            self.updateSearchResults(for: searchController)
-        }
+
     }
     
     func UpdateUI()
@@ -924,19 +863,13 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         filterBars(searchText: searchController.searchBar.text!)
     }
     
-    func EnableSearchBar()
-    {
-        searchBarEnabled = true
-        tableView?.tableHeaderView = searchController.searchBar
-    }
+
     
     //DELEGATE FUNCTIONS
     func UpdateCellForBar(_ bar: Bar) {
 
         var displayedIDs = displayedBarIDs
-        if searchController.searchBar.text != "" {
-            displayedIDs = filteredDisplayedBarIDs
-        }
+
         
         //if a bar is currently on display
         if BarManager.singleton.displayedDetailBar != nil

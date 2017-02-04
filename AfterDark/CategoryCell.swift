@@ -37,4 +37,5 @@ class CategoryCell: UICollectionViewCell {
     }
     
     
+    
 }

@@ -205,9 +205,8 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
         
         qrFilter?.setValue(stringData, forKey: "inputMessage")
         
-        let image = qrFilter?.outputImage
         
-        if let image = image
+        if let image = qrFilter?.outputImage
         {
             let transform = CGAffineTransform.init(scaleX: 5, y: 5); // Scale by 5 times along both dimensions
             let out = image.applying(transform)

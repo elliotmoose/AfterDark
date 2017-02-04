@@ -86,6 +86,8 @@ class GalleryManager
 //        }
 //    }
    
+    
+    
     func LoadBarGallery(_ thisBarOrigin: Bar, handler: @escaping (_ success :Bool) -> Void)
     {
         //reset pages

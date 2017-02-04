@@ -25,6 +25,9 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
         // Do any additional setup after loading the view.
     }
 
+    override func didReceiveMemoryWarning() {
+    
+    }
     override func viewDidLayoutSubviews() {
         pageDots.frame = CGRect(x: 0, y: Sizing.galleryHeight - 25, width: Sizing.ScreenWidth(), height: 25)
     }

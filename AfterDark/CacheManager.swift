@@ -105,6 +105,7 @@ class CacheManager
             }
             else
             {
+                NSLog("image corrupted")
                 toReset = true
             }
         }
@@ -117,12 +118,14 @@ class CacheManager
             }
             else
             {
+                NSLog("image update string corrupted")
                 toReset = true
             }
         }
         
         if toReset
         {
+            NSLog("solving by resetting")
             self.categoryImages = NSMutableDictionary()
             self.catUpDates = NSMutableDictionary()
         }
@@ -134,6 +137,7 @@ class CacheManager
         DispatchQueue.global(qos: .default).async {
             
             let UD = UserDefaults.standard
+            
             if let catImages = self.categoryImages
             {
                 let archivedData = NSKeyedArchiver.archivedData(withRootObject: catImages)
@@ -168,7 +172,8 @@ class CacheManager
     func ClearCache()
     {
         let UD = UserDefaults.standard
-        UD.set(nil, forKey: "Category_Images")
+        UD.set(NSMutableDictionary(), forKey: "Category_Images")
+        UD.set(NSMutableDictionary(), forKey: "Category_Updates")
     }
     
     //==============================================================================================================
@@ -207,7 +212,6 @@ class CacheManager
     {
         let UD = UserDefaults.standard
         UD.setValue(username, forKey: "rememberMeUsername")
-
     }
     //HOW THIS WORKS:
     //caching splits to two : categories and bars
