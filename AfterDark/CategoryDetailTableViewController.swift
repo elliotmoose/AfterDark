@@ -75,7 +75,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             self.view.addSubview(newTab)
             
             //font
-            newTab.titleLabel?.font = UIFont(name: "Montserrat", size: 15)
+            newTab.titleLabel?.font = UIFont(name: "Mohave-Bold", size: 16.5)
             
             //titles
             switch index {

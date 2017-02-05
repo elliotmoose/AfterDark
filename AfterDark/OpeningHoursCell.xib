@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,8 +10,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Regular.ttf">
-            <string>Montserrat-Regular</string>
+        <array key="Mohave-Bold.otf">
+            <string>Mohave-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -32,8 +32,8 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opening Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mft-NU-9bC">
-                        <rect key="frame" x="88" y="14" width="224" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="88" y="14" width="224" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -45,108 +45,108 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKo-PT-M8W">
-                        <rect key="frame" x="215" y="53.5" width="89" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="215" y="53.5" width="89" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDI-RI-itG">
-                        <rect key="frame" x="215" y="79.5" width="89" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="215" y="79.5" width="89" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Tu-QH-x7g">
-                        <rect key="frame" x="215" y="105.5" width="89" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="215" y="105.5" width="89" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfd-a6-H4Q">
-                        <rect key="frame" x="215" y="131.5" width="89" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="215" y="131.5" width="89" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-S0-gUU">
-                        <rect key="frame" x="215" y="157.5" width="89" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="215" y="157.5" width="89" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8Q-np-Ibz">
-                        <rect key="frame" x="215" y="183.5" width="89" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="215" y="183.5" width="89" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8am-6pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeU-LM-yXC">
-                        <rect key="frame" x="215" y="209.5" width="89" height="18.5"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <rect key="frame" x="215" y="209.5" width="89" height="17.5"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRU-4T-Zy8">
-                        <rect key="frame" x="88" y="52.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="51.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="KbV-Rl-P2H"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0E-Y7-TZJ">
-                        <rect key="frame" x="88" y="78.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="77.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="SXH-Bg-o9i"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvD-1C-h1C">
-                        <rect key="frame" x="88" y="104.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="103.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="122" id="SUj-cV-hlC"/>
                             <constraint firstAttribute="height" constant="20" id="bZf-E7-Jxs"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iwb-xT-LmT">
-                        <rect key="frame" x="88" y="130.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="129.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="3IF-YJ-gKl"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fb2-89-7sV">
-                        <rect key="frame" x="88" y="156.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="155.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="4l2-a5-8rF"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saturday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzR-Ew-6Z1">
-                        <rect key="frame" x="88" y="182.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="181.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="dAY-kd-B5q"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjH-81-UX3">
-                        <rect key="frame" x="88" y="208.5" width="122" height="20"/>
+                        <rect key="frame" x="88" y="207.5" width="122" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="bGk-sM-VL1"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>

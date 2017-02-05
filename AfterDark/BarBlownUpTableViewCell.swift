@@ -81,7 +81,7 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate ,DiscountToMainCellDe
             newTab.setTitleColor(UIColor.white, for: .normal)
             newTab.backgroundColor = ColorManager.themeDull
             newTab.addTarget(self, action: #selector(self.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
-            newTab.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 13)
+            newTab.titleLabel?.font = UIFont(name: "Mohave-Bold", size: 16.5)
             
             
             switch index {

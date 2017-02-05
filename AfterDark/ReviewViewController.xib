@@ -10,14 +10,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="BEBAS___.TTF">
-            <string>Bebas</string>
-        </array>
         <array key="Mohave-Bold.otf">
             <string>Mohave-Bold</string>
-        </array>
-        <array key="Montserrat-Regular.ttf">
-            <string>Montserrat-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -49,7 +43,7 @@
                             <rect key="frame" x="0.0" y="8" width="375" height="659"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gf-Mc-624">
-                                    <rect key="frame" x="159" y="40" width="42" height="21"/>
+                                    <rect key="frame" x="159" y="38.5" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="42" id="Cgn-K7-nA1"/>
                                         <constraint firstAttribute="height" constant="21" id="nI3-FE-ZkG"/>
@@ -59,49 +53,49 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TFn-59-jJc">
-                                    <rect key="frame" x="24" y="74" width="95" height="16"/>
+                                    <rect key="frame" x="24" y="72" width="95" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="95" id="2fH-c3-8vt"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oa-dI-dvk">
-                                    <rect key="frame" x="24" y="136" width="95" height="16"/>
+                                    <rect key="frame" x="24" y="132" width="95" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="95" id="mbX-zR-7zg"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pricing:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D0Z-jk-3Fe">
-                                    <rect key="frame" x="24" y="43" width="95" height="16"/>
+                                    <rect key="frame" x="24" y="42" width="95" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="95" id="S6v-0n-8mj"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-Tj-exk">
-                                    <rect key="frame" x="24" y="12" width="95" height="16"/>
+                                    <rect key="frame" x="24" y="12" width="95" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="95" id="71v-I2-SpO"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="u5X-fg-cIy" customClass="ReviewStarSlider" customModule="AfterDark" customModuleProvider="target">
-                                    <rect key="frame" x="207" y="98" width="146" height="31"/>
+                                    <rect key="frame" x="207" y="94.5" width="146" height="31"/>
                                     <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </slider>
                                 <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FdB-ih-74B" customClass="ReviewStarSlider" customModule="AfterDark" customModuleProvider="target">
-                                    <rect key="frame" x="207" y="5" width="146" height="31"/>
+                                    <rect key="frame" x="207" y="4.5" width="146" height="31"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="FdB-ih-74B" secondAttribute="height" multiplier="4.719:1" id="y4J-kJ-Sr2"/>
                                     </constraints>
@@ -110,7 +104,7 @@
                                     <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </slider>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wd-jh-oK4">
-                                    <rect key="frame" x="159" y="133" width="42" height="21"/>
+                                    <rect key="frame" x="159" y="128.5" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="Kod-5g-uDa"/>
                                         <constraint firstAttribute="width" constant="42" id="pi5-aN-5nx"/>
@@ -120,13 +114,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1tp-ub-Trq" customClass="ReviewStarSlider" customModule="AfterDark" customModuleProvider="target">
-                                    <rect key="frame" x="207" y="129" width="146" height="31"/>
+                                    <rect key="frame" x="207" y="124.5" width="146" height="31"/>
                                     <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </slider>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSg-sD-Kk9">
-                                    <rect key="frame" x="159" y="9" width="42" height="21"/>
+                                    <rect key="frame" x="159" y="8.5" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="42" id="fO5-cn-sxR"/>
                                         <constraint firstAttribute="height" constant="21" id="ndV-9Y-wLt"/>
@@ -136,7 +130,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebV-fH-8vy">
-                                    <rect key="frame" x="159" y="71" width="42" height="21"/>
+                                    <rect key="frame" x="159" y="68.5" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="42" id="R9h-XH-VGZ"/>
                                         <constraint firstAttribute="height" constant="21" id="dOS-tu-1AR"/>
@@ -146,13 +140,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="C1i-he-6T7" customClass="ReviewStarSlider" customModule="AfterDark" customModuleProvider="target">
-                                    <rect key="frame" x="207" y="36" width="146" height="31"/>
+                                    <rect key="frame" x="207" y="34.5" width="146" height="31"/>
                                     <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </slider>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvN-Ap-cLc">
-                                    <rect key="frame" x="159" y="102" width="42" height="21"/>
+                                    <rect key="frame" x="159" y="98.5" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="CJp-Py-0CO"/>
                                         <constraint firstAttribute="width" constant="42" id="mAp-QA-flr"/>
@@ -162,28 +156,28 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ambience:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4t7-fy-iF9">
-                                    <rect key="frame" x="24" y="105" width="95" height="16"/>
+                                    <rect key="frame" x="24" y="102" width="95" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="95" id="eMp-2T-G2u"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Nfq-yQ-PVx" customClass="ReviewStarSlider" customModule="AfterDark" customModuleProvider="target">
-                                    <rect key="frame" x="207" y="67" width="146" height="31"/>
+                                    <rect key="frame" x="207" y="64.5" width="146" height="31"/>
                                     <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </slider>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrY-Yx-XXa">
-                                    <rect key="frame" x="0.0" y="168" width="375" height="30"/>
+                                    <rect key="frame" x="0.0" y="163" width="375" height="30"/>
                                     <color key="backgroundColor" red="0.63137254899999995" green="0.49019607840000001" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="j4Y-u4-OMQ"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Bebas" family="Bebas" pointSize="17"/>
-                                    <state key="normal" title="GIVE    A    RATING">
+                                    <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="18"/>
+                                    <state key="normal" title="GIVE A RATING">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>

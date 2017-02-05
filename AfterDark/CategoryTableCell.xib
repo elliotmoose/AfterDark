@@ -14,9 +14,6 @@
         <array key="Mohave-Bold.otf">
             <string>Mohave-Bold</string>
         </array>
-        <array key="Montserrat-Bold.ttf">
-            <string>Montserrat-Bold</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -25,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="365" height="91"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="365" height="90.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="365" height="90"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biU-hp-6C0">
@@ -42,11 +39,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time -  dist - cost" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYr-JY-bjz">
-                                <rect key="frame" x="41" y="61.5" width="105" height="20"/>
+                                <rect key="frame" x="41" y="61.5" width="82" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="dP9-aY-WqZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="12"/>
                                 <color key="textColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -85,11 +82,11 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags: tag1, tag2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2L-FX-TLv">
-                        <rect key="frame" x="23" y="46" width="94.5" height="20"/>
+                        <rect key="frame" x="23" y="46" width="71.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="d36-Ak-9fg"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="12"/>
                         <color key="textColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -99,7 +96,7 @@
                             <constraint firstAttribute="height" constant="21" id="D4r-wW-Awu"/>
                             <constraint firstAttribute="width" constant="106" id="g37-MO-hoy"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="13"/>
                         <color key="textColor" red="0.49411764705882355" green="0.49411764705882355" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>

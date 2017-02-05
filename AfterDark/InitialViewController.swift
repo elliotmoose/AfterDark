@@ -127,8 +127,8 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
         DispatchQueue.main.async {
             let window = UIApplication.shared.delegate?.window!!
             window?.rootViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
-            let tabCont = window?.rootViewController as? UITabBarController
-            tabCont?.selectedIndex = 1
+//            let tabCont = window?.rootViewController as? UITabBarController
+//            tabCont?.selectedIndex = 1
         }
     }
 

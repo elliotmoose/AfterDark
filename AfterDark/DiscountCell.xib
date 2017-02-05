@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,11 +12,8 @@
         <array key="Mohave-Bold.otf">
             <string>Mohave-Bold</string>
         </array>
-        <array key="Montserrat-Bold.ttf">
-            <string>Montserrat-Bold</string>
-        </array>
-        <array key="Montserrat-Regular.ttf">
-            <string>Montserrat-Regular</string>
+        <array key="Mohave.otf">
+            <string>Mohave</string>
         </array>
     </customFonts>
     <objects>
@@ -26,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="340" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="340" height="49.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="340" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42W-AR-Wfv">
@@ -43,16 +40,16 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="eYV-N3-Xn6"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
+                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="18"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ww3-W7-AdW">
-                        <rect key="frame" x="86" y="19.5" width="254" height="20"/>
+                        <rect key="frame" x="86" y="23.5" width="254" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="rUa-Bx-Xfj"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="11"/>
+                        <fontDescription key="fontDescription" name="Mohave" family="Mohave" pointSize="12"/>
                         <color key="textColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -64,7 +61,7 @@
                     <constraint firstItem="42W-AR-Wfv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="d0i-39-5LP"/>
                     <constraint firstAttribute="bottom" secondItem="42W-AR-Wfv" secondAttribute="bottom" id="h73-Za-Dqj"/>
                     <constraint firstAttribute="trailing" secondItem="ww3-W7-AdW" secondAttribute="trailing" id="igr-1I-jeh"/>
-                    <constraint firstAttribute="bottom" secondItem="ww3-W7-AdW" secondAttribute="bottom" constant="10" id="kig-2C-vb3"/>
+                    <constraint firstAttribute="bottom" secondItem="ww3-W7-AdW" secondAttribute="bottom" constant="6" id="kig-2C-vb3"/>
                     <constraint firstAttribute="trailing" secondItem="1iT-Pr-ZDj" secondAttribute="trailing" id="rho-zf-W0J"/>
                     <constraint firstItem="1iT-Pr-ZDj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="thi-q8-kTD"/>
                 </constraints>

@@ -57,7 +57,7 @@ class AccountTableViewController: UITableViewController {
 
         if section == 0
         {
-            return 4
+            return 3//remove loyalty points
         }
         else if section == 1
         {
