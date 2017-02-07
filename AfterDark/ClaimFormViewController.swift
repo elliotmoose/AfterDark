@@ -14,7 +14,6 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var spentAmountTextField: UITextField!
     
     @IBOutlet weak var claimButton: UIButton!
-    @IBOutlet weak var qrImageView: UIImageView!
     
     var currentDiscount : Discount?
     
@@ -32,7 +31,6 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-
     }
     
     func Initialize()
@@ -113,7 +111,10 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
     {
         spentAmountTextField.endEditing(true)
         
-
+        if spentAmountTextField.text == "$0.00"
+        {
+            PopupManager.singleton.Popup(title: "Invalid Value", body: "Please type in the amount spent",presentationViewCont: self)
+        }
         
         
     }
@@ -123,99 +124,35 @@ class ClaimFormViewController: UIViewController,UITextFieldDelegate {
         if spentAmountTextField.text == "$0.00"
         {
             PopupManager.singleton.Popup(title: "Invalid Value", body: "Please type in the amount spent",presentationViewCont: self)
+            
+            return
         }
-        else
+        
+        guard let index = spentAmountTextField.text?.index(after: (spentAmountTextField.text?.startIndex)!) else {                NSLog("error: index doesnt exist")
+            return
+        }
+        guard let amount = spentAmountTextField.text?.substring(from: index) else {
+            NSLog("error: amount doesnt exist")
+            return
+        }
+        
+        guard let currentDiscount = currentDiscount else
         {
-            //make qr code : format: userID,username,barID,discountID,amount,date
-            guard let userID = Account.singleton.user_ID else {
-                NSLog("error: userID doesnt exist")
-                return
-            }
-            guard let username = Account.singleton.user_name else {
-                NSLog("error: username doesnt exist")
-                return
-            }
-            guard let index = spentAmountTextField.text?.index(after: (spentAmountTextField.text?.startIndex)!) else {                NSLog("error: index doesnt exist")
-                return
-            }
-            guard let amount = spentAmountTextField.text?.substring(from: index) else {
-                NSLog("error: amount doesnt exist")
-                return
-            }
-            
-            guard let currentDiscount = currentDiscount else
-            {
-                NSLog("error: discount doesnt exist")
-                return
-            }
-            
-            guard let discountID = currentDiscount.discount_ID else {
-                NSLog("error: discountID doesnt exist")
-                return
-            }
-            guard let bar_ID = currentDiscount.bar_ID else {
-                NSLog("error: discount bar ID doesnt exist")
-                return
-            }
-            
-            let time = Date().timeIntervalSince1970
-
-            //things to include in QR CODE:
-            //NSDictionary -> json encode into string -> input string
-            // user ID
-            // user name
-            // bar id
-            // discount id
-            // amount spent 
-            // date and time in seconds from 1970
-            let qrDict = NSMutableDictionary(dictionary: ["uID":userID,
-                                                          "uName":username,"bID":bar_ID,"dID":discountID,"amt":amount,"t":time])
-            
-            //let inputString = "\(userID!),\(username!),\(barID!),\(discountID!),\(amount)"
-            
-            do
-            {
-                let inputData = try JSONSerialization.data(withJSONObject: qrDict, options: JSONSerialization.WritingOptions.init(rawValue: 0))
-                
-                let inputString = String(data: inputData, encoding: .utf8)!
-                
-                
-                //set ui image
-                GenerateQRCode(input: inputString)
-                
-                print(inputString)
-            }
-            catch
-            {
-                
-            }
-            
-            
-
-            
+            NSLog("error: discount doesnt exist")
+            return
         }
-        //activity indicator
+
+        let time = Date().timeIntervalSince1970
+
+        PasscodeViewController.singleton.spentAmount = amount
+        PasscodeViewController.singleton.currentDiscount = currentDiscount
+        PasscodeViewController.singleton.date = time
+        self.navigationController?.pushViewController(PasscodeViewController.singleton, animated: true)
+        
+        return
+        
     }
-    
-    func GenerateQRCode(input : String)
-    {
-        let stringData = input.data(using: .utf8)
-        
-        let qrFilter = CIFilter(name: "CIQRCodeGenerator")
-        
-        qrFilter?.setValue(stringData, forKey: "inputMessage")
-        
-        
-        if let image = qrFilter?.outputImage
-        {
-            let transform = CGAffineTransform.init(scaleX: 5, y: 5); // Scale by 5 times along both dimensions
-            let out = image.applying(transform)
-            qrImageView.image = UIImage(ciImage: out)
-            
-            
-        }
-    }
-    
+
 
     
 }

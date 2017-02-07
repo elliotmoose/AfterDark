@@ -153,8 +153,7 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate ,DiscountToMainCellDe
         {
             self.bringSubview(toFront: tab)
         }
-        
-        
+                
     }
     
 

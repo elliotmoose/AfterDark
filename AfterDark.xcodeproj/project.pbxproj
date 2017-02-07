@@ -41,6 +41,8 @@
 		A4149DD31E38896900BF3681 /* DisplayTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4149DD11E38896900BF3681 /* DisplayTextViewController.xib */; };
 		A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439FF571DEFCC52005BFAC4 /* DummyMode.swift */; };
 		A43AF21C1E236D24007BC641 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43AF21B1E236D24007BC641 /* Protocols.swift */; };
+		A4415B6D1E46B90B00B2678F /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4415B6B1E46B90B00B2678F /* PasscodeViewController.swift */; };
+		A4415B6E1E46B90B00B2678F /* PasscodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4415B6C1E46B90B00B2678F /* PasscodeViewController.xib */; };
 		A4649AD31E1DF26B00A8B508 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */; };
 		A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */; };
 		A4649AD81E1F41E200A8B508 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD61E1F41E200A8B508 /* ReviewViewController.swift */; };
@@ -162,6 +164,8 @@
 		A4149DD11E38896900BF3681 /* DisplayTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisplayTextViewController.xib; sourceTree = "<group>"; };
 		A439FF571DEFCC52005BFAC4 /* DummyMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyMode.swift; sourceTree = "<group>"; };
 		A43AF21B1E236D24007BC641 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		A4415B6B1E46B90B00B2678F /* PasscodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
+		A4415B6C1E46B90B00B2678F /* PasscodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasscodeViewController.xib; sourceTree = "<group>"; };
 		A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionViewController.xib; sourceTree = "<group>"; };
 		A4649AD61E1F41E200A8B508 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 				98FD70031DB89EA900688514 /* DiscountViewController.xib */,
 				A4F9B81A1DCAF3B300B9D124 /* ClaimFormViewController.swift */,
 				A4F9B81B1DCAF3B300B9D124 /* ClaimFormViewController.xib */,
+				A4415B6B1E46B90B00B2678F /* PasscodeViewController.swift */,
+				A4415B6C1E46B90B00B2678F /* PasscodeViewController.xib */,
 				A4F9B80D1DC8C90C00B9D124 /* Discount.swift */,
 			);
 			name = Discounts;
@@ -677,6 +683,7 @@
 				A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */,
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
+				A4415B6E1E46B90B00B2678F /* PasscodeViewController.xib in Resources */,
 				A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */,
 				A4649AD91E1F41E200A8B508 /* ReviewViewController.xib in Resources */,
 				A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */,
@@ -894,6 +901,7 @@
 				A473F9A31E1B2AD100F640F9 /* CategoryTableCell.swift in Sources */,
 				K6IWCJC2V8NIJ9770XXEEKN7 /* Network.swift in Sources */,
 				A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */,
+				A4415B6D1E46B90B00B2678F /* PasscodeViewController.swift in Sources */,
 				98FD6FF01DB7C91B00688514 /* GalleryViewController.swift in Sources */,
 				1UJLM29NSA57LFXJVDRWQGEL /* Settings.swift in Sources */,
 				98FD70081DB8EE6200688514 /* DetailsViewController.swift in Sources */,

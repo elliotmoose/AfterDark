@@ -55,7 +55,11 @@ class AddReviewViewController: UIViewController,AddReviewDelegate {
     @IBAction func SubmitButtonPressed(_ sender: Any) {
         //submit review
         guard let currentBar = BarManager.singleton.displayedDetailBar else {return}
-        
+        guard let userID = Account.singleton.user_ID else {
+            PopupManager.singleton.GlobalPopup(title: "Error", body: "Please log in again")
+            return
+        }
+
         //checks
         var errors = [String]()
         if avgSlider.currentRating == 0
@@ -103,7 +107,8 @@ class AddReviewViewController: UIViewController,AddReviewDelegate {
                         
                     }
                     
-                    self.SubmitReview(title: "", body: output, rating: tempRating, bar: currentBar, userID: Account.singleton.user_ID!)
+                    
+                    self.SubmitReview(title: "", body: output, rating: tempRating, bar: currentBar, userID: userID)
 
                 }
                 else
@@ -115,7 +120,7 @@ class AddReviewViewController: UIViewController,AddReviewDelegate {
         }
         else
         {
-            SubmitReview(title: "", body: "", rating: tempRating, bar: currentBar, userID: Account.singleton.user_ID!)
+            SubmitReview(title: "", body: "", rating: tempRating, bar: currentBar, userID: userID)
         }
     }
     

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -18,7 +17,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClaimFormViewController" customModule="AfterDark" customModuleProvider="target">
             <connections>
                 <outlet property="claimButton" destination="Nco-kn-Azj" id="Wwn-Ra-jvx"/>
-                <outlet property="qrImageView" destination="0pv-nq-jij" id="V1i-Oe-ET6"/>
                 <outlet property="spentAmountTextField" destination="7EX-LP-Ru6" id="dp5-kr-IZR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -51,12 +49,6 @@
                         <action selector="claimOnClick:" destination="-1" eventType="touchUpInside" id="Hbz-Z1-aBR"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0pv-nq-jij">
-                    <rect key="frame" x="33" y="284" width="254" height="254"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="0pv-nq-jij" secondAttribute="height" multiplier="1:1" id="pdb-LI-wOf"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1F-wB-edY">
                     <rect key="frame" x="16" y="119" width="135" height="21"/>
                     <constraints>
@@ -70,13 +62,10 @@
             </subviews>
             <color key="backgroundColor" red="0.9373854949" green="0.9373854949" blue="0.9373854949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="0pv-nq-jij" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DAo-XG-tsi"/>
                 <constraint firstItem="D1F-wB-edY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Jtz-c1-gXS"/>
                 <constraint firstAttribute="trailing" secondItem="Nco-kn-Azj" secondAttribute="trailing" id="MM0-yJ-ewu"/>
-                <constraint firstAttribute="bottom" secondItem="0pv-nq-jij" secondAttribute="bottom" constant="30" id="NS7-DY-Id8"/>
                 <constraint firstItem="Nco-kn-Azj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rsf-ed-R5o"/>
                 <constraint firstItem="7EX-LP-Ru6" firstAttribute="top" secondItem="D1F-wB-edY" secondAttribute="bottom" constant="6" id="ST0-HR-tWk"/>
-                <constraint firstItem="0pv-nq-jij" firstAttribute="top" secondItem="Nco-kn-Azj" secondAttribute="bottom" constant="30" id="ZYh-h5-M4S"/>
                 <constraint firstItem="7EX-LP-Ru6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-5" id="cDs-Lk-Gwb"/>
                 <constraint firstItem="Nco-kn-Azj" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="f1d-MA-Sda"/>
                 <constraint firstAttribute="trailing" secondItem="7EX-LP-Ru6" secondAttribute="trailing" constant="-5" id="hDJ-fc-zhY"/>

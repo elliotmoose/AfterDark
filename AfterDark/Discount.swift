@@ -18,11 +18,29 @@ class Discount
 
     init(dict : NSDictionary)
     {
-        name = dict["discount_name"] as? String
-        details = dict["discount_description"] as? String
-        discount_ID = String(describing: dict["discount_ID"] as! Int)
-        bar_ID = String(describing: (dict["Bar_ID"] as? Int)!)
-        amount = dict["discount_amount"] as? String
+        if let discName = dict["discount_name"] as? String
+        {
+            name = discName
+        }
+        if let discDetails = dict["discount_description"] as? String
+        {
+            details = discDetails
+        }
+        
+        if let discID = dict["discount_ID"] as? Int
+        {
+            discount_ID = String(describing: discID)
+        }
+        
+        if let barID = dict["Bar_ID"] as? Int
+        {
+            bar_ID = String(describing: barID)
+        }
+        
+        if let discAmount = dict["discount_amount"] as? String
+        {
+            amount = discAmount
+        }
     }
     
     init(name : String, details:String , amount : String, discountID : String, bar_ID: String)

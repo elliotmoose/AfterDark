@@ -209,9 +209,11 @@ class Account {
                         {
                             if successful == "false"
                             {
-                                let errorMessage = dict["detail"] as! String
-                                DispatchQueue.main.async {
-                                    handler(false,errorMessage,nil)
+                                if let errorMessage = dict["detail"] as? String
+                                {
+                                    DispatchQueue.main.async {
+                                        handler(false,errorMessage,nil)
+                                    }
                                 }
                                 return
                             }
@@ -248,15 +250,19 @@ class Account {
                 catch let _ as NSError
                 {
                     DispatchQueue.main.async {
-                        let outString = String(data: output, encoding: .utf8)
-                        handler(false,"Invalid server response: \(outString!)" ,nil)
+                        if let outString = String(data: output, encoding: .utf8)
+                        {
+                            handler(false,"Invalid server response: \(outString)" ,nil)
+                        }
                     }
                     return
                 }
                 
                 DispatchQueue.main.async {
-                    let outString = String(data: output, encoding: .utf8)
-                    handler(false,"Invalid server response: \(outString!)" ,nil)
+                    if let outString = String(data: output, encoding: .utf8)
+                    {
+                        handler(false,"Invalid server response: \(outString)" ,nil)
+                    }
                 }
                 return
                 

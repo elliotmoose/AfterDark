@@ -93,35 +93,37 @@ class AccountTableViewController: UITableViewController {
             cell?.textLabel?.text = "Username:"
 
             
-            if Account.singleton.user_name != nil
+            if let name = Account.singleton.user_name
             {
-                cell?.detailTextLabel?.text = "\(Account.singleton.user_name!)"
+                
+                cell?.detailTextLabel?.text = "\(name)"
             }
 
         case IndexPath(row: 1, section: 0):
             
             cell?.textLabel?.text = "ID:"
             
-            if Account.singleton.user_ID != nil
+            if let userID = Account.singleton.user_ID
             {
-                cell?.detailTextLabel?.text = "\(Account.singleton.user_ID!)"
+                cell?.detailTextLabel?.text = "\(userID)"
             }
             
         case IndexPath(row: 2, section: 0):
             cell?.textLabel?.text = "Loyalty Points:"
             
-            if Account.singleton.user_loyaltyPts != nil
+            if let loyaltyPts = Account.singleton.user_loyaltyPts
             {
-                cell?.detailTextLabel?.text = "\(Account.singleton.user_loyaltyPts!)"            }
+                cell?.detailTextLabel?.text = "\(loyaltyPts)"
+            }
             
 
         case IndexPath(row: 3, section: 0):
             
             cell?.textLabel?.text = "Email:"
 
-            if Account.singleton.user_Email != nil
+            if let email = Account.singleton.user_Email
             {
-                cell?.detailTextLabel?.text = "\(Account.singleton.user_Email!)"
+                cell?.detailTextLabel?.text = "\(email)"
             }
         case IndexPath(row: 0, section: 1):
             

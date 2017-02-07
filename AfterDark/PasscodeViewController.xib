@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Mohave-Bold.otf">
+            <string>Mohave-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeViewController" customModule="AfterDark" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonBottomConstraint" destination="eWL-Q6-380" id="sGh-y6-ehX"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGh-EJ-tan">
+                    <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                    <color key="backgroundColor" red="0.63137254899999995" green="0.49019607840000001" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="wB5-pO-frX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="23"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Confirm"/>
+                    <connections>
+                        <action selector="confirmButtonPressed:" destination="-1" eventType="touchUpInside" id="rRx-tJ-rPJ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="uGh-EJ-tan" secondAttribute="trailing" id="Pn4-U8-VaK"/>
+                <constraint firstAttribute="bottom" secondItem="uGh-EJ-tan" secondAttribute="bottom" id="eWL-Q6-380"/>
+                <constraint firstItem="uGh-EJ-tan" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="h96-Bg-9ht"/>
+            </constraints>
+            <point key="canvasLocation" x="34.5" y="53.5"/>
+        </view>
+    </objects>
+</document>

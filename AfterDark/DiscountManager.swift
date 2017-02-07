@@ -97,7 +97,9 @@ class DiscountManager
         let outputDict = NSMutableDictionary()
         for discount in allDiscounts
         {
-            let barID = discount.bar_ID! as String
+            
+            
+            guard let barID = discount.bar_ID else {NSLog("discount \(discount.name) has no bar ID");break}
             
             
             //if there is already a key

@@ -16,13 +16,23 @@ class GalleryManager
         Network.singleton.StringFromUrl(urlNumberOfImages, handler: {(success,output) -> Void in
             if success
             {
-                let noOfImages = Int(output!)
-                if let noOfImages = noOfImages
+                if let output = output
                 {
-                    //set max number
-                    thisBarOrigin.maxImageCount = noOfImages
-                    handler(true)
+                    if let noOfImages = Int(output)
+                    {
+                        //set max number
+                        thisBarOrigin.maxImageCount = noOfImages
+                        handler(true)
+                    }
                 }
+                else
+                {
+                    NSLog("No response from server")
+                }
+            }
+            else
+            {
+                NSLog("No internet connection")
             }
 
         })
@@ -112,11 +122,12 @@ class GalleryManager
                             
                             if let image = UIImage(data: output)
                             {
-                                thisBarOrigin.Images.append(image)
                                 
                                 //update UI at page:
                                 DispatchQueue.main.async
                                     {
+                                        thisBarOrigin.Images.append(image) //CRASHED HERE
+                                        
                                         //this is for discounts page
                                         if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
                                         {
@@ -152,7 +163,7 @@ class GalleryManager
             })
         }
     }
-
-
-
-    }
+    
+    
+    
+}
