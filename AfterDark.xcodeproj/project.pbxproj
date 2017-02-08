@@ -43,6 +43,8 @@
 		A43AF21C1E236D24007BC641 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43AF21B1E236D24007BC641 /* Protocols.swift */; };
 		A4415B6D1E46B90B00B2678F /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4415B6B1E46B90B00B2678F /* PasscodeViewController.swift */; };
 		A4415B6E1E46B90B00B2678F /* PasscodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4415B6C1E46B90B00B2678F /* PasscodeViewController.xib */; };
+		A4415B711E4ADABB00B2678F /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4415B6F1E4ADABB00B2678F /* ContactUsViewController.swift */; };
+		A4415B721E4ADABB00B2678F /* ContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4415B701E4ADABB00B2678F /* ContactUsViewController.xib */; };
 		A4649AD31E1DF26B00A8B508 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */; };
 		A4649AD41E1DF26B00A8B508 /* DescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */; };
 		A4649AD81E1F41E200A8B508 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4649AD61E1F41E200A8B508 /* ReviewViewController.swift */; };
@@ -166,6 +168,8 @@
 		A43AF21B1E236D24007BC641 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		A4415B6B1E46B90B00B2678F /* PasscodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		A4415B6C1E46B90B00B2678F /* PasscodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasscodeViewController.xib; sourceTree = "<group>"; };
+		A4415B6F1E4ADABB00B2678F /* ContactUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
+		A4415B701E4ADABB00B2678F /* ContactUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactUsViewController.xib; sourceTree = "<group>"; };
 		A4649AD11E1DF26B00A8B508 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		A4649AD21E1DF26B00A8B508 /* DescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DescriptionViewController.xib; sourceTree = "<group>"; };
 		A4649AD61E1F41E200A8B508 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -489,6 +493,8 @@
 				A405E0661DDAC3EF00B9672D /* ChangePasswordViewController.swift */,
 				A405E0671DDAC3EF00B9672D /* ChangePasswordViewController.xib */,
 				A4149DD01E38896900BF3681 /* DisplayTextViewController.swift */,
+				A4415B6F1E4ADABB00B2678F /* ContactUsViewController.swift */,
+				A4415B701E4ADABB00B2678F /* ContactUsViewController.xib */,
 				A4149DD11E38896900BF3681 /* DisplayTextViewController.xib */,
 			);
 			name = "Settings View";
@@ -691,6 +697,7 @@
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
 				A473F96E1E16C04100F640F9 /* Mohave-Bold.otf in Resources */,
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
+				A4415B721E4ADABB00B2678F /* ContactUsViewController.xib in Resources */,
 				A494505A1DCDEE000081AF72 /* ReservationViewController.xib in Resources */,
 				98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */,
 				A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */,
@@ -893,6 +900,7 @@
 				A401DB9E1E092444003C5F95 /* ExtensionsAndStructs.swift in Sources */,
 				A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */,
 				A473F9A91E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift in Sources */,
+				A4415B711E4ADABB00B2678F /* ContactUsViewController.swift in Sources */,
 				A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */,
 				A473F99F1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift in Sources */,
 				A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */,

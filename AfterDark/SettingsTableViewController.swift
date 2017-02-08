@@ -137,10 +137,12 @@ class SettingsTableViewController: UITableViewController {
         case 1:
             if row == 0
             {
-                self.navigationController?.pushViewController(DisplayTextViewController.singleton, animated: true)
-                //DisplayTextViewController.singleton.SetText(title: "Terms Of Use", body: "test1")
-                DisplayTextViewController.singleton.SetText(title: "Contact Us:)", body: "Feel free to contact us afterdarkbars@gmail.com for any enquiries or to report any issues!")
-                DisplayTextViewController.singleton.SetTextAlignment(.center)
+//                self.navigationController?.pushViewController(DisplayTextViewController.singleton, animated: true)
+//                //DisplayTextViewController.singleton.SetText(title: "Terms Of Use", body: "test1")
+//                DisplayTextViewController.singleton.SetText(title: "Contact Us:)", body: "Feel free to contact us afterdarkbars@gmail.com for any enquiries or to report any issues!")
+//                DisplayTextViewController.singleton.SetTextAlignment(.center)
+                
+                self.navigationController?.pushViewController(ContactUsViewController.singleton, animated: true)
             }
             else if row == 1
             {
