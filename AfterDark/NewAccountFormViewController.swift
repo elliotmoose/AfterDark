@@ -170,7 +170,7 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         }
         
         //check username and password for disallowed characters
-        let disallowed = ["%","$","#","!","^","&","(",")",":",";","/","\\","[","]","=","+","?"]
+        let disallowed = ["%","$","#","!","^","&","(",")",":",";","/","\\","[","]","=","+","?"," "]
         if !CheckForDisallowedCharacters(string: username!,disallowedCharacters: disallowed) || !CheckForDisallowedCharacters(string: password!,disallowedCharacters: disallowed)
         {
             issues.append("- punctuation is not allowed in usernames and passwords")

@@ -63,44 +63,33 @@ class GalleryViewController: UIViewController,UIPageViewControllerDataSource,UIP
             
 
         }
-        else if barOrigin.maxImageCount == -1
+        else if barOrigin.maxImageCount > 0
         {
-            GalleryManager.singleton.LoadMaxPages(barOrigin, handler:
+
+            
+            self.pages.removeAll()
+            for index in 0...barOrigin.maxImageCount - 1
             {
-                (success) -> Void in
-                
-                if success
+                self.pages.append(self.viewControllerAtIndex(index))
+            }
+            
+            self.pageDots.numberOfPages = barOrigin.maxImageCount
+            
+            self.pageViewController.setViewControllers([self.viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
+            
+            
+            GalleryManager.singleton.LoadBarGallery(barOrigin,handler:
                 {
-                    if barOrigin.maxImageCount == 0
+                    (success) -> Void in
+                    if success
                     {
-                        return
+                        self.pageViewController.setViewControllers([self.viewControllerAtIndex(self.currentPageIndex)], direction: .forward, animated: false, completion: nil)
+                        
+                        
                     }
                     
-                    self.pages.removeAll()
-                    for index in 0...barOrigin.maxImageCount - 1
-                    {
-                        self.pages.append(self.viewControllerAtIndex(index))
-                    }
-                    
-                    self.pageDots.numberOfPages = barOrigin.maxImageCount
-                    
-                    self.pageViewController.setViewControllers([self.viewControllerAtIndex(0)], direction: .forward, animated: false, completion: nil)
-                    
-                    
-                    GalleryManager.singleton.LoadBarGallery(barOrigin,handler:
-                    {
-                        (success) -> Void in
-                        if success
-                        {
-                            self.pageViewController.setViewControllers([self.viewControllerAtIndex(self.currentPageIndex)], direction: .forward, animated: false, completion: nil)
-                            
-                            
-                        }
-                            
-                    })
-                }
-                
             })
+
         }
         
         

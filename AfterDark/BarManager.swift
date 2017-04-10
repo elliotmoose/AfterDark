@@ -680,6 +680,22 @@ class BarManager: NSObject
             errors.append("no rating in this dict")
         }
         
+        if let maxImageCount = dict["maxImageCount"] as? Int
+        {
+            newBar.maxImageCount = maxImageCount
+        }
+        else if let maxImageCount = dict["maxImageCount"] as? String
+        {
+            if let count = Int(maxImageCount)
+            {
+                newBar.maxImageCount = count
+            }
+        }
+        else
+        {
+            errors.append("no max image count in dict")
+        }
+        
         if errors.count != 0
         {
             NSLog(errors.joined(separator: "\n"))

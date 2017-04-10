@@ -337,6 +337,7 @@ class CategoriesManager
                     else
                     {
                         NSLog("server fault: invalid image format")
+                        NSLog(url)
                     }
                 }
                 else

@@ -244,6 +244,33 @@ class DetailsViewController: UIViewController, UITableViewDelegate,UITableViewDa
         
         guard let bar = BarManager.singleton.displayedDetailBar else {return}
         
+        if indexPath.row == 0
+        {
+            let startAdd = "My%20Location"
+            let endAdd = "\(bar.loc_lat),\(bar.loc_long)"
+            
+            let newUrl = URL(string: "comgooglemaps://?saddr=\(startAdd)&daddr=\(endAdd)&directionsmode=transit")
+            
+            guard let url = newUrl else {return}
+            
+            
+            DispatchQueue.main.async {
+                if UIApplication.shared.canOpenURL(url)
+                {
+                    UIApplication.shared.openURL(url)
+                }
+                else
+                {
+                    //means user doesnt have application
+                    if UIApplication.shared.canOpenURL(url)
+                    {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
+                
+            }
+        }
+        
         if indexPath.row == 1 && openingHoursCell != nil
         {
             

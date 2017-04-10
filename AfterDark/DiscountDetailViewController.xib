@@ -69,7 +69,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="p8I-o3-oxy"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Bebas" family="Bebas" pointSize="20"/>
+                    <fontDescription key="fontDescription" name="Bebas" family="Bebas" pointSize="19"/>
                     <state key="normal" title="Claim Now">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -90,7 +90,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discount Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHs-4U-GIa">
-                                            <rect key="frame" x="0.0" y="43.5" width="375" height="38"/>
+                                            <rect key="frame" x="0.0" y="44" width="375" height="38"/>
                                             <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="38"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>

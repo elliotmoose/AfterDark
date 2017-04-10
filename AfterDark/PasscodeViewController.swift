@@ -197,17 +197,18 @@ class PasscodeViewController: UIViewController,UIKeyInput{
         }
     }
     
-    private var keyboardType: UIKeyboardType
+    var keyboardType: UIKeyboardType
     {
-            return .numberPad
+            return UIKeyboardType.numberPad
     }
 
     @IBAction func confirmButtonPressed(_ sender: Any) {
         
         //popup to confirm amount
-        PopupManager.singleton.Popup(title: "Confirm", body: "Confirm amount: $\(spentAmount)", presentationViewCont: self) { 
+        PopupManager.singleton.PopupWithCancel(title: "Confirm", body: "Confirm amount: $\(spentAmount)", presentationViewCont: self) { 
             self.SubmitClaim()
         }
+        
     }
     
     
