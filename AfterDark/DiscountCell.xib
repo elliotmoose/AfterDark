@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -35,15 +36,6 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iT-Pr-ZDj">
-                        <rect key="frame" x="86" y="8" width="254" height="35"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="35" id="eYV-N3-Xn6"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="18"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ww3-W7-AdW">
                         <rect key="frame" x="86" y="34.5" width="254" height="20"/>
                         <constraints>
@@ -53,26 +45,61 @@
                         <color key="textColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPx-Jk-k3P">
+                        <rect key="frame" x="86" y="8" width="246" height="35"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PqM-B9-kXv">
+                                <rect key="frame" x="106.5" y="0.0" width="33" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" id="6Kd-Sn-kN4"/>
+                                    <constraint firstAttribute="height" constant="35" id="Oxq-SQ-8C7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="exclusive" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00K-fA-dzl">
+                                <rect key="frame" x="144.5" y="11" width="35" height="13"/>
+                                <color key="backgroundColor" red="0.56856346130000002" green="0.56866437199999997" blue="0.56855708360000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="8O2-d4-YKc"/>
+                                    <constraint firstAttribute="height" constant="13" id="8vE-4Y-rtp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="8.1999998092651367"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="00K-fA-dzl" firstAttribute="leading" secondItem="PqM-B9-kXv" secondAttribute="trailing" constant="5" id="HrN-lt-Aqr"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="00K-fA-dzl" secondAttribute="trailing" priority="999" id="SDo-Hh-M0v"/>
+                            <constraint firstItem="00K-fA-dzl" firstAttribute="centerY" secondItem="PqM-B9-kXv" secondAttribute="centerY" id="UeH-4D-n4d"/>
+                            <constraint firstAttribute="bottom" secondItem="PqM-B9-kXv" secondAttribute="bottom" id="asi-fh-a2U"/>
+                            <constraint firstItem="PqM-B9-kXv" firstAttribute="centerX" secondItem="jPx-Jk-k3P" secondAttribute="centerX" id="r0d-a6-Rwe"/>
+                            <constraint firstItem="PqM-B9-kXv" firstAttribute="top" secondItem="jPx-Jk-k3P" secondAttribute="top" id="yQ4-Ec-Q0e"/>
+                            <constraint firstAttribute="height" constant="35" id="zL3-B7-w8P"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ww3-W7-AdW" firstAttribute="leading" secondItem="1iT-Pr-ZDj" secondAttribute="leading" id="KpH-gY-ILi"/>
                     <constraint firstItem="42W-AR-Wfv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="MSi-zy-FDV"/>
-                    <constraint firstItem="1iT-Pr-ZDj" firstAttribute="leading" secondItem="42W-AR-Wfv" secondAttribute="trailing" constant="8" id="SDc-z3-DcQ"/>
+                    <constraint firstItem="jPx-Jk-k3P" firstAttribute="leading" secondItem="42W-AR-Wfv" secondAttribute="trailing" constant="8" id="UMh-F5-HTf"/>
                     <constraint firstItem="42W-AR-Wfv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="d0i-39-5LP"/>
                     <constraint firstAttribute="bottom" secondItem="42W-AR-Wfv" secondAttribute="bottom" id="h73-Za-Dqj"/>
                     <constraint firstAttribute="trailing" secondItem="ww3-W7-AdW" secondAttribute="trailing" id="igr-1I-jeh"/>
                     <constraint firstAttribute="bottom" secondItem="ww3-W7-AdW" secondAttribute="bottom" constant="6" id="kig-2C-vb3"/>
-                    <constraint firstAttribute="trailing" secondItem="1iT-Pr-ZDj" secondAttribute="trailing" id="rho-zf-W0J"/>
-                    <constraint firstItem="1iT-Pr-ZDj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="thi-q8-kTD"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="jPx-Jk-k3P" secondAttribute="trailing" id="qC5-AL-eZ5"/>
+                    <constraint firstItem="jPx-Jk-k3P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="vWD-yf-hnm"/>
+                    <constraint firstItem="ww3-W7-AdW" firstAttribute="leading" secondItem="jPx-Jk-k3P" secondAttribute="leading" id="xQ9-1o-Yzv"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="descriptionLabel" destination="ww3-W7-AdW" id="8eu-xE-orw"/>
-                <outlet property="titleLabel" destination="1iT-Pr-ZDj" id="Ofx-Gm-TDR"/>
+                <outlet property="exlusiveLabel" destination="00K-fA-dzl" id="F2k-Nw-PdE"/>
+                <outlet property="titleLabel" destination="PqM-B9-kXv" id="fWi-hk-k3E"/>
                 <outlet property="valueLabel" destination="42W-AR-Wfv" id="jqw-nR-nMX"/>
             </connections>
-            <point key="canvasLocation" x="-6" y="42.5"/>
+            <point key="canvasLocation" x="59" y="44"/>
         </tableViewCell>
     </objects>
 </document>

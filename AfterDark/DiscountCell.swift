@@ -10,9 +10,11 @@ import UIKit
 
 class DiscountCell: UITableViewCell {
 
+    @IBOutlet weak var exlusiveLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,6 +28,9 @@ class DiscountCell: UITableViewCell {
         valueLabel.numberOfLines = 1
         
         self.valueLabel.textColor = ColorManager.discountCellValueTextColor
+        
+        self.exlusiveLabel.clipsToBounds = true
+        self.exlusiveLabel.layer.cornerRadius = 2.2
         }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,5 +44,14 @@ class DiscountCell: UITableViewCell {
         titleLabel.text = discount.name
         descriptionLabel.text = discount.details
         valueLabel.text = discount.amount
+        
+        if discount.exclusive
+        {
+            self.exlusiveLabel.isHidden = false
+        }
+        else
+        {
+            self.exlusiveLabel.isHidden = true
+        }
     }
 }

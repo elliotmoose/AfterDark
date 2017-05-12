@@ -49,6 +49,7 @@ class Discount
             self.exclusive = exclusive
         }
         
+        
     }
     
     init(name : String, details:String , amount : String, discountID : String, bar_ID: String)
