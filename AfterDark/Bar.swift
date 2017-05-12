@@ -1,5 +1,6 @@
 import UIKit
 class Bar : NSObject{
+    
     var name : String
     var ID : String
     var rating = Rating()
@@ -7,7 +8,7 @@ class Bar : NSObject{
     
     var priceDeterminant = 0
     var discounts = [Discount]()
-    
+    var isExclusive = false
     //images
     var Images: [UIImage] = []
     var maxImageCount = -1
@@ -97,6 +98,27 @@ class Bar : NSObject{
             }
         }
         
+    }
+    
+    func SortDiscounts()
+    {
+        var exclusiveDisc = [Discount]()
+        var normalDisc = [Discount]()
+        
+        for discount in discounts
+        {
+            if discount.exclusive
+            {
+                exclusiveDisc.append(discount)
+            }
+            else
+            {
+                normalDisc.append(discount)
+            }
+        }
+        
+        self.discounts = exclusiveDisc
+        self.discounts.insert(contentsOf: normalDisc, at: exclusiveDisc.count)
     }
 //
 //    

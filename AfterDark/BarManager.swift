@@ -508,6 +508,17 @@ class BarManager: NSObject
     //                                  DATA HANDLERS
     //====================================================================================
     
+    func BarListIntoBarIDsList(_ list : [Bar]) -> [String]
+    {
+        var barIDs = [String]()
+        for bar in list
+        {
+            barIDs.append(bar.ID)
+        }
+        
+        return barIDs
+    }
+    
     func BarFromBarID(_ barID : String) -> Bar?
     {
         for bar in self.mainBarList
@@ -701,6 +712,10 @@ class BarManager: NSObject
             NSLog(errors.joined(separator: "\n"))
         }
         
+        if let isExclusive = dict["Exclusive"] as? Bool
+        {
+            newBar.isExclusive = isExclusive
+        }
         
         
         return newBar
@@ -715,6 +730,56 @@ class BarManager: NSObject
 
     }
     
-    
-    
+    func AddViewForBarID(_ barID : String)
+    {
+        
+        let url = Network.domain + "AddViewForBar.php"
+        
+        guard let barID = barID.AddPercentEncodingForURL(plusForSpace: true) else {return}
+        let postParam = "Bar_ID=\(barID)"
+        
+        DispatchQueue.main.async {
+            Network.singleton.DataFromUrlWithPost(url, postParam: postParam, handler:
+                {
+                    (success,output) -> Void in
+                    if success
+                    {
+                        if let output = output
+                    {
+                        do
+                        {
+                            if let dict = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? NSDictionary
+                            {
+                              
+                                if let succ = dict["success"] as? String
+                                {
+                                    return
+                                }
+                            }
+                            else
+                            {
+                                NSLog("invalid server response")
+                            }
+                        }
+                        catch _ as NSError
+                        {
+                            NSLog("invalid server response")
+                        }
+                        }
+                        else
+                        {
+                            NSLog("server fault: no response")
+                        }
+                        
+                    }
+                    
+                    NSLog("failed to add view")
+            })
+        
+        }
+
+    }
+
+
+
 }

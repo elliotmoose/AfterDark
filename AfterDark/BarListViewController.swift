@@ -58,7 +58,7 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
 
     func UpdateBarListTableDisplay() //this is called when data has been loaded
     {
-        self.barListTableViewController.SetBarIDsFromList(barListInput: BarManager.singleton.mainBarList)        
+        self.barListTableViewController.SetBarIDs(barIDs: BarManager.singleton.BarListIntoBarIDsList(BarManager.singleton.mainBarList))
     }
     
     

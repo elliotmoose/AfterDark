@@ -15,7 +15,9 @@ class Discount
     var amount : String?
     var discount_ID : String?
     var bar_ID : String?
+    var exclusive = false
 
+    
     init(dict : NSDictionary)
     {
         if let discName = dict["discount_name"] as? String
@@ -41,6 +43,12 @@ class Discount
         {
             amount = discAmount
         }
+        
+        if let exclusive = dict["Exclusive"] as? Bool
+        {
+            self.exclusive = exclusive
+        }
+        
     }
     
     init(name : String, details:String , amount : String, discountID : String, bar_ID: String)

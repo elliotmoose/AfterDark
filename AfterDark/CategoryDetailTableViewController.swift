@@ -16,12 +16,13 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     let locationViewHeight = Sizing.ScreenHeight()/4
 
     var awaitUpdate = false
-    var awaitingArrangement : Arrangement = .nearby
+    var awaitingArrangement : Arrangement = .featured
     
-    var currentArrangement : Arrangement = .nearby
+    var currentArrangement : Arrangement = .featured
     //objects
     var tableView : UITableView?
     
+    var toBeDisplayedBarIDs = [String]()
     var displayedBarIDs = [String]()
     var filteredDisplayedBarIDs = [String]()
     var awaitingBarIDs = [String]()
@@ -80,11 +81,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             //titles
             switch index {
             case 0:
-                newTab.setTitle("Nearby", for: .normal)
+                newTab.setTitle("Featured", for: .normal)
             case 1:
                 newTab.setTitle("Top Rated", for: .normal)
             case 2:
-                newTab.setTitle("Cheap", for: .normal)
+                newTab.setTitle("Nearby", for: .normal)
             case 3:
                 newTab.setTitle("Discounts", for: .normal)
             default:
@@ -168,11 +169,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             {
                 switch sender.tag {
                 case 0:
-                    self.SetArrangement(arrangement: .nearby)
+                    self.SetArrangement(arrangement: .featured)
                 case 1:
                     self.SetArrangement(arrangement: .avgRating)
                 case 2:
-                    self.SetArrangement(arrangement: .priceLow)
+                    self.SetArrangement(arrangement: .nearby)
                 case 3:
                     self.SetArrangement(arrangement: .bestDiscount)
                 default:
@@ -194,11 +195,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         {
             switch sender.tag {
             case 0:
-                self.SetArrangement(arrangement: .nearby)
+                self.SetArrangement(arrangement: .featured)
             case 1:
                 self.SetArrangement(arrangement: .avgRating)
             case 2:
-                self.SetArrangement(arrangement: .priceLow)
+                self.SetArrangement(arrangement: .nearby)
             case 3:
                 self.SetArrangement(arrangement: .bestDiscount)
             default:
@@ -636,41 +637,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     //============================================================================
     //                                 Arrangement and displaying of bars
     //============================================================================
-    func SetBarIDsFromList(barListInput : [Bar])
-    {
-        
-        DispatchQueue.global(qos: .default).async
-        {
-            //if a bar is currently on display
-            if BarManager.singleton.displayedDetailBar != nil
-            {
-                //change information within current display
-                self.UpdateTabs()
-                
-                //convert bar list to bar IDs
-                var barIDs = [String]()
-                for bar in barListInput
-                {
-                    barIDs.append(bar.ID)
-                }
-                self.awaitingBarIDs = barIDs
-                self.awaitUpdate = true
-                
-            }
-            else
-            {
-                self.SetArrangementWithBarList(arrangement: self.currentArrangement, barListInput: barListInput)
-                
-                //can update cuz none showing
-                self.UpdateUI()
-            }
-        }
-        
-
-    }
-    
     func SetBarIDs(barIDs : [String])
     {
+        //set bar Ids
+        self.toBeDisplayedBarIDs = barIDs
+        
         DispatchQueue.global(qos: .default).async
             {
                 //if a bar is currently on display
@@ -694,40 +665,6 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         }
     }
     
-    func SetArrangementWithBarList(arrangement : Arrangement, barListInput : [Bar])
-    {
-        
-        self.currentArrangement = arrangement
-        
-        var barList = barListInput
-        //step 2: arrange based on attribute
-        switch arrangement {
-        case .nearby:
-            barList.sort(by: {$0.distanceFromClient < $1.distanceFromClient})
-            
-        case .avgRating:
-            barList.sort(by: {$0.rating.avg > $1.rating.avg})
-            
-        case .priceLow:
-            barList.sort(by: {$0.priceDeterminant < $1.priceDeterminant})
-            
-        case .bestDiscount:
-            barList.sort(by: {$0.bestDiscount > $1.bestDiscount})
-
-        }
-        
-        
-        
-        
-        //step 3: convert bar list back into bar IDs
-        self.displayedBarIDs.removeAll()
-        for bar in barList
-        {
-            self.displayedBarIDs.append(bar.ID)
-        }
-        
-    }
-    
     func SetArrangement(arrangement : Arrangement)
     {
         
@@ -735,7 +672,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         //step 1: convert bar list IDs into a bar list
         var barList = [Bar]()
-        for ID in self.displayedBarIDs
+        for ID in self.toBeDisplayedBarIDs
         {
             let bar = BarManager.singleton.BarFromBarID(ID)
             if let _ = bar
@@ -748,6 +685,25 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         
         switch arrangement {
+            
+        case .featured:
+            
+            //step 1: sieve out exclusive
+            var featuredList = [Bar]()
+            for bar in barList
+            {
+                if bar.isExclusive
+                {
+                    featuredList.append(bar)
+                }
+            }
+            
+            
+            //step 2 sort by best discount percentage
+            featuredList.sort(by: {$0.bestDiscount > $1.bestDiscount})
+            
+            barList = featuredList
+            
         case .nearby:
             barList.sort(by: {$0.distanceFromClient < $1.distanceFromClient})
             
@@ -793,6 +749,25 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         
         switch arrangement {
+            
+        case .featured:
+            
+            //step 1: sieve out exclusive
+            var featuredList = [Bar]()
+            for bar in barList
+            {
+                if bar.isExclusive
+                {
+                    featuredList.append(bar)
+                }
+            }
+            
+            
+            //step 2 sort by best discount percentage
+            featuredList.sort(by: {$0.bestDiscount > $1.bestDiscount})
+            
+            barList = featuredList
+            
         case .nearby:
             barList.sort(by: {$0.distanceFromClient < $1.distanceFromClient})
             

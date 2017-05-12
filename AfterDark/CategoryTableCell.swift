@@ -20,6 +20,9 @@ class CategoryTableCell: UITableViewCell {
     
     @IBOutlet weak var detailLabel: UILabel!
         
+    
+    @IBOutlet weak var exclusiveLabel: UILabel!
+    
     @IBOutlet weak var outlineView: UIView!
     
     @IBOutlet weak var transportModeIcon: UIImageView!
@@ -42,6 +45,9 @@ class CategoryTableCell: UITableViewCell {
         
         transportModeIcon.image = transit
         transportModeIcon.tintColor = ColorManager.themeGray
+        
+        exclusiveLabel.clipsToBounds = true
+        exclusiveLabel.layer.cornerRadius = 2.2
 
     }
 
@@ -67,14 +73,14 @@ class CategoryTableCell: UITableViewCell {
         
         tagsLabel.text = "Tags: \(bar.tags)"
 
-        var priceDeterminantString = ""
-        if bar.priceDeterminant != 0
-        {
-            for _ in 0...bar.priceDeterminant-1
-            {
-                priceDeterminantString += "$"
-            }
-        }
+//        var priceDeterminantString = ""
+//        if bar.priceDeterminant != 0
+//        {
+//            for _ in 0...bar.priceDeterminant-1
+//            {
+//                priceDeterminantString += "$"
+//            }
+//        }
         
         
         
@@ -83,11 +89,11 @@ class CategoryTableCell: UITableViewCell {
         {
             if bar.distanceFromClientString != "" && bar.durationFromClientString != ""
             {
-                detailLabel.text = "\(bar.durationFromClientString) - \(bar.distanceFromClientString) - \(priceDeterminantString)"
+                detailLabel.text = "\(bar.durationFromClientString) - \(bar.distanceFromClientString)"// - \(priceDeterminantString)"
             }
             else
             {
-                detailLabel.text = " - - \(priceDeterminantString)"
+                detailLabel.text = " - "//- \(priceDeterminantString)"
             }
             
             
@@ -96,7 +102,7 @@ class CategoryTableCell: UITableViewCell {
         }
         else
         {
-            detailLabel.text = " - - \(priceDeterminantString)"
+            detailLabel.text = " - "//- \(priceDeterminantString)"
         }
         
         //detailLabel.text = "5 mins - 0.5 km - \(priceDeterminantString)"
@@ -111,7 +117,7 @@ class CategoryTableCell: UITableViewCell {
             transportModeIcon.image = drive
         }
         
-        
+        exclusiveLabel.isHidden = !bar.isExclusive
         
     }
     

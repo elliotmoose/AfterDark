@@ -41,6 +41,12 @@ class BarBlownUpTableViewCell: UITableViewCell,TabDelegate ,DiscountToMainCellDe
         
         reviewCont.LoadCanGiveReview()
         
+        if let barID = BarManager.singleton.displayedDetailBar?.ID
+        {
+            BarManager.singleton.AddViewForBarID(barID)
+        }
+        
+        
         //ensure there are tabs
         guard tabs.count > 0 else {return}
         ChangeTab(tabs[0])

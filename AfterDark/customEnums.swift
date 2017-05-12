@@ -14,6 +14,7 @@ enum Arrangement
     case priceLow
     case avgRating
     case bestDiscount
+    case featured
 }
 struct Rating {
     var avg: Float

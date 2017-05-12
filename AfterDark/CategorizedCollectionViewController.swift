@@ -121,7 +121,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
 //        self.navigationController?.pushViewController(categoryCollectionViewCont, animated: true)
         
         //update bars to display
-        barListTableViewController.displayedBarIDs = CategoriesManager.singleton.displayedCategories[indexPath.row].barIDs
+        barListTableViewController.toBeDisplayedBarIDs = CategoriesManager.singleton.displayedCategories[indexPath.row].barIDs
         
         //update selected category (for navigation title)
         CategoriesManager.singleton.displayedCategory = CategoriesManager.singleton.displayedCategories[indexPath.row]
@@ -174,7 +174,7 @@ class CategorizedCollectionViewController: UICollectionViewController,CategoryMa
     
     func UpdateBarListTableDisplay() {
         
-        barListTableViewController.SetBarIDs(barIDs: barListTableViewController.displayedBarIDs)
+        barListTableViewController.SetBarIDs(barIDs: barListTableViewController.toBeDisplayedBarIDs)
         
     }
 

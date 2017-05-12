@@ -134,6 +134,7 @@ class DiscountManager
             
             //update best discounts
             bar.SetBestDiscount()
+            bar.SortDiscounts()
 
         }
         
@@ -141,7 +142,7 @@ class DiscountManager
         
         
     }
-    func ClaimDiscount(handler : (_ succuess : Bool)->Void)
+    func ClaimDiscount(handler : (_ success : Bool)->Void)
     {
         
     }
