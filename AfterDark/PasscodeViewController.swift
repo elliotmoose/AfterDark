@@ -29,6 +29,7 @@ class PasscodeViewController: UIViewController,UIKeyInput{
         
         //add instruction label
         let labelFontSize : CGFloat = 40
+        let label2FontSize : CGFloat = 14
         let padding : CGFloat = 40
         
         let instructLabel = UILabel(frame: CGRect(x: 0, y: padding, width: Sizing.ScreenWidth(), height: labelFontSize))
@@ -59,6 +60,15 @@ class PasscodeViewController: UIViewController,UIKeyInput{
             textView.backgroundColor = UIColor.clear
             
         }
+        
+        let instructLabel2 = UILabel(frame: CGRect(x: 16, y: padding + textViewHeight, width: Sizing.ScreenWidth() - 32, height: label2FontSize*3))
+        instructLabel2.numberOfLines = 3
+        instructLabel2.text = "Let the staff key in the code and verify the receipt value"
+        instructLabel2.textAlignment = .center
+        instructLabel2.font = UIFont(name: "Montserrat", size: label2FontSize)
+        instructLabel2.textColor = UIColor.gray
+        self.view.addSubview(instructLabel2)
+
 
         
         

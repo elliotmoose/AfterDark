@@ -1,8 +1,8 @@
 //
-//  BarListViewController.swift
+//  BannerDetailViewController.swift
 //  AfterDark
 //
-//  Created by Koh Yi Zhi Elliot - Ezekiel on 4/1/17.
+//  Created by Koh Yi Zhi Elliot - Ezekiel on 25/7/17.
 //  Copyright © 2017 kohbroco. All rights reserved.
 //
 
@@ -10,18 +10,23 @@ import UIKit
 //=========================================================================================================
 // NOTE: THIS VIEW CONT'S ONLY PURPOSE IS TO MANIPULATE A NEW INSTANCE OF CATEGORYDETAILTABLEVIEWCONTROLLER()
 //=========================================================================================================
-class BarListViewController: UIViewController,BarManagerToListTableDelegate {
-
+class BannerDetailViewController: UIViewController,BarManagerToListTableDelegate {
+    
+    public static let singleton = BannerDetailViewController(nibName: "BannerDetailViewController", bundle: Bundle.main)
+    
     let barListTableViewController = CategoryDetailTableViewController()
     
     var refreshButton = UIBarButtonItem()
     var activityIndicator = UIActivityIndicatorView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: "BannerDetailViewController", bundle: Bundle.main)
+        Bundle.main.loadNibNamed("BannerDetailViewController", owner: self, options: nil)
+        
         
         //set up delegates
-        BarManager.singleton.listDelegate = self
+        BarManager.singleton.bannerListDelegate = self
         
         //navigation bar and tab bar init
         //nav bar and tab bar translucency for framing purposes
@@ -48,14 +53,19 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
         activityIndicator.startAnimating()
         
         self.navigationItem.rightBarButtonItem = refreshButton
-
-        //barListTableViewController.EnableSearchBar()
         
+        //barListTableViewController.EnableSearchBar()
+
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         UpdateBarListTableDisplay()
     }
-
+    
     func UpdateBarListTableDisplay() //this is called when data has been loaded
     {
         self.barListTableViewController.SetBarIDs(barIDs: BarManager.singleton.BarListIntoBarIDsList(BarManager.singleton.mainBarList))
@@ -67,18 +77,18 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
         barListTableViewController.UpdateCellForBar(bar)
     }
     
-
+    
     func Refresh()
     {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-
+        
         
         BarManager.singleton.HardLoadAllBars {
             
             DiscountManager.singleton.LoadAllDiscounts()
             {
-                
+                    
             }
             
             BarManager.singleton.ReloadAllDistanceMatrix()

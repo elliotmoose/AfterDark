@@ -153,6 +153,12 @@ class ChangePasswordViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        oldPassTxtField.text = ""
+        newPassTxtField.text = ""
+        cfmNewPassTxtField.text = ""
+    }
 
     /*
     // MARK: - Navigation

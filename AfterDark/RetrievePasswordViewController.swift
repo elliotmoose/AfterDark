@@ -69,7 +69,10 @@ class RetrievePasswordViewController: UIViewController {
                     }
                     catch
                     {
-                        
+                        if let outputString = String(data: output, encoding: .utf8)
+                        {
+                            NSLog(outputString)
+                        }
                     }
                         
                 }

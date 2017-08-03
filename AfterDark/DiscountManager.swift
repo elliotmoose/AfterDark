@@ -35,7 +35,7 @@ class DiscountManager
     //        })
     //    }
     
-    func LoadAllDiscounts()
+    func LoadAllDiscounts(_ handler : @escaping ()->Void)
     {
         
         let urlGetAllDiscounts = Network.domain + "GetAllDiscounts.php"
@@ -68,6 +68,8 @@ class DiscountManager
                                 //update discount display
                                 self.delegate?.UpdateDiscountTab()
                             }
+                            
+                            handler()
                         }
                     }
                     catch
@@ -145,5 +147,18 @@ class DiscountManager
     func ClaimDiscount(handler : (_ success : Bool)->Void)
     {
         
+    }
+    
+    func DiscountFromDiscountID(_ discountID : String) -> Discount?
+    {
+        for discount in allDiscounts
+        {
+            if discount.discount_ID == discountID
+            {
+                return discount
+            }
+        }
+        
+        return nil
     }
 }

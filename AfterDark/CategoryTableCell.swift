@@ -105,7 +105,7 @@ class CategoryTableCell: UITableViewCell {
             detailLabel.text = " - "//- \(priceDeterminantString)"
         }
         
-        //detailLabel.text = "5 mins - 0.5 km - \(priceDeterminantString)"
+        detailLabel.text = "5 mins - 0.5 km"
         
         
         switch Settings.travelMode {

@@ -9,8 +9,8 @@ class Network {
     
     
     //Urls
-    //    static let domain = "http://localhost/AfterDarkServer/"
-    static let domain = "http://afterdarkbars.com/AfterDarkServer/"
+    static let domain = "http://localhost/AfterDarkServer/"
+    //static let domain = "http://afterdarkbars.com/AfterDarkServer/"
     
     init()
     {
@@ -27,8 +27,7 @@ class Network {
         { data, response, error in
             
             if let error = error
-            {
-                
+            {                
                 if Network.errorsOn
                 {
                     print(error)

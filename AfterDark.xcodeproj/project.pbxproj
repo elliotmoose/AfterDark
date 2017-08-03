@@ -21,7 +21,6 @@
 		98F3E48F1DB0009B000EAF08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E48E1DB0009B000EAF08 /* AppDelegate.swift */; };
 		98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4941DB0009B000EAF08 /* Main.storyboard */; };
 		98F3E49B1DB0009B000EAF08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F3E4991DB0009B000EAF08 /* LaunchScreen.storyboard */; };
-		98F3E4A61DB0009B000EAF08 /* AfterDarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4A51DB0009B000EAF08 /* AfterDarkTests.swift */; };
 		98F3E4B11DB0009B000EAF08 /* AfterDarkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F3E4B01DB0009B000EAF08 /* AfterDarkUITests.swift */; };
 		98FCB19C1DC12B7D008C9307 /* RatingStarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FCB19B1DC12B7D008C9307 /* RatingStarView.swift */; };
 		98FD6FF01DB7C91B00688514 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD6FEF1DB7C91B00688514 /* GalleryViewController.swift */; };
@@ -78,6 +77,13 @@
 		A494505F1DCE0F890081AF72 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A494505D1DCE0F890081AF72 /* SettingsTableViewController.swift */; };
 		A49450641DCE11B50081AF72 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49450621DCE11B50081AF72 /* AccountTableViewController.swift */; };
 		A49450651DCE11B50081AF72 /* AccountTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49450631DCE11B50081AF72 /* AccountTableViewController.xib */; };
+		A4A9BB6D1F25DDAD00E152ED /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A9BB6C1F25DDAD00E152ED /* BannerViewController.swift */; };
+		A4A9BB701F25DDCC00E152ED /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A9BB6E1F25DDCC00E152ED /* BannerTableViewCell.swift */; };
+		A4A9BB711F25DDCC00E152ED /* BannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A9BB6F1F25DDCC00E152ED /* BannerTableViewCell.xib */; };
+		A4A9BB771F25DFBC00E152ED /* BannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A9BB761F25DFBC00E152ED /* BannerManager.swift */; };
+		A4A9BB791F25E00500E152ED /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A9BB781F25E00500E152ED /* Banner.swift */; };
+		A4A9BB7B1F27621800E152ED /* BannerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A9BB7A1F27621800E152ED /* BannerDetailViewController.swift */; };
+		A4A9BB7D1F27637600E152ED /* BannerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A9BB7C1F27637600E152ED /* BannerDetailViewController.xib */; };
 		A4AEB3541E31A3EE00A1BED9 /* RetrievePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AEB3521E31A3EE00A1BED9 /* RetrievePasswordViewController.swift */; };
 		A4AEB3551E31A3EE00A1BED9 /* RetrievePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4AEB3531E31A3EE00A1BED9 /* RetrievePasswordViewController.xib */; };
 		A4D375621DCB5F1400274935 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D375601DCB5F1400274935 /* LoginViewController.swift */; };
@@ -203,6 +209,13 @@
 		A494505D1DCE0F890081AF72 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A49450621DCE11B50081AF72 /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		A49450631DCE11B50081AF72 /* AccountTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountTableViewController.xib; sourceTree = "<group>"; };
+		A4A9BB6C1F25DDAD00E152ED /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
+		A4A9BB6E1F25DDCC00E152ED /* BannerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
+		A4A9BB6F1F25DDCC00E152ED /* BannerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
+		A4A9BB761F25DFBC00E152ED /* BannerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerManager.swift; sourceTree = "<group>"; };
+		A4A9BB781F25E00500E152ED /* Banner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
+		A4A9BB7A1F27621800E152ED /* BannerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerDetailViewController.swift; sourceTree = "<group>"; };
+		A4A9BB7C1F27637600E152ED /* BannerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerDetailViewController.xib; sourceTree = "<group>"; };
 		A4AEB3471E2F2EAA00A1BED9 /* AfterDark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AfterDark.entitlements; sourceTree = "<group>"; };
 		A4AEB3521E31A3EE00A1BED9 /* RetrievePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePasswordViewController.swift; sourceTree = "<group>"; };
 		A4AEB3531E31A3EE00A1BED9 /* RetrievePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RetrievePasswordViewController.xib; sourceTree = "<group>"; };
@@ -342,6 +355,7 @@
 				A473F9B11E1CDFF100F640F9 /* New Bar List View */,
 				98FD6FF31DB7C97700688514 /* Objects */,
 				98FD6FF21DB7C95000688514 /* Bar Detail View */,
+				A4A9BB6B1F25DD6900E152ED /* Banner View */,
 				986E18361DC3D45A0098637D /* Categorized View */,
 				98F3E49C1DB0009B000EAF08 /* Info.plist */,
 				A494505C1DCDEE270081AF72 /* Managers */,
@@ -389,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				IZK3WM8ZNCS26ZQDKHX3VXX3 /* Bar.swift */,
+				A4A9BB781F25E00500E152ED /* Banner.swift */,
 				F47T2SPZETLOZ1M46F152NDT /* customEnums.swift */,
 				98FD6FF61DB8716300688514 /* TransparentView.swift */,
 				986E18371DC3D4C20098637D /* Category.swift */,
@@ -464,22 +479,23 @@
 		A494505C1DCDEE270081AF72 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */,
+				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
+				A4A9BB761F25DFBC00E152ED /* BannerManager.swift */,
+				A401DB9B1E089366003C5F95 /* CacheManager.swift */,
+				986E18391DC3D50C0098637D /* CategoriesManager.swift */,
+				A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */,
+				A47A542E1DC8988800C465F5 /* DiscountManager.swift */,
 				A439FF571DEFCC52005BFAC4 /* DummyMode.swift */,
 				A401DB9D1E092444003C5F95 /* ExtensionsAndStructs.swift */,
-				84730GB5UESUEI9EXXK650LW /* BarManager.swift */,
-				986E18391DC3D50C0098637D /* CategoriesManager.swift */,
-				A401DB9B1E089366003C5F95 /* CacheManager.swift */,
-				Y7QMRMW8N0HNTJBHDMWKAM1F /* Settings.swift */,
-				ACP96CXHFC96L9ASPJHNTV8G /* Account.swift */,
-				A43AF21B1E236D24007BC641 /* Protocols.swift */,
-				A47A542E1DC8988800C465F5 /* DiscountManager.swift */,
-				90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */,
-				A400F8731DCB0F44009F8994 /* PopupManager.swift */,
-				GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */,
-				QFTSZAZA620UQ50HVYGSV2BC /* Network.swift */,
-				A4IF6FT2KKSQHF475Q98X5X6 /* ColorManager.swift */,
-				A49450541DCDED840081AF72 /* ReservationManager.swift */,
 				A4D7A8F01E2C8CD4001FAB12 /* LocationManager.swift */,
+				QFTSZAZA620UQ50HVYGSV2BC /* Network.swift */,
+				A43AF21B1E236D24007BC641 /* Protocols.swift */,
+				A400F8731DCB0F44009F8994 /* PopupManager.swift */,
+				A49450541DCDED840081AF72 /* ReservationManager.swift */,
+				90HMDXF6PP1CQ4BU4O20KZOS /* ReviewManager.swift */,
+				Y7QMRMW8N0HNTJBHDMWKAM1F /* Settings.swift */,
+				GVKW92FK1JZUY35BKWHEYZ3Q /* Sizing.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -498,6 +514,18 @@
 				A4149DD11E38896900BF3681 /* DisplayTextViewController.xib */,
 			);
 			name = "Settings View";
+			sourceTree = "<group>";
+		};
+		A4A9BB6B1F25DD6900E152ED /* Banner View */ = {
+			isa = PBXGroup;
+			children = (
+				A4A9BB6C1F25DDAD00E152ED /* BannerViewController.swift */,
+				A4A9BB6E1F25DDCC00E152ED /* BannerTableViewCell.swift */,
+				A4A9BB6F1F25DDCC00E152ED /* BannerTableViewCell.xib */,
+				A4A9BB7A1F27621800E152ED /* BannerDetailViewController.swift */,
+				A4A9BB7C1F27637600E152ED /* BannerDetailViewController.xib */,
+			);
+			name = "Banner View";
 			sourceTree = "<group>";
 		};
 		A4FEA3AA1DD0411E00F00783 /* Account Views */ = {
@@ -695,9 +723,11 @@
 				A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */,
 				A4149DD31E38896900BF3681 /* DisplayTextViewController.xib in Resources */,
 				986469261DBE278700781BC0 /* IconCell.xib in Resources */,
+				A4A9BB7D1F27637600E152ED /* BannerDetailViewController.xib in Resources */,
 				A473F96E1E16C04100F640F9 /* Mohave-Bold.otf in Resources */,
 				986E18401DC49E4A0098637D /* CategoryCell.xib in Resources */,
 				A4415B721E4ADABB00B2678F /* ContactUsViewController.xib in Resources */,
+				A4A9BB711F25DDCC00E152ED /* BannerTableViewCell.xib in Resources */,
 				A494505A1DCDEE000081AF72 /* ReservationViewController.xib in Resources */,
 				98F3E4961DB0009B000EAF08 /* Main.storyboard in Resources */,
 				A4F9B8121DC9BFA800B9D124 /* DiscountCell.xib in Resources */,
@@ -887,21 +917,25 @@
 				A4F9B8111DC9BFA800B9D124 /* DiscountCell.swift in Sources */,
 				986E18381DC3D4C20098637D /* Category.swift in Sources */,
 				A494505F1DCE0F890081AF72 /* SettingsTableViewController.swift in Sources */,
+				A4A9BB791F25E00500E152ED /* Banner.swift in Sources */,
 				DT618KL9NE89OW4YT1JY042C /* Bar.swift in Sources */,
 				A4649AD81E1F41E200A8B508 /* ReviewViewController.swift in Sources */,
 				A473F9B01E1CC0AF00F640F9 /* BarListViewController.swift in Sources */,
 				A473F9B41E1DD78500F640F9 /* AddReviewViewController.swift in Sources */,
+				A4A9BB771F25DFBC00E152ED /* BannerManager.swift in Sources */,
 				TB4I34LS3SZ054G6QFADRMAX /* BarManager.swift in Sources */,
 				A4649AD31E1DF26B00A8B508 /* DescriptionViewController.swift in Sources */,
 				98FD6FF71DB8716300688514 /* TransparentView.swift in Sources */,
 				H76WSUQ9WFAYGEXHYPUR7S5W /* customEnums.swift in Sources */,
 				GALD5LG20WJ7W6ECBYHH54UL /* Sizing.swift in Sources */,
+				A4A9BB7B1F27621800E152ED /* BannerDetailViewController.swift in Sources */,
 				A4FEA3AD1DD0415400F00783 /* NewAccountFormViewController.swift in Sources */,
 				A401DB9E1E092444003C5F95 /* ExtensionsAndStructs.swift in Sources */,
 				A47A542F1DC8988800C465F5 /* DiscountManager.swift in Sources */,
 				A473F9A91E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift in Sources */,
 				A4415B711E4ADABB00B2678F /* ContactUsViewController.swift in Sources */,
 				A439FF581DEFCC52005BFAC4 /* DummyMode.swift in Sources */,
+				A4A9BB6D1F25DDAD00E152ED /* BannerViewController.swift in Sources */,
 				A473F99F1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift in Sources */,
 				A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */,
 				98FD70041DB89EA900688514 /* DiscountViewController.swift in Sources */,
@@ -909,6 +943,7 @@
 				A473F9A31E1B2AD100F640F9 /* CategoryTableCell.swift in Sources */,
 				K6IWCJC2V8NIJ9770XXEEKN7 /* Network.swift in Sources */,
 				A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */,
+				A4A9BB701F25DDCC00E152ED /* BannerTableViewCell.swift in Sources */,
 				A4415B6D1E46B90B00B2678F /* PasscodeViewController.swift in Sources */,
 				98FD6FF01DB7C91B00688514 /* GalleryViewController.swift in Sources */,
 				1UJLM29NSA57LFXJVDRWQGEL /* Settings.swift in Sources */,
@@ -930,7 +965,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98F3E4A61DB0009B000EAF08 /* AfterDarkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

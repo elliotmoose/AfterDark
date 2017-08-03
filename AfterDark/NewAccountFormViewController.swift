@@ -49,7 +49,7 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
     
     @IBOutlet weak var femaleCheckBox: UIImageView!
     
-    var genderSelected = "Male"
+    var genderSelected = "NIL"
     @IBAction func maleButtonPressed(_ sender: Any) {
         genderSelected = "Male"
         maleCheckBox.image = checkedImage
@@ -73,8 +73,8 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         let firstName = firstNameTextField.text
         let lastName = lastNameTextField.text
         let username = usernameTextField.text
-        let phoneNumber = phoneTextField.text
-        let dob = dobTextField.text
+        var phoneNumber = phoneTextField.text
+        var dob = dobTextField.text
         let password = passwordTextField.text
         let confirmPassword = confirmPasswordTextField.text
         let email = emailTextField.text
@@ -117,13 +117,17 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         }
         if dob == ""
         {
-            issues.append("- fill in date of birth")
-            dobLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+            //issues.append("- fill in date of birth")
+            //dobLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+            
+            dob = "NIL"
         }
         if phoneNumber == ""
         {
-            issues.append("- fill in phone number")
-            phoneLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+            //issues.append("- fill in phone number")
+            //phoneLabel.textColor = ColorManager.accountCreationHighlightErrorColor
+            
+            phoneNumber = "NIL"
         }
         if username == ""
         {
@@ -357,6 +361,7 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         registerForKeyboardNotifications()
         
         ResetLabelColors()
+        ResetTextFields()
     
     }
     
@@ -388,7 +393,7 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         
         ResetLabelColors()
         
-        maleCheckBox.image = checkedImage
+        maleCheckBox.image = uncheckedImage
         maleCheckBox.tintColor = ColorManager.themeBright
         femaleCheckBox.image = uncheckedImage
         femaleCheckBox.tintColor = ColorManager.themeBright
@@ -409,6 +414,24 @@ class NewAccountFormViewController: UIViewController , UITextFieldDelegate{
         confirmPasswordLabel.textColor = ColorManager.themeBright
         emailLabel.textColor = ColorManager.themeBright
         confirmEmailLabel.textColor = ColorManager.themeBright
+        
+        maleCheckBox.image = uncheckedImage
+        femaleCheckBox.image = uncheckedImage
+    }
+    
+    func ResetTextFields()
+    {
+        firstNameTextField.text = ""
+        lastNameTextField.text = ""
+        usernameTextField.text = ""
+        dobTextField.text = ""
+        phoneTextField.text = ""
+        passwordTextField.text = ""
+        confirmPasswordTextField.text = ""
+        emailTextField.text = ""
+        confirmEmailTextField.text = ""
+        
+        genderSelected = "NIL"
     }
     
     override var prefersStatusBarHidden: Bool

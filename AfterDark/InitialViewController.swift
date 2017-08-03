@@ -102,6 +102,15 @@ class InitialViewController: UIViewController,LoggedInEventDelegate {
                 
                 //load discounts
                 DiscountManager.singleton.LoadAllDiscounts()
+                {
+                        //load banners
+                        BannerManager.singleton.LoadBannerText({ (success) in
+                            if success
+                            {
+                                BannerManager.singleton.LoadBannerImages()
+                            }
+                        })
+                }
                 
                 //load distance matrix
                 BarManager.singleton.ReloadAllDistanceMatrix()

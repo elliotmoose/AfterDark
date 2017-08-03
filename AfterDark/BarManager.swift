@@ -25,7 +25,7 @@ class BarManager: NSObject
     weak var detailDelegate:BarManagerToDetailTableDelegate?
     weak var listDelegate :BarManagerToListTableDelegate?
     weak var catListDelegate :BarManagerToListTableDelegate?
-
+    weak var bannerListDelegate : BarManagerToListTableDelegate?
     
     //note: this is called in inital: handler calls discounts load and distance matrix load
 //    func InitialLoadAllBars(handler : @escaping () -> Void) //*** this must be done after cache has been loaded
@@ -447,6 +447,7 @@ class BarManager: NSObject
                                                         //UPDATING OF UI
                                                         self.catListDelegate?.UpdateCellForBar(bar)
                                                         self.listDelegate?.UpdateCellForBar(bar)
+                                                        self.bannerListDelegate?.UpdateCellForBar(bar)
                                                     }
                                                     
                                                     
@@ -726,6 +727,7 @@ class BarManager: NSObject
         DispatchQueue.main.async {
             self.listDelegate?.UpdateBarListTableDisplay()
             self.catListDelegate?.UpdateBarListTableDisplay()
+            self.bannerListDelegate?.UpdateBarListTableDisplay()
         }
 
     }

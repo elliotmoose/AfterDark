@@ -123,8 +123,6 @@ class Account {
                         {
                             if let succ = dict["success"] as? String
                             {
-                                
-                                
                                 if succ == "true"
                                 {
                                     guard let accountDict = dict["detail"] as? NSDictionary else {return}
@@ -147,18 +145,18 @@ class Account {
                             }
                             else
                             {
-                                NSLog("invalid server response format")
+                                NSLog("invalid server response format 1")
                             }
                         }
                         else
                         {
-                            NSLog("invalid server response format")
+                            NSLog("invalid server response format 2")
                         }
                         
                     }
                     catch
                     {
-                        NSLog("invalid server response format")
+                        NSLog("invalid server response format 3")
                     }
                 }
                 else

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -49,11 +49,10 @@
                         <action selector="claimOnClick:" destination="-1" eventType="touchUpInside" id="Hbz-Z1-aBR"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1F-wB-edY">
-                    <rect key="frame" x="16" y="119" width="135" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Final Receipt Value:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1F-wB-edY">
+                    <rect key="frame" x="16" y="119" width="288" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="2y5-h5-NhF"/>
-                        <constraint firstAttribute="width" constant="135" id="4Da-OF-JWj"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,6 +63,7 @@
             <constraints>
                 <constraint firstItem="D1F-wB-edY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Jtz-c1-gXS"/>
                 <constraint firstAttribute="trailing" secondItem="Nco-kn-Azj" secondAttribute="trailing" id="MM0-yJ-ewu"/>
+                <constraint firstAttribute="trailing" secondItem="D1F-wB-edY" secondAttribute="trailing" constant="16" id="O1R-gZ-IBS"/>
                 <constraint firstItem="Nco-kn-Azj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rsf-ed-R5o"/>
                 <constraint firstItem="7EX-LP-Ru6" firstAttribute="top" secondItem="D1F-wB-edY" secondAttribute="bottom" constant="6" id="ST0-HR-tWk"/>
                 <constraint firstItem="7EX-LP-Ru6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-5" id="cDs-Lk-Gwb"/>
@@ -71,7 +71,7 @@
                 <constraint firstAttribute="trailing" secondItem="7EX-LP-Ru6" secondAttribute="trailing" constant="-5" id="hDJ-fc-zhY"/>
                 <constraint firstItem="Nco-kn-Azj" firstAttribute="top" secondItem="7EX-LP-Ru6" secondAttribute="bottom" constant="8" id="yOr-6Q-J0S"/>
             </constraints>
-            <point key="canvasLocation" x="83.5" y="54.5"/>
+            <point key="canvasLocation" x="83" y="54"/>
         </view>
     </objects>
 </document>
