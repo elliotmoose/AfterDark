@@ -27,85 +27,6 @@ class BarManager: NSObject
     weak var catListDelegate :BarManagerToListTableDelegate?
     weak var bannerListDelegate : BarManagerToListTableDelegate?
     
-    //note: this is called in inital: handler calls discounts load and distance matrix load
-//    func InitialLoadAllBars(handler : @escaping () -> Void) //*** this must be done after cache has been loaded
-//    {
-//        //step 1: check cache
-//        if CacheManager.singleton.HasBarCache() //step 1a, hasBarCache == true
-//        {
-//            //step 2: load cache and push to ui
-//            self.mainBarList = CacheManager.singleton.cachedBarList!
-//            
-//            self.UpdateUI()
-//            
-//            //step 3: check for updates
-//            
-//            //step 3i: load new bar list
-//            self.GetNewBarList(handler:
-//            { (success, output) in
-//                
-//                if success
-//                {
-//                    //step 3ii: check if any new bars
-//                    var newBars = [Bar]()
-//                    var oldBars = [Bar]()
-//                    
-//                    for bar in output
-//                    {
-//                        if self.mainBarList.contains(where: {$0.ID == bar.ID})
-//                        {
-//                            oldBars.append(bar)
-//                        }
-//                        else
-//                        {
-//                            newBars.append(bar)
-//                        }
-//                    }
-//                    
-//                    //step 3iiia: old bars IDs: compare lastUpDates with current
-//                    for bar in oldBars
-//                    {
-//                        //if different, force update this bar
-//                        if self.BarFromBarID(bar.ID)?.lastUpdate != bar.lastUpdate
-//                        {
-//                            //soft load bar with update check
-//                        }
-//                        else
-//                        {
-//                            //do nothing
-//                        }
-//                    }
-//                    
-//                    //step 3iiib: new bars IDs: soft load bar
-//                    for bar in newBars
-//                    {
-//                        //soft load bar (discounts already loaded just need to push)
-//                        
-//                    }
-//                    
-//                    handler()
-//                    
-//                }
-//                else
-//                {
-//                    //do nothing
-//                }
-//            })
-//
-//            
-//        
-//            
-//        }
-//        else //step 1b, hasBarCache == false
-//        {
-//            //soft load
-//            self.HardLoadAllBars {
-//                self.UpdateUI()
-//                handler()
-//            }
-//        }
-//        
-//    }
     
     func HardLoadBar(barID : String,_ handler : @escaping () -> Void) //does not include images and discounts
     {
@@ -125,7 +46,7 @@ class BarManager: NSObject
                                 {
                                     if let barDict = dict["detail"] as? NSDictionary
                                     {
-                                        let newBar = self.NewBarFromDict(barDict)
+                                        let newBar = Bar(barDict)
                                         
                                         //if there is an old version of the bar present -> update
                                         if self.mainBarList.contains(where: {$0.ID == newBar.ID})
@@ -241,8 +162,8 @@ class BarManager: NSObject
                         {
                             for barDict in barArr
                             {
-                                let bar = BarManager.singleton.NewBarFromDict(barDict)
-                                barListOutput.append(bar)
+                                
+                                barListOutput.append(Bar(barDict))
                             }
                             
                         }
@@ -296,54 +217,6 @@ class BarManager: NSObject
             
         }
         
-    }
-    
-    
-    func GetNewBarList(handler : @escaping (Bool,[Bar]) -> Void)
-    {
-        let url = Network.domain + "GetBarUpdates.php"
-        
-        Network.singleton.DataFromUrl(url) { (success, output) in
-            if success
-            {
-                if let output = output
-                {
-                    do
-                    {
-                        if let dictArr = try JSONSerialization.jsonObject(with: output, options: .allowFragments) as? [NSDictionary]
-                        {
-                            var output = [Bar]()
-                            
-                            for dict in dictArr
-                            {
-                                output.append(self.NewBarFromDict(dict))
-                            }
-                            
-                            handler(true,output)
-                            return
-                        }
-                        else
-                        {
-                            NSLog("invalid server response")
-                        }
-                    }
-                    catch _ as NSError
-                    {
-                        NSLog("invalid server response")
-                    }
-                }
-                else
-                {
-                    NSLog("server fault: no response")
-                }
-            }
-            else
-            {
-                NSLog("Please check connection")
-            }
-        }
-        
-        handler(false,[])
     }
     
     
@@ -493,7 +366,7 @@ class BarManager: NSObject
                 
                 if success
                 {
-                    
+                    self.listDelegate?.UpdateBarListTableDisplay()
                 }
                 else
                 {
@@ -533,195 +406,7 @@ class BarManager: NSObject
         return nil
     }
     
-    
-    
-    func NewBarFromDict(_ dict: NSDictionary) ->Bar
-    {
-        
-        var errors = [String]();
-        
-        let newBar = Bar()
-        
-        let ratingAvg = dict.value(forKey: "Bar_Rating_Avg") as? Float
-        let ratingPrice = dict.value(forKey: "Bar_Rating_Price") as? Float
-        let ratingAmbience = dict.value(forKey: "Bar_Rating_Ambience") as? Float
-        let ratingFood = dict.value(forKey: "Bar_Rating_Food") as? Float
-        let ratingService = dict.value(forKey: "Bar_Rating_Service") as? Float
-        
-
-        
-        if let name = dict["Bar_Name"] as? String
-        {
-            newBar.name = name
-        }
-        else
-        {
-            errors.append("Bar has no Name")
-        }
-        
-        
-        if let ID = dict["Bar_ID"] as? Int
-        {
-            newBar.ID = String(describing: ID)
-        }
-        
-        
-        if let description = dict["Bar_Description"] as? String
-        {
-            newBar.bar_description = description
-        }
-        
-        if let contact = dict["Bar_Contact"] as? String
-        {
-            newBar.contact = contact
-        }
-        
-        if let tags = dict["Bar_Tags"] as? String
-        {
-            newBar.tags = tags
-        }
- 
-        if let priceDeterminant = dict["Bar_PriceDeterminant"] as? Int
-        {
-            newBar.priceDeterminant = priceDeterminant
-        }
-        else if let priceDeterminant = dict["Bar_PriceDeterminant"] as? String
-        {
-            if let determinant = Int(priceDeterminant)
-            {
-                newBar.priceDeterminant = determinant
-            }
-        }
-        
-        if let lastUpdate = dict["lastUpdate"] as? String
-        {
-            newBar.lastUpdate = lastUpdate
-        }
-        else if let lastUpdate = dict["lastUpdate"] as? Int
-        {
-            newBar.lastUpdate = "\(lastUpdate)"
-        }
-        
-        //get opening hours
-        if let monday = dict["OH_Monday"] as? String
-        {
-            newBar.openClosingHours[0] = monday
-        }
-        
-        if let tuesday = dict["OH_Tuesday"] as? String
-        {
-            newBar.openClosingHours[1] = tuesday
-        }
-        
-        if let wednesday = dict["OH_Wednesday"] as? String
-        {
-            newBar.openClosingHours[2] = wednesday
-        }
-        
-        if let thursday = dict["OH_Thursday"] as? String
-        {
-            newBar.openClosingHours[3] = thursday
-        }
-        
-        if let friday = dict["OH_Friday"] as? String
-        {
-            newBar.openClosingHours[4] = friday
-        }
-        
-        if let saturday = dict["OH_Saturday"] as? String
-        {
-            newBar.openClosingHours[5] = saturday
-        }
-        
-        if let sunday = dict["OH_Sunday"] as? String
-        {
-            newBar.openClosingHours[6] = sunday
-        }
-        
-        if let loc_lat = dict["Bar_Location_Latitude"] as? String
-        {
-            newBar.loc_lat = Double(loc_lat)!
-        }
-        else if let loc_lat = dict["Bar_Location_Latitude"] as? Double
-        {
-            newBar.loc_lat = loc_lat
-        }
-        
-        if let loc_long = dict["Bar_Location_Longitude"] as? String
-        {
-            newBar.loc_long = Double(loc_long)!
-        }
-        else if let loc_long = dict["Bar_Location_Longitude"] as? Double
-        {
-            newBar.loc_long = loc_long
-        }
-        
-        if let address = dict["Bar_Address"] as? String
-        {
-            newBar.address = address
-        }
-        
-        if let bookingAvailable = dict.value(forKey: "Booking_Available") as? Int
-        {
-            newBar.bookingAvailable = String(describing: bookingAvailable)
-        }
-
-        if let website = dict["Bar_Website"] as? String
-        {
-            newBar.website = website
-        }
-        
-        if let ratingCount = dict["Bar_Rating_Count"] as? String
-        {
-            if let count = Int(ratingCount)
-            {
-                newBar.totalReviewCount = count
-            }
-        }
-        else if let ratingCount = dict["Bar_Rating_Count"] as? Int
-        {
-            newBar.totalReviewCount = ratingCount
-        }
-        
-        if ratingAvg != nil && ratingPrice != nil && ratingAmbience != nil && ratingFood != nil && ratingService != nil
-        {
-            newBar.rating.InjectValues(ratingAvg!, pricex: ratingPrice!, ambiencex:ratingAmbience!,foodx: ratingFood!, servicex: ratingService!)
-        }
-        else
-        {
-            errors.append("no rating in this dict")
-        }
-        
-        if let maxImageCount = dict["maxImageCount"] as? Int
-        {
-            newBar.maxImageCount = maxImageCount
-        }
-        else if let maxImageCount = dict["maxImageCount"] as? String
-        {
-            if let count = Int(maxImageCount)
-            {
-                newBar.maxImageCount = count
-            }
-        }
-        else
-        {
-            errors.append("no max image count in dict")
-        }
-        
-        if errors.count != 0
-        {
-            NSLog(errors.joined(separator: "\n"))
-        }
-        
-        if let isExclusive = dict["Exclusive"] as? Bool
-        {
-            newBar.isExclusive = isExclusive
-        }
-        
-        
-        return newBar
-    }
-    
+            
     func UpdateUI()
     {
         DispatchQueue.main.async {

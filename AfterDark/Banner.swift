@@ -16,7 +16,7 @@ class Banner
     public var description = ""
     public var barID = ""
     public var discountID = ""
-    
+    public var location = ""
     
     init(dict : NSDictionary) {
         
@@ -59,6 +59,19 @@ class Banner
                 self.title = title
             }
         }
+        
+        if(barID != "")
+        {
+            if let bar = BarManager.singleton.BarFromBarID(self.barID)
+            {
+                self.location = bar.address_summary
+            }
+            else
+            {
+                
+            }
+        }
+        
         
     }
 }

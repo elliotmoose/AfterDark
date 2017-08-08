@@ -16,6 +16,8 @@ class BannerViewController: UIViewController,UITableViewDelegate,UITableViewData
     var refreshButton = UIBarButtonItem()
     var activityIndicator = UIActivityIndicatorView()
     
+    let discountDetailViewCont = DiscountDetailViewController(nibName: "DiscountDetailViewController", bundle: Bundle.main)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +34,8 @@ class BannerViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.navigationController?.navigationBar.isTranslucent = false
         self.tabBarController?.tabBar.isTranslucent = false
         
+        self.title = "Featured Discounts"
+        
         //colors
         self.navigationController?.navigationBar.tintColor = ColorManager.themeBright
         self.navigationController?.navigationBar.barTintColor = UIColor.black
@@ -41,8 +45,7 @@ class BannerViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.tableView.backgroundColor = ColorManager.discountTableBGColor
         tableView?.tableFooterView = UIView() //remove seperator lines
         
-        self.title = "Featured Discounts"
-        
+        discountDetailViewCont.ShowInfoButton()
         
         refreshButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(Refresh))
         refreshButton.tintColor = ColorManager.themeBright
@@ -51,6 +54,8 @@ class BannerViewController: UIViewController,UITableViewDelegate,UITableViewData
         activityIndicator.startAnimating()
         
         self.navigationItem.rightBarButtonItem = refreshButton
+        
+        
         
     }
 
@@ -105,8 +110,14 @@ class BannerViewController: UIViewController,UITableViewDelegate,UITableViewData
         guard let bar = BarManager.singleton.BarFromBarID(banner.barID) else {return}
         guard let discount = DiscountManager.singleton.DiscountFromDiscountID(banner.discountID) else {return}
         
-        DiscountDetailViewController.singleton.Load(bar: bar, discount: discount)
-        self.navigationController?.pushViewController(DiscountDetailViewController.singleton, animated: true)
+        discountDetailViewCont.Load(bar: bar, discount: discount)
+        
+        if let image = banner.image
+        {
+            discountDetailViewCont.UpdateImage(image: image)
+        }
+        
+        self.navigationController?.pushViewController(discountDetailViewCont, animated: true)
         
     }
     

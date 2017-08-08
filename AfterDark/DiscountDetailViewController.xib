@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -41,23 +41,23 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Description" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="40C-CK-mxv">
-                    <rect key="frame" x="16" y="133" width="343" height="394"/>
+                    <rect key="frame" x="16" y="158" width="343" height="369"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="0.9329613095238094" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1o-Pi-UXd">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tEg-iK-wJ3">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Category_Girls Night Out" translatesAutoresizingMaskIntoConstraints="NO" id="tEg-iK-wJ3">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="tEg-iK-wJ3" secondAttribute="trailing" id="Dcl-dA-98f"/>
-                        <constraint firstAttribute="height" constant="125" id="MPS-iP-CBz"/>
+                        <constraint firstAttribute="height" constant="150" id="MPS-iP-CBz"/>
                         <constraint firstItem="tEg-iK-wJ3" firstAttribute="leading" secondItem="F1o-Pi-UXd" secondAttribute="leading" id="SZ5-hB-d7l"/>
                         <constraint firstItem="tEg-iK-wJ3" firstAttribute="top" secondItem="F1o-Pi-UXd" secondAttribute="top" id="dc1-SK-TvP"/>
                         <constraint firstAttribute="bottom" secondItem="tEg-iK-wJ3" secondAttribute="bottom" id="kVH-8L-W6H"/>
@@ -78,25 +78,25 @@
                     </connections>
                 </button>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsm-Zq-Yek">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Lvt-fp-KV1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrT-Zo-PIA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qhW-vm-QrP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discount Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHs-4U-GIa">
-                                            <rect key="frame" x="0.0" y="44" width="375" height="38"/>
+                                            <rect key="frame" x="0.0" y="56" width="375" height="38"/>
                                             <fontDescription key="fontDescription" name="Mohave-Bold" family="Mohave" pointSize="38"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bar Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtm-Pm-PaK">
-                                            <rect key="frame" x="0.0" y="80" width="375" height="25"/>
+                                            <rect key="frame" x="0.0" y="92" width="375" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="WB4-9D-82G"/>
                                             </constraints>
@@ -148,4 +148,7 @@
             <point key="canvasLocation" x="34.5" y="88.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="Category_Girls Night Out" width="2000" height="1000"/>
+    </resources>
 </document>

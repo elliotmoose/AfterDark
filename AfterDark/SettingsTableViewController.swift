@@ -36,7 +36,7 @@ class SettingsTableViewController: UITableViewController {
             return 1
         case 1:
             //return 3
-            return 1
+            return 2
         case 2:
             return 1
             
@@ -78,10 +78,10 @@ class SettingsTableViewController: UITableViewController {
                 //cell?.textLabel?.text = "Terms"
                 cell?.textLabel?.text = "Contact Us"
             }
-//            else if row == 1
-//            {
-//                cell?.textLabel?.text = "Privacy Policy"
-//            }
+            else if row == 1
+            {
+                cell?.textLabel?.text = "Discount Claiming Help"
+            }
 //            else if row == 2
 //            {
 //                cell?.textLabel?.text = "Open Source Libraries"
@@ -147,7 +147,8 @@ class SettingsTableViewController: UITableViewController {
             else if row == 1
             {
                 self.navigationController?.pushViewController(DisplayTextViewController.singleton, animated: true)
-                DisplayTextViewController.singleton.SetText(title: "Privacy Policy", body: "test2")
+                //DisplayTextViewController.singleton.bodyTextView.textAlignment = .center
+                DisplayTextViewController.singleton.SetText(title: "Claiming of discounts", body: "Step 1:\nCheck with the staff if the discount is valid before your meal \n\nStep 2:\nUpon payment of drinks, select the desired discount and enter in the Final Receipt Value \n\nStep 3:\nStaff to ensure receipt value is accurate before keying in their 4-Digit Pin \n\nStep 4:\nEnjoy your discount along with loyalty points*! \n\n\n\n\n\n*loyalty points may be used to claim discounts in the future")
 
             }
             else if row == 2

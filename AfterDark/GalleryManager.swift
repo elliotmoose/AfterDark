@@ -127,16 +127,6 @@ class GalleryManager
                                 DispatchQueue.main.async
                                     {
                                         thisBarOrigin.Images.append(image) //CRASHED HERE
-                                        
-                                        //this is for discounts page
-                                        if let currentDisc = DiscountDetailViewController.singleton.currentDiscount
-                                        {
-                                            if thisBarOrigin.Images.count == 1 && currentDisc.bar_ID == thisBarOrigin.ID
-                                            {
-                                                DiscountDetailViewController.singleton.UpdateImage(image : image)
-                                            }
-                                        }
-                                        
                                         handler(true)
                                 }
                                 

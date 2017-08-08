@@ -16,6 +16,7 @@ class Discount
     var discount_ID : String?
     var bar_ID : String?
     var exclusive = false
+    var discount_rating : Int = 0
 
     
     init(dict : NSDictionary)
@@ -47,6 +48,18 @@ class Discount
         if let exclusive = dict["Exclusive"] as? Bool
         {
             self.exclusive = exclusive
+        }
+        
+        if let discountRating = dict["discount_rating"] as? Int
+        {
+            self.discount_rating = discountRating
+        }
+        else if let discountRatingString = dict["discount_rating"] as? String
+        {
+            if let discountRatingInt = Int(discountRatingString)
+            {
+                self.discount_rating = discountRatingInt
+            }
         }
         
         

@@ -8,7 +8,7 @@
 
 import UIKit
 import GoogleMaps
-class CategoryTableCell: UITableViewCell {
+class BarSummaryTableCell : UITableViewCell {
 
     @IBOutlet weak var barNameLabel: UILabel!
     
@@ -95,9 +95,6 @@ class CategoryTableCell: UITableViewCell {
             {
                 detailLabel.text = " - "//- \(priceDeterminantString)"
             }
-            
-            
-            
 
         }
         else
@@ -105,7 +102,7 @@ class CategoryTableCell: UITableViewCell {
             detailLabel.text = " - "//- \(priceDeterminantString)"
         }
         
-        detailLabel.text = "5 mins - 0.5 km"
+        //detailLabel.text = "5 mins - 0.5 km"
         
         
         switch Settings.travelMode {

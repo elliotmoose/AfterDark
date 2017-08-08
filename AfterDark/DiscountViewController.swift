@@ -21,6 +21,8 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     weak var delegate : DiscountToMainCellDelegate?
     
+    let discountDetailViewCont = DiscountDetailViewController(nibName: "DiscountDetailViewController", bundle: Bundle.main)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialize()
@@ -56,6 +58,10 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
     override func viewDidAppear(_ animated: Bool) {
 
 
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        //reset this navigation controller to the intiial page
     }
 
 
@@ -98,9 +104,9 @@ class DiscountViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
         if let bar = BarManager.singleton.displayedDetailBar
         {
-            DiscountDetailViewController.singleton.Load(bar: bar, discount: bar.discounts[row])
+            discountDetailViewCont.Load(bar: bar, discount: bar.discounts[row])
         }
-        self.delegate?.PushViewController(viewCont: DiscountDetailViewController.singleton)
+        self.delegate?.PushViewController(viewCont: discountDetailViewCont)
     }
     /*
     // MARK: - Navigation

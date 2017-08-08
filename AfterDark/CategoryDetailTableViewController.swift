@@ -27,6 +27,8 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     var filteredDisplayedBarIDs = [String]()
     var awaitingBarIDs = [String]()
     
+    var awaitingBlowUpBarID : String?
+    
     let locationCont = LocationViewController()
     
     var tabs = [UIButton]()
@@ -37,12 +39,14 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     
     var barBlownUpCell : BarBlownUpTableViewCell?
     
-    var recentSelectedCell : CategoryTableCell?
+    var recentSelectedIndexPath : IndexPath?
     
     //let searchController = UISearchController(searchResultsController: nil)
     var searchBarEnabled = false
     //runtime object variables
     //var barBlownUp : Bar?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +73,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             newTab.setTitleColor(ColorManager.themeBright, for: .selected)
             
             //control
-            newTab.addTarget(self, action: #selector(self.ChangeTab(_:)), for: UIControlEvents.touchUpInside)
+            newTab.addTarget(self, action: #selector(self.ChangeTabPressed(_:)), for: UIControlEvents.touchUpInside)
 
             //add to subview
             tabs.append(newTab)
@@ -127,7 +131,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         self.view.addSubview(tableView!)
         
         //register cell
-        tableView?.register(UINib(nibName: "CategoryTableCell", bundle: Bundle.main), forCellReuseIdentifier: "CategoryTableCell")
+        tableView?.register(UINib(nibName: "BarSummaryTableCell", bundle: Bundle.main), forCellReuseIdentifier: "BarSummaryTableCell")
         
         tableView?.register(UINib(nibName: "BarBlownUpTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "BarBlownUpTableViewCell")
         
@@ -144,21 +148,29 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         self.edgesForExtendedLayout = []
 
     }
-
-    func ChangeTab(_ sender: AnyObject )
+    
+    func ChangeTabPressed(_ sender: AnyObject )
     {
         let button = sender as! UIButton
-        button.isSelected = true
-
+        ChangeTab(sender.tag)
+    }
+    
+    func ChangeTab(_ index : Int)
+    {
+        //select ui
         for tab in tabs
         {
-            if tab.tag != sender.tag
+            if tab.tag != index
             {
                 tab.isSelected = false
             }
+            else
+            {
+                tab.isSelected = true
+            }
         }
         
-        MoveHighlight(sender.tag)
+        MoveHighlight(index)
         
         //******* UNBLOW FIRST
         SetViewState(state: 1)
@@ -167,7 +179,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         {
             UnblowBarWithHandler
             {
-                switch sender.tag {
+                switch index {
                 case 0:
                     self.SetArrangement(arrangement: .featured)
                 case 1:
@@ -193,7 +205,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         }
         else
         {
-            switch sender.tag {
+            switch index {
             case 0:
                 self.SetArrangement(arrangement: .featured)
             case 1:
@@ -217,12 +229,12 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
 
         }
         
-        recentSelectedCell?.SetDeselected()
-        recentSelectedCell = nil
-        
-    
-
-        
+        guard let recentSelectedIndexPath = recentSelectedIndexPath else {return}
+        if let recentSelectedCell = tableView?.cellForRow(at: recentSelectedIndexPath) as? BarSummaryTableCell
+        {
+            recentSelectedCell.SetDeselected()
+            self.recentSelectedIndexPath = nil
+        }
         
         
     }
@@ -246,15 +258,32 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         //since view will appear is called before will disappear, 2 instances of this class will clash as it will load another before it unloads the previous displayed bar
         BarManager.singleton.displayedDetailBar = nil
         
-
         UpdateUI()
+        
+        
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        awaitingBlowUpBarID = nil
         SetViewState(state: 1)
-         UnblowBar()
-        
+        UnblowBar()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        //auto selection
+        if let barID = awaitingBlowUpBarID
+        {
+            guard let bar = BarManager.singleton.BarFromBarID(barID) else {return}
+            self.recentSelectedIndexPath = nil
+            
+            self.SetViewState(state: 0)
+            self.BlowBarUp(bar: bar)
+        }
+    }
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -298,6 +327,9 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         return Sizing.barCellHeight
     }
     
+    //==================================================================================================================================================================
+    //                                                                              CELL FOR ROW
+    //==================================================================================================================================================================
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var displayedIDs = displayedBarIDs
 
@@ -318,19 +350,22 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                     self.barBlownUpCell!.delegate = self
                 }
                 
-                
-                
-                
-                
                 return self.barBlownUpCell!
             }
         }
 
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BarSummaryTableCell", for: indexPath) as! BarSummaryTableCell
         
-        
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableCell", for: indexPath) as! CategoryTableCell
+        //ensure that selection isnt mixed up during cell reuse
+        if indexPath != recentSelectedIndexPath
+        {
+            cell.SetDeselected()
+        }
+        else
+        {
+            cell.SetSelected()
+        }
         
         let barID = displayedIDs[indexPath.row]
         let thisBar = BarManager.singleton.BarFromBarID(barID)
@@ -342,6 +377,10 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
         return cell
     }
+    
+    //==================================================================================================================================================================
+    //                                                                              SELECT
+    //==================================================================================================================================================================
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var displayedIDs = displayedBarIDs
@@ -359,7 +398,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
         
        
         //selection, location, and blow up
-        if let cell = tableView.cellForRow(at: indexPath) as? CategoryTableCell
+        if let cell = tableView.cellForRow(at: indexPath) as? BarSummaryTableCell
         {
             
             //unblow
@@ -380,16 +419,24 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             }
             else //THIS IS WHEN ITS NOT BLOWN UP -> SELECTION AND MOVEMENT TO BLOW UP
             {
+                guard let recentSelectedIndexPath = recentSelectedIndexPath else {
+                
+                    //if there hasnt been a selection, select this
+                    cell.SetSelected()
+                    self.recentSelectedIndexPath = indexPath
+                    locationCont.SetBar(bar : thisBar!)
+                    return
+                }
+                
                 
                 //deselect previous
-                if let _ = recentSelectedCell
+                if let recentSelectedCell = tableView.cellForRow(at: recentSelectedIndexPath) as? BarSummaryTableCell
                 {
-                    if recentSelectedCell! == cell //if same cell
+                    if recentSelectedIndexPath == indexPath //if same cell
                     {
-                        
                         //DESELECT ALL CELLS -> BLOW UP
                         cell.SetDeselected()
-                        recentSelectedCell = nil
+                        self.recentSelectedIndexPath = nil
 
                         //BLOW UP (ABOVE CONDITION ALREADY CONFIRMS THERE IS NO BAR BLOWN UP HERE)
                         //close map and blow up
@@ -402,16 +449,16 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                     }
                     else //if diff cell, select this, deselect previous
                     {
-                        recentSelectedCell!.SetDeselected()
+                        recentSelectedCell.SetDeselected()
                         cell.SetSelected()
-                        recentSelectedCell = cell
+                        self.recentSelectedIndexPath = indexPath
                         locationCont.SetBar(bar : thisBar!)
                     }
                 }
                 else //if first cell, select this
                 {
                     cell.SetSelected()
-                    recentSelectedCell = cell
+                    self.recentSelectedIndexPath = indexPath
                     locationCont.SetBar(bar : thisBar!)
                 }
                 
@@ -426,12 +473,11 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
     }
 
     
-    
     func BlowBarUp(bar : Bar)
     {
         var displayedIDs = displayedBarIDs
         
-         BarManager.singleton.displayedDetailBar = bar
+        BarManager.singleton.displayedDetailBar = bar
         
         guard let index = displayedIDs.index(of: bar.ID) else {return}
         
@@ -482,7 +528,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             self.tableView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         }, completion: nil)
         
-        recentSelectedCell = nil
+        recentSelectedIndexPath = nil
     }
     func UnblowBarWithHandler(_ handler : @escaping () -> Void)
     {
@@ -508,7 +554,7 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             self.tableView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         }, completion: nil)
 
-        recentSelectedCell = nil
+        recentSelectedIndexPath = nil
     }
     
     
@@ -657,7 +703,8 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
                 }
                 else
                 {
-                    self.SetArrangementWithBarIDs(arrangement: self.currentArrangement, barIDs: barIDs)
+                    //self.SetArrangementWithBarIDs(arrangement: self.currentArrangement, barIDs: barIDs)
+                    self.SetArrangement(arrangement: self.currentArrangement)
                     
                     //can update cuz none showing
                     self.UpdateUI()
@@ -829,15 +876,17 @@ class CategoryDetailTableViewController: UIViewController,UITableViewDelegate,UI
             return
         }
         
-        if let selectedCell = recentSelectedCell
+        guard let recentSelectedIndexPath = recentSelectedIndexPath else {return}
+        
+        if let selectedCell = tableView?.cellForRow(at: recentSelectedIndexPath) as? BarSummaryTableCell
         {
             selectedCell.SetDeselected()
-            recentSelectedCell = nil
+            self.recentSelectedIndexPath = nil
         }
 
         filterBars(searchText: searchController.searchBar.text!)
     }
-    
+
 
     
     //DELEGATE FUNCTIONS

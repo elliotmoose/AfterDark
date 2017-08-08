@@ -14,13 +14,17 @@ class BannerTableViewCell: UITableViewCell {
     @IBOutlet weak var bannerImage: UIImageView!
     @IBOutlet weak var bannerTitleLabel: UILabel!
     @IBOutlet weak var bannerSubTitleLabel: UILabel!
+    @IBOutlet weak var bannerLocationTitleLabel: UILabel!
     
+    @IBOutlet weak var locationMarker: UIImageView!
     public var banner : Banner?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
+        locationMarker.image = locationMarker.image?.withRenderingMode(.alwaysTemplate)
+        locationMarker.tintColor = UIColor.lightGray
         self.clipsToBounds = true
     }
 
@@ -38,6 +42,7 @@ class BannerTableViewCell: UITableViewCell {
             //step 1: set titles
             bannerTitleLabel.text = banner.title
             bannerSubTitleLabel.text = banner.description
+            bannerLocationTitleLabel.text = banner.location
             
             //step 2: set images
             bannerImage.image = banner.image

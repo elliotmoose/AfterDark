@@ -59,8 +59,8 @@
 		A473F97D1E16C08200F640F9 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A473F97B1E16C08200F640F9 /* Montserrat-Bold.ttf */; };
 		A473F97E1E16C08200F640F9 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A473F97C1E16C08200F640F9 /* Montserrat-Regular.ttf */; };
 		A473F99F1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F99D1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift */; };
-		A473F9A31E1B2AD100F640F9 /* CategoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9A11E1B2AD100F640F9 /* CategoryTableCell.swift */; };
-		A473F9A41E1B2AD100F640F9 /* CategoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9A21E1B2AD100F640F9 /* CategoryTableCell.xib */; };
+		A473F9A31E1B2AD100F640F9 /* BarSummaryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9A11E1B2AD100F640F9 /* BarSummaryTableCell.swift */; };
+		A473F9A41E1B2AD100F640F9 /* BarSummaryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9A21E1B2AD100F640F9 /* BarSummaryTableCell.xib */; };
 		A473F9A91E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9A71E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift */; };
 		A473F9AA1E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A473F9A81E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib */; };
 		A473F9AD1E1CBDBF00F640F9 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A473F9AB1E1CBDBF00F640F9 /* InitialViewController.swift */; };
@@ -191,8 +191,8 @@
 		A473F97B1E16C08200F640F9 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "Fonts/montserrat/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		A473F97C1E16C08200F640F9 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "Fonts/montserrat/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		A473F99D1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewController.swift; sourceTree = "<group>"; };
-		A473F9A11E1B2AD100F640F9 /* CategoryTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableCell.swift; sourceTree = "<group>"; };
-		A473F9A21E1B2AD100F640F9 /* CategoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryTableCell.xib; sourceTree = "<group>"; };
+		A473F9A11E1B2AD100F640F9 /* BarSummaryTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarSummaryTableCell.swift; sourceTree = "<group>"; };
+		A473F9A21E1B2AD100F640F9 /* BarSummaryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarSummaryTableCell.xib; sourceTree = "<group>"; };
 		A473F9A71E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarBlownUpTableViewCell.swift; sourceTree = "<group>"; };
 		A473F9A81E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarBlownUpTableViewCell.xib; sourceTree = "<group>"; };
 		A473F9AB1E1CBDBF00F640F9 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -306,8 +306,8 @@
 				A473F99D1E1B2A5000F640F9 /* CategoryDetailTableViewController.swift */,
 				A473F9A71E1B5D0100F640F9 /* BarBlownUpTableViewCell.swift */,
 				A473F9A81E1B5D0100F640F9 /* BarBlownUpTableViewCell.xib */,
-				A473F9A11E1B2AD100F640F9 /* CategoryTableCell.swift */,
-				A473F9A21E1B2AD100F640F9 /* CategoryTableCell.xib */,
+				A473F9A11E1B2AD100F640F9 /* BarSummaryTableCell.swift */,
+				A473F9A21E1B2AD100F640F9 /* BarSummaryTableCell.xib */,
 			);
 			name = "Categorized View";
 			sourceTree = "<group>";
@@ -713,7 +713,7 @@
 				A473F97D1E16C08200F640F9 /* Montserrat-Bold.ttf in Resources */,
 				A473F96C1E16C02600F640F9 /* Champagne & Limousines.ttf in Resources */,
 				A405E0691DDAC3EF00B9672D /* ChangePasswordViewController.xib in Resources */,
-				A473F9A41E1B2AD100F640F9 /* CategoryTableCell.xib in Resources */,
+				A473F9A41E1B2AD100F640F9 /* BarSummaryTableCell.xib in Resources */,
 				A481322D1DCC4CB700178251 /* OpeningHoursCell.xib in Resources */,
 				98FD70051DB89EA900688514 /* DiscountViewController.xib in Resources */,
 				A4F9B81D1DCAF3B300B9D124 /* ClaimFormViewController.xib in Resources */,
@@ -940,7 +940,7 @@
 				A400F8741DCB0F44009F8994 /* PopupManager.swift in Sources */,
 				98FD70041DB89EA900688514 /* DiscountViewController.swift in Sources */,
 				A4D7A8F11E2C8CD4001FAB12 /* LocationManager.swift in Sources */,
-				A473F9A31E1B2AD100F640F9 /* CategoryTableCell.swift in Sources */,
+				A473F9A31E1B2AD100F640F9 /* BarSummaryTableCell.swift in Sources */,
 				K6IWCJC2V8NIJ9770XXEEKN7 /* Network.swift in Sources */,
 				A4F9B80E1DC8C90C00B9D124 /* Discount.swift in Sources */,
 				A4A9BB701F25DDCC00E152ED /* BannerTableViewCell.swift in Sources */,

@@ -9,8 +9,7 @@
 import UIKit
 
 class DiscountDetailViewController: UIViewController {
-
-    static let singleton = DiscountDetailViewController(nibName: "DiscountDetailViewController", bundle: Bundle.main)
+    
     @IBOutlet weak var blurrView: UIVisualEffectView!
     
     @IBOutlet weak var imageContainerView: UIView!
@@ -60,11 +59,9 @@ class DiscountDetailViewController: UIViewController {
         claimNowButton.layer.shadowColor = UIColor.black.cgColor
     
         
-        
+
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,9 +77,37 @@ class DiscountDetailViewController: UIViewController {
             barIconImageView.image = bar.Images[0]
         }
     }
+    
     func UpdateImage(image : UIImage)
     {
-        barIconImageView.image = image
+        DispatchQueue.main.async {
+            self.barIconImageView.image = image
+        }
+    }
+    
+    func RedirectToBar()
+    {
+        //change to first tab
+        self.tabBarController?.selectedIndex = 0
+        
+        //change to discounts tab
+        guard let firstTabNavigationController = self.navigationController?.tabBarController?.viewControllers?[0] as? UINavigationController else {return}
+        guard let barListTab = firstTabNavigationController.childViewControllers[0] as? BarListViewController else {return}
+        guard let barID = currentDiscount?.bar_ID else {return}
+        
+        //reset the tab
+        firstTabNavigationController.popToRootViewController(animated: false)
+        
+        barListTab.barListTableViewController.ChangeTab(1)
+        barListTab.barListTableViewController.awaitingBlowUpBarID = barID
+    }
+    
+    func ShowInfoButton()
+    {
+        let infoButton = UIButton(type: .infoLight)
+        infoButton.addTarget(self, action: #selector(RedirectToBar), for: .touchUpInside)
+        let barButton = UIBarButtonItem(customView: infoButton)
+        self.navigationItem.rightBarButtonItem = barButton
     }
     
 }

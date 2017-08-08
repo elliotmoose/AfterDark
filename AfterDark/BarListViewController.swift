@@ -58,7 +58,10 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
 
     func UpdateBarListTableDisplay() //this is called when data has been loaded
     {
-        self.barListTableViewController.SetBarIDs(barIDs: BarManager.singleton.BarListIntoBarIDsList(BarManager.singleton.mainBarList))
+        DispatchQueue.main.async {
+            self.barListTableViewController.SetBarIDs(barIDs: BarManager.singleton.BarListIntoBarIDsList(BarManager.singleton.mainBarList))
+            //self.barListTableViewController.SetArrangement(arrangement: self.barListTableViewController.currentArrangement)
+        }
     }
     
     
@@ -72,7 +75,6 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
     {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-
         
         BarManager.singleton.HardLoadAllBars {
             
@@ -86,7 +88,6 @@ class BarListViewController: UIViewController,BarManagerToListTableDelegate {
             self.navigationItem.rightBarButtonItem = self.refreshButton
         }
     }
-    
     
     
 }
